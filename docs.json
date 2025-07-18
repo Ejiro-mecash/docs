@@ -2,6 +2,10 @@
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
   "name": "meCash Docs",
+  "api": {
+    "baseUrl": "https://api.mecash.com",
+    "path": "/api-reference/openapi.json"
+  },
   "colors": {
     "primary": "#9747FF",
     "light": "#07C983",
@@ -54,10 +58,11 @@
         "tab": "API reference",
         "groups": [
           {
-            "group": "API documentation",
-            "pages": [
-              "api-reference/introduction"
-            ]
+            "group": "Endpoints",
+            "openapi": {
+              "source": "/path/to/openapi.json",
+              "directory": "api-reference"
+            }
           },
           {
             "group": "Endpoint examples",
