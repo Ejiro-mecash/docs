@@ -1,0 +1,186 @@
+# Create a EUR Payout Example
+
+The Payout API allows users to process payouts in Euros (EUR) to recipients via Bank Transfer.
+
+
+
+
+## Endpoint
+**Post:** `{{baseURL}}/v1/payout
+`
+
+## **Request Details**
+
+### **Headers**
+Include these headers in your request:
+| Header         | Value                              | Required |
+|---------------|----------------------------------|----------|
+| `Content-Type` | `application/json`               | ✅ Yes   |
+| `x-api-key`    | `YOUR_API_KEY`   | ✅ Yes   |
+
+---
+
+## **Sample cURL Request**
+
+```bash
+
+curl --location --request POST '{{baseURL}}/v1/payout' \
+--header 'x-api-key: YOUR_API_KEY' \
+--header 'Content-Type: application/json' \
+--form '{
+   "recipient":{
+      "name": "Busola Obasanjo",
+      "account":{
+         "name":"Busola",
+         "bankName":"Bank Name",
+         "sortCode":"11111",
+         "accountNumber":"222222222"
+      },
+      "paymentChannel":"BANK_TRANSFER",
+      "currency":"EUR",
+      "country":"DK"
+   },
+   "quoteId":"2000e048-57a7-4c62-xxxxxxxxxxxxx",
+   "reason":"Gift"
+}
+```
+
+
+## Request Body Breakdown
+
+| Field                    | Type    | Description                                         | Required |
+|--------------------------|---------|-----------------------------------------------------|----------|
+| recipient                | Object  | Details of the payout recipient                     | Yes      |
+| recipient.name           | String  | Full name of the recipient                          | Yes      |
+| recipient.bankName       | Object  | Recipient’s bank name                               | Yes      |
+| account.accountNumber    | String  | Bank account number of the recipient                | Yes      |
+| account.sortCode         | String  | Sort code of the recipient's bank                   | Yes      |
+| recipient.paymentChannel | String  | Payment method (BANK_TRANSFER)                      | Yes      |
+| recipient.currency       | String  | Currency code (e.g., USD)                           | Yes      |
+| recipient.country        | String  | Country code (e.g., US)                             | Yes      |
+| quoteId                  | String  | Unique Quote ID for the payout                      | Yes      |
+| reason                   | String  | Reason for the payout (e.g., Gift, Invoice Payment) | Yes      |
+
+---
+
+## **Success Response (200 OK)**
+
+If the payout is successfully created, the API returns the following response:
+
+```json
+{
+  "message": "Transaction created successfully",
+  "status": "success",
+  "data": {
+    "id": "a8b9c7d6-4e5f-1234-abcd-xxxxxxxxxxxxx",
+    "reason": "Gift",
+    "referenceNumber": "NGNEURXREF123",
+    "type": "SEND",
+    "state": "COMPLETED",
+    "quote": {
+      "id": "2000e048-57a7-4c62-bdc8-xxxxxxxxxxxxx",
+      "source": {
+        "currency": "NGN",
+        "country": "NG",
+        "amount": 150000
+      },
+      "target": {
+        "currency": "EUR",
+        "country": "DE",
+        "amount": 200
+      },
+      "rate": 750,
+      "fee": {
+        "amount": 1000
+      }
+    },
+    "recipient": {
+      "name": "Busola Obasanjo",
+      "type": "BANK",
+      "account": {
+        "accountNumber": "222222222",
+        "sortCode": "11111",
+        "bankName": "Bank Name"
+      },
+      "paymentChannel": "BANK_TRANSFER",
+      "currency": "EUR",
+      "country": "DK"
+    },
+    "created": "2025-06-11T10:45:00.000000",
+    "processed": null
+  }
+}
+
+```
+---
+
+## **Response Breakdown**
+
+| Field                                | Type            | Description                                               | Example                                  |
+|--------------------------------------|------------------|-----------------------------------------------------------|------------------------------------------|
+| `message`                            | String           | Status message of the payout creation                     | `"Transaction created successfully"`     |
+| `status`                             | String           | Status of the payout                                      | `"success"`                              |
+| `data`                               | Object           | Details of the payout transaction                         |                                          |
+| `data.id`                            | String           | Unique ID of the transaction                              | `"a8b9c7d6-4e5f-1234-abcd-xxxxxxxxxxxxx"`|
+| `data.remark`                        | String           | Remark or note for the payout                             | `"Gift"`                                 |
+| `data.reason`                        | String           | Reason for the payout                                     | `"Gift"`                                 |
+| `data.referenceNumber`               | String           | Unique reference number for the payout                    | `"NGNEURXREF123"`                        |
+| `data.type`                          | String           | Type of transaction                                       | `"SEND"`                                 |
+| `data.state`                         | String           | State of the payout (`PENDING`, `COMPLETED`, etc.)        | `"PENDING"`                              |
+| `data.quote`                         | Object           | Details of the quote                                      |                                          |
+| `data.quote.id`                      | String           | Quote ID                                                  | `"2000e048-57a7-4c62-bdc8-xxxxxxxxxxxxx"`|
+| `data.quote.source`                  | Object           | Source currency details                                   |                                          |
+| `data.quote.source.currency`         | String           | Source currency code                                      | `"NGN"`                                  |
+| `data.quote.source.country`          | String           | Source country code                                       | `"NG"`                                   |
+| `data.quote.source.amount`           | Number           | Amount sent in source currency                            | `150000`                                 |
+| `data.quote.target`                  | Object           | Target currency details                                   |                                          |
+| `data.quote.target.currency`         | String           | Target currency code                                      | `"EUR"`                                  |
+| `data.quote.target.country`          | String           | Target country code                                       | `"DE"`                                   |
+| `data.quote.target.amount`           | Number           | Amount received in target currency                        | `200`                                    |
+| `data.quote.rate`                    | Number           | Exchange rate used                                        | `750`                                    |
+| `data.quote.fee`                     | Object           | Fee details                                               |                                          |
+| `data.quote.fee.amount`              | Number           | Fee amount in source currency                             | `1000`                                   |
+| `data.recipient`                     | Object           | Recipient details                                         |                                          |
+| `data.recipient.name`                | String           | Recipient’s full name                                     | `"Busola Obasanjo"`                      |
+| `data.recipient.type`                | String           | Recipient type (`BANK`)                                   | `"BANK"`                                 |
+| `data.recipient.account`             | Object           | Bank account details                                      |                                          |
+| `data.recipient.account.accountNumber` | String         | Bank account number                                       | `"222222222"`                            |
+| `data.recipient.account.sortCode`    | String           | Sort code of the recipient’s bank                         | `"11111"`                                |
+| `data.recipient.account.bankName`    | String           | Bank name of the recipient                                | `"Bank Name"`                            |
+| `data.recipient.paymentChannel`      | String           | Payment method (`BANK_TRANSFER`)                          | `"BANK_TRANSFER"`                        |
+| `data.recipient.currency`            | String           | Currency code of payout                                   | `"EUR"`                                  |
+| `data.recipient.country`             | String           | Country code of the recipient                             | `"DE"`                                   |
+| `data.created`                       | String           | Timestamp when the transaction was created                | `"2025-06-11T10:45:00.000000"`           |
+| `data.processed`                     | String \| null   | Timestamp when the payout was processed or `null`         | `null`                                   |
+---
+
+
+## **Payout Transaction States**
+
+The payout transaction can have one of the following states:
+
+| State      | Description                               |
+|------------|-------------------------------------------|
+| `COMPLETED` | The payout was successfully processed.   |
+| `PENDING`   | The payout is still being processed.     |
+| `FAILED`    | The payout failed to process.           |
+| `REFUNDED`  | The payout has been sent back to sender. |
+
+---
+
+## **Error Handling**
+
+| Status Code | Meaning                 | Example Response                          |
+|-------------|-------------------------|------------------------------------------|
+| `400`       | Bad Request              | Invalid parameters   |
+| `401`       | Unauthorized             | Invalid API key      |
+| `422`       | Unprocessable Entity     | Invalid quote ID     |
+| `500`       | Internal Server Error    | An internal error occurred |
+
+---
+
+## **Best Practices**
+✅ Ensure `quoteId` is valid and linked to an existing quote.  
+✅ Confirm that the recipient’s **bank account number** and **bank code** are correct.  
+✅ Use a valid API key in the headers.  
+✅ Handle error responses correctly in your integration.  

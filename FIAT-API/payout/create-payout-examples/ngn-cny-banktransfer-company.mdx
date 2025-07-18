@@ -1,0 +1,362 @@
+# CNY Payout – BANK TRANSFER (BUSINESS)
+
+This guide explains how to initiate **CNY payouts via bank transfer to business accounts** using the meCash API. Requests must be sent as `multipart/form-data` with a stringified JSON payload under the `transaction` field.
+
+---
+
+## Endpoint
+
+**`POST`** `{{baseURL}}/v1/payout`
+
+---
+
+## Header
+
+| Header      | Value                        | Required |
+|-------------|------------------------------|----------|
+| x-api-key   | `YOUR_API_KEY`               | ✅ Yes   |
+
+
+---
+
+## Example Request (Business Bank Transfer)
+
+import { Tabs } from 'nextra/components'
+
+<Tabs items={['cURL', 'JavaScript (fetch)', 'Python (requests)', 'Node.js (axios)']}>
+
+  <Tabs.Tab>
+    ### cURL
+
+    ```bash
+    curl --location 'https://{{baseURL}}/v1/payout' \
+    --header 'x-api-key: YOUR_API_KEY_HERE' \
+    --form 'transaction="{
+      \"recipient\": {
+        \"name\": \"sad sada\",
+        \"firstName\": \"王\",
+        \"lastName\": \"坤\",
+        \"idType\": \"ID_CARD\",
+        \"idNumber\": \"91510104MA6A3FYD7B\",
+        \"mobileNumber\": \"+123 456789\",
+        \"city\": \"NEW YORK CITY\",
+        \"address\": \"usa\",
+        \"countryName\": \"US\",
+        \"relationship\": \"SELF\",
+        \"type\": \"BUSINESS\",
+        \"invoiceNo\": \"12345613\",
+        \"account\": {
+          \"name\": \"北京华海潮商贸有限责任公司\",
+          \"accountNumber\": \"6222040000030016\",
+          \"type\": \"COMPANY\",
+          \"sortCode\": \"003\",
+          \"bankName\": \"STANDARD CHARTERED BANK (HONG KONG) LIMITED\"
+        },
+        \"paymentChannel\": \"BANK_TRANSFER\",
+        \"currency\": \"CNY\",
+        \"country\": \"CN\",
+        \"stored\": false
+      },
+      \"quoteId\": \"{{quoteIdCny}}\",
+      \"transactionPin\": \"123456\",
+      \"remark\": \"Testing\",
+      \"reason\": \"Gift\"
+    }"'
+    ```
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    ### JavaScript (fetch)
+
+    ```js
+    const formData = new FormData();
+    const transactionData = {
+      "recipient": {
+        "name": "sad sada",
+        "firstName": "王",
+        "lastName": "坤",
+        "idType": "ID_CARD",
+        "idNumber": "91510104MA6A3FYD7B",
+        "mobileNumber": "+123 456789",
+        "city": "NEW YORK CITY",
+        "address": "usa",
+        "countryName": "US",
+        "relationship": "SELF",
+        "type": "BUSINESS",
+        "invoiceNo": "12345613",
+        "account": {
+          "name": "北京华海潮商贸有限责任公司",
+          "accountNumber": "6222040000030016",
+          "type": "COMPANY",
+          "sortCode": "003",
+          "bankName": "STANDARD CHARTERED BANK (HONG KONG) LIMITED"
+        },
+        "paymentChannel": "BANK_TRANSFER",
+        "currency": "CNY",
+        "country": "CN",
+        "stored": false
+      },
+      "quoteId": "{{quoteIdCny}}",
+      "transactionPin": "123456",
+      "remark": "Testing",
+      "reason": "Gift"
+    };
+    formData.append('transaction', JSON.stringify(transactionData));
+
+    fetch('https://{{baseURL}}/v1/payout', {
+      method: 'POST',
+      headers: {
+        'x-api-key': 'YOUR_API_KEY_HERE'
+        // Content-Type is automatically set to multipart/form-data by fetch when using FormData
+      },
+      body: formData
+    })
+    .then(res => {
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      return res.json();
+    })
+    .then(console.log)
+    .catch(error => console.error('Error creating business bank transfer payout:', error));
+    ```
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    ### Python (requests)
+
+    ```python
+    import requests
+    import json
+
+    url = "https://{{baseURL}}/v1/payout"
+    headers = {
+        "x-api-key": "YOUR_API_KEY_HERE"
+    }
+
+    transaction_data = {
+        "recipient": {
+            "name": "sad sada",
+            "firstName": "王",
+            "lastName": "坤",
+            "idType": "ID_CARD",
+            "idNumber": "91510104MA6A3FYD7B",
+            "mobileNumber": "+123 456789",
+            "city": "NEW YORK CITY",
+            "address": "usa",
+            "countryName": "US",
+            "relationship": "SELF",
+            "type": "BUSINESS",
+            "invoiceNo": "12345613",
+            "account": {
+                "name": "北京华海潮商贸有限责任公司",
+                "accountNumber": "6222040000030016",
+                "type": "COMPANY",
+                "sortCode": "003",
+                "bankName": "STANDARD CHARTERED BANK (HONG KONG) LIMITED"
+            },
+            "paymentChannel": "BANK_TRANSFER",
+            "currency": "CNY",
+            "country": "CN",
+            "stored": False
+        },
+        "quoteId": "{{quoteIdCny}}",
+        "transactionPin": "123456",
+        "remark": "Testing",
+        "reason": "Gift"
+    }
+
+    files = {
+        'transaction': (None, json.dumps(transaction_data), 'application/json')
+    }
+
+    response = requests.post(url, headers=headers, files=files)
+
+    if response.status_code == 200:
+        print(response.json())
+    else:
+        print(f"Error: {response.status_code} - {response.text}")
+    ```
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    ### Node.js (axios)
+
+    ```js
+    const axios = require('axios');
+    const FormData = require('form-data'); // For Node.js environments
+
+    const formData = new FormData();
+    const transactionData = {
+      "recipient": {
+        "name": "sad sada",
+        "firstName": "王",
+        "lastName": "坤",
+        "idType": "ID_CARD",
+        "idNumber": "91510104MA6A3FYD7B",
+        "mobileNumber": "+123 456789",
+        "city": "NEW YORK CITY",
+        "address": "usa",
+        "countryName": "US",
+        "relationship": "SELF",
+        "type": "BUSINESS",
+        "invoiceNo": "12345613",
+        "account": {
+          "name": "北京华海潮商贸有限责任公司",
+          "accountNumber": "6222040000030016",
+          "type": "COMPANY",
+          "sortCode": "003",
+          "bankName": "STANDARD CHARTERED BANK (HONG KONG) LIMITED"
+        },
+        "paymentChannel": "BANK_TRANSFER",
+        "currency": "CNY",
+        "country": "CN",
+        "stored": false
+      },
+      "quoteId": "{{quoteIdCny}}",
+      "transactionPin": "123456",
+      "remark": "Testing",
+      "reason": "Gift"
+    };
+    formData.append('transaction', JSON.stringify(transactionData));
+
+    axios.post('https://{{baseURL}}/v1/payout', formData, {
+      headers: {
+        'x-api-key': 'YOUR_API_KEY_HERE',
+        ...formData.getHeaders() // Important for multipart/form-data with axios in Node.js
+      }
+    })
+    .then(response => {
+      console.log(response.data);
+    })
+    .catch(error => {
+      console.error('Error creating business bank transfer payout:', error.response ? error.response.data : error.message);
+    });
+    ```
+  </Tabs.Tab>
+
+</Tabs>
+
+
+## Successful Response (200 OK)
+```json
+{
+    "message": "transaction created successfully",
+    "status": "success",
+    "data": {
+        "id": "cb9c1def-ed41-44db-9e9e-xxxxxxxxxxxxx",
+        "remark": "Testing",
+        "reason": "Gift",
+        "referenceNumber": "OK0JPSRYFNFVF",
+        "type": "SEND",
+        "state": "PROCESSING",
+        "quote": {
+            "id": "1813914b-6ddd-498d-89a6-b947bf9e59cd",
+            "source": {
+                "currency": "NGN",
+                "country": "NG",
+                "amount": 3000.00
+            },
+            "target": {
+                "currency": "CNY",
+                "country": "CN",
+                "amount": 12.93
+            },
+            "rate": 232.00000000,
+            "fee": {
+                "amount": 5.00
+            },
+            "summary": {
+                "total": 3005.00
+            },
+            "expiresInSeconds": 0
+        },
+        "recipient": {
+            "name": "sad sada",
+            "firstName": "王",
+            "lastName": "坤",
+            "idType": "ID_CARD",
+            "idNumber": "91510104MA6A3FYD7B",
+            "mobileNumber": "+123 456789",
+            "city": "NEW YORK CITY",
+            "address": "usa",
+            "countryName": "US",
+            "relationship": "SELF",
+            "type": "BUSINESS",
+            "invoiceNo": "12345613",
+            "account": {
+                "name": "北京华海潮商贸有限责任公司",
+                "accountNumber": "6222040000030016",
+                "type": "COMPANY",
+                "sortCode": "003",
+                "bankName": "STANDARD CHARTERED BANK (HONG KONG) LIMITED"
+            },
+            "paymentChannel": "BANK_TRANSFER",
+            "currency": "CNY",
+            "country": "CN"
+        },
+        "created": "2025-05-19T21:13:20.527698839",
+        "processed": "2025-05-19T21:13:20.527698839"
+    }
+}
+```
+## Response Breakdown
+
+### General Information
+
+| Field       | Type   | Description                              |
+|-------------|--------|------------------------------------------|
+| `message`   | String | Transaction status message               |
+| `status`    | String | Operation status (`success`/`error`)     |
+
+---
+
+### Transaction Data
+
+| Field                  | Type   | Description                              |
+|------------------------|--------|------------------------------------------|
+| `id`                   | String | Unique transaction ID                    |
+| `remark`               | String | Internal reference note                  |
+| `reason`               | String | Transaction purpose                      |
+| `referenceNumber`      | String | Tracking reference                       |
+| `type`                 | String | Always `SEND`                            |
+| `state`                | String | Current status                           |
+| `created`              | String | ISO 8601 creation time                   |
+| `processed`            | String | ISO 8601 processing time                 |
+
+---
+
+### Business Recipient Details
+
+| Field                          | Type   | Description                              |
+|--------------------------------|--------|------------------------------------------|
+| `recipient.idType`            | String | ID type (`ID_CARD`)                      |
+| `recipient.idNumber`          | String | Government ID number                     |
+| `recipient.mobileNumber`      | String | Contact number                           |
+| `recipient.city`              | String | Business location                        |
+| `recipient.address`           | String | Physical address                         |
+| `recipient.countryName`       | String | Country of operation                     |
+| `recipient.invoiceNo`         | String | Business invoice reference               |
+
+---
+
+### Corporate Account Details
+
+| Field                          | Type   | Description                              |
+|--------------------------------|--------|------------------------------------------|
+| `account.name`                | String | Registered company name                  |
+| `account.accountNumber`       | String | Corporate account number                 |
+| `account.type`                | String | `COMPANY`                                |
+| `account.sortCode`            | String | Bank branch code                         |
+| `account.bankName`            | String | Recipient bank name                      |
+
+---
+
+## Error Handling
+
+| Status Code | Meaning                  | Example Response                        | How to Handle                             |
+|-------------|--------------------------|-----------------------------------------|-----------------------------------------|
+| **400**     | Invalid Bank Details     | `Invalid sort code for bank`            | Verify bank routing information         |
+| **400**     | ID Validation Failed     | `Invalid business registration ID`      | Check government-issued ID              |
+| **400**     | Invalid Transaction PIN  | `Invalid transaction authorization`     | Verify 6-digit PIN                      |
+| **400**     | Business Info Mismatch   | `Account name mismatch with registration`| Ensure names match official records     |

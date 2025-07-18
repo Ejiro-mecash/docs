@@ -11,7 +11,7 @@
     "light": "#07C983",
     "dark": "#15803D"
   },
-  "favicon": "/mecashlogo.ico",
+  "favicon": "/mecashlogo.png",
   "navigation": {
     "tabs": [
       {
@@ -31,17 +31,20 @@
           {
             "group": "FIAT API",
             "pages": [
-              "FIAT-API/quote-api/about-quote"
+              "FIAT-API/quote-api/about-quote",
+              "FIAT-API/payout/payout"
+
               
             ]
           },
           {
             "group": "RAMP API",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
+              "quote-ramp/create-quote-crypto",
+              "quote-ramp/create-quote-offramp",
+              "quote-ramp/get-gas-fee",
+              "quote-ramp/get-quote-crypto",
+              "quote-ramp/get-quote-offramp"
             ]
           },
           {
@@ -86,8 +89,8 @@
         },
         {
           "anchor": "Community",
-          "href": "https://www.discord.com/community",
-          "icon": "slack"
+          "href": "https://discord.com/invite/CC5v6h52Wk",
+          "icon": "discord"
         },
         {
           "anchor": "Blog",
@@ -110,8 +113,8 @@
     ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "label": "meCash Business",
+      "href": "https://business.me-cash.com"
     }
   },
   "footer": {

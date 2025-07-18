@@ -1,0 +1,54 @@
+# How Payout works in meCash
+
+The **meCash Payout API** allows you to send funds to recipients via multiple payment channels—such as bank transfers, mobile money, etc.
+
+Every payout **must reference a valid `quoteID`**, which ensures the transaction uses current rates, fees, and rules.
+
+This guide walks you through how the Payout API works, including:
+
+- The end-to-end request flow  
+- Required parameters  
+- Validation process  
+- Common best practices
+
+---
+
+##  Payout Workflow
+Here’s a step-by-step breakdown of how a typical payout works:
+
+import { Steps } from 'nextra/components'
+
+<Steps>
+
+### **User Generate a Quote**
+- Call the Quote API to generate a `quoteID`.
+- The quote contains:
+  - The exchange rate (if applicable)
+  - Transaction fees
+  - Rules and expiry time
+
+Quotes ensure that the payout terms (fees, limits, and rates) are noted before execution.
+
+---
+
+### **Call the Payout API**
+Once you have a valid `quoteID`, initiate the payout request by providing:
+
+- `quoteID` (from Step 1)  
+- Recipient details (e.g. name, bank account )  
+- Payment channel (e.g. `bank_transfer`, `mobile_money`)  
+- Amount  
+---
+
+### **Payout API Response**
+After the payout is triggered, you’ll receive a payout response.
+You should receive one of the following webhook events after submission:
+- `payout.pending`
+- `payout.completed`
+- `payout.failed`
+
+Refer to the [Webhooks Documentation](/webhook-event#example-payoutcompleted-ngn-to-cny) for event payload examples.
+
+
+
+</Steps>

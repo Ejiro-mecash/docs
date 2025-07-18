@@ -1,0 +1,302 @@
+# CNY Payout – BANK TRANSFER (CUSTOMER)
+
+This guide explains how to initiate **CNY payouts to customer accounts via bank transfer** using the meCash API. Requests must be sent as `multipart/form-data` with a stringified JSON payload under the `transaction` field.
+
+---
+
+## Endpoint
+
+**POST** `{{baseURL}}/v1/payout`
+
+---
+
+## Header
+
+| Header     | Value             | Required |
+|------------|-------------------|----------|
+| x-api-key  | YOUR_API_KEY      | ✅ Yes   |
+
+
+---
+
+## Example Request (Customer Bank Transfer)
+
+import { Tabs } from 'nextra/components'
+
+<Tabs items={['cURL', 'JavaScript (fetch)', 'Python (requests)', 'Node.js (axios)']}>
+
+  <Tabs.Tab>
+    ### cURL
+
+    ```bash
+    curl --location 'https://{{baseURL}}/v1/payout' \
+    --header 'x-api-key: YOUR_API_KEY_HERE' \
+    --form 'transaction="{
+      \"recipient\": {
+        \"name\": \"SILI\",
+        \"firstName\": \"feng\",
+        \"idType\": \"ID_CARD\",
+        \"idNumber\": \"331081199609218031\",
+        \"mobileNumber\": \"+123 456789\",
+        \"relationship\": \"EMPLOYEE\",
+        \"type\": \"CUSTOMER\",
+        \"invoiceNo\": \"\",
+        \"account\": {
+          \"name\": \"北京华海潮商贸有限责任公司\",
+          \"accountNumber\": \"6222040000030016\",
+          \"type\": \"INDIVIDUAL\"
+        },
+        \"paymentChannel\": \"BANK_TRANSFER\",
+        \"currency\": \"CNY\",
+        \"country\": \"CN\",
+        \"stored\": false
+      },
+      \"quoteId\": \"{{quoteIdCny}}\",
+      \"transactionPin\": \"123456\",
+      \"remark\": \"Testing\",
+      \"reason\": \"Gift\"
+    }"'
+    ```
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    ### JavaScript (fetch)
+
+    ```js
+    const formData = new FormData();
+    const transactionData = {
+      "recipient": {
+        "name": "SILI",
+        "firstName": "feng",
+        "idType": "ID_CARD",
+        "idNumber": "331081199609218031",
+        "mobileNumber": "+123 456789",
+        "relationship": "EMPLOYEE",
+        "type": "CUSTOMER",
+        "invoiceNo": "",
+        "account": {
+          "name": "北京华海潮商贸有限责任公司",
+          "accountNumber": "6222040000030016",
+          "type": "INDIVIDUAL"
+        },
+        "paymentChannel": "BANK_TRANSFER",
+        "currency": "CNY",
+        "country": "CN",
+        "stored": false
+      },
+      "quoteId": "{{quoteIdCny}}",
+      "transactionPin": "123456",
+      "remark": "Testing",
+      "reason": "Gift"
+    };
+    formData.append('transaction', JSON.stringify(transactionData));
+
+    fetch('https://{{baseURL}}/v1/payout', {
+      method: 'POST',
+      headers: {
+        'x-api-key': 'YOUR_API_KEY_HERE'
+        // Content-Type is automatically set to multipart/form-data by fetch when using FormData
+      },
+      body: formData
+    })
+    .then(res => {
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      return res.json();
+    })
+    .then(console.log)
+    .catch(error => console.error('Error creating customer bank transfer payout:', error));
+    ```
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    ### Python (requests)
+
+    ```python
+    import requests
+    import json
+
+    url = "https://{{baseURL}}/v1/payout"
+    headers = {
+        "x-api-key": "YOUR_API_KEY_HERE"
+    }
+
+    transaction_data = {
+        "recipient": {
+            "name": "SILI",
+            "firstName": "feng",
+            "idType": "ID_CARD",
+            "idNumber": "331081199609218031",
+            "mobileNumber": "+123 456789",
+            "relationship": "EMPLOYEE",
+            "type": "CUSTOMER",
+            "invoiceNo": "",
+            "account": {
+                "name": "北京华海潮商贸有限责任公司",
+                "accountNumber": "6222040000030016",
+                "type": "INDIVIDUAL"
+            },
+            "paymentChannel": "BANK_TRANSFER",
+            "currency": "CNY",
+            "country": "CN",
+            "stored": False
+        },
+        "quoteId": "{{quoteIdCny}}",
+        "transactionPin": "123456",
+        "remark": "Testing",
+        "reason": "Gift"
+    }
+
+    files = {
+        'transaction': (None, json.dumps(transaction_data), 'application/json')
+    }
+
+    response = requests.post(url, headers=headers, files=files)
+
+    if response.status_code == 200:
+        print(response.json())
+    else:
+        print(f"Error: {response.status_code} - {response.text}")
+    ```
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    ### Node.js (axios)
+
+    ```js
+    const axios = require('axios');
+    const FormData = require('form-data'); // For Node.js environments
+
+    const formData = new FormData();
+    const transactionData = {
+      "recipient": {
+        "name": "SILI",
+        "firstName": "feng",
+        "idType": "ID_CARD",
+        "idNumber": "331081199609218031",
+        "mobileNumber": "+123 456789",
+        "relationship": "EMPLOYEE",
+        "type": "CUSTOMER",
+        "invoiceNo": "",
+        "account": {
+          "name": "北京华海潮商贸有限责任公司",
+          "accountNumber": "6222040000030016",
+          "type": "INDIVIDUAL"
+        },
+        "paymentChannel": "BANK_TRANSFER",
+        "currency": "CNY",
+        "country": "CN",
+        "stored": false
+      },
+      "quoteId": "{{quoteIdCny}}",
+      "transactionPin": "123456",
+      "remark": "Testing",
+      "reason": "Gift"
+    };
+    formData.append('transaction', JSON.stringify(transactionData));
+
+    axios.post('https://{{baseURL}}/v1/payout', formData, {
+      headers: {
+        'x-api-key': 'YOUR_API_KEY_HERE',
+        ...formData.getHeaders() // Important for multipart/form-data with axios in Node.js
+      }
+    })
+    .then(response => {
+      console.log(response.data);
+    })
+    .catch(error => {
+      console.error('Error creating customer bank transfer payout:', error.response ? error.response.data : error.message);
+    });
+    ```
+  </Tabs.Tab>
+
+</Tabs>
+
+
+## Request Breakdown
+
+---
+
+### Headers
+
+| Header     | Value Example | Description               |
+|------------|----------------|---------------------------|
+| x-api-key  | API_KEY        | API authentication key    |
+
+---
+
+### Form Data Parameters
+
+| Parameter   | Type | Description                          |
+|-------------|------|--------------------------------------|
+| transaction | JSON | Stringified JSON transaction payload |
+
+---
+
+### Transaction Object
+
+| Field          | Type   | Description                     |
+|----------------|--------|---------------------------------|
+| quoteId        | String | Quote ID from FX pricing        |
+| transactionPin | String | 6-digit security PIN            |
+| remark         | String | Internal reference note         |
+| reason         | String | Transaction purpose             |
+
+---
+
+### Recipient Object (Business)
+
+| Field         | Type    | Description                              |
+|---------------|---------|------------------------------------------|
+| name          | String  | Legal business name                      |
+| firstName     | String  | Contact first name                       |
+| idType        | String  | ID type (`ID_CARD`)                      |
+| idNumber      | String  | Government-issued ID                     |
+| mobileNumber  | String  | Contact number with country code         |
+| relationship  | String  | Recipient relationship (`EMPLOYEE`)      |
+| type          | String  | Entity type (`BUSINESS`)                 |
+| invoiceNo     | String  | Business invoice reference (optional)    |
+| paymentChannel| String  | Payment method (`BANK_TRANSFER`)         |
+| currency      | String  | Transaction currency (`CNY`)             |
+| country       | String  | Country code (`CN`)                      |
+| stored        | Boolean | Save recipient details                   |
+
+---
+
+### Account Object
+
+| Field         | Type   | Description                          |
+|---------------|--------|--------------------------------------|
+| name          | String | Account holder name                 |
+| accountNumber | String | Corporate bank account number       |
+| type          | String | Account type (`INDIVIDUAL`)         |
+
+---
+
+## Success Response (200 OK)
+
+Returns a JSON response confirming the transaction was processed successfully.
+
+```json
+{
+  "message": "Payout initiated successfully",
+  "status": "success",
+  "data": {
+    "transactionId": "txn_1234567890abcdef",
+    "quoteId": "qte_0987654321fedcba",
+    "status": "PENDING",
+    "created": "2025-05-20T12:00:00.000Z"
+  }
+}
+```
+
+## Error Handling
+
+| Status Code | Meaning                  | Example Response                        | How to Handle                             |
+|-------------|--------------------------|-----------------------------------------|-----------------------------------------|
+| 400     | Invalid Bank Details     | `Invalid sort code for bank`            | Verify bank routing information         |
+| 400     | ID Validation Failed     | `Invalid business registration ID`      | Check government-issued ID              |
+| 400     | Invalid Transaction PIN  | `Invalid transaction authorization`     | Verify 6-digit PIN                      |
+| 400     | Business Info Mismatch   | `Account name mismatch with registration`| Ensure names match official records     |
+
