@@ -4,7 +4,7 @@
   "name": "meCash Docs",
   "api": {
     "baseUrl": "https://api.mecash.com",
-    "path": "/api-reference/openapi.json"
+    "path": "api-reference/openapi.json"
   },
   "colors": {
     "primary": "#9747FF",
