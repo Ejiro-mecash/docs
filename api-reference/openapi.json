@@ -1,590 +1,878 @@
-openapi: 3.1.0
-info:
-  title: meCash API
-  version: 3.1.0
-  description: |
-    API for meCash services, including FIAT and Ramp operations.
-    This is the OpenAPI specification for the meCash API, covering all available endpoints for wallet management, currency quotes, and payouts.
-
-    It follows a design-first approach based on OpenAPI 3.0.
-
-    Authentication is handled via an API key passed in the `x-api-key` header. Replace `YOUR_API_KEY` with your actual key when making requests.
-
-    Some useful links:
-    - [meCash Documentation](https://docs.me-cash.com/)
-    - [Authentication Guide](https://docs.me-cash.com/authentication)
-
-# Defines the server URL for the API.
-servers:
-  - url: https://api.me-cash.com  
-
-# Defines logical groupings for tags in the UI.
-x-tagGroups:
-  - name: FIAT
-    tags:
-      - Wallet
-      - Quote
-      - Payout
-      - Transaction
-      - Virtual Account
-  - name: RAMP
-    tags:
-      - Ramp
-  - name: MISC
-    tags:
-      - Miscellaneous
-
-# Defines the tags used for organizing endpoints.
-tags:
-  - name: Wallet
-  - name: Quote
-  - name: Payout
-  - name: Transaction
-  - name: Virtual Account
-  - name: Ramp
-  - name: Miscellaneous
-
-# Global security definition, applying ApiKeyAuth to all endpoints.
-security:
-  - ApiKeyAuth: []
-
-# Reusable components for the specification.
-components:
-  # Security scheme for API key authentication.
-  securitySchemes:
-    ApiKeyAuth:
-      type: apiKey
-      in: header
-      name: x-api-key
-
-  # Reusable schemas for request and response bodies.
-  schemas:
-    Success:
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-        message:
-          type: string
-          example: Operation completed successfully.
-        data:
-          type: object
-          description: The payload of the successful response.
-    Error:
-      type: object
-      properties:
-        status:
-          type: string
-          example: error
-        message:
-          type: string
-          example: An error occurred.
-
-  # Reusable response definitions for consistency.
-  responses:
-    Success:
-      description: The request was successful.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Success'
-    BadRequest:
-      description: Bad Request - The server could not understand the request due to invalid syntax.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-            example:
-              status: error
-              message: "Invalid request body or parameters."
-    Unauthorized:
-      description: Unauthorized - The client must authenticate itself to get the requested response.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-            example:
-              status: error
-              message: "API key is missing or invalid."
-    NotFound:
-      description: Not Found - The server can not find the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-            example:
-              status: error
-              message: "Resource not found."
-    InternalServerError:
-      description: Internal Server Error - The server has encountered a situation it doesn't know how to handle.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-            example:
-              status: error
-              message: "An internal server error occurred."
-
-# API endpoints.
-paths:
-  /v1/wallet:
-    get:
-      tags: [Wallet]
-      summary: Get All Wallets
-      description: This API is used to fetch all wallets for a user.
-      parameters: []
-      responses:
-        '200':
-          description: A list of all user wallets retrieved successfully.
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
-
-  /v1/wallet/balance:
-    put:
-      tags: [Wallet]
-      summary: Update Wallet Balance
-      description: This API updates the user's wallet balance for a specified currency.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-            example:
-              amount: 0.0
-              country: NG
-              currency: NGN
-      responses:
-        '200':
-          description: Wallet balance updated successfully.
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
-
-  /v1/wallet/{walletId}/balance:
-    get:
-      tags: [Wallet]
-      summary: Get Wallet Balance
-      description: This API fetches the balance of a specific wallet.
-      parameters:
-        - name: walletId
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Wallet balance retrieved successfully.
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
-
-  /v1/quote:
-    post:
-      tags: [Quote]
-      summary: Create Quote
-      description: Creates a quote for a source and destination currency specified by a user. It also returns related business rules.
-      requestBody:
-        description: Details for the new quote.
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                paymentChannel:
-                  type: string
-                  description: Payment method for the transaction.
-                source:
-                  type: object
-                  properties:
-                    amount:
-                      type: number
-                      format: float
-                      description: Amount in the source currency.
-                    country:
-                      type: string
-                      description: Source country code (ISO 3166-1 alpha-2).
-                    currency:
-                      type: string
-                      description: Source currency code (ISO 4217).
-                target:
-                  type: object
-                  properties:
-                    country:
-                      type: string
-                      description: Target country code (ISO 3166-1 alpha-2).
-                    currency:
-                      type: string
-                      description: Target currency code (ISO 4217).
-            example:
-              paymentChannel: "BANK_TRANSFER"
-              source:
-                amount: 1000.00
-                country: "NG"
-                currency: "NGN"
-              target:
-                country: "US"
-                currency: "USD"
-      responses:
-        '201':
-          description: Quote created successfully.
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
-
-  /v1/quote/{quote_id}:
-    put:
-      tags: [Quote]
-      summary: Update Quote
-      description: Updates an existing quote for a specified source and destination currency.
-      parameters:
-        - name: quote_id
-          in: path
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-            example:
-              paymentChannel: BANK_TRANSFER
-              source:
-                amount: 0
-                country: ''
-                currency: ''
-              target:
-                amount: 0
-                country: ''
-                currency: ''
-      responses:
-        '200':
-          description: Quote updated successfully.
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
-
-  /v1/payout:
-    post:
-      tags: [Payout]
-      summary: Create Payout
-      description: |
-        This API is used to create a payout to a beneficiary. 
-        The required parameters vary based on the payout type. Please refer to the [meCash Payout Documentation](https://docs.me-cash.com/payout/create-payout) for detailed examples and schemas for each payout method.
-      responses:
-        '201':
-          description: Payout created successfully.
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
-
-  /v1/transaction/{transactionId}:
-    get:
-      tags: [Transaction]
-      summary: Get Transaction
-      description: This API fetches a specific user's transaction details.
-      parameters:
-        - name: transactionId
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Transaction details retrieved successfully.
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
-
-  /v1/virtual-account:
-    post:
-      tags: [Virtual Account]
-      summary: Create Virtual Account
-      description: Creates a virtual account using the user's information.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-            example:
-              currency: NGN
-              country: NG
-              firstName: Jui444pp
-              lastName: Juipio
-              email: someemail@gmail.com
-              phoneNumber: '+2348123456797'
-              bvn: '12345656999'
-              reference: REF_YERT8JPO999999
-              accountName: NNDDD
-      responses:
-        '201':
-          description: Virtual account created successfully.
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
-
-  /v1/virtual-account/{accountId}:
-    get:
-      tags: [Virtual Account]
-      summary: Get Virtual Account
-      description: Retrieves details of a specific virtual account.
-      parameters:
-        - name: accountId
-          in: path
-          required: true
-          schema:
-            type: string
-            example: '582f893e-b4fa-427a-8197-f9c77e7a35f8'
-      responses:
-        '200':
-          description: Virtual account details retrieved successfully.
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
-
-  /v1/ramp/wallet:
-    get:
-      tags: [Ramp]
-      summary: Get All Ramp Wallets
-      description: Fetches all Ramp wallets for a user.
-      responses:
-        '200':
-          description: A list of all Ramp wallets retrieved successfully.
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
-
-  /v1/ramp/wallet/{walletId}:
-    get:
-      tags: [Ramp]
-      summary: Get Ramp Wallet
-      description: Fetches a specific Ramp wallet for a user.
-      parameters:
-        - name: walletId
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Ramp wallet details retrieved successfully.
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
-
-  /v1/ramp/wallet/{walletId}/balance:
-    get:
-      tags: [Ramp]
-      summary: Get Ramp Wallet Balance
-      description: Fetches the balance of a specific Ramp wallet.
-      parameters:
-        - name: walletId
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Ramp wallet balance retrieved successfully.
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
-
-  /v1/ramp/quote:
-    post:
-      tags: [Ramp]
-      summary: Create Ramp Quote
-      description: Creates a Ramp quote for a specified currency pair.
-      responses:
-        '201':
-          description: Ramp quote created successfully.
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
-
-  /v1/ramp/quote/{quote_id}:
-    get:
-      tags: [Ramp]
-      summary: Get Ramp Quote
-      description: Retrieves a specific Ramp quote.
-      parameters:
-        - name: quote_id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Ramp quote retrieved successfully.
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
-
-  /v1/ramp/gasFee:
-    post:
-      tags: [Ramp]
-      summary: Generate Estimated Gas Fee
-      description: Returns an estimate of gas fees for Ramp operations.
-      responses:
-        '200':
-          description: Estimated gas fee retrieved successfully.
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
-
-  /v1/ramp/order:
-    post:
-      tags: [Ramp]
-      summary: Create Ramp Transaction
-      description: Creates a Ramp order or transaction.
-      responses:
-        '201':
-          description: Ramp order created successfully.
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
-
-  /v1/ramp/transaction/{transactionId}:
-    get:
-      tags: [Ramp]
-      summary: Get Ramp Transaction
-      description: Retrieves a specific Ramp transaction.
-      parameters:
-        - name: transactionId
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Ramp transaction details retrieved successfully.
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
-
-  /v1/bank:
-    get:
-      tags: [Miscellaneous]
-      summary: Get Bank List
-      description: Fetches available bank details for a target currency.
-      responses:
-        '200':
-          description: Bank list retrieved successfully.
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
-
-  /v1/account/enquiry:
-    post:
-      tags: [Miscellaneous]
-      summary: Perform Account Enquiry
-      description: Resolves recipient details based on account number and bank info.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-            example:
-              account:
-                sortCode: ''
-                accountNumber: ''
-              currency: NGN
-              country: NG
-      responses:
-        '200':
-          description: Account details resolved successfully.
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
-
-  /v1/mobileMoneyOperator:
-    get:
-      tags: [Miscellaneous]
-      summary: Get Mobile Money Operator List
-      description: Fetches mobile money operators for a target currency.
-      responses:
-        '200':
-          description: Mobile money operator list retrieved successfully.
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
-
-  /v1/ramp/address/validate:
-    post:
-      tags: [Miscellaneous]
-      summary: Validate Blockchain Address
-      description: Validates a blockchain address.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-            example:
-              blockchain: MATIC
-              address: '0x...'
-      responses:
-        '200':
-          description: Address validation result.
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "meCash API",
+    "version": "3.1.0",
+    "description": "API for meCash services, including FIAT and Ramp operations.\nThis is the OpenAPI speification for the meCash API, covering all available endpoints for wallet management, currency quotes, and payouts.\n\nIt follows a design-first approach based on OpenAPI 3.0.\n\nAuthentication is handled via an API key passed in the `x-api-key` header. Replace `YOUR_API_KEY` with your actual key when making requests.\n\nSome useful links:\n- [meCash Documentation](https://docs.me-cash.com/)\n- [Authentication Guide](https://docs.me-cash.com/authentication)\n"
+  },
+  "servers": [
+    {
+      "url": "https://api.me-cash.com"
+    }
+  ],
+  "x-tagGroups": [
+    {
+      "name": "FIAT",
+      "tags": [
+        "Wallet",
+        "Quote",
+        "Payout",
+        "Transaction",
+        "Virtual Account"
+      ]
+    },
+    {
+      "name": "RAMP",
+      "tags": [
+        "Ramp"
+      ]
+    },
+    {
+      "name": "MISC",
+      "tags": [
+        "Miscellaneous"
+      ]
+    }
+  ],
+  "tags": [
+    {
+      "name": "Wallet"
+    },
+    {
+      "name": "Quote"
+    },
+    {
+      "name": "Payout"
+    },
+    {
+      "name": "Transaction"
+    },
+    {
+      "name": "Virtual Account"
+    },
+    {
+      "name": "Ramp"
+    },
+    {
+      "name": "Miscellaneous"
+    }
+  ],
+  "security": [
+    {
+      "ApiKeyAuth": []
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-api-key"
+      }
+    },
+    "schemas": {
+      "Success": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success"
+          },
+          "message": {
+            "type": "string",
+            "example": "Operation completed successfully."
+          },
+          "data": {
+            "type": "object",
+            "description": "The payload of the successful response."
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "error"
+          },
+          "message": {
+            "type": "string",
+            "example": "An error occurred."
+          }
+        }
+      }
+    },
+    "responses": {
+      "Success": {
+        "description": "The request was successful.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Success"
+            }
+          }
+        }
+      },
+      "BadRequest": {
+        "description": "Bad Request - The server could not understand the request due to invalid syntax.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "status": "error",
+              "message": "Invalid request body or parameters."
+            }
+          }
+        }
+      },
+      "Unauthorized": {
+        "description": "Unauthorized - The client must authenticate itself to get the requested response.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "status": "error",
+              "message": "API key is missing or invalid."
+            }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "Not Found - The server can not find the requested resource.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "status": "error",
+              "message": "Resource not found."
+            }
+          }
+        }
+      },
+      "InternalServerError": {
+        "description": "Internal Server Error - The server has encountered a situation it doesn't know how to handle.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "status": "error",
+              "message": "An internal server error occurred."
+            }
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/v1/wallet": {
+      "get": {
+        "tags": [
+          "Wallet"
+        ],
+        "summary": "Get All Wallets",
+        "description": "This API is used to fetch all wallets for a user.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A list of all user wallets retrieved successfully."
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/wallet/balance": {
+      "put": {
+        "tags": [
+          "Wallet"
+        ],
+        "summary": "Update Wallet Balance",
+        "description": "This API updates the user's wallet balance for a specified currency.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              },
+              "example": {
+                "amount": 0,
+                "country": "NG",
+                "currency": "NGN"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Wallet balance updated successfully."
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/wallet/{walletId}/balance": {
+      "get": {
+        "tags": [
+          "Wallet"
+        ],
+        "summary": "Get Wallet Balance",
+        "description": "This API fetches the balance of a specific wallet.",
+        "parameters": [
+          {
+            "name": "walletId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Wallet balance retrieved successfully."
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/quote": {
+      "post": {
+        "tags": [
+          "Quote"
+        ],
+        "summary": "Create Quote",
+        "description": "Creates a quote for a source and destination currency specified by a user. It also returns related business rules.",
+        "requestBody": {
+          "description": "Details for the new quote.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "paymentChannel": {
+                    "type": "string",
+                    "description": "Payment method for the transaction."
+                  },
+                  "source": {
+                    "type": "object",
+                    "properties": {
+                      "amount": {
+                        "type": "number",
+                        "format": "float",
+                        "description": "Amount in the source currency."
+                      },
+                      "country": {
+                        "type": "string",
+                        "description": "Source country code (ISO 3166-1 alpha-2)."
+                      },
+                      "currency": {
+                        "type": "string",
+                        "description": "Source currency code (ISO 4217)."
+                      }
+                    }
+                  },
+                  "target": {
+                    "type": "object",
+                    "properties": {
+                      "country": {
+                        "type": "string",
+                        "description": "Target country code (ISO 3166-1 alpha-2)."
+                      },
+                      "currency": {
+                        "type": "string",
+                        "description": "Target currency code (ISO 4217)."
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "paymentChannel": "BANK_TRANSFER",
+                "source": {
+                  "amount": 1000,
+                  "country": "NG",
+                  "currency": "NGN"
+                },
+                "target": {
+                  "country": "US",
+                  "currency": "USD"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Quote created successfully."
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/quote/{quoteId}": {
+      "put": {
+        "tags": [
+          "Quote"
+        ],
+        "summary": "Update Quote",
+        "description": "Updates an existing quote for a specified source and destination currency.",
+        "parameters": [
+          {
+            "name": "quoteId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              },
+              "example": {
+                "paymentChannel": "BANK_TRANSFER",
+                "source": {
+                  "amount": 0,
+                  "country": "",
+                  "currency": ""
+                },
+                "target": {
+                  "amount": 0,
+                  "country": "",
+                  "currency": ""
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Quote updated successfully."
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/payout": {
+      "post": {
+        "tags": [
+          "Payout"
+        ],
+        "summary": "Create Payout",
+        "description": "This API is used to create a payout to a beneficiary. \nThe required parameters vary based on the payout type. Please refer to the [meCash Payout Documentation](https://docs.me-cash.com/payout/create-payout) for detailed examples and schemas for each payout method.",
+        "responses": {
+          "201": {
+            "description": "Payout created successfully."
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/transaction/{transactionId}": {
+      "get": {
+        "tags": [
+          "Transaction"
+        ],
+        "summary": "Get Transaction",
+        "description": "This API fetches a specific user's transaction details.",
+        "parameters": [
+          {
+            "name": "transactionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transaction details retrieved successfully."
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/virtual-account": {
+      "post": {
+        "tags": [
+          "Virtual Account"
+        ],
+        "summary": "Create Virtual Account",
+        "description": "Creates a virtual account using the user's information.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              },
+              "example": {
+                "currency": "NGN",
+                "country": "NG",
+                "firstName": "Jui444pp",
+                "lastName": "Juipio",
+                "email": "someemail@gmail.com",
+                "phoneNumber": "+2348123456797",
+                "bvn": "12345656999",
+                "reference": "REF_YERT8JPO999999",
+                "accountName": "NNDDD"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Virtual account created successfully."
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/virtual-account/{accountId}": {
+      "get": {
+        "tags": [
+          "Virtual Account"
+        ],
+        "summary": "Get Virtual Account",
+        "description": "Retrieves details of a specific virtual account.",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "582f893e-b4fa-427a-8197-f9c77e7a35f8"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Virtual account details retrieved successfully."
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/ramp/wallet": {
+      "get": {
+        "tags": [
+          "Ramp"
+        ],
+        "summary": "Get All Ramp Wallets",
+        "description": "Fetches all Ramp wallets for a user.",
+        "responses": {
+          "200": {
+            "description": "A list of all Ramp wallets retrieved successfully."
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/ramp/wallet/{walletId}": {
+      "get": {
+        "tags": [
+          "Ramp"
+        ],
+        "summary": "Get Ramp Wallet",
+        "description": "Fetches a specific Ramp wallet for a user.",
+        "parameters": [
+          {
+            "name": "walletId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ramp wallet details retrieved successfully."
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/ramp/wallet/{walletId}/balance": {
+      "get": {
+        "tags": [
+          "Ramp"
+        ],
+        "summary": "Get Ramp Wallet Balance",
+        "description": "Fetches the balance of a specific Ramp wallet.",
+        "parameters": [
+          {
+            "name": "walletId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ramp wallet balance retrieved successfully."
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/ramp/quote": {
+      "post": {
+        "tags": [
+          "Ramp"
+        ],
+        "summary": "Create Ramp Quote",
+        "description": "Creates a Ramp quote for a specified currency pair.",
+        "responses": {
+          "201": {
+            "description": "Ramp quote created successfully."
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/ramp/quote/{quoteId}": {
+      "get": {
+        "tags": [
+          "Ramp"
+        ],
+        "summary": "Get Ramp Quote",
+        "description": "Retrieves a specific Ramp quote.",
+        "parameters": [
+          {
+            "name": "quoteId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ramp quote retrieved successfully."
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/ramp/gasFee": {
+      "post": {
+        "tags": [
+          "Ramp"
+        ],
+        "summary": "Generate Estimated Gas Fee",
+        "description": "Returns an estimate of gas fees for Ramp operations.",
+        "responses": {
+          "200": {
+            "description": "Estimated gas fee retrieved successfully."
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/ramp/order": {
+      "post": {
+        "tags": [
+          "Ramp"
+        ],
+        "summary": "Create Ramp Transaction",
+        "description": "Creates a Ramp order or transaction.",
+        "responses": {
+          "201": {
+            "description": "Ramp order created successfully."
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/ramp/transaction/{transactionId}": {
+      "get": {
+        "tags": [
+          "Ramp"
+        ],
+        "summary": "Get Ramp Transaction",
+        "description": "Retrieves a specific Ramp transaction.",
+        "parameters": [
+          {
+            "name": "transactionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ramp transaction details retrieved successfully."
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/bank": {
+      "get": {
+        "tags": [
+          "Miscellaneous"
+        ],
+        "summary": "Get Bank List",
+        "description": "Fetches available bank details for a target currency.",
+        "responses": {
+          "200": {
+            "description": "Bank list retrieved successfully."
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/account/enquiry": {
+      "post": {
+        "tags": [
+          "Miscellaneous"
+        ],
+        "summary": "Perform Account Enquiry",
+        "description": "Resolves recipient details based on account number and bank info.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              },
+              "example": {
+                "account": {
+                  "sortCode": "",
+                  "accountNumber": ""
+                },
+                "currency": "NGN",
+                "country": "NG"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Account details resolved successfully."
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/mobileMoneyOperator": {
+      "get": {
+        "tags": [
+          "Miscellaneous"
+        ],
+        "summary": "Get Mobile Money Operator List",
+        "description": "Fetches mobile money operators for a target currency.",
+        "responses": {
+          "200": {
+            "description": "Mobile money operator list retrieved successfully."
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/ramp/address/validate": {
+      "post": {
+        "tags": [
+          "Miscellaneous"
+        ],
+        "summary": "Validate Blockchain Address",
+        "description": "Validates a blockchain address.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              },
+              "example": {
+                "blockchain": "MATIC",
+                "address": "0x..."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Address validation result."
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    }
+  }
+}
