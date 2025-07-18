@@ -1,0 +1,51 @@
+# IP Whitelisting
+
+To use the meCash API services, you must whitelist your IP address. 
+This is a mandatory security step.
+
+IP whitelisting ensures that only authorized servers can access your API endpoints. 
+Requests from non-whitelisted IPs will be denied.
+
+
+
+## ⚠️ Error Response for Non-Whitelisted IPs:
+
+```json "403 Forbidden"
+{
+  "message": "Forbidden: Your IP address is not whitelisted to access this resource."
+}
+
+```
+Also, remember that your API keys remain inactive until you've whitelisted at least one IP address.
+
+---
+## How to Whitelist Your IP Address on meCash
+
+
+1. Log in to your meCash  dashboard. Open the Developers section.
+
+
+![Developer Section](/Screenshot100106.png)
+
+
+2. Navigate to the **IP Whitelisting** tab.
+
+
+3. You will see the whitelisting dashboard displaying the number of IPs added and a button to add new ones.
+Select the + 'Add IP Address button`
+
+![add ip address button](/ipwhiteliisting1.png)
+
+4. Enter a valid server IP address, and click confirm.
+![Enter ip address](/Screenshot134017.png)
+
+
+5. Click **Confirm** to register the ip address
+Once added, the ip address will appear in the list along with its status.
+
+
+import { Callout } from 'nextra/components'
+ 
+<Callout type="info" emoji="ℹ️">
+  Remember: Use a static IP if possible. Update your whitelist if your server's IP changes.
+</Callout>

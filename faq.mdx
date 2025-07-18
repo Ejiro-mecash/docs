@@ -1,0 +1,126 @@
+
+# meCash API Frequently Asked Questions
+
+
+## Getting Started
+
+**Q1: How do I obtain API access?**  
+To access the meCash APIs, you need to:
+- Create an account.
+- Obtain your API key.
+- Configure IP whitelisting for security.
+- Set up webhooks to receive real-time transaction updates.
+
+**Q2: Are there different environments for testing and production?**  
+Yes, meCash provides separate environments for testing (sandbox) and production.  
+Ensure you use the appropriate API endpoints and credentials for each environment.  
+
+> _Note: Sandbox is currently unavailable but will be supported soon._
+
+**Q3: Is IP whitelisting mandatory?**  
+Yes. For security purposes, [you must whitelist the IP addresses](/ip-whitelisting) that will interact with the meCash APIs.
+
+---
+
+## FIAT API
+
+**Q4: What functionalities does the FIAT API offer?**  
+The FIAT API allows you to:
+- Create and manage multi-currency wallets.
+- Generate quotes for currency conversions.
+- Initiate payouts to various payment channels.
+- Retrieve transaction histories.
+- Create virtual accounts.  
+
+
+**Q5: Which fiat currencies and payment channels are supported?**  
+meCash supports multiple fiat currencies, including NGN and CNY.
+Supported payment channels include Bank Transfers, Alipay, and WeChat Pay.  
+[Refer to the Payout Supported Currencies Page.](/payout/supported-currencies.mdx) for a full list.
+
+**Q6: How do I create a payout?**  
+To initiate a payout:
+1. Create a quote for the desired currency conversion.
+2. Use the quote to create a payout request.
+3. Use the payout endpoint to create a payout.
+4. Monitor the payout status via webhooks or by querying the transaction endpoint.
+
+---
+
+## RAMP API
+
+**Q7: What is the purpose of the RAMP API?**  
+The RAMP API facilitates:
+- Crypto-to-crypto payouts.
+- Fiat-to-crypto conversions.
+- Retrieval of gas fees and crypto quotes.
+- Validation of crypto addresses.
+
+**Q8: How do I perform a fiat-to-crypto transaction?**  
+To execute a fiat-to-crypto transaction:
+1. Create a crypto quote.
+2. Initiate a fiat-to-crypto payout using the quote.
+3. Track the transaction status via webhooks or the transaction endpoint.
+
+**Q9: How can I validate a crypto address before initiating a transaction?**  
+Use the **Validate Crypto Address** endpoint to ensure the recipient's address is correct and compatible with the intended cryptocurrency.
+
+---
+
+## Security and Compliance
+
+**Q10: What security measures are in place to protect API interactions?**  
+meCash employs:
+- [API key authentication](/account-creation)
+- [IP whitelisting](/ipwhitelisiting)
+
+
+**Q11: Does meCash require Know Your Customer (KYC) verification?**  
+Yes. To comply with regulatory standards, users must undergo KYC verification.  
+This involves submitting valid identification documents and may vary based on the service accessed.  
+
+
+---
+
+## Troubleshooting
+
+**Q12: What should I do if I receive a 401 Unauthorized error?**  
+This typically indicates an authentication issue. Ensure that:
+- Your API key is correct and active.
+- The request is coming from a whitelisted IP address.
+- You're using the correct environment (sandbox or production).  
+
+
+**Q13: How can I test webhook integrations?**  
+To test webhooks:
+1. Set up a listener endpoint on your server.
+2. Configure the webhook URL in your meCash dashboard.
+3. Use test transactions in the sandbox environment to trigger webhook events.  
+
+
+**Q14: Who can I contact for support?**  
+- **Email:** [support@me-cash.com](mailto:support@me-cash.com)  
+- **Community:** Join the [meCash Discord community](https://discord.gg/CC5v6h52Wk) for real-time support and discussions.  
+
+
+For more details, refer to the [meCash Documentation](https://docs.me-cash.com).
+
+---
+
+## APIs and Integrations
+
+**What APIs does meCash offer?**  
+meCash provides APIs for:
+- **Quote API**: Provides exchange rates and fees for currency conversions in fiat and crypto.
+- **Wallet API**: Manages multi-currency wallets and retrieves wallet balances.
+- **Payout API**: Initiates transfers to bank accounts or mobile money wallets.
+- **Transaction API**: Retrieves details of specific transactions.
+- **Virtual Account API**: Creates virtual bank accounts for customers to receive and track payments.
+
+## **How do I access the meCash APIs?**  
+1. **Create a Business Account:** Visit meCash and sign up.  
+2. **Complete KYB Verification:** Submit business and identification documents.  
+3. **Generate API Key:** After verification, go to the Developer section of your dashboard to generate your API key.  
+4. **Access API Documentation:** Refer to the [meCash API Documentation](https://docs.me-cash.com) for details on endpoints, request/response formats, and integration guidelines.
+
+

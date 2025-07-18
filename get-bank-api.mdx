@@ -1,0 +1,70 @@
+# Get Bank List 
+
+This API endpoint retrieves a list of banks available in Nigeria (`country=NG`) using the Nigerian Naira (`currency=NGN`).
+
+## Endpoint
+
+**`GET`** `{baseurl}/v1/bank?currency=NGN&country=NG`
+
+
+## Request Example
+
+``` sh copy
+curl --location 'http://{baseurl}/v1/bank?currency=NGN&country=NG' \
+--header 'x-api-key: API_KEY:YOUR_API_KEY'
+```
+
+### Headers
+
+| Header Name   | Value           | Required | Description                         |
+| :------------ | :-------------- | :------- | :---------------------------------- |
+| `X-API-KEY`    | `x-api-key`  | Yes      | API key for authentication          |
+
+### Query Parameters
+
+| Parameter | Value | Required | Description                            |
+| :-------- | :---- | :------- | :------------------------------------- |
+| `currency` | `NGN` | Yes      | Currency code (Nigerian Naira)         |
+| `country`  | `NG`  | Yes      | Country code (Nigeria)                 |
+
+
+
+## Successful Response (200 OK)
+
+
+
+```json
+{
+  "message": "recipient bank details fetched successfully",
+  "status": "success",
+  "data": [
+    {
+      "bankName": "Page MFBank",
+      "sortCode": "561",
+      "branchCode": null,
+      "country": null
+    },
+    {
+      "bankName": "Stanbic Mobile Money",
+      "sortCode": "304",
+      "branchCode": null,
+      "country": null
+    }
+    // ...additional banks
+  ]
+}
+```
+## Error Responses
+
+| Status Code | Description                                     | Response Body Example          |
+| :---------- | :---------------------------------------------- | :----------------------------- |
+| `401`       | Occurs if the API key is missing or invalid.    | "Invalid API key"              |
+| `400`       | Occurs if any required query parameter is missing or invalid. | "Missing required parameter: country" |
+
+
+
+
+
+
+
+
