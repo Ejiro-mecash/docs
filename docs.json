@@ -67,10 +67,11 @@
           {
             "group": "Endpoint examples",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "wallet/get-all-wallet",
+              "wallet/get-wallet-balance",
+              "quote/create-quote",
+              "quote/update-quote",
+              "payout/create-payout"
             ]
           }
         ]
