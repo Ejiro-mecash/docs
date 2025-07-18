@@ -18,16 +18,16 @@
             "pages": [
               "account-creation",
               "authentication",
-              "environments"
+              "environments",
               "ip-whitelisiting",
-              "webhooks-event"
-              "faq",
+              "webhooks-event",
+              "faq"
             ]
           },
           {
             "group": "FIAT API",
             "pages": [
-              "FIAT-API/quote-api/about-quote",
+              "FIAT-API/quote-api/about-quote"
               
             ]
           },
