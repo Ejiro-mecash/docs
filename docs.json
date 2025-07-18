@@ -1,13 +1,13 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "meCash Docs",
   "colors": {
-    "primary": "#16A34A",
+    "primary": "#9747FF",
     "light": "#07C983",
     "dark": "#15803D"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/mecashlogo.ico",
   "navigation": {
     "tabs": [
       {
@@ -16,20 +16,23 @@
           {
             "group": "Getting started",
             "pages": [
-              "index",
-              "quickstart",
-              "development"
+              "account-creation",
+              "authentication",
+              "environments"
+              "ip-whitelisiting",
+              "webhooks-event"
+              "faq",
             ]
           },
           {
-            "group": "Customization",
+            "group": "FIAT API",
             "pages": [
-              "essentials/settings",
-              "essentials/navigation"
+              "FIAT-API/quote-api/about-quote",
+              
             ]
           },
           {
-            "group": "Writing content",
+            "group": "RAMP API",
             "pages": [
               "essentials/markdown",
               "essentials/code",
@@ -77,7 +80,7 @@
         },
         {
           "anchor": "Community",
-          "href": "https://mintlify.com/community",
+          "href": "https://www.discord.com/community",
           "icon": "slack"
         },
         {
@@ -89,14 +92,14 @@
     }
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "/images/mecashlight.png",
+    "dark": "/logo/mecashdark.png"
   },
   "navbar": {
     "links": [
       {
         "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "href": "mailto:support@me-cash.com"
       }
     ],
     "primary": {
@@ -107,9 +110,8 @@
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "x": "https://x.com/mecash14",
+      "linkedin": "https://linkedin.com/company/me-cash"
     }
   }
 }
