@@ -11,7 +11,7 @@
     "light": "#07C983",
     "dark": "#15803D"
   },
-  "favicon": "/mecashlogo.png",
+  "favicon": "/images/mecashlogo.png",
   "navigation": {
     "tabs": [
       {
@@ -101,8 +101,8 @@
     }
   },
   "logo": {
-    "light": "/images/mecashlight.png",
-    "dark": "/logo/mecashdark.png"
+    "light": "public/images/mecashlight.png",
+    "dark": "public/logo/mecashdark.png"
   },
   "navbar": {
     "links": [
