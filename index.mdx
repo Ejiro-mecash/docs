@@ -1,40 +1,84 @@
 ---
-title: meCash Documentation
-description: meCash is a digital financial platform enabling instant and secure money transfers across borders.
-faq-tags: [payments, security, business-integration]
+title: Introduction
+description: Welcome to the meCash API. Find your API keys, configure security settings, and learn how to integrate our powerful financial services.
 ---
 
+Welcome to the meCash API! Our RESTful API provides the tools to build sophisticated financial applications, from processing instant global payouts to managing multi-currency digital wallets.
 
-![business page](/images/business-page.png)
+This page guides you through the essential first steps and core concepts for a successful integration.
+
+## Quickstart Guide
+
+Follow these four steps to get your account configured and ready to build.
+
+<Columns cols={2}>
+  <Card 
+    title="1. Create Your Account" 
+    icon="user-plus"
+    href="https://docs.me-cash.com//account-creation"
+  >
+    Sign up for a meCash Business account to get access to your developer dashboard.
+  </Card>
+  <Card 
+    title="2. Get Your API Keys" 
+    icon="key"
+    href="https://docs.me-cash.com//authentication"
+  >
+    Find your secret and publishable keys to authenticate API requests.
+  </Card>
+  <Card 
+    title="3. Whitelist IP Addresses" 
+    icon="shield-check"
+    href="https://docs.me-cash.com//ip-whitelisting"
+  >
+    For security, all API calls must come from a whitelisted IP address.
+  </Card>
+  <Card 
+    title="4. Set Up Webhooks" 
+    icon="webhook"
+    href="https://docs.me-cash.com//webhooks-event"
+  >
+    Configure an endpoint to receive real-time notifications for events.
+  </Card>
+</Columns>
+
+Once your setup is complete, you're ready to start building.
+
+➡️ **[Explore the API Reference](/api-reference)** to see all available endpoints.
 
 
-## Getting Started
+## Before Your First Call
+Keep these two critical concepts in mind.
 
-Ready to experience the future of digital finance? This documentation will guide you through:
-
-
-
-## Why meCash?
-
-Moving money shouldn't be complicated. meCash breaks down the barriers of traditional financial systems, by offering:
-
-* **Instant Global Transfers:** Send money domestically and internationally with unparalleled speed, powered by stablecoins and blockchain technology.
-* **Multi-Currency Wallet:** Manage your finances in multiple currencies with ease, adapting to your global needs.
-* **Robust Security:** Your security is our priority. We employ advanced encryption and fraud protection to safeguard your transactions.
-* **Flexible Access:** Access your account anytime, anywhere, through our intuitive mobile app and web dashboard.
-* **Merchant Integration:** Seamlessly integrate meCash into your business for efficient and secure payment processing.
-* **Affordable Transactions:** meCash is built to provide cheap access to cross border payments.
+<CardGroup cols={2}>
+  <Card title="Authentication" icon="lock">
+    All requests must include an `Authorization` header with your secret key.
+    
+    `Authorization: Bearer YOUR_SECRET_KEY`
+  </Card>
+  <Card title="Environments" icon="arrows-split">
+    Use `sandbox.api.mecash.com` for testing and `api.mecash.com` for live data. API keys are separate for each.
+  </Card>
+</CardGroup>
 
 
+## Need Help?
+We're here to support you. If you run into any issues, don't hesitate to reach out.
 
-## Get in Touch
-
-We are here to help! Connect with us:
-
-- **Email:** [support@me-cash.com](mailto:support@me-cash.com)
-- **Community Support:** Join our [Discord](https://discord.gg/Thbzep8297) to engage with other users and our support team.
-- **X (Formerly Twitter):** Follow us on [@meCash](https://x.com/meCash14) for updates.
-- **FAQs:** Visit our [Help Center](/docs/faq) for answers to common questions.
-
-
-
+<CardGroup cols={3}>
+  <Card
+    title="Email Support"
+    icon="envelope"
+    href="mailto:support@me-cash.com"
+  />
+  <Card
+    title="Discord Community"
+    icon="discord-logo"
+    href="https://discord.gg/Thbzep8297"
+  />
+  <Card
+    title="Updates on X"
+    icon="x-logo"
+    href="https://x.com/meCash14"
+  />
+</CardGroup>
