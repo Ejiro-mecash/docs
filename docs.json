@@ -1,10 +1,9 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "meCash Docs",
+  "name": "meCash API Reference",
   "api": {
-    "baseUrl": "https://api.mecash.com",
-    "path": "docs/api-reference/openapi.json"
+    "baseUrl": "https://api.mecash.com"
   },
   "colors": {
     "primary": "#9747FF",
@@ -12,97 +11,30 @@
     "dark": "#15803D"
   },
   "favicon": "/images/mecashlogo.png",
-  "navigation": {
-    "tabs": [
-      {
-        "tab": "Docs",
-        "groups": [
-          {
-            "group": "Getting started",
-            "pages": [
-              "account-creation",
-              "authentication",
-              "environments",
-              "ip-whitelisiting",
-              "webhooks-event",
-              "faq"
-            ]
-          },
-          {
-            "group": "FIAT API",
-            "pages": [
-              "FIAT-API/quote-api/about-quote",
-              "FIAT-API/payout/payout"
-
-              
-            ]
-          },
-          {
-            "group": "RAMP API",
-            "pages": [
-              "quote-ramp/create-quote-crypto",
-              "quote-ramp/create-quote-offramp",
-              "quote-ramp/get-gas-fee",
-              "quote-ramp/get-quote-crypto",
-              "quote-ramp/get-quote-offramp"
-            ]
-          },
-          {
-            "group": "AI tools",
-            "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "API reference",
-        "groups": [
-          {
-            "group": "Endpoints",
-            "openapi": {
-              "source": "/api-reference/openapi.json",
-              "directory": "api-reference"
-            }
-          },
-          {
-            "group": "Endpoint examples",
-            "pages": [
-              "wallet/get-all-wallet",
-              "wallet/get-wallet-balance",
-              "quote/create-quote",
-              "quote/update-quote",
-              "payout/create-payout"
-            ]
-          }
-        ]
-      }
-    ],
-    "global": {
-      "anchors": [
+  "navigation": [
+    {
+      "group": "Endpoints",
+      "pages": [
         {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Community",
-          "href": "https://discord.com/invite/CC5v6h52Wk",
-          "icon": "discord"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
+          "group": "API",
+          "openapi": "/api-reference/openapi.json"
         }
       ]
+    },
+    {
+      "group": "Endpoint Examples",
+      "pages": [
+        "wallet/get-all-wallet",
+        "wallet/get-wallet-balance",
+        "quote/create-quote",
+        "quote/update-quote",
+        "payout/create-payout"
+      ]
     }
-  },
+  ],
   "logo": {
-    "light": "public/images/mecashlight.png",
-    "dark": "public/logo/mecashdark.png"
+    "light": "/images/mecashlight.png",
+    "dark": "/logo/mecashdark.png"
   },
   "navbar": {
     "links": [
