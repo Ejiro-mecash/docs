@@ -10,31 +10,42 @@
     "light": "#07C983",
     "dark": "#15803D"
   },
-  "favicon": "/images/mecashlogo.png",
-  "navigation": [
-    {
-      "group": "Endpoints",
-      "pages": [
+  "favicon": "/favicon/mecashlogo.png",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "Endpoints",
+            "openapi": "/api-reference/openapi.json"
+          },
+          {
+            "group": "Endpoint Examples",
+            "pages": [
+              "wallet/get-all-wallet",
+              "wallet/get-wallet-balance",
+              "quote/create-quote",
+              "quote/update-quote",
+              "payout/create-payout"
+            ]
+          }
+        ]
+      }
+    ],
+    "global": {
+      "anchors": [
         {
-          "group": "API",
-          "openapi": "/api-reference/openapi.json"
+          "name": "Documentation",
+          "icon": "book-open-cover",
+          "url": "https:docs.me-cash.com"
         }
       ]
-    },
-    {
-      "group": "Endpoint Examples",
-      "pages": [
-        "wallet/get-all-wallet",
-        "wallet/get-wallet-balance",
-        "quote/create-quote",
-        "quote/update-quote",
-        "payout/create-payout"
-      ]
     }
-  ],
+  },
   "logo": {
-    "light": "/images/mecashlight.png",
-    "dark": "/logo/mecashdark.png"
+    "light": "/logo/meCashlight.png",
+    "dark": "/logo/meCashDark.png"
   },
   "navbar": {
     "links": [
