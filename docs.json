@@ -38,14 +38,14 @@
         {
           "name": "Documentation",
           "icon": "book-open-cover",
-          "url": "https:docs.me-cash.com"
+          "url": "https://docs.me-cash.com/"
         }
       ]
     }
   },
   "logo": {
-    "light": "/logo/meCashlight.png",
-    "dark": "/logo/meCashDark.png"
+    "light": "/logo/light.png",
+    "dark": "/logo/dark.png"
   },
   "navbar": {
     "links": [
