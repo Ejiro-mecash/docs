@@ -3,7 +3,8 @@
   "theme": "mint",
   "name": "meCash API Reference",
   "api": {
-    "baseUrl": "https://api.mecash.com"
+    "baseUrl": "https://api.mecash.com",
+    "path": "docs/api-reference/openapi.json"
   },
   "colors": {
     "primary": "#9747FF",
@@ -18,10 +19,13 @@
         "groups": [
           {
             "group": "Endpoints",
-            "openapi": "/api-reference/openapi.json"
+            "openapi": {
+              "source": "/api-reference/openapi.json",
+              "directory": "api-reference"
+            }
           },
           {
-            "group": "Endpoint Examples",
+            "group": "Endpoint examples",
             "pages": [
               "wallet/get-all-wallet",
               "wallet/get-wallet-balance",
@@ -36,9 +40,19 @@
     "global": {
       "anchors": [
         {
-          "name": "Documentation",
-          "icon": "book-open-cover",
-          "url": "https://docs.me-cash.com/"
+          "anchor": "Documentation",
+          "href": "https://docs.me-cash.com",
+          "icon": "book-open-cover"
+        },
+        {
+          "anchor": "Community",
+          "href": "https://discord.com/invite/CC5v6h52Wk",
+          "icon": "discord"
+        },
+        {
+          "anchor": "Blog",
+          "href": "https://blog.me-cash.com",
+          "icon": "newspaper"
         }
       ]
     }
