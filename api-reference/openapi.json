@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://api.me-cash.com"
+      "url": "https://sandboxapi.me-cash.com"
     }
   ],
   "x-tagGroups": [
@@ -95,6 +95,11 @@
             "type": "string",
             "example": "error"
           },
+          "errorCode": {
+            "type": "string",
+            "description": "A unique code for the error that occurred.",
+            "example": "INVALID_PARAMETER"
+          },
           "message": {
             "type": "string",
             "example": "An error occurred."
@@ -114,21 +119,35 @@
         }
       },
       "BadRequest": {
-        "description": "Bad Request - The server could not understand the request due to invalid syntax.",
+        "description": "Bad Request. The server could not process the request due to a client error (e.g., malformed request syntax, invalid parameters).",
         "content": {
           "application/json": {
             "schema": {
               "$ref": "#/components/schemas/Error"
             },
-            "example": {
-              "status": "error",
-              "message": "Invalid request body or parameters."
+            "examples": {
+              "InvalidParameter": {
+                "summary": "Invalid Parameter",
+                "value": {
+                  "status": "error",
+                  "errorCode": "INVALID_PARAMETER",
+                  "message": "A request parameter is invalid."
+                }
+              },
+              "MissingParameter": {
+                "summary": "Bad Request",
+                "value": {
+                  "status": "error",
+                  "errorCode": "BAD_REQUEST",
+                  "message": "The request was unacceptable, often due to a missing required parameter."
+                }
+              }
             }
           }
         }
       },
       "Unauthorized": {
-        "description": "Unauthorized - The client must authenticate itself to get the requested response.",
+        "description": "Unauthorized. The request requires a valid API key.",
         "content": {
           "application/json": {
             "schema": {
@@ -136,13 +155,29 @@
             },
             "example": {
               "status": "error",
-              "message": "API key is missing or invalid."
+              "errorCode": "UNAUTHORIZED",
+              "message": "No valid API key provided."
+            }
+          }
+        }
+      },
+      "Forbidden": {
+        "description": "Forbidden. The provided API key does not have permission to perform this request.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "status": "error",
+              "errorCode": "FORBIDDEN",
+              "message": "The API key doesn't have permissions to perform the request."
             }
           }
         }
       },
       "NotFound": {
-        "description": "Not Found - The server can not find the requested resource.",
+        "description": "Not Found. The requested resource could not be found.",
         "content": {
           "application/json": {
             "schema": {
@@ -150,13 +185,29 @@
             },
             "example": {
               "status": "error",
-              "message": "Resource not found."
+              "errorCode": "NOT_FOUND",
+              "message": "The requested resource doesn't exist."
+            }
+          }
+        }
+      },
+      "TooManyRequests": {
+        "description": "Too Many Requests. You have hit the rate limit. Please try again later.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "status": "error",
+              "errorCode": "TOO_MANY_REQUESTS",
+              "message": "Too many requests hit the API too quickly."
             }
           }
         }
       },
       "InternalServerError": {
-        "description": "Internal Server Error - The server has encountered a situation it doesn't know how to handle.",
+        "description": "Internal Server Error. We had a problem with our server. Try again later.",
         "content": {
           "application/json": {
             "schema": {
@@ -164,7 +215,23 @@
             },
             "example": {
               "status": "error",
-              "message": "An internal server error occurred."
+              "errorCode": "INTERNAL_SERVER_ERROR",
+              "message": "We had a problem with our server. Try again later."
+            }
+          }
+        }
+      },
+      "ServiceUnavailable": {
+        "description": "Service Unavailable. The server is temporarily unavailable. Please try again later.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "status": "error",
+              "errorCode": "SERVICE_UNAVAILABLE",
+              "message": "The server is temporarily unavailable."
             }
           }
         }
@@ -315,16 +382,54 @@
                   }
                 }
               },
-              "example": {
-                "paymentChannel": "BANK_TRANSFER",
-                "source": {
-                  "amount": 1000,
-                  "country": "NG",
-                  "currency": "NGN"
+              "examples": {
+                "NGN_to_USD": {
+                  "summary": "NGN to USD Quote",
+                  "description": "An example quote for converting Nigerian Naira to US Dollars.",
+                  "value": {
+                    "paymentChannel": "BANK_TRANSFER",
+                    "source": {
+                      "amount": 100000,
+                      "country": "NG",
+                      "currency": "NGN"
+                    },
+                    "target": {
+                      "country": "US",
+                      "currency": "USD"
+                    }
+                  }
                 },
-                "target": {
-                  "country": "US",
-                  "currency": "USD"
+                "NGN_to_GBP": {
+                  "summary": "NGN to GBP Quote",
+                  "description": "An example quote for converting Nigerian Naira to British Pounds.",
+                  "value": {
+                    "paymentChannel": "BANK_TRANSFER",
+                    "source": {
+                      "amount": 100000,
+                      "country": "NG",
+                      "currency": "NGN"
+                    },
+                    "target": {
+                      "country": "GB",
+                      "currency": "GBP"
+                    }
+                  }
+                },
+                "USD_to_EUR": {
+                  "summary": "USD to EUR Quote",
+                  "description": "An example quote for converting US Dollars to Euros.",
+                  "value": {
+                    "paymentChannel": "BANK_TRANSFER",
+                    "source": {
+                      "amount": 500,
+                      "country": "US",
+                      "currency": "USD"
+                    },
+                    "target": {
+                      "country": "DE",
+                      "currency": "EUR"
+                    }
+                  }
                 }
               }
             }
