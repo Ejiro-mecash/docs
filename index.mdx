@@ -23,7 +23,7 @@ Follow these four steps to get your account configured and ready to build.
     icon="key"
     href="https://docs.me-cash.com//authentication"
   >
-    Find your secret and publishable keys to authenticate API requests.
+    Generate your API key from the developer dashboard to authenticate API requests.
   </Card>
   <Card 
     title="3. Whitelist IP Addresses" 
@@ -37,7 +37,7 @@ Follow these four steps to get your account configured and ready to build.
     icon="webhook"
     href="https://docs.me-cash.com//webhooks-event"
   >
-    Configure an endpoint to receive real-time notifications for events.
+    Configure an endpoint to receive real-time notifications for transaction events.
   </Card>
 </Columns>
 
@@ -45,23 +45,85 @@ Once your setup is complete, you're ready to start building.
 
 ➡️ **[Explore the API Reference](/api-reference)** to see all available endpoints.
 
+## Core Features
 
-## Before Your First Call
-Keep these two critical concepts in mind.
+meCash API provides comprehensive financial services through these main categories:
 
 <CardGroup cols={2}>
-  <Card title="Authentication" icon="lock">
-    All requests must include an `Authorization` header with your secret key.
-    
-    `api-key: YOUR_API_KEY`
+  <Card title="FIAT API" icon="money-bill">
+    Process traditional currency transactions including:
+    - Multi-currency wallet management
+    - Currency conversion quotes
+    - Bank transfers and mobile money payouts
+    - Virtual account creation
   </Card>
-  <Card title="Environments" icon="arrows-split">
-    Use `sandbox.api.me-cash.com` for testing and `api.me-cash.com` for live data. API keys are separate for each.
+  <Card title="RAMP API" icon="arrows-rotate">
+    Handle cryptocurrency operations:
+    - Crypto-to-crypto conversions
+    - Fiat-to-crypto onramp/offramp
+    - Gas fee estimation
+    - Blockchain address validation
   </Card>
 </CardGroup>
 
+## Before Your First Call
+
+Keep these critical concepts in mind.
+
+<CardGroup cols={2}>
+  <Card title="Authentication" icon="lock">
+    All requests must include an `x-api-key` header with your secret key.
+    
+    ```bash
+    x-api-key: YOUR_API_KEY
+    ```
+  </Card>
+  <Card title="Environments" icon="arrows-split">
+    Currently only production environment is available:
+    - **Production**: `https://api.me-cash.com`
+    - **Sandbox**: Coming soon
+    
+    <Note>Use production for real transactions.</Note>
+  </Card>
+</CardGroup>
+
+## API Response Format
+
+All meCash API responses follow a consistent format:
+
+```json
+{
+  "status": "success",
+  "message": "Operation completed successfully",
+  "data": {
+    // Response data here
+  }
+}
+```
+
+## Error Handling
+
+API errors include detailed information to help with debugging:
+
+```json
+{
+  "status": "error",
+  "errorCode": "INVALID_API_KEY",
+  "message": "The provided API key is invalid",
+  "details": "Additional error context"
+}
+```
+
+## Rate Limits
+
+- **Standard Rate Limit**: 100 requests per minute per API key
+- **Burst Limit**: 10 requests per second
+- **Webhook Rate Limit**: 1000 events per minute
+
+<Warning>Exceeding rate limits will result in 429 Too Many Requests errors.</Warning>
 
 ## Need Help?
+
 We're here to support you. If you run into any issues, don't hesitate to reach out.
 
 <CardGroup cols={3}>
@@ -80,4 +142,23 @@ We're here to support you. If you run into any issues, don't hesitate to reach o
     icon="x-logo"
     href="https://x.com/meCash14"
   />
+</CardGroup>
+
+## Getting Started Examples
+
+Ready to dive in? Check out these practical examples:
+
+<CardGroup cols={2}>
+  <Card title="Create Your First Quote" icon="calculator" href="/quote/create-quote">
+    Learn how to generate currency conversion quotes for your users.
+  </Card>
+  <Card title="Process a Payout" icon="money-bill-transfer" href="/payout/create-payout">
+    Send money to bank accounts and mobile wallets worldwide.
+  </Card>
+  <Card title="Manage Wallets" icon="wallet" href="/wallet/get-all-wallets">
+    Create and manage multi-currency digital wallets.
+  </Card>
+  <Card title="View Examples" icon="code" href="/FIAT-API/payout/create-payout-examples/ngn-usd-example">
+    Explore detailed code examples for different use cases.
+  </Card>
 </CardGroup>

@@ -1,32 +1,88 @@
 ---
-title: 'API reference'
-description: 'Example section for showcasing API endpoints'
+title: 'API Reference'
+description: 'Complete API reference for meCash services'
 ---
 
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
+## Welcome to meCash API Reference
 
-## Welcome
+This section provides comprehensive documentation for all meCash API endpoints. Our API is organized into logical groups to help you find the functionality you need quickly.
 
+## API Overview
+
+meCash provides a RESTful API with JSON request/response formats. All endpoints require authentication via API key and must be called from whitelisted IP addresses.
+
+### Base URLs
+- **Production**: `https://api.me-cash.com`
+- **Sandbox**: Coming soon
+
+### Authentication
+All API endpoints require authentication using your API key in the `x-api-key` header:
+
+```bash
+x-api-key: YOUR_API_KEY
+```
+
+### Response Format
+All responses follow a consistent format:
+
+```json
+{
+  "status": "success|error",
+  "message": "Human-readable message",
+  "data": {
+    // Response payload
+  }
+}
+```
+
+## API Categories
+
+<CardGroup cols={2}>
+  <Card title="FIAT API" icon="money-bill">
+    Traditional currency operations including wallet management, quotes, payouts, and virtual accounts.
+  </Card>
+  <Card title="RAMP API" icon="arrows-rotate">
+    Cryptocurrency operations including crypto conversions, gas fees, and blockchain interactions.
+  </Card>
+</CardGroup>
+
+## Rate Limits
+
+- **Standard**: 100 requests per minute per API key
+- **Burst**: 10 requests per second
+- **Webhooks**: 1000 events per minute
+
+<Warning>Exceeding rate limits will result in 429 Too Many Requests errors.</Warning>
+
+## Error Codes
+
+| Code | Description |
+|------|-------------|
+| 400 | Bad Request - Invalid parameters |
+| 401 | Unauthorized - Invalid API key |
+| 403 | Forbidden - IP not whitelisted |
+| 404 | Not Found - Resource doesn't exist |
+| 422 | Unprocessable Entity - Validation failed |
+| 429 | Too Many Requests - Rate limit exceeded |
+| 500 | Internal Server Error - Server error |
+
+## Getting Started
+
+1. **Set up your account**: [Account Creation](/account-creation)
+2. **Get your API key**: [Authentication](/authentication)
+3. **Whitelist your IP**: [IP Whitelisting](/ip-whitelisting)
+4. **Explore endpoints**: Browse the categories below
 
 <Card
-  title="mecash Endpoints"
+  title="OpenAPI Specification"
   icon="api"
   href="https://github.com/Ejiro-mecash/docs/blob/main/api-reference/openapi.json"
 >
-  View the OpenAPI specification file
+  View the complete OpenAPI specification file
 </Card>
 
-## Authentication
+## Need Help?
 
-All API endpoints are authenticated using your API Key and picked up from the specification file.
-
-```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
-```
+- **Email Support**: [support@me-cash.com](mailto:support@me-cash.com)
+- **Discord Community**: [Join our Discord](https://discord.gg/CC5v6h52Wk)
+- **Documentation**: [Full Documentation](https://docs.me-cash.com)

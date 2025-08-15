@@ -1,80 +1,101 @@
 ---
-title: "Quickstart"
-description: "Start building awesome documentation in minutes"
+title: "Quickstart Guide"
+description: "Get started with meCash API in minutes"
 ---
 
-## Get started in three steps
+## Get started with meCash API in 4 steps
 
-Get your documentation site running locally and make your first customization.
+Follow this quickstart guide to integrate meCash API into your application.
 
-### Step 1: Set up your local environment
+### Step 1: Create Your Account
 
 <AccordionGroup>
-  <Accordion icon="copy" title="Clone your docs locally">
-    During the onboarding process, you created a GitHub repository with your docs content if you didn't already have one. You can find a link to this repository in your [dashboard](https://dashboard.mintlify.com).
+  <Accordion icon="user-plus" title="Sign up for meCash Business">
+    1. Visit [meCash Business](https://business.me-cash.com)
+    2. Click **Sign Up** and complete the registration form
+    3. Verify your email address
+    4. Complete KYB (Know Your Business) verification
     
-    To clone the repository locally so that you can make and preview changes to your docs, follow the [Cloning a repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) guide in the GitHub docs.
+    <Tip>KYB verification is required to access API services.</Tip>
   </Accordion>
-  <Accordion icon="rectangle-terminal" title="Start the preview server">
-    1. Install the Mintlify CLI: `npm i -g mint`
-    2. Navigate to your docs directory and run: `mint dev`
-    3. Open `http://localhost:3000` to see your docs live!
+  <Accordion icon="shield-check" title="Complete KYB Verification">
+    Submit the required documents:
+    - Business registration certificate
+    - Valid ID of business director
+    - Proof of address
     
-    <Tip>Your preview updates automatically as you edit files.</Tip>
+    <Warning>Your API access will be enabled after KYB approval.</Warning>
   </Accordion>
 </AccordionGroup>
 
-### Step 2: Deploy your changes
+### Step 2: Get Your API Keys
 
 <AccordionGroup>
-  <Accordion icon="github" title="Install our GitHub app">
-    Install the Mintlify GitHub app from your [dashboard](https://dashboard.mintlify.com/settings/organization/github-app).
+  <Accordion icon="key" title="Generate API Key">
+    1. Log into your meCash Business dashboard
+    2. Navigate to **Developer** section
+    3. Click **Create a Key** in the API Keys section
+    4. Copy and securely store your API key
     
-    Our GitHub app automatically deploys your changes to your docs site, so you don't need to manage deployments yourself.
+    <Tip>Keep your API key secure and never share it publicly.</Tip>
+  </Accordion>
+  <Accordion icon="arrows-split" title="Environment Setup">
+    - **Production**: `https://api.me-cash.com`
+    - **Sandbox**: Coming soon
+    
+    <Note>Currently only production environment is available.</Note>
+  </Accordion>
+</AccordionGroup>
+
+### Step 3: Configure Security
+
+<Accordion icon="shield" title="IP Whitelisting">
+  1. Go to **Developer** section in your dashboard
+  2. Navigate to **IP Whitelisting**
+  3. Add your server's IP addresses
+  4. Save the configuration
+  
+  <Warning>API calls will be rejected from non-whitelisted IPs.</Warning>
 </Accordion>
-<Accordion icon="palette" title="Update your site name and colors">
-    For a first change, let's update the name and colors of your docs site.
 
-    1. Open `docs.json` in your editor.
-    2. Change the `"name"` field to your project name.
-    3. Update the `"colors"` to match your brand.
-    4. Save and see your changes instantly at `http://localhost:3000`.
+### Step 4: Make Your First API Call
 
-    <Tip>Try changing the primary color to see an immediate difference!</Tip>
-  </Accordion>
-</AccordionGroup>
+<Accordion icon="code" title="Test API Connection">
+  Try this simple request to test your setup:
 
-### Step 3: Go live
+  ```bash
+  curl -X GET "https://api.me-cash.com/v1/wallets" \
+    -H "x-api-key: YOUR_API_KEY" \
+    -H "Content-Type: application/json"
+  ```
 
-<Accordion icon="rocket" title="Publish your docs">
-  1. Commit and push your changes.
-  2. Your docs will update and be live in moments!
+  <Tip>Replace `YOUR_API_KEY` with your actual API key.</Tip>
 </Accordion>
 
 ## Next steps
 
-Now that you have your docs running, explore these key features:
+Now that you have basic setup complete, explore these key features:
 
 <CardGroup cols={2}>
 
-<Card title="Write Content" icon="pen-to-square" href="/essentials/markdown">
-  Learn MDX syntax and start writing your documentation.
+<Card title="Create Quotes" icon="calculator" href="/quote/create-quote">
+  Learn how to generate currency conversion quotes.
 </Card>
 
-<Card title="Customize style" icon="palette" href="/essentials/settings">
-  Make your docs match your brand perfectly.
+<Card title="Process Payouts" icon="money-bill-transfer" href="/payout/create-payout">
+  Send money to bank accounts and mobile wallets.
 </Card>
 
-<Card title="Add code examples" icon="square-code" href="/essentials/code">
-  Include syntax-highlighted code blocks.
+<Card title="Manage Wallets" icon="wallet" href="/wallet/get-all-wallets">
+  Create and manage multi-currency wallets.
 </Card>
 
-<Card title="API documentation" icon="code" href="/api-reference/introduction">
-  Auto-generate API docs from OpenAPI specs.
+<Card title="Handle Webhooks" icon="webhook" href="/api-reference/endpoint/webhook">
+  Set up real-time transaction notifications.
 </Card>
 
 </CardGroup>
 
 <Note>
-  **Need help?** See our [full documentation](https://mintlify.com/docs) or join our [community](https://mintlify.com/community).
+  **Need help?** Contact us at [support@me-cash.com](mailto:support@me-cash.com) or join our [Discord community](https://discord.gg/CC5v6h52Wk).
 </Note>
