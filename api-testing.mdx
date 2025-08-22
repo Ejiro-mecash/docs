@@ -1,0 +1,203 @@
+---
+title: "API Testing Guide"
+description: "Test your meCash API integration with practical examples"
+---
+
+# API Testing Guide
+
+Learn how to test your meCash API integration using various tools and methods.
+
+## Testing Tools
+
+<CardGroup cols={3}>
+  <Card title="cURL" icon="terminal">
+    Command-line tool for making HTTP requests
+  </Card>
+  <Card title="Postman" icon="globe">
+    Popular GUI tool for API testing
+  </Card>
+  <Card title="Code Examples" icon="code">
+    Language-specific examples in our docs
+  </Card>
+</CardGroup>
+
+## Basic Authentication Test
+
+Test your API key authentication:
+
+```bash
+curl -X GET "https://api.me-cash.com/v1/wallets" \
+  -H "x-api-key: YOUR_API_KEY" \
+  -H "Content-Type: application/json"
+```
+
+Expected response:
+```json
+{
+  "status": "success",
+  "message": "Wallets retrieved successfully",
+  "data": {
+    "wallets": []
+  }
+}
+```
+
+## Testing Common Endpoints
+
+### 1. Get All Wallets
+
+```bash
+curl -X GET "https://api.me-cash.com/v1/wallets" \
+  -H "x-api-key: YOUR_API_KEY"
+```
+
+### 2. Create a Quote
+
+```bash
+curl -X POST "https://api.me-cash.com/v1/quotes" \
+  -H "x-api-key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "from_currency": "USD",
+    "to_currency": "EUR",
+    "amount": "1000.00"
+  }'
+```
+
+### 3. Create a Payout
+
+```bash
+curl -X POST "https://api.me-cash.com/v1/payouts" \
+  -H "x-api-key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "amount": "100.00",
+    "currency": "USD",
+    "recipient_name": "John Doe",
+    "recipient_email": "john@example.com",
+    "bank_code": "US001",
+    "account_number": "1234567890"
+  }'
+```
+
+## Postman Collection
+
+Import this collection into Postman for easy testing:
+
+```json
+{
+  "info": {
+    "name": "meCash API",
+    "description": "meCash API testing collection"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "https://api.me-cash.com"
+    },
+    {
+      "key": "api_key",
+      "value": "YOUR_API_KEY"
+    }
+  ],
+  "request": [
+    {
+      "name": "Get Wallets",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{api_key}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/v1/wallets"
+        }
+      }
+    }
+  ]
+}
+```
+
+## Error Testing
+
+Test error scenarios to ensure proper handling:
+
+### Invalid API Key
+```bash
+curl -X GET "https://api.me-cash.com/v1/wallets" \
+  -H "x-api-key: INVALID_KEY"
+```
+
+Expected response:
+```json
+{
+  "status": "error",
+  "errorCode": "INVALID_API_KEY",
+  "message": "The provided API key is invalid"
+}
+```
+
+### Missing Required Fields
+```bash
+curl -X POST "https://api.me-cash.com/v1/quotes" \
+  -H "x-api-key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "from_currency": "USD"
+  }'
+```
+
+## Rate Limit Testing
+
+Test rate limits by making multiple rapid requests:
+
+```bash
+for i in {1..15}; do
+  curl -X GET "https://api.me-cash.com/v1/wallets" \
+    -H "x-api-key: YOUR_API_KEY" &
+done
+wait
+```
+
+## Webhook Testing
+
+Test webhook endpoints using tools like webhook.site:
+
+1. Go to [webhook.site](https://webhook.site)
+2. Copy the provided URL
+3. Add it to your meCash webhook configuration
+4. Trigger events to see webhook payloads
+
+## Environment Variables
+
+Set up environment variables for testing:
+
+```bash
+export MECASH_API_KEY="your_api_key_here"
+export MECASH_BASE_URL="https://api.me-cash.com"
+```
+
+Then use in your requests:
+```bash
+curl -X GET "$MECASH_BASE_URL/v1/wallets" \
+  -H "x-api-key: $MECASH_API_KEY"
+```
+
+## Testing Checklist
+
+- [ ] API key authentication works
+- [ ] All required endpoints respond correctly
+- [ ] Error handling works as expected
+- [ ] Rate limits are respected
+- [ ] Webhooks are received and processed
+- [ ] Response formats match documentation
+- [ ] Required fields validation works
+- [ ] Optional fields are handled properly
+
+## Need Help?
+
+- Check the [API Reference](/api-reference) for detailed endpoint documentation
+- Review [Error Codes](/api-reference#errors) for troubleshooting
+- Contact support at [support@me-cash.com](mailto:support@me-cash.com)

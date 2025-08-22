@@ -56,15 +56,93 @@ All responses follow a consistent format:
 
 ## Error Codes
 
-| Code | Description |
-|------|-------------|
-| 400 | Bad Request - Invalid parameters |
-| 401 | Unauthorized - Invalid API key |
-| 403 | Forbidden - IP not whitelisted |
-| 404 | Not Found - Resource doesn't exist |
-| 422 | Unprocessable Entity - Validation failed |
-| 429 | Too Many Requests - Rate limit exceeded |
-| 500 | Internal Server Error - Server error |
+<import { Tabs } from 'nextra/components'>
+
+<Tabs items={['HTTP Status Codes', 'API Error Codes', 'Common Scenarios']}>
+
+  <Tabs.Tab>
+    ### HTTP Status Codes
+
+    | Code | Status | Description |
+    |------|--------|-------------|
+    | 200 | OK | Request successful |
+    | 201 | Created | Resource created successfully |
+    | 400 | Bad Request | Invalid parameters or request format |
+    | 401 | Unauthorized | Invalid or missing API key |
+    | 403 | Forbidden | IP not whitelisted or insufficient permissions |
+    | 404 | Not Found | Resource doesn't exist |
+    | 422 | Unprocessable Entity | Validation failed |
+    | 429 | Too Many Requests | Rate limit exceeded |
+    | 500 | Internal Server Error | Server error occurred |
+    | 502 | Bad Gateway | Gateway error |
+    | 503 | Service Unavailable | Service temporarily unavailable |
+
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    ### API Error Codes
+
+    | Error Code | Description | HTTP Status |
+    |------------|-------------|-------------|
+    | `INVALID_API_KEY` | The provided API key is invalid | 401 |
+    | `IP_NOT_WHITELISTED` | Request from non-whitelisted IP | 403 |
+    | `INVALID_QUOTE_ID` | Quote ID is invalid or expired | 422 |
+    | `INSUFFICIENT_BALANCE` | Insufficient wallet balance | 422 |
+    | `INVALID_RECIPIENT` | Recipient information is invalid | 422 |
+    | `CURRENCY_NOT_SUPPORTED` | Currency pair not supported | 422 |
+    | `TRANSACTION_LIMIT_EXCEEDED` | Transaction amount exceeds limits | 422 |
+    | `DUPLICATE_TRANSACTION` | Transaction with same reference exists | 422 |
+    | `RATE_LIMIT_EXCEEDED` | Too many requests in time period | 429 |
+    | `INTERNAL_ERROR` | Internal server error | 500 |
+
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    ### Common Scenarios
+
+    **Authentication Issues**
+    ```json
+    {
+      "status": "error",
+      "errorCode": "INVALID_API_KEY",
+      "message": "The provided API key is invalid"
+    }
+    ```
+
+    **IP Whitelisting**
+    ```json
+    {
+      "status": "error",
+      "errorCode": "IP_NOT_WHITELISTED",
+      "message": "Your IP address is not whitelisted"
+    }
+    ```
+
+    **Validation Errors**
+    ```json
+    {
+      "status": "error",
+      "errorCode": "INVALID_RECIPIENT",
+      "message": "Recipient account details are invalid",
+      "details": {
+        "field": "accountNumber",
+        "reason": "Account number format is invalid"
+      }
+    }
+    ```
+
+    **Rate Limiting**
+    ```json
+    {
+      "status": "error",
+      "errorCode": "RATE_LIMIT_EXCEEDED",
+      "message": "Rate limit exceeded. Try again in 60 seconds"
+    }
+    ```
+
+  </Tabs.Tab>
+
+</Tabs>
 
 ## Getting Started
 

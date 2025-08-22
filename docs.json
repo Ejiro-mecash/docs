@@ -1,9 +1,11 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
+  "proxy":"true",
   "name": "meCash API Reference",
   "api": {
     "baseUrl": "https://api.me-cash.com",
+    "proxy": true,
     "path": "docs/api-reference/openapi.json"
   },
   "colors": {
@@ -27,17 +29,6 @@
               "ip-whitelisting",
               "environments"
             ]
-          },
-          {
-            "group": "Essentials",
-            "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/navigation",
-              "essentials/reusable-snippets",
-              "essentials/settings"
-            ]
           }
         ]
       },
@@ -53,7 +44,6 @@
               "quote/create-quote",
               "quote/update-quote",
               "payout/create-payout",
-              "payout/supported-currencies",
               "transaction/get-transaction",
               "virtual-account/create-virtual-account",
               "virtual-account/get-virtual-account"
@@ -122,13 +112,8 @@
               "community",
               "development"
             ]
-          },
-          {
-            "group": "Tools",
-            "pages": [
-              "snippets/snippet-intro"
-            ]
           }
+
         ]
       }
     ],

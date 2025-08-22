@@ -1,0 +1,63 @@
+---
+title: "Webhooks & Events"
+description: "Set up webhooks to receive real-time transaction notifications"
+---
+
+# Webhooks & Events
+
+Webhooks allow you to receive real-time notifications when events occur in your meCash account.
+
+## Overview
+
+Webhooks are HTTP POST requests sent to your server when specific events occur. They contain event data in JSON format and are sent with a signature for security verification.
+
+## Supported Events
+
+- `transaction.created` - New transaction initiated
+- `transaction.completed` - Transaction successfully completed
+- `transaction.failed` - Transaction failed
+- `payout.created` - New payout initiated
+- `payout.completed` - Payout successfully completed
+- `payout.failed` - Payout failed
+- `quote.created` - New quote generated
+- `quote.expired` - Quote expired
+
+## Setting Up Webhooks
+
+1. Log into your meCash Business dashboard
+2. Navigate to **Developer** → **Webhooks**
+3. Click **Add Webhook Endpoint**
+4. Enter your webhook URL (must be HTTPS)
+5. Select the events you want to receive
+6. Save the configuration
+
+## Webhook Payload Format
+
+```json
+{
+  "event": "transaction.completed",
+  "data": {
+    "transaction_id": "txn_123456789",
+    "amount": "1000.00",
+    "currency": "USD",
+    "status": "completed"
+  },
+  "timestamp": "2024-01-01T12:05:00Z",
+  "webhook_id": "webhook_123456789"
+}
+```
+
+## Security
+
+Each webhook includes a signature in the `X-meCash-Signature` header for verification.
+
+## Best Practices
+
+- Handle duplicate webhooks (check webhook_id)
+- Respond with HTTP 200 within 10 seconds
+- Always verify webhook signatures
+- Log all webhook events for debugging
+
+## Need Help?
+
+Contact support at [support@me-cash.com](mailto:support@me-cash.com)

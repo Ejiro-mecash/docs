@@ -3,11 +3,12 @@
   "info": {
     "title": "meCash API",
     "version": "3.1.0",
-    "description": "API for meCash services, including FIAT and Ramp operations.\nThis is the OpenAPI speification for the meCash API, covering all available endpoints for wallet management, currency quotes, and payouts.\n\nIt follows a design-first approach based on OpenAPI 3.0.\n\nAuthentication is handled via an API key passed in the `x-api-key` header. Replace `YOUR_API_KEY` with your actual key when making requests.\n\nSome useful links:\n- [meCash Documentation](https://docs.me-cash.com/)\n- [Authentication Guide](https://docs.me-cash.com/authentication)\n"
+    "description": "API for meCash services, including FIAT and Ramp operations. This is the OpenAPI specification for the meCash API, covering all available endpoints for wallet management, currency quotes, and payouts.\n\nIt follows a design-first approach based on OpenAPI 3.0.\n\nAuthentication is handled via an API key passed in the `x-api-key` header. Replace `YOUR_API_KEY` with your actual key when making requests.\n\nSome useful links:\n- [meCash Documentation](https://docs.me-cash.com/)\n- [Authentication Guide](https://docs.me-cash.com/authentication)"
   },
   "servers": [
     {
-      "url": "https://sandboxapi.me-cash.com"
+      "url": "https://api.me-cash.com",
+      "description": "Production server"
     }
   ],
   "x-tagGroups": [
