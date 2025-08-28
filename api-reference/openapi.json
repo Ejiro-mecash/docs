@@ -9,6 +9,10 @@
     {
       "url": "https://api.me-cash.com",
       "description": "Production server"
+    },
+    {
+      "url": "https://sandbox.api.me-cash.com",
+      "description": "Sandbox server for testing"
     }
   ],
   "x-tagGroups": [

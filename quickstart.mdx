@@ -40,10 +40,10 @@ Follow this quickstart guide to integrate meCash API into your application.
     <Tip>Keep your API key secure and never share it publicly.</Tip>
   </Accordion>
   <Accordion icon="arrows-split" title="Environment Setup">
-    - **Production**: `https://api.me-cash.com`
-    - **Sandbox**: Coming soon
+    - **Production**: `https://api.me-cash.com` - For live transactions
+    - **Sandbox**: `https://sandboxapi.me-cash.com` - For testing and development
     
-    <Note>Currently only production environment is available.</Note>
+    <Note>Use sandbox for testing your integration before going live.</Note>
   </Accordion>
 </AccordionGroup>
 
@@ -64,12 +64,13 @@ Follow this quickstart guide to integrate meCash API into your application.
   Try this simple request to test your setup:
 
   ```bash
-  curl -X GET "https://api.me-cash.com/v1/wallets" \
+  # Test with sandbox environment
+  curl -X GET "https://sandboxapi.me-cash.com/v1/wallets" \
     -H "x-api-key: YOUR_API_KEY" \
     -H "Content-Type: application/json"
   ```
 
-  <Tip>Replace `YOUR_API_KEY` with your actual API key.</Tip>
+  <Tip>Replace `YOUR_SANDBOX_API_KEY` with your sandbox API key. Use sandbox for testing!</Tip>
 </Accordion>
 
 ## Next steps

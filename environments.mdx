@@ -1,20 +1,101 @@
-# meCash Environment
+---
+title: "Environments"
+description: "Learn about meCash production and sandbox environments"
+---
 
-meCash offers a Production environment for development and deployment.
+# meCash Environments
 
-The Production environment for processing real transactions with your users.
+meCash offers two environments to support your development workflow: **Sandbox** for testing and **Production** for live transactions.
+
+## Sandbox Environment
+
+The Sandbox environment is perfect for development, testing, and integration before going live.
+
+#### Sandbox Base URL
+`https://sandbox.api.me-cash.com`
+
+### Key Features:
+- **Safe Testing:** Test all API functionality without affecting real accounts or transactions
+- **Realistic Data:** Use test data that mirrors production behavior
+- **Full API Access:** All endpoints and features available for testing
+- **No Real Money:** All transactions are simulated
+
+### How to Access:
+- **Account Setup:** Create a [meCash sandbox account](/account-creation)
+- **API Keys:** Generate sandbox API keys from your Developer dashboard
+- **Testing:** Use sandbox keys for all development and testing
+
+<Note>Always test your integration thoroughly in sandbox before moving to production.</Note>
+
+## Production Environment
+
+The Production environment processes real transactions with your users.
 
 #### Production Base URL
 `https://api.me-cash.com`
 
 ### Key Features:
-- **Real Transactions:** Processes genuine payments and affects actual accounts.
-- **Secure Operations:** Employs robust security measures to protect sensitive data.
-- **High Availability:** Designed for reliability and uptime to support business-critical operations.
+- **Real Transactions:** Processes genuine payments and affects actual accounts
+- **Secure Operations:** Employs robust security measures to protect sensitive data
+- **High Availability:** Designed for reliability and uptime to support business-critical operations
+- **Live Data:** Real customer transactions and account balances
 
 ### How to Access:
-- **Account Setup:** Ensure you have a verified [meCash production account](/account-creation.mdx).
-- **API Keys:** Obtain [API keys](/authentication.mdx) from your meCash Developer dashboard.
+- **Account Setup:** Ensure you have a verified [meCash production account](/account-creation)
+- **API Keys:** Obtain [API keys](/authentication) from your meCash Developer dashboard
+- **Go-Live:** Only use production after thorough sandbox testing
+
+<Warning>Production transactions involve real money. Test thoroughly in sandbox first!</Warning>
+
+## Environment Comparison
+
+| Feature | Sandbox | Production |
+|---------|---------|------------|
+| **Purpose** | Development & Testing | Live Transactions |
+| **Base URL** | `https://sandboxapi.me-cash.com` | `https://api.me-cash.com` |
+| **API Keys** | Sandbox keys | Production keys |
+| **Transactions** | Simulated | Real money |
+| **Data** | Test data | Live customer data |
+| **Rate Limits** | Same as production | Standard limits |
+| **Webhooks** | Test events | Real events |
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Development Workflow" icon="code">
+    1. Start with sandbox environment
+    2. Test all API endpoints thoroughly
+    3. Validate webhook handling
+    4. Test error scenarios
+    5. Move to production when ready
+  </Card>
+  <Card title="API Key Management" icon="key">
+    - Use different API keys for each environment
+    - Never mix sandbox and production keys
+    - Store keys securely in environment variables
+    - Rotate keys regularly for security
+  </Card>
+</CardGroup>
+
+## Switching Between Environments
+
+To switch between environments, simply change the base URL in your API calls:
+
+```bash
+# Sandbox
+curl -X GET "https://sandboxapi.me-cash.com/v1/wallets" \
+  -H "x-api-key: YOUR_SANDBOX_KEY"
+
+# Production  
+curl -X GET "https://api.me-cash.com/v1/wallets" \
+  -H "x-api-key: YOUR_PRODUCTION_KEY"
+```
+
+## Need Help?
+
+- Check the [Quickstart Guide](/quickstart) for setup instructions
+- Review the [API Reference](/api-reference) for endpoint details
+- Contact support at [support@me-cash.com](mailto:support@me-cash.com)
 
 
 

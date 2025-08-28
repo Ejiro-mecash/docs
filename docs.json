@@ -1,10 +1,19 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "proxy":"true",
+  "proxy": "true",
   "name": "meCash API Reference",
   "api": {
-    "baseUrl": "https://api.me-cash.com",
+    "baseUrl": [
+      {
+        "name": "Production",
+        "url": "https://api.me-cash.com"
+      },
+      {
+        "name": "Sandbox",
+        "url": "https://sandbox.api.me-cash.com"
+      }
+    ],
     "proxy": true,
     "path": "docs/api-reference/openapi.json"
   },
@@ -113,7 +122,6 @@
               "development"
             ]
           }
-
         ]
       }
     ],
