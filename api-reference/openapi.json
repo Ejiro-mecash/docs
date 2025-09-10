@@ -254,7 +254,35 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "A list of all user wallets retrieved successfully."
+"description": "A list of all user wallets retrieved successfully.",
+"content": {
+  "application/json": {
+    "example": {
+      "message": "wallets fetched successfully",
+      "status": "success",
+      "data": [
+        {
+          "id": "fdef9aac-bd91-4ab0-b866-xxxxxxxxxxxx",
+          "balance": 11262.00,
+          "currency": "MWK",
+          "country": "MW"
+        },
+        {
+          "id": "e19ff27f-9ed4-41f7-b622-c39f9296e2e6",
+          "balance": 2255.27,
+          "currency": "NGN",
+          "country": "NG"
+        },
+        {
+          "id": "78f2dc44-374f-4129-8984-5482437b7568",
+          "balance": 30.00,
+          "currency": "RWF",
+          "country": "RW"
+        }
+      ]
+    }
+  }
+}
           },
           "401": {
             "$ref": "#/components/responses/Unauthorized"
@@ -321,7 +349,23 @@
         ],
         "responses": {
           "200": {
-            "description": "Wallet balance retrieved successfully."
+            "description": "Wallet balance retrieved successfully.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "success",
+                  "message": "Wallet balance retrieved successfully",
+                  "data": {
+                    "walletId": "wal_01HZX8W9K2Q1",
+                    "currency": "NGN",
+                    "country": "NG",
+                    "balance": "250000.50",
+                    "available": "240000.50",
+                    "updatedAt": "2024-08-01T10:15:30Z"
+                  }
+                }
+              }
+            }
           },
           "401": {
             "$ref": "#/components/responses/Unauthorized"
@@ -442,7 +486,38 @@
         },
         "responses": {
           "201": {
-            "description": "Quote created successfully."
+            "description": "Quote created successfully.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "success",
+                  "message": "Quote created successfully",
+                  "data": {
+                    "quoteId": "qte_01HZXXF9PMQW",
+                    "paymentChannel": "BANK_TRANSFER",
+                    "rate": "0.00123",
+                    "expiresAt": "2024-08-01T10:20:00Z",
+                    "source": {
+                      "amount": "100000.00",
+                      "currency": "NGN",
+                      "country": "NG"
+                    },
+                    "target": {
+                      "amount": "123.00",
+                      "currency": "USD",
+                      "country": "US"
+                    },
+                    "fees": {
+                      "total": "500.00",
+                      "breakdown": [
+                        { "type": "processing_fee", "amount": "300.00" },
+                        { "type": "network_fee", "amount": "200.00" }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
           },
           "400": {
             "$ref": "#/components/responses/BadRequest"
@@ -497,7 +572,38 @@
         },
         "responses": {
           "200": {
-            "description": "Quote updated successfully."
+            "description": "Quote updated successfully.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "success",
+                  "message": "Quote updated successfully",
+                  "data": {
+                    "quoteId": "qte_01HZXXF9PMQW",
+                    "paymentChannel": "BANK_TRANSFER",
+                    "rate": "0.00125",
+                    "expiresAt": "2024-08-01T10:25:00Z",
+                    "source": {
+                      "amount": "120000.00",
+                      "currency": "NGN",
+                      "country": "NG"
+                    },
+                    "target": {
+                      "amount": "150.00",
+                      "currency": "USD",
+                      "country": "US"
+                    },
+                    "fees": {
+                      "total": "550.00",
+                      "breakdown": [
+                        { "type": "processing_fee", "amount": "350.00" },
+                        { "type": "network_fee", "amount": "200.00" }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
           },
           "400": {
             "$ref": "#/components/responses/BadRequest"
@@ -523,7 +629,27 @@
         "description": "This API is used to create a payout to a beneficiary. \nThe required parameters vary based on the payout type. Please refer to the [meCash Payout Documentation](https://docs.me-cash.com/payout/create-payout) for detailed examples and schemas for each payout method.",
         "responses": {
           "201": {
-            "description": "Payout created successfully."
+            "description": "Payout created successfully.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "success",
+                  "message": "Payout created successfully",
+                  "data": {
+                    "payoutId": "pay_01HZY0A1WQ9E",
+                    "status": "processing",
+                    "amount": "100.00",
+                    "currency": "USD",
+                    "recipient": {
+                      "name": "John Doe",
+                      "bankCode": "US001",
+                      "accountNumber": "1234567890"
+                    },
+                    "createdAt": "2024-08-01T10:10:00Z"
+                  }
+                }
+              }
+            }
           },
           "400": {
             "$ref": "#/components/responses/BadRequest"
@@ -556,7 +682,28 @@
         ],
         "responses": {
           "200": {
-            "description": "Transaction details retrieved successfully."
+            "description": "Transaction details retrieved successfully.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "success",
+                  "message": "Transaction retrieved successfully",
+                  "data": {
+                    "transactionId": "txn_01HZXY3X4M7N",
+                    "type": "PAYOUT",
+                    "status": "completed",
+                    "amount": "100.00",
+                    "currency": "USD",
+                    "createdAt": "2024-08-01T09:30:00Z",
+                    "completedAt": "2024-08-01T09:35:00Z",
+                    "metadata": {
+                      "reference": "REF_123456789",
+                      "channel": "BANK_TRANSFER"
+                    }
+                  }
+                }
+              }
+            }
           },
           "401": {
             "$ref": "#/components/responses/Unauthorized"
@@ -599,7 +746,24 @@
         },
         "responses": {
           "201": {
-            "description": "Virtual account created successfully."
+            "description": "Virtual account created successfully.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "success",
+                  "message": "Virtual account created successfully",
+                  "data": {
+                    "accountId": "vac_01HZY1KZKQ1P",
+                    "accountNumber": "0123456789",
+                    "bankName": "GTBank",
+                    "currency": "NGN",
+                    "country": "NG",
+                    "accountName": "NNDDD",
+                    "createdAt": "2024-08-01T10:40:00Z"
+                  }
+                }
+              }
+            }
           },
           "400": {
             "$ref": "#/components/responses/BadRequest"
@@ -633,7 +797,25 @@
         ],
         "responses": {
           "200": {
-            "description": "Virtual account details retrieved successfully."
+            "description": "Virtual account details retrieved successfully.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "success",
+                  "message": "Virtual account retrieved successfully",
+                  "data": {
+                    "accountId": "vac_01HZY1KZKQ1P",
+                    "accountNumber": "0123456789",
+                    "bankName": "GTBank",
+                    "currency": "NGN",
+                    "country": "NG",
+                    "accountName": "NNDDD",
+                    "createdAt": "2024-08-01T10:40:00Z",
+                    "status": "active"
+                  }
+                }
+              }
+            }
           },
           "401": {
             "$ref": "#/components/responses/Unauthorized"

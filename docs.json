@@ -3,6 +3,8 @@
   "theme": "mint",
   "name": "meCash API Reference",
   "api": {
+    "proxy": false,
+    "path": "docs/api-reference/openapi.json",
     "baseUrl": [
       {
         "name": "Production",
@@ -12,9 +14,8 @@
         "name": "Sandbox",
         "url": "https://sandbox.api.me-cash.com"
       }
-    ],
-    "proxy": true,
-    "path": "docs/api-reference/openapi.json"
+    ]
+
   },
   "colors": {
     "primary": "#9747FF",
