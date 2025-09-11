@@ -14,8 +14,17 @@
         "name": "Sandbox",
         "url": "https://sandbox.api.me-cash.com"
       }
-    ]
-
+    ],
+    "playground": {
+      "display": "interactive"
+    },
+    "examples": {
+      "languages": [
+        "javascript",
+        "curl",
+        "python"
+      ]
+    }
   },
   "colors": {
     "primary": "#9747FF",
