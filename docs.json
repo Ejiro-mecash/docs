@@ -3,9 +3,8 @@
   "theme": "mint",
   "name": "meCash API Reference",
   "api": {
-      "playground": {
-        "proxy": false
-      }
+    "playground": {
+      "proxy": false
     },
     "path": "docs/api-reference/openapi.json",
     "baseUrl": [
@@ -18,9 +17,7 @@
         "url": "https://sandbox.api.me-cash.com"
       }
     ],
-    "playground": {
-      "display": "interactive"
-    },
+
     "examples": {
       "languages": [
         "javascript",
