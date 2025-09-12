@@ -3,7 +3,10 @@
   "theme": "mint",
   "name": "meCash API Reference",
   "api": {
-    "proxy": false,
+      "playground": {
+        "proxy": false
+      }
+    },
     "path": "docs/api-reference/openapi.json",
     "baseUrl": [
       {
@@ -51,7 +54,7 @@
         ]
       },
       {
-        "tab": "API Reference -- PLAYGROUND",
+        "tab": "API Reference",
         "groups": [
           {
             "group": "FIAT API",
