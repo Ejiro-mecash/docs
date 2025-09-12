@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://api.me-cash.com",
+      "url": "https://devapi.me-cash.com",
       "description": "Production server"
     },
     {
