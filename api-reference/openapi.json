@@ -11,7 +11,7 @@
       "description": "Production server"
     },
     {
-      "url": "https://api.test.me-cash.com",
+      "url": "https://devapi.me-cash.com",
       "description": "Sandbox server for testing"
     }
   ],
@@ -227,7 +227,7 @@
     }
   },
   "paths": {
-    "/user/v1/address/country": {
+    "/v1/wallet": {
       "get": {
         "tags": [
           "Wallet"
