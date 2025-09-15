@@ -7,11 +7,11 @@
   },
   "servers": [
     {
-      "url": "https://api.restful-api.dev",
+      "url": "https://devapi.api.me-cash.com",
       "description": "Production server"
     },
     {
-      "url": "https://sandbox.api.me-cash.com",
+      "url": "https://api.restful-api.dev",
       "description": "Sandbox server for testing"
     }
   ],
