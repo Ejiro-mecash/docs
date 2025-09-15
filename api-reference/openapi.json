@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://api.restful-api.dev/objects",
+      "url": "https://api.restful-api.dev",
       "description": "Production server"
     },
     {
@@ -227,7 +227,7 @@
     }
   },
   "paths": {
-    "/v1/wallet": {
+    "/objects": {
       "get": {
         "tags": [
           "Wallet"
