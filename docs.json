@@ -10,7 +10,7 @@
     "baseUrl": [
       {
         "name": "Production",
-        "url": "https://devapi.me-cash.com"
+        "url": "https://api.restful-api.dev/objects"
       },
       {
         "name": "Sandbox",
