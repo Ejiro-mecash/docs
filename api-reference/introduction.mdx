@@ -1,8 +1,3 @@
----
-title: "API Reference"
-description: "Complete reference for the meCash API including all endpoints, authentication, and interactive playground"
----
-
 # API Reference
 
 Welcome to the meCash API Reference! This comprehensive guide provides everything you need to integrate with the meCash platform, from authentication to advanced features.
@@ -18,18 +13,12 @@ The meCash API allows you to:
 
 ## Authentication
 
-All API requests require authentication using your API key:
+All API requests require authentication using your API key.
 
-```bash
-curl -H "x-api-key: API_KEY:YOUR_API_KEY" \
-     https://sandboxapi.me-cash.com/v1/wallet
-```
+Your API key can be obtained from your **Dashboard (Sandbox) → Developers → API Keys**. Keep it secure and never expose it in client-side code.
 
-<Note>
-Your API key can be obtained from your **Dashboard → Developers → API Keys**. Keep it secure and never expose it in client-side code.
-</Note>
 
-## Base URLs
+## Base URL
 
 <CardGroup cols={1}>
   <Card title="Sandbox" icon="flask">
@@ -104,47 +93,17 @@ The playground uses your actual API credentials. Be cautious when testing with p
   </Card>
 </CardGroup>
 
-### RAMP API
+### RAMP API (Coming Soon)
 
 <CardGroup cols={2}>
-  <Card title="Crypto Wallets" icon="coins" href="/ramp/get-all-ramp-wallets">
+  <Card title="Crypto (Coming Soon)" icon="coins" >
     Manage cryptocurrency wallets
     
     - Get all crypto wallets
     - Check crypto balances
     - Generate wallet addresses
   </Card>
-  <Card title="Crypto Quotes" icon="chart-line" href="/quote-ramp/create-quote-crypto">
-    Create quotes for crypto operations
-    
-    - Crypto to fiat quotes
-    - Off-ramp quotes
-    - Gas fee calculations
-  </Card>
-  <Card title="Crypto Payouts" icon="arrow-up-right" href="/ramp/create-ramp-transaction">
-    Send cryptocurrency payments
-    
-    - Crypto payouts
-    - Off-ramp to bank accounts
-    - Cross-chain transactions
-  </Card>
-</CardGroup>
-
-### Miscellaneous
-
-<CardGroup cols={2}>
-  <Card title="Bank Lists" icon="list" href="/miscellaneous/get-bank-list">
-    Get supported banks and financial institutions
-  </Card>
-  <Card title="Account Enquiry" icon="search" href="/miscellaneous/perform-account-enquiry">
-    Verify bank account details
-  </Card>
-  <Card title="Mobile Money" icon="mobile" href="/miscellaneous/get-mobile-money-operator-list">
-    Get supported mobile money operators
-  </Card>
-  <Card title="Address Validation" icon="shield-check" href="/miscellaneous/validate-blockchain-address">
-    Validate cryptocurrency addresses
-  </Card>
+  
 </CardGroup>
 
 ## Response Format
@@ -203,25 +162,6 @@ Stay updated with real-time notifications using webhooks:
 - Use HTTPS endpoints for webhook URLs
 </Accordion>
 
-## SDKs and Libraries
-
-<CardGroup cols={3}>
-  <Card title="JavaScript" icon="js">
-    ```bash
-    npm install @mecash/sdk
-    ```
-  </Card>
-  <Card title="Python" icon="python">
-    ```bash
-    pip install mecash-python
-    ```
-  </Card>
-  <Card title="PHP" icon="php">
-    ```bash
-    composer require mecash/php-sdk
-    ```
-  </Card>
-</CardGroup>
 
 ## Support
 
@@ -240,59 +180,5 @@ Stay updated with real-time notifications using webhooks:
   </Card>
 </CardGroup>
 
-## Quick Start Examples
-
-<Accordion title="Create a Quote">
-```bash
-curl -X POST "https://sandboxapi.me-cash.com/v1/quote" \
-  -H "x-api-key: API_KEY:YOUR_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "paymentChannel": "BANK_TRANSFER",
-    "source": {
-      "amount": 1000,
-      "country": "NG",
-      "currency": "NGN"
-    },
-    "target": {
-      "country": "US",
-      "currency": "USD"
-    }
-  }'
-```
-</Accordion>
-
-<Accordion title="Create a Payout">
-```bash
-curl -X POST "https://sandboxapi.me-cash.com/v1/payout" \
-  -H "x-api-key: API_KEY:YOUR_API_KEY" \
-  -H "Content-Type: multipart/form-data" \
-  -F 'transaction={
-    "recipient": {
-      "name": "John Doe",
-      "account": {
-        "bankName": "Access Bank",
-        "sortCode": "044",
-        "accountNumber": "1234567890"
-      },
-      "paymentChannel": "BANK_TRANSFER",
-      "country": "NG",
-      "stored": false
-    },
-    "quoteId": "your-quote-id",
-    "reason": "Payment",
-    "remark": ""
-  }'
-```
-</Accordion>
-
-<Accordion title="Get Transaction">
-```bash
-curl -X GET "https://sandboxapi.me-cash.com/v1/transaction/transaction-id" \
-  -H "x-api-key: API_KEY:YOUR_API_KEY"
-```
-</Accordion>
-
----
 
 Ready to start building? Use the interactive playground above to test the API, or dive into the specific endpoint documentation for detailed implementation guides.

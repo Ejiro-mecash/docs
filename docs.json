@@ -69,17 +69,8 @@
             ]
           },
           {
-            "group": "RAMP API",
-            "pages": [
-              "ramp/create-ramp-quote",
-              "ramp/create-ramp-transaction",
-              "ramp/get-ramp-quote",
-              "ramp/get-ramp-transaction",
-              "ramp/get-all-ramp-wallets",
-              "ramp/get-ramp-wallet",
-              "ramp/get-ramp-wallet-balance",
-              "ramp/generate-estimated-gas-fee"
-            ]
+            "group": "RAMP API (Coming Soon)"
+
           },
            {
             "group": "Miscellaneous",
@@ -88,25 +79,6 @@
               "miscellaneous/get-mobile-money-operator-list",
               "miscellaneous/perform-account-enquiry",
               "miscellaneous/validate-blockchain-address"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "Examples",
-        "groups": [
-          {
-            "group": "FIAT API Examples",
-            "pages": [
-              "FIAT-API/payout/create-payout-examples/ngn-usd-example",
-              "FIAT-API/payout/create-payout-examples/ngn-eur-example",
-              "FIAT-API/payout/create-payout-examples/ngn-gbp-example",
-              "FIAT-API/payout/create-payout-examples/ngn-ngn-example",
-              "FIAT-API/payout/create-payout-examples/ngn-cny-alipay-email",
-              "FIAT-API/payout/create-payout-examples/ngn-cny-alipay-mobile",
-              "FIAT-API/payout/create-payout-examples/ngn-cny-banktransfer-company",
-              "FIAT-API/payout/create-payout-examples/ngn-cny-banktransfer-customer",
-              "FIAT-API/payout/create-payout-examples/ngn-cny-wechat-mobile"
             ]
           }
         ]
