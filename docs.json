@@ -24,8 +24,8 @@
   },
   "colors": {
     "primary": "#9747FF",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "light": "#F8F2FC",
+    "dark": "#240552"
   },
   "favicon": "/favicon/mecashlogo.png",
   "navigation": {
@@ -41,7 +41,7 @@
               "Account Creation",
               "Authentication",
               "IP Whitelisting",
-              "meCash Environments"
+              "Environments"
             ]
           }
         ]
