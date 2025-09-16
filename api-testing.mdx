@@ -67,7 +67,7 @@ curl -X POST "https://sandboxapi.me-cash.com/v1/quotes" \
 ### 3. Create a Payout
 
 ```bash
-curl -X POST "https://sandboxapi.me-cash.com/v1/payouts" \
+curl -X POST "https://sandboxapi.me-cash.com/v2/payouts" \
   -H "x-api-key: YOUR_SANDBOX_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -155,7 +155,7 @@ Test rate limits by making multiple rapid requests:
 
 ```bash
 for i in {1..15}; do
-  curl -X GET "https://sandbox.api.me-cash.com/v1/wallets" \
+  curl -X GET "https://sandboxapi.me-cash.com/v1/wallets" \
     -H "x-api-key: YOUR_SANDBOX_API_KEY" &
 done
 wait
@@ -176,9 +176,8 @@ Set up environment variables for testing:
 
 ```bash
 export MECASH_SANDBOX_API_KEY="your_sandbox_api_key_here"
-export MECASH_PRODUCTION_API_KEY="your_production_api_key_here"
-export MECASH_SANDBOX_URL="https://sandbox.api.me-cash.com"
-export MECASH_PRODUCTION_URL="https://api.me-cash.com"
+export MECASH_SANDBOX_URL="https://sandboxapi.me-cash.com"
+
 ```
 
 Then use in your requests:
@@ -187,9 +186,6 @@ Then use in your requests:
 curl -X GET "$MECASH_SANDBOX_URL/v1/wallets" \
   -H "x-api-key: $MECASH_SANDBOX_API_KEY"
 
-# Production (when ready)
-curl -X GET "$MECASH_PRODUCTION_URL/v1/wallets" \
-  -H "x-api-key: $MECASH_PRODUCTION_API_KEY"
 ```
 
 ## Testing Checklist

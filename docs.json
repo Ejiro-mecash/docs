@@ -9,12 +9,8 @@
     "path": "docs/api-reference/openapi.json",
     "baseUrl": [
       {
-        "name": "Production",
-        "url": "https://api.me-cash.com"
-      },
-      {
         "name": "Sandbox",
-        "url": "https://sandbox.api.me-cash.com"
+        "url": "https://sandboxapi.me-cash.com"
       }
     ],
 
@@ -54,13 +50,18 @@
         "tab": "API Reference",
         "groups": [
           {
+            "group": "Overview",
+            "pages": [
+              "api-reference/introduction"
+            ]
+          },
+          {
             "group": "FIAT API",
             "pages": [
               "wallet/get-all-wallets",
               "wallet/get-wallet-balance",
               "wallet/update-wallet-balance",
               "quote/create-quote",
-              "quote/update-quote",
               "payout/create-payout",
               "transaction/get-transaction",
               "virtual-account/create-virtual-account",

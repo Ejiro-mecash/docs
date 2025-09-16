@@ -1,166 +1,298 @@
 ---
-title: 'API Reference'
-description: 'Complete API reference for meCash services'
+title: "API Reference"
+description: "Complete reference for the meCash API including all endpoints, authentication, and interactive playground"
 ---
 
-## Welcome to meCash API Reference
+# API Reference
 
-This section provides comprehensive documentation for all meCash API endpoints. Our API is organized into logical groups to help you find the functionality you need quickly.
+Welcome to the meCash API Reference! This comprehensive guide provides everything you need to integrate with the meCash platform, from authentication to advanced features.
 
-## API Overview
+## Getting Started
 
-meCash provides a RESTful API with JSON request/response formats. All endpoints require authentication via API key and must be called from whitelisted IP addresses.
+The meCash API allows you to:
+- **Send and receive payments** across multiple currencies and countries
+- **Manage virtual accounts** for seamless payment collection
+- **Handle cryptocurrency operations** through our RAMP API
+- **Track transactions** with real-time status updates
+- **Create quotes** for currency conversions
 
-### Base URLs
-- **Production**: `https://api.me-cash.com`
-- **Sandbox**: Coming soon
+## Authentication
 
-### Authentication
-All API endpoints require authentication using your API key in the `x-api-key` header:
+All API requests require authentication using your API key:
 
 ```bash
-x-api-key: YOUR_API_KEY
+curl -H "x-api-key: API_KEY:YOUR_API_KEY" \
+     https://sandboxapi.me-cash.com/v1/wallet
 ```
 
-### Response Format
-All responses follow a consistent format:
+<Note>
+Your API key can be obtained from your **Dashboard → Developers → API Keys**. Keep it secure and never expose it in client-side code.
+</Note>
+
+## Base URLs
+
+<CardGroup cols={1}>
+  <Card title="Sandbox" icon="flask">
+    `https://sandboxapi.me-cash.com`
+    
+    Use this for testing and development purposes.
+  </Card>
+</CardGroup>
+
+## Interactive Playground
+
+The API Reference includes an interactive playground where you can test endpoints directly in your browser:
+
+<Steps>
+  <Step title="Select Environment">
+    Select the **Sandbox** environment.
+  </Step>
+  <Step title="Add Your API Key">
+    Click the **Authorize** button and enter your API key in the format: `API_KEY:YOUR_API_KEY`
+  </Step>
+  <Step title="Try Endpoints">
+    Click on any endpoint to expand it, then click **Try it out** to test the API directly.
+  </Step>
+  <Step title="View Responses">
+    See real-time responses, status codes, and error messages for each request.
+  </Step>
+</Steps>
+
+<Warning>
+The playground uses your actual API credentials. Be cautious when testing with production endpoints and real data.
+</Warning>
+
+## API Categories
+
+### FIAT API
+
+<CardGroup cols={2}>
+  <Card title="Wallets" icon="wallet" href="/wallet/get-all-wallets">
+    Manage your multi-currency wallets
+    
+    - Get all wallets
+    - Check wallet balances
+    - Update wallet balances
+  </Card>
+  <Card title="Quotes" icon="calculator" href="/quote/create-quote">
+    Create and manage currency quotes
+    
+    - Create quotes for conversions
+    - Update existing quotes
+    - Get quote details
+  </Card>
+  <Card title="Payouts" icon="arrow-right" href="/payout/create-payout">
+    Send payments to recipients
+    
+    - Create payouts
+    - Support for multiple payment methods
+    - Real-time status tracking
+  </Card>
+  <Card title="Transactions" icon="receipt" href="/transaction/get-transaction">
+    Track and monitor transactions
+    
+    - Get transaction details
+    - View transaction history
+    - Monitor payment status
+  </Card>
+  <Card title="Virtual Accounts" icon="building" href="/virtual-account/create-virtual-account">
+    Create virtual accounts for payments
+    
+    - Generate virtual account numbers
+    - Manage account details
+    - Track incoming payments
+  </Card>
+</CardGroup>
+
+### RAMP API
+
+<CardGroup cols={2}>
+  <Card title="Crypto Wallets" icon="coins" href="/ramp/get-all-ramp-wallets">
+    Manage cryptocurrency wallets
+    
+    - Get all crypto wallets
+    - Check crypto balances
+    - Generate wallet addresses
+  </Card>
+  <Card title="Crypto Quotes" icon="chart-line" href="/quote-ramp/create-quote-crypto">
+    Create quotes for crypto operations
+    
+    - Crypto to fiat quotes
+    - Off-ramp quotes
+    - Gas fee calculations
+  </Card>
+  <Card title="Crypto Payouts" icon="arrow-up-right" href="/ramp/create-ramp-transaction">
+    Send cryptocurrency payments
+    
+    - Crypto payouts
+    - Off-ramp to bank accounts
+    - Cross-chain transactions
+  </Card>
+</CardGroup>
+
+### Miscellaneous
+
+<CardGroup cols={2}>
+  <Card title="Bank Lists" icon="list" href="/miscellaneous/get-bank-list">
+    Get supported banks and financial institutions
+  </Card>
+  <Card title="Account Enquiry" icon="search" href="/miscellaneous/perform-account-enquiry">
+    Verify bank account details
+  </Card>
+  <Card title="Mobile Money" icon="mobile" href="/miscellaneous/get-mobile-money-operator-list">
+    Get supported mobile money operators
+  </Card>
+  <Card title="Address Validation" icon="shield-check" href="/miscellaneous/validate-blockchain-address">
+    Validate cryptocurrency addresses
+  </Card>
+</CardGroup>
+
+## Response Format
+
+All API responses follow a consistent format:
 
 ```json
 {
-  "status": "success|error",
-  "message": "Human-readable message",
+  "status": "success",
+  "message": "Operation completed successfully",
   "data": {
-    // Response payload
+    // Response data here
   }
 }
 ```
 
-## API Categories
+### Error Responses
 
-<CardGroup cols={2}>
-  <Card title="FIAT API" icon="money-bill">
-    Traditional currency operations including wallet management, quotes, payouts, and virtual accounts.
-  </Card>
-  <Card title="RAMP API" icon="arrows-rotate">
-    Cryptocurrency operations including crypto conversions, gas fees, and blockchain interactions.
-  </Card>
-</CardGroup>
+Error responses include detailed information:
+
+```json
+{
+  "status": "error",
+  "errorCode": "INVALID_PARAMETER",
+  "message": "A request parameter is invalid."
+}
+```
 
 ## Rate Limits
 
-- **Standard**: 100 requests per minute per API key
-- **Burst**: 10 requests per second
-- **Webhooks**: 1000 events per minute
+<CardGroup cols={2}>
+  <Card title="Standard Limits" icon="clock">
+    - **100 requests per minute** per API key
+    - **1000 requests per hour** per API key
+    - **10,000 requests per day** per API key
+  </Card>
+  <Card title="Higher Limits" icon="rocket">
+    Contact support for higher rate limits based on your business needs and volume requirements.
+  </Card>
+</CardGroup>
 
-<Warning>Exceeding rate limits will result in 429 Too Many Requests errors.</Warning>
+## Webhooks
 
-## Error Codes
+Stay updated with real-time notifications using webhooks:
 
-<import { Tabs } from 'nextra/components'>
+<Accordion title="Supported Events">
+- **Payout Events**: Payment status updates, completion notifications
+- **Collection Events**: Incoming payment notifications
+- **Virtual Account Events**: Account creation and payment received
+- **Ramp Events**: Crypto transaction updates
+</Accordion>
 
-<Tabs items={['HTTP Status Codes', 'API Error Codes', 'Common Scenarios']}>
+<Accordion title="Webhook Security">
+- All webhooks are signed with HMAC-SHA256
+- Verify webhook signatures to ensure authenticity
+- Use HTTPS endpoints for webhook URLs
+</Accordion>
 
-  <Tabs.Tab>
-    ### HTTP Status Codes
+## SDKs and Libraries
 
-    | Code | Status | Description |
-    |------|--------|-------------|
-    | 200 | OK | Request successful |
-    | 201 | Created | Resource created successfully |
-    | 400 | Bad Request | Invalid parameters or request format |
-    | 401 | Unauthorized | Invalid or missing API key |
-    | 403 | Forbidden | IP not whitelisted or insufficient permissions |
-    | 404 | Not Found | Resource doesn't exist |
-    | 422 | Unprocessable Entity | Validation failed |
-    | 429 | Too Many Requests | Rate limit exceeded |
-    | 500 | Internal Server Error | Server error occurred |
-    | 502 | Bad Gateway | Gateway error |
-    | 503 | Service Unavailable | Service temporarily unavailable |
-
-  </Tabs.Tab>
-
-  <Tabs.Tab>
-    ### API Error Codes
-
-    | Error Code | Description | HTTP Status |
-    |------------|-------------|-------------|
-    | `INVALID_API_KEY` | The provided API key is invalid | 401 |
-    | `IP_NOT_WHITELISTED` | Request from non-whitelisted IP | 403 |
-    | `INVALID_QUOTE_ID` | Quote ID is invalid or expired | 422 |
-    | `INSUFFICIENT_BALANCE` | Insufficient wallet balance | 422 |
-    | `INVALID_RECIPIENT` | Recipient information is invalid | 422 |
-    | `CURRENCY_NOT_SUPPORTED` | Currency pair not supported | 422 |
-    | `TRANSACTION_LIMIT_EXCEEDED` | Transaction amount exceeds limits | 422 |
-    | `DUPLICATE_TRANSACTION` | Transaction with same reference exists | 422 |
-    | `RATE_LIMIT_EXCEEDED` | Too many requests in time period | 429 |
-    | `INTERNAL_ERROR` | Internal server error | 500 |
-
-  </Tabs.Tab>
-
-  <Tabs.Tab>
-    ### Common Scenarios
-
-    **Authentication Issues**
-    ```json
-    {
-      "status": "error",
-      "errorCode": "INVALID_API_KEY",
-      "message": "The provided API key is invalid"
-    }
+<CardGroup cols={3}>
+  <Card title="JavaScript" icon="js">
+    ```bash
+    npm install @mecash/sdk
     ```
-
-    **IP Whitelisting**
-    ```json
-    {
-      "status": "error",
-      "errorCode": "IP_NOT_WHITELISTED",
-      "message": "Your IP address is not whitelisted"
-    }
+  </Card>
+  <Card title="Python" icon="python">
+    ```bash
+    pip install mecash-python
     ```
-
-    **Validation Errors**
-    ```json
-    {
-      "status": "error",
-      "errorCode": "INVALID_RECIPIENT",
-      "message": "Recipient account details are invalid",
-      "details": {
-        "field": "accountNumber",
-        "reason": "Account number format is invalid"
-      }
-    }
+  </Card>
+  <Card title="PHP" icon="php">
+    ```bash
+    composer require mecash/php-sdk
     ```
+  </Card>
+</CardGroup>
 
-    **Rate Limiting**
-    ```json
-    {
-      "status": "error",
-      "errorCode": "RATE_LIMIT_EXCEEDED",
-      "message": "Rate limit exceeded. Try again in 60 seconds"
+## Support
+
+<CardGroup cols={2}>
+  <Card title="Documentation" icon="book" href="https://docs.me-cash.com">
+    Comprehensive guides and tutorials
+  </Card>
+  <Card title="Community" icon="discord" href="https://discord.com/invite/CC5v6h52Wk">
+    Join our Discord community for help and discussions
+  </Card>
+  <Card title="Support" icon="envelope" href="mailto:support@me-cash.com">
+    Get direct support from our team
+  </Card>
+  <Card title="Status Page" icon="chart-bar" href="https://status.me-cash.com">
+    Check API status and uptime
+  </Card>
+</CardGroup>
+
+## Quick Start Examples
+
+<Accordion title="Create a Quote">
+```bash
+curl -X POST "https://sandboxapi.me-cash.com/v1/quote" \
+  -H "x-api-key: API_KEY:YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "paymentChannel": "BANK_TRANSFER",
+    "source": {
+      "amount": 1000,
+      "country": "NG",
+      "currency": "NGN"
+    },
+    "target": {
+      "country": "US",
+      "currency": "USD"
     }
-    ```
+  }'
+```
+</Accordion>
 
-  </Tabs.Tab>
+<Accordion title="Create a Payout">
+```bash
+curl -X POST "https://sandboxapi.me-cash.com/v1/payout" \
+  -H "x-api-key: API_KEY:YOUR_API_KEY" \
+  -H "Content-Type: multipart/form-data" \
+  -F 'transaction={
+    "recipient": {
+      "name": "John Doe",
+      "account": {
+        "bankName": "Access Bank",
+        "sortCode": "044",
+        "accountNumber": "1234567890"
+      },
+      "paymentChannel": "BANK_TRANSFER",
+      "country": "NG",
+      "stored": false
+    },
+    "quoteId": "your-quote-id",
+    "reason": "Payment",
+    "remark": ""
+  }'
+```
+</Accordion>
 
-</Tabs>
+<Accordion title="Get Transaction">
+```bash
+curl -X GET "https://sandboxapi.me-cash.com/v1/transaction/transaction-id" \
+  -H "x-api-key: API_KEY:YOUR_API_KEY"
+```
+</Accordion>
 
-## Getting Started
+---
 
-1. **Set up your account**: [Account Creation](/account-creation)
-2. **Get your API key**: [Authentication](/authentication)
-3. **Whitelist your IP**: [IP Whitelisting](/ip-whitelisting)
-4. **Explore endpoints**: Browse the categories below
-
-<Card
-  title="OpenAPI Specification"
-  icon="api"
-  href="https://github.com/Ejiro-mecash/docs/blob/main/api-reference/openapi.json"
->
-  View the complete OpenAPI specification file
-</Card>
-
-## Need Help?
-
-- **Email Support**: [support@me-cash.com](mailto:support@me-cash.com)
-- **Discord Community**: [Join our Discord](https://discord.gg/CC5v6h52Wk)
-- **Documentation**: [Full Documentation](https://docs.me-cash.com)
+Ready to start building? Use the interactive playground above to test the API, or dive into the specific endpoint documentation for detailed implementation guides.

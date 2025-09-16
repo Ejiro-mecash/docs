@@ -7,10 +7,6 @@
   },
   "servers": [
     {
-      "url": "https://devapi.me-cash.com",
-      "description": "Production server"
-    },
-    {
       "url": "https://sandboxapi.me-cash.com",
       "description": "Sandbox server for testing"
     }

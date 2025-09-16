@@ -27,37 +27,6 @@ The Sandbox environment is perfect for development, testing, and integration bef
 
 <Note>Always test your integration thoroughly in sandbox before moving to production.</Note>
 
-## Production Environment
-
-The Production environment processes real transactions with your users.
-
-#### Production Base URL
-`https://api.me-cash.com`
-
-### Key Features:
-- **Real Transactions:** Processes genuine payments and affects actual accounts
-- **Secure Operations:** Employs robust security measures to protect sensitive data
-- **High Availability:** Designed for reliability and uptime to support business-critical operations
-- **Live Data:** Real customer transactions and account balances
-
-### How to Access:
-- **Account Setup:** Ensure you have a verified [meCash production account](/account-creation)
-- **API Keys:** Obtain [API keys](/authentication) from your meCash Developer dashboard
-- **Go-Live:** Only use production after thorough sandbox testing
-
-<Warning>Production transactions involve real money. Test thoroughly in sandbox first!</Warning>
-
-## Environment Comparison
-
-| Feature | Sandbox | Production |
-|---------|---------|------------|
-| **Purpose** | Development & Testing | Live Transactions |
-| **Base URL** | `https://sandboxapi.me-cash.com` | `https://api.me-cash.com` |
-| **API Keys** | Sandbox keys | Production keys |
-| **Transactions** | Simulated | Real money |
-| **Data** | Test data | Live customer data |
-| **Rate Limits** | Same as production | Standard limits |
-| **Webhooks** | Test events | Real events |
 
 ## Best Practices
 
@@ -69,6 +38,7 @@ The Production environment processes real transactions with your users.
     4. Test error scenarios
     5. Move to production when ready
   </Card>
+  
   <Card title="API Key Management" icon="key">
     - Use different API keys for each environment
     - Never mix sandbox and production keys
@@ -77,19 +47,6 @@ The Production environment processes real transactions with your users.
   </Card>
 </CardGroup>
 
-## Switching Between Environments
-
-To switch between environments, simply change the base URL in your API calls:
-
-```bash
-# Sandbox
-curl -X GET "https://sandboxapi.me-cash.com/v1/wallets" \
-  -H "x-api-key: YOUR_SANDBOX_KEY"
-
-# Production  
-curl -X GET "https://api.me-cash.com/v1/wallets" \
-  -H "x-api-key: YOUR_PRODUCTION_KEY"
-```
 
 ## Need Help?
 
