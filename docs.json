@@ -10,7 +10,7 @@
     "baseUrl": [
       {
         "name": "Production",
-        "url": "https://api.restful-api.dev/objects"
+        "url": "https://api.me-cash.com"
       },
       {
         "name": "Sandbox",
@@ -80,17 +80,7 @@
               "ramp/generate-estimated-gas-fee"
             ]
           },
-          {
-            "group": "Quote Ramp",
-            "pages": [
-              "quote-ramp/create-quote-crypto",
-              "quote-ramp/create-quote-offramp",
-              "quote-ramp/get-quote-crypto",
-              "quote-ramp/get-quote-offramp",
-              "quote-ramp/get-gas-fee"
-            ]
-          },
-          {
+           {
             "group": "Miscellaneous",
             "pages": [
               "miscellaneous/get-bank-list",
