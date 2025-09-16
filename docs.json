@@ -37,11 +37,11 @@
             "group": "Setup",
             "pages": [
               "index",
-              "quickstart",
-              "account-creation",
-              "authentication",
-              "ip-whitelisting",
-              "environments"
+              "Quickstart Guide",
+              "Account Creation",
+              "Authentication",
+              "IP Whitelisting",
+              "meCash Environments"
             ]
           }
         ]
@@ -64,8 +64,8 @@
               "quote/create-quote",
               "payout/create-payout",
               "transaction/get-transaction",
-              "virtual-account/create-virtual-account",
-              "virtual-account/get-virtual-account"
+              "virtual-account/create-virtual-account"
+             
             ]
           },
           {
