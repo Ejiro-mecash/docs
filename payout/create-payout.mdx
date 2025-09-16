@@ -1,3 +1,250 @@
 ---
 openapi: post /v1/payout
 ---
+
+## Create Payout
+
+The **Payout API** allows users to create and process payouts to recipients using different payment channels. This endpoint processes a payout transaction by transferring funds to a specified beneficiary.
+
+### Authentication
+
+All requests to the Payout API require:
+
+| **Header**   | **Value**               | **Required** | **Description**                |
+| ------------ | ----------------------- | ------------ | ------------------------------ |
+| x-api-key    | API_KEY:YOUR_API_KEY    | ✅ Yes        | API key for authentication     |
+| Content-Type | multipart/form-data     | ✅ Yes        | Required for sending form data |
+
+**Security Notes:**
+- API keys can be obtained in your **Dashboard → Developers → API Keys**
+- Requests must originate from whitelisted IP addresses; non-whitelisted IPs will receive a `403` error
+- All requests are authenticated via API key — keep your key secure and never expose it in client-side code
+
+### Request Structure
+
+The request body for the payout endpoint is sent as `multipart/form-data` with a single form field named `transaction` containing a JSON string.
+
+**Transaction Object Parameters:**
+
+| **Field** | **Type** | **Required** | **Description**                                       |
+| --------- | -------- | ------------ | ----------------------------------------------------- |
+| recipient | Object   | ✅ Yes        | Details of the recipient. See Recipient Object below. |
+| quoteId   | String   | ✅ Yes        | ID of the quote related to the payout.                |
+| reason    | String   | ✅ Yes        | Reason for payout (e.g., "Bills").                    |
+| remark    | String   | ❌ No         | Optional remark or note for the payout.               |
+
+#### Recipient Object
+
+| **Field**      | **Type** | **Required** | **Description**                                                            |
+| -------------- | -------- | ------------ | -------------------------------------------------------------------------- |
+| name           | String   | ✅ Yes        | Full name of the recipient.                                                |
+| account        | Object   | ✅ Yes        | Bank account details of the recipient. See Recipient Account Object below. |
+| paymentChannel | String   | ✅ Yes        | Payment method, e.g., BANK_TRANSFER.                                      |
+| country        | String   | ✅ Yes        | Recipient's 2-letter country code (e.g., NG).                              |
+| stored         | Boolean  | ✅ Yes        | Indicates if recipient info is stored for future use (true/false).         |
+
+#### Recipient Account Object
+
+| **Field**     | **Type** | **Required** | **Description**                  |
+| ------------- | -------- | ------------ | -------------------------------- |
+| bankName      | String   | ✅ Yes        | Name of the recipient's bank.    |
+| sortCode      | String   | ✅ Yes        | Bank sort code (e.g., 058).      |
+| accountNumber | String   | ✅ Yes        | Recipient's bank account number. |
+
+### Example Request
+
+<CodeGroup>
+
+```bash cURL
+curl --location '{{baseURL}}/v1/payout' \
+--header 'x-api-key: API_KEY:YOUR_API_KEY' \
+--header 'Content-Type: multipart/form-data' \
+--form 'transaction={
+  "recipient": {
+    "name": "CHRIS TIANA",
+    "account": {
+      "bankName": "Guaranty Trust Bank",
+      "sortCode": "05x",
+      "accountNumber": "0712617XXX"
+    },
+    "paymentChannel": "BANK_TRANSFER",
+    "country": "NG",
+    "stored": false
+  },
+  "quoteId": "453eeu-567j-6tr3d-xxxxxxxxxxxxx",
+  "reason": "Bills",
+  "remark": ""
+}'
+```
+
+```javascript JavaScript
+const formData = new FormData();
+const transaction = {
+  recipient: {
+    name: "CHRIS TIANA",
+    account: {
+      bankName: "Guaranty Trust Bank",
+      sortCode: "05x",
+      accountNumber: "0712617XXX"
+    },
+    paymentChannel: "BANK_TRANSFER",
+    country: "NG",
+    stored: false
+  },
+  quoteId: "453eeu-567j-6tr3d-xxxxxxxxxxxxx",
+  reason: "Bills",
+  remark: ""
+};
+
+formData.append('transaction', JSON.stringify(transaction));
+
+fetch('{{baseURL}}/v1/payout', {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'API_KEY:YOUR_API_KEY'
+  },
+  body: formData
+})
+.then(response => response.json())
+.then(data => console.log(data));
+```
+
+```python Python
+import requests
+import json
+
+url = "{{baseURL}}/v1/payout"
+headers = {
+    "x-api-key": "API_KEY:YOUR_API_KEY"
+}
+
+transaction = {
+    "recipient": {
+        "name": "CHRIS TIANA",
+        "account": {
+            "bankName": "Guaranty Trust Bank",
+            "sortCode": "05x",
+            "accountNumber": "0712617XXX"
+        },
+        "paymentChannel": "BANK_TRANSFER",
+        "country": "NG",
+        "stored": False
+    },
+    "quoteId": "453eeu-567j-6tr3d-xxxxxxxxxxxxx",
+    "reason": "Bills",
+    "remark": ""
+}
+
+files = {
+    'transaction': (None, json.dumps(transaction))
+}
+
+response = requests.post(url, headers=headers, files=files)
+print(response.json())
+```
+
+</CodeGroup>
+
+### Response Structure
+
+<Accordion title="Success Response">
+```json
+{
+    "message": "transaction created successfully",
+    "status": "success",
+    "data": {
+        "id": "c6611ad3-805a-415b-98b7-xxxxxxxxxxxxx",
+        "remark": "Testing",
+        "reason": "Gift",
+        "referenceNumber": "L2TEZEHNXXXXXX",
+        "type": "SEND",
+        "state": "PENDING",
+        "quote": {
+            "id": "b2eb702a-3f7c-4781-aa76-xxxxxxxxxxxxx",
+            "source": {
+                "currency": "NGN",
+                "country": "NG",
+                "amount": 1000.00
+            },
+            "target": {
+                "currency": "NGN",
+                "country": "NG",
+                "amount": 1000.00
+            },
+            "rate": 1.00000000,
+            "fee": {
+                "amount": 100.00
+            },
+            "summary": {
+                "total": 1100.00
+            },
+            "settlement": "1hr"
+        },
+        "recipient": {
+            "name": "Nzan Christiana",
+            "account": {
+                "bankName": "Access Bank",
+                "sortCode": "044",
+                "accountNumber": "005606XXXXXX"
+            },
+            "paymentChannel": "BANK_TRANSFER",
+            "currency": "NGN",
+            "country": "NG"
+        },
+        "created": "2025-08-11T09:45:11.948586402Z",
+        "processed": "2025-08-11T09:45:11.948586402Z"
+    }
+}
+```
+</Accordion>
+
+### Response Breakdown
+
+<Accordion title="Transaction Data">
+| **Field**       | **Type** | **Description**               |
+| --------------- | -------- | ----------------------------- |
+| id              | String   | Unique transaction ID         |
+| remark          | String   | Narration for transaction     |
+| reason          | String   | Transaction purpose (Bills)   |
+| referenceNumber | String   | Unique tracking reference     |
+| type            | String   | Transaction type (SEND)       |
+| state           | String   | Current status (PENDING)      |
+| created         | String   | ISO 8601 creation timestamp   |
+| processed       | String   | ISO 8601 processing timestamp |
+</Accordion>
+
+<Accordion title="Quote Details">
+| **Field**              | **Type** | **Description**                 |
+| ---------------------- | -------- | ------------------------------- |
+| quote.id               | String   | Unique quote identifier         |
+| quote.rate             | Number   | FX rate used                    |
+| quote.settlement       | String   | Estimated completion time (1hr) |
+| quote.source.currency  | String   | Source currency (NGN)           |
+| quote.source.country   | String   | Source country (NG)             |
+| quote.source.amount    | Number   | Original amount                 |
+| quote.target.currency  | String   | Target currency (NGN)           |
+| quote.target.country   | String   | Target country (NG)             |
+| quote.target.amount    | Number   | Received amount                 |
+| quote.fee.amount       | Number   | Transaction fee                 |
+| quote.summary.total    | Number   | Total deducted                  |
+</Accordion>
+
+<Accordion title="Recipient Details">
+| **Field**                | **Type** | **Description**        |
+| ------------------------ | -------- | ---------------------- |
+| recipient.name           | String   | Account holder name    |
+| recipient.paymentChannel | String   | BANK_TRANSFER          |
+| recipient.country        | String   | Recipient country (NG) |
+| recipient.account.bankName | String | Bank name             |
+| recipient.account.sortCode | String | Bank branch code      |
+| recipient.account.accountNumber | String | Bank account number |
+</Accordion>
+
+### Best Practices
+
+✅ Include a valid `x-api-key` in the request headers for authentication.  
+✅ Ensure that all recipient information is accurate and properly formatted.  
+✅ Validate that the `quoteId` is correctly provided and linked to an existing quote.  
+✅ Handle errors appropriately to ensure robust API usage.  
+✅ Use the `referenceNumber` from the response for tracking and reconciliation.  
+✅ Monitor transaction states through webhooks for real-time updates.

@@ -1,3 +1,98 @@
 ---
 openapi: get /v1/transaction/{transactionId}
 ---
+
+## Get Transaction
+
+The Get Transaction API allows you to retrieve detailed information about a specific transaction using its unique transaction ID. This endpoint provides comprehensive transaction details including status, amounts, fees, and recipient information.
+
+### Transaction Details
+
+When you retrieve a transaction, you'll get the following information:
+
+- **Transaction ID**: Unique identifier for the transaction
+- **Type**: Type of transaction (payout, deposit, transfer, etc.)
+- **Amount**: Transaction amount in the specified currency
+- **Status**: Current status of the transaction
+- **Reference**: Your custom reference number
+- **Timestamps**: Creation and completion times
+- **Fees**: Detailed breakdown of all fees applied
+- **Recipient Details**: Information about the transaction recipient
+
+### Transaction Types
+
+<Accordion title="Payout">
+Outbound payments to external accounts or recipients.
+
+**Common Statuses:**
+- `pending` - Awaiting processing
+- `processing` - Being processed
+- `completed` - Successfully sent
+- `failed` - Processing failed
+</Accordion>
+
+<Accordion title="Deposit">
+Inbound payments received into your account.
+
+**Common Statuses:**
+- `pending` - Awaiting confirmation
+- `confirmed` - Payment confirmed
+- `completed` - Successfully credited
+</Accordion>
+
+<Accordion title="Transfer">
+Internal transfers between your own accounts.
+
+**Common Statuses:**
+- `pending` - Awaiting processing
+- `completed` - Successfully transferred
+</Accordion>
+
+### Status Meanings
+
+Understanding transaction statuses is crucial for proper handling:
+
+<Accordion title="Pending">
+Transaction has been created but not yet processed. This is the initial state for most transactions.
+</Accordion>
+
+<Accordion title="Processing">
+Transaction is currently being processed by the payment provider or bank.
+</Accordion>
+
+<Accordion title="Completed">
+Transaction has been successfully completed and funds have been transferred.
+</Accordion>
+
+<Accordion title="Failed">
+Transaction could not be completed. Check the error details for specific failure reasons.
+</Accordion>
+
+<Accordion title="Cancelled">
+Transaction was cancelled either by you or the system before completion.
+</Accordion>
+
+### Fee Structure
+
+Transactions may include various types of fees:
+
+- **Processing Fee**: Fee charged by meCash for processing the transaction
+- **Network Fee**: Fee charged by the payment network (bank, mobile money provider, etc.)
+- **Currency Conversion Fee**: Fee for currency conversion (if applicable)
+- **International Transfer Fee**: Additional fee for cross-border transactions
+
+### Use Cases
+
+- **Transaction Monitoring**: Track the status of your payments
+- **Reconciliation**: Match transactions with your internal records
+- **Customer Support**: Provide transaction details to customers
+- **Audit Trail**: Maintain records for compliance and auditing
+- **Error Investigation**: Debug failed transactions
+
+### Best Practices
+
+- Store transaction IDs for future reference
+- Implement polling or webhooks for real-time status updates
+- Handle different statuses appropriately in your application
+- Keep transaction records for accounting and compliance
+- Use the reference field to link transactions to your internal systems

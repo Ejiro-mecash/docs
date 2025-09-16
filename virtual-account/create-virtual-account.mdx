@@ -1,3 +1,151 @@
 ---
 openapi: post /v1/virtual-account
 ---
+
+## Create Virtual Account
+
+The Create Virtual Account API allows you to generate virtual bank accounts for receiving payments. These accounts can be used to collect payments from customers, making it easier to manage incoming funds without sharing your main business account details.
+
+### What are Virtual Accounts?
+
+Virtual accounts are temporary or dedicated bank accounts that are linked to your main meCash account. They provide:
+
+- **Unique Account Numbers**: Each virtual account has its own account number
+- **Automatic Reconciliation**: Funds are automatically credited to your main account
+- **Customer-Specific Accounts**: Create separate accounts for different customers or transactions
+- **Enhanced Security**: Keep your main account details private
+
+### Use Cases
+
+<Accordion title="E-commerce Payments">
+Create unique virtual accounts for each customer order to track payments easily.
+
+**Benefits:**
+- Automatic payment matching
+- Reduced reconciliation effort
+- Better customer experience
+</Accordion>
+
+<Accordion title="Subscription Services">
+Generate dedicated accounts for recurring payments and subscriptions.
+
+**Benefits:**
+- Easy payment tracking
+- Automated billing management
+- Customer payment history
+</Accordion>
+
+<Accordion title="Marketplace Operations">
+Provide sellers with individual virtual accounts for their earnings.
+
+**Benefits:**
+- Transparent fund allocation
+- Automated seller payouts
+- Simplified accounting
+</Accordion>
+
+<Accordion title="Event Management">
+Create accounts for event ticket sales and registration fees.
+
+**Benefits:**
+- Event-specific payment tracking
+- Automated refund processing
+- Revenue management
+</Accordion>
+
+### Account Features
+
+<Accordion title="Real Bank Accounts">
+Virtual accounts are real bank accounts with actual account numbers that customers can use for transfers.
+
+**Supported Banks:**
+- Access Bank
+- GTBank
+- First Bank
+- Zenith Bank
+- And more...
+</Accordion>
+
+<Accordion title="Instant Activation">
+Virtual accounts are activated immediately upon creation and ready to receive payments.
+
+**Activation Time:** Instant
+**Status:** Active upon creation
+</Accordion>
+
+<Accordion title="Automatic Reconciliation">
+All payments received into virtual accounts are automatically credited to your main meCash wallet.
+
+**Processing Time:** Real-time
+**Notification:** Webhook notifications available
+</Accordion>
+
+### Account Management
+
+<Accordion title="Account Naming">
+Give your virtual accounts meaningful names for easy identification.
+
+**Examples:**
+- "Customer-12345-Order"
+- "Subscription-Monthly-2024"
+- "Event-Tickets-Concert"
+</Accordion>
+
+<Accordion title="Account Limits">
+Virtual accounts inherit the limits and permissions of your main account.
+
+**Limits:**
+- Daily transaction limits
+- Monthly volume limits
+- Currency restrictions
+</Accordion>
+
+<Accordion title="Account Status">
+Monitor the status of your virtual accounts.
+
+**Statuses:**
+- `active` - Ready to receive payments
+- `suspended` - Temporarily disabled
+- `closed` - No longer accepting payments
+</Accordion>
+
+### Integration Examples
+
+<Accordion title="E-commerce Integration">
+```javascript
+// Create virtual account for customer order
+const virtualAccount = await createVirtualAccount({
+  currency: "NGN",
+  country: "NG",
+  accountName: `Order-${orderId}`,
+  email: customer.email,
+  description: `Payment for Order #${orderId}`
+});
+```
+
+**Use Case:** Generate unique accounts for each customer order
+</Accordion>
+
+<Accordion title="Subscription Management">
+```javascript
+// Create virtual account for subscription
+const subscriptionAccount = await createVirtualAccount({
+  currency: "NGN",
+  country: "NG",
+  accountName: `Subscription-${customerId}`,
+  email: customer.email,
+  description: `Monthly subscription for ${customerId}`
+});
+```
+
+**Use Case:** Dedicated accounts for recurring payments
+</Accordion>
+
+### Best Practices
+
+- **Unique Naming**: Use descriptive names that help identify the account purpose
+- **Customer Communication**: Share account details with customers for payments
+- **Payment Tracking**: Monitor incoming payments through webhooks
+- **Account Cleanup**: Close unused accounts to maintain organization
+- **Security**: Treat virtual account details with the same security as regular bank accounts
+- **Reconciliation**: Use the reference field to match payments with your internal records

@@ -551,6 +551,269 @@
           }
         }
       }
+    },
+    "/v1/payout": {
+      "post": {
+        "tags": [
+          "Payout"
+        ],
+        "summary": "Create Payout",
+        "description": "Creates a payout transaction by transferring funds to a specified beneficiary. The request must include recipient details, bank information, and payout amounts.",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": ["transaction"],
+                "properties": {
+                  "transaction": {
+                    "type": "string",
+                    "description": "JSON string containing transaction details"
+                  }
+                }
+              },
+              "example": {
+                "transaction": "{\"recipient\":{\"name\":\"CHRIS TIANA\",\"account\":{\"bankName\":\"Guaranty Trust Bank\",\"sortCode\":\"05x\",\"accountNumber\":\"0712617XXX\"},\"paymentChannel\":\"BANK_TRANSFER\",\"country\":\"NG\",\"stored\":false},\"quoteId\":\"453eeu-567j-6tr3d-xxxxxxxxxxxxx\",\"reason\":\"Bills\",\"remark\":\"\"}"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction created successfully.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "transaction created successfully",
+                  "status": "success",
+                  "data": {
+                    "id": "c6611ad3-805a-415b-98b7-xxxxxxxxxxxxx",
+                    "remark": "Testing",
+                    "reason": "Gift",
+                    "referenceNumber": "L2TEZEHNXXXXXX",
+                    "type": "SEND",
+                    "state": "PENDING",
+                    "quote": {
+                      "id": "b2eb702a-3f7c-4781-aa76-xxxxxxxxxxxxx",
+                      "source": {
+                        "currency": "NGN",
+                        "country": "NG",
+                        "amount": 1000.00
+                      },
+                      "target": {
+                        "currency": "NGN",
+                        "country": "NG",
+                        "amount": 1000.00
+                      },
+                      "rate": 1.00000000,
+                      "fee": {
+                        "amount": 100.00
+                      },
+                      "summary": {
+                        "total": 1100.00
+                      },
+                      "settlement": "1hr"
+                    },
+                    "recipient": {
+                      "name": "Nzan Christiana",
+                      "account": {
+                        "bankName": "Access Bank",
+                        "sortCode": "044",
+                        "accountNumber": "005606XXXXXX"
+                      },
+                      "paymentChannel": "BANK_TRANSFER",
+                      "currency": "NGN",
+                      "country": "NG"
+                    },
+                    "created": "2025-08-11T09:45:11.948586402Z",
+                    "processed": "2025-08-11T09:45:11.948586402Z"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/transaction/{transactionId}": {
+      "get": {
+        "tags": [
+          "Transaction"
+        ],
+        "summary": "Get Transaction",
+        "description": "Retrieves details of a specific transaction by its ID.",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "transactionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The unique identifier of the transaction"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transaction details retrieved successfully.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "success",
+                  "message": "Transaction retrieved successfully",
+                  "data": {
+                    "transactionId": "txn_01HZXXF9PMQW",
+                    "type": "payout",
+                    "amount": "1000.00",
+                    "currency": "NGN",
+                    "status": "completed",
+                    "reference": "PAYOUT_001",
+                    "recipient": {
+                      "name": "John Doe",
+                      "accountNumber": "1234567890",
+                      "bankCode": "058"
+                    },
+                    "createdAt": "2024-08-01T10:15:30Z",
+                    "completedAt": "2024-08-01T14:15:30Z",
+                    "fees": {
+                      "total": "25.00",
+                      "breakdown": [
+                        { "type": "processing_fee", "amount": "15.00" },
+                        { "type": "network_fee", "amount": "10.00" }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/virtual-account": {
+      "post": {
+        "tags": [
+          "Virtual Account"
+        ],
+        "summary": "Create Virtual Account",
+        "description": "Creates a virtual account for receiving payments.",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["currency", "country"],
+                "properties": {
+                  "currency": {
+                    "type": "string",
+                    "description": "Currency code for the virtual account"
+                  },
+                  "country": {
+                    "type": "string",
+                    "description": "Country code for the virtual account"
+                  },
+                  "accountName": {
+                    "type": "string",
+                    "description": "Name for the virtual account"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "description": "Email address associated with the account"
+                  },
+                  "phoneNumber": {
+                    "type": "string",
+                    "description": "Phone number associated with the account"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Description of the virtual account"
+                  }
+                }
+              },
+              "example": {
+                "currency": "NGN",
+                "country": "NG",
+                "accountName": "John Doe Business",
+                "email": "john.doe@example.com",
+                "phoneNumber": "+2348012345678",
+                "description": "Virtual account for business payments"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Virtual account created successfully.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "success",
+                  "message": "Virtual account created successfully",
+                  "data": {
+                    "virtualAccountId": "va_01HZXXF9PMQW",
+                    "accountNumber": "1234567890",
+                    "bankName": "Access Bank",
+                    "bankCode": "044",
+                    "accountName": "John Doe Business",
+                    "currency": "NGN",
+                    "country": "NG",
+                    "status": "active",
+                    "createdAt": "2024-08-01T10:15:30Z"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
     }
   }
 }
