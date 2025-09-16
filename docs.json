@@ -75,8 +75,6 @@
            {
             "group": "Miscellaneous",
             "pages": [
-              "miscellaneous/get-bank-list",
-              "miscellaneous/get-mobile-money-operator-list",
               "miscellaneous/perform-account-enquiry",
               "miscellaneous/validate-blockchain-address"
             ]
