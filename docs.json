@@ -37,11 +37,11 @@
             "group": "Setup",
             "pages": [
               "index",
-              "Quickstart Guide",
-              "Account Creation",
-              "Authentication",
-              "IP Whitelisting",
-              "Environments"
+              "quickstart",
+              "account-creation",
+              "authentication",
+              "ip-whitelisting",
+              "environments"
             ]
           }
         ]
