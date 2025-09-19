@@ -203,7 +203,7 @@
         "properties": {
           "quoteId": {
             "type": "string",
-            "example": "qte_01HZXXF9PMQW"
+            "example": "3b97a379-817b-4816-938f-xxxxxxxxxxxxx"
           },
           "paymentChannel": {
             "type": "string",
@@ -211,7 +211,7 @@
           },
           "rate": {
             "type": "string",
-            "example": "0.00123"
+            "example": "1000"
           },
           "expiresAt": {
             "type": "string",
@@ -271,7 +271,7 @@
           },
           "state": {
             "type": "string",
-            "example": "PENDING"
+            "example": "COMPLETED"
           },
           "quote": {
             "type": "object"
@@ -294,7 +294,7 @@
         "properties": {
           "transactionId": {
             "type": "string",
-            "example": "txn_01HZXXF9PMQW"
+            "example": "01HZXXF9PMQWXXXXXXXXXXX"
           },
           "type": {
             "type": "string",
@@ -314,7 +314,7 @@
           },
           "reference": {
             "type": "string",
-            "example": "PAYOUT_001"
+            "example": "001XXXXXXXXXX"
           },
           "recipient": {
             "type": "object"
@@ -485,7 +485,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "example": "30fe4022-09da-46fb-bafa-39b97f5d9bf6"
+            "example": "30fe4022-09da-46fb-bafa-xxxxxxxxxxxxx"
           },
           "reference": {
             "type": "string"
@@ -1044,7 +1044,7 @@
           }
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Virtual account created successfully.",
             "content": {
               "application/json": {
@@ -1122,7 +1122,7 @@
           }
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Dynamic virtual account created successfully.",
             "content": {
               "application/json": {

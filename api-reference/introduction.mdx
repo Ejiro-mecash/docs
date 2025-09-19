@@ -1,124 +1,110 @@
-# API Reference
 
-Welcome to the meCash API Reference! This comprehensive guide provides everything you need to integrate with the meCash platform, from authentication to advanced features.
+Welcome to the meCash API Reference! 
+This guide provides everything you need to start integrating with our platform. All API endpoints are available for testing in our Sandbox environment.
 
+---
 ## Getting Started
 
-The meCash API allows you to:
-- **Send and receive payments** across multiple currencies and countries
-- **Manage virtual accounts** for seamless payment collection
-- **Handle cryptocurrency operations** through our RAMP API
-- **Track transactions** with real-time status updates
-- **Create quotes** for currency conversions
-
-## Authentication
-
-All API requests require authentication using your API key.
-
-Your API key can be obtained from your **Dashboard (Sandbox) → Developers → API Keys**. Keep it secure and never expose it in client-side code.
-
-
-## Base URL
-
-<CardGroup cols={1}>
-  <Card title="Sandbox" icon="flask">
-    `https://sandboxapi.me-cash.com`
-    
-    Use this for testing and development purposes.
-  </Card>
-</CardGroup>
-
-## Interactive Playground
-
-The API Reference includes an interactive playground where you can test endpoints directly in your browser:
+Follow these steps to configure your account and make your first API call in minutes.
 
 <Steps>
-  <Step title="Select Environment">
-    Select the **Sandbox** environment.
+  <Step title="1. Whitelist Your IP Address">
+    For security, all API requests must come from a whitelisted IP address.
+
+    Navigate to the **Developers → IP Whitelisting** section of your meCash Dashboard to add your server's IP address.
   </Step>
-  <Step title="Add Your API Key">
-    Click the **Authorize** button and enter your API key in the format: `API_KEY:YOUR_API_KEY`
+
+  <Step title="2. Get Your Sandbox API Key">
+    You'll need a Sandbox API key to authenticate your requests. 
+    
+    You can find and copy your key from the **Developers → API Keys** section on your dashboard. Keep this key secure and do not expose it in client-side code.
   </Step>
-  <Step title="Try Endpoints">
-    Click on any endpoint to expand it, then click **Try it out** to test the API directly.
-  </Step>
-  <Step title="View Responses">
-    See real-time responses, status codes, and error messages for each request.
+
+  <Step title="3. Make Your First Request">
+    The easiest way to start is with our interactive playground.
+
+    1.  Navigate to any endpoint in the sidebar (e.g., **Wallets > Get All Wallets**).
+    2.  In the "Authentication" section, paste your Sandbox API key.
+    3.  Click **Send** to make a live API call to our sandbox.
   </Step>
 </Steps>
 
-<Warning>
-The playground uses your actual API credentials. Be cautious when testing with production endpoints and real data.
-</Warning>
+---
+## API Endpoints
 
-## API Categories
+Explore our API categories to find the endpoints you need.
 
 ### FIAT API
-
 <CardGroup cols={2}>
   <Card title="Wallets" icon="wallet" href="/wallet/get-all-wallets">
-    Manage your multi-currency wallets
+    Manage your multi-currency wallets.
     
     - Get all wallets
     - Check wallet balances
-    - Update wallet balances
   </Card>
   <Card title="Quotes" icon="calculator" href="/quote/create-quote">
-    Create and manage currency quotes
-    
-    - Create quotes for conversions
-    - Update existing quotes
+    Create real-time quotes for currency conversions.
+
+    - Create quotes
     - Get quote details
   </Card>
   <Card title="Payouts" icon="arrow-right" href="/payout/create-payout">
-    Send payments to recipients
+    Send payments to recipients globally.
     
     - Create payouts
-    - Support for multiple payment methods
-    - Real-time status tracking
+    - Track payout status
   </Card>
   <Card title="Transactions" icon="receipt" href="/transaction/get-transaction">
-    Track and monitor transactions
+    Track and monitor your transactions.
     
     - Get transaction details
     - View transaction history
-    - Monitor payment status
   </Card>
   <Card title="Virtual Accounts" icon="building" href="/virtual-account/create-virtual-account">
-    Create virtual accounts for payments
+    Create accounts to collect payments.
     
-    - Generate virtual account numbers
-    - Manage account details
+    - Generate static & dynamic accounts
     - Track incoming payments
   </Card>
 </CardGroup>
 
 ### RAMP API (Coming Soon)
-
 <CardGroup cols={2}>
   <Card title="Crypto (Coming Soon)" icon="coins" >
-    Manage cryptocurrency wallets
+    Manage cryptocurrency operations.
     
-    - Get all crypto wallets
     - Check crypto balances
     - Generate wallet addresses
   </Card>
-  
 </CardGroup>
 
-## Response Format
+---
+## Core Concepts
 
-All API responses follow a consistent format:
+### Base URL
+All development and testing should be done using our Sandbox environment.
 
-```json
-{
-  "status": "success",
-  "message": "Operation completed successfully",
-  "data": {
-    // Response data here
+<CardGroup cols={1}>
+  <Card title="Sandbox Base URL" icon="flask">
+    `https://sandboxapi.me-cash.com`
+  </Card>
+</CardGroup>
+
+### Response Format
+All API responses follow a consistent JSON format for success and error states.
+
+<AccordionGroup>
+  <Accordion title="Successful Response">
+  ```json
+  {
+    "status": "success",
+    "message": "Operation completed successfully",
+    "data": {
+      // Response data here
+    }
   }
-}
-```
+  ```
+
 
 ### Error Responses
 
