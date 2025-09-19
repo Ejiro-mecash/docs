@@ -60,11 +60,11 @@
             "pages": [
               "wallet/get-all-wallets",
               "wallet/get-wallet-balance",
-              "wallet/update-wallet-balance",
               "quote/create-quote",
               "payout/create-payout",
               "transaction/get-transaction",
-              "virtual-account/create-virtual-account"
+              "virtual-account/create-virtual-account",
+              "virtual-account/create-dynamic-virtual-account"
              
             ]
           },
@@ -88,8 +88,7 @@
             "group": "Support",
             "pages": [
               "faq",
-              "community",
-              "development"
+              "community"
             ]
           }
         ]
