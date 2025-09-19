@@ -113,7 +113,7 @@
           "balance": {
             "type": "number",
             "format": "float",
-            "example": 11262.00
+            "example": 11262
           },
           "currency": {
             "type": "string",
@@ -151,7 +151,7 @@
           "updatedAt": {
             "type": "string",
             "format": "date-time",
-            "example": "2024-08-01T10:15:30Z"
+            "example": "2025-09-19T10:15:30Z"
           }
         }
       },
@@ -216,7 +216,7 @@
           "expiresAt": {
             "type": "string",
             "format": "date-time",
-            "example": "2024-08-01T10:20:00Z"
+            "example": "2025-09-19T10:20:00Z"
           },
           "source": {
             "type": "object"
@@ -322,12 +322,12 @@
           "createdAt": {
             "type": "string",
             "format": "date-time",
-            "example": "2024-08-01T10:15:30Z"
+            "example": "2025-09-19T10:15:30Z"
           },
           "completedAt": {
             "type": "string",
             "format": "date-time",
-            "example": "2024-08-01T14:15:30Z"
+            "example": "2025-09-19T14:15:30Z"
           },
           "fees": {
             "type": "object"
@@ -931,7 +931,7 @@
           "Payout"
         ],
         "summary": "Create Payout",
-        "description": "Creates a payout transaction by transferring funds to a specified beneficiary.",
+        "description": "Creates a payout transaction by transferring funds to a specified beneficiary. Select an example from the dropdown to see request bodies for different currencies.",
         "operationId": "createPayout",
         "requestBody": {
           "required": true,
@@ -939,6 +939,99 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/CreatePayoutRequest"
+              },
+              "examples": {
+                "USD_Payout": {
+                  "summary": "Example Payout to the USA (USD)",
+                  "value": {
+                    "recipient": {
+                      "name": "Linda Collins",
+                      "type": "BUSINESS",
+                      "address": "200 Koch Vista, New York, NY 10001",
+                      "account": {
+                        "accountNumber": "857362910",
+                        "sortCode": "CHASUS33XXX",
+                        "bankName": "Chase Bank",
+                        "address": "1948 Kemmer Ville, New York, NY 10002",
+                        "routingNumber": "021000021"
+                      },
+                      "paymentChannel": "BANK_TRANSFER",
+                      "currency": "USD",
+                      "country": "US",
+                      "stored": false
+                    },
+                    "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
+                    "reason": "Gift",
+                    "remark": "Testing"
+                  }
+                },
+                "GBP_Payout": {
+                  "summary": "Example Payout to the UK (GBP)",
+                  "value": {
+                    "recipient": {
+                      "firstName": "Derick",
+                      "lastName": "Heaney",
+                      "type": "BUSINESS",
+                      "account": {
+                        "bankName": "Investment Account",
+                        "sortCode": "040004",
+                        "address": "8190 Amely Freeway",
+                        "accountNumber": "78355047"
+                      },
+                      "paymentChannel": "BANK_TRANSFER",
+                      "currency": "GBP",
+                      "country": "GB",
+                      "stored": true
+                    },
+                    "quoteId": "a4f7b2c1-ef14-4999-906b-xxxxxxxxxxxxx",
+                    "reason": "Gift",
+                    "remark": "Testing"
+                  }
+                },
+                "EUR_Payout": {
+                  "summary": "Example Payout to Germany (EUR)",
+                  "value": {
+                    "recipient": {
+                      "firstName": "Edmund",
+                      "lastName": "Veum",
+                      "address": "01676 Damien Fall",
+                      "type": "BUSINESS",
+                      "account": {
+                        "bankName": "Deutsche Bank",
+                        "address": "89730 Marcelle Vista",
+                        "swiftCode": "DEUTDEFF",
+                        "accountNumber": "DE89370400440532013000",
+                        "branchCode": "100"
+                      },
+                      "paymentChannel": "BANK_TRANSFER",
+                      "currency": "EUR",
+                      "country": "DE",
+                      "stored": true
+                    },
+                    "quoteId": "a4f7b2c1-ef14-4999-906b-xxxxxxxxxxxxx",
+                    "reason": "Gift",
+                    "remark": "Testing"
+                  }
+                },
+                "NGN_Payout": {
+                  "summary": "Example Payout to Nigeria (NGN)",
+                  "value": {
+                    "remark": "Testing",
+                    "reason": "Gift",
+                    "quoteId": "91e58c2d-ef14-4777-906b-xxxxxxxxxxxxx",
+                    "recipient": {
+                      "name": "Adeolu Adebayo",
+                      "paymentChannel": "BANK_TRANSFER",
+                      "currency": "NGN",
+                      "country": "NG",
+                      "account": {
+                        "bankName": "GT Bank",
+                        "accountNumber": "0010401234",
+                        "bankCode": "058"
+                      }
+                    }
+                  }
+                }
               }
             }
           }
