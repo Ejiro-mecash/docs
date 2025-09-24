@@ -191,10 +191,54 @@
             "example": "BANK_TRANSFER"
           },
           "source": {
-            "type": "object"
+            "$ref": "#/components/schemas/QuoteSource"
           },
           "target": {
-            "type": "object"
+            "$ref": "#/components/schemas/QuoteTarget"
+          }
+        }
+      },
+      "QuoteSource": {
+        "type": "object",
+        "required": [
+          "amount",
+          "country",
+          "currency"
+        ],
+        "properties": {
+          "amount": {
+            "type": "number",
+            "description": "The amount in the source currency.",
+            "example": 150000
+          },
+          "country": {
+            "type": "string",
+            "description": "The source country code (ISO 3166-1 alpha-2).",
+            "example": "NG"
+          },
+          "currency": {
+            "type": "string",
+            "description": "The source currency code (ISO 4217).",
+            "example": "NGN"
+          }
+        }
+      },
+      "QuoteTarget": {
+        "type": "object",
+        "required": [
+          "country",
+          "currency"
+        ],
+        "properties": {
+          "country": {
+            "type": "string",
+            "description": "The target country code (ISO 3166-1 alpha-2).",
+            "example": "US"
+          },
+          "currency": {
+            "type": "string",
+            "description": "The target currency code (ISO 4217).",
+            "example": "USD"
           }
         }
       },
@@ -900,7 +944,7 @@
           }
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Quote created successfully.",
             "content": {
               "application/json": {
