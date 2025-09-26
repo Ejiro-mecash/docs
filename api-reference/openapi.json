@@ -127,6 +127,16 @@
           "MWK"
         ]
       },
+      "PaymentChannel": {
+        "type": "string",
+        "description": "The channel through which the payment will be processed.",
+        "example": "BANK_TRANSFER",
+        "enum": [
+          "BANK_TRANSFER",
+          "MOBILE_MONEY",
+          "CARD_PAYMENT"
+        ]
+      },
       "Wallet": {
         "type": "object",
         "properties": {
@@ -210,9 +220,8 @@
         ],
         "properties": {
           "paymentChannel": {
-            "type": "string",
-            "description": "Payment method for the transaction.",
-            "example": "BANK_TRANSFER"
+            "$ref": "#/components/schemas/PaymentChannel"
+
           },
           "source": {
             "$ref": "#/components/schemas/QuoteSource"
@@ -236,14 +245,23 @@
             "example": 150000
           },
           "country": {
-            "$ref": "#/components/schemas/CountryCode"
+            "type": "string",
+            "description": "The source country code (ISO 3166-1 alpha-2).",
+            "enum": [
+              "NG",
+              "MW"
+            ]
           },
           "currency": {
-            "$ref": "#/components/schemas/CurrencyCode"
+            "type": "string",
+            "description": "The source currency code (ISO 4217).",
+            "enum": [
+              "NGN",
+              "MWK"
+            ]
           }
         }
-      },
-      "QuoteTarget": {
+      },      "QuoteTarget": {
         "type": "object",
         "required": [
           "country",
