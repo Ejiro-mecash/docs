@@ -103,6 +103,30 @@
           "message"
         ]
       },
+      "CountryCode": {
+        "type": "string",
+        "description": "Country code (ISO 3166-1 alpha-2).",
+        "example": "NG",
+        "enum": [
+          "NG",
+          "US",
+          "GB",
+          "DE",
+          "MW"
+        ]
+      },
+      "CurrencyCode": {
+        "type": "string",
+        "description": "Currency code (ISO 4217).",
+        "example": "NGN",
+        "enum": [
+          "NGN",
+          "USD",
+          "GBP",
+          "EUR",
+          "MWK"
+        ]
+      },
       "Wallet": {
         "type": "object",
         "properties": {
@@ -212,14 +236,10 @@
             "example": 150000
           },
           "country": {
-            "type": "string",
-            "description": "The source country code (ISO 3166-1 alpha-2).",
-            "example": "NG"
+            "$ref": "#/components/schemas/CountryCode"
           },
           "currency": {
-            "type": "string",
-            "description": "The source currency code (ISO 4217).",
-            "example": "NGN"
+            "$ref": "#/components/schemas/CurrencyCode"
           }
         }
       },
@@ -231,14 +251,10 @@
         ],
         "properties": {
           "country": {
-            "type": "string",
-            "description": "The target country code (ISO 3166-1 alpha-2).",
-            "example": "US"
+            "$ref": "#/components/schemas/CountryCode"
           },
           "currency": {
-            "type": "string",
-            "description": "The target currency code (ISO 4217).",
-            "example": "USD"
+            "$ref": "#/components/schemas/CurrencyCode"
           }
         }
       },
@@ -905,19 +921,20 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "allOf": [
-                    {
-                      "$ref": "#/components/schemas/Success"
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "wallet balance fetched successfully"
                     },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "data": {
-                          "$ref": "#/components/schemas/WalletBalance"
-                        }
-                      }
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Wallet"
                     }
-                  ]
+                  }
                 }
               }
             }
