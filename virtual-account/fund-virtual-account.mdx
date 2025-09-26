@@ -1,0 +1,59 @@
+---
+openapi: post /v1/virtual-account/simulate/transfer
+---
+
+import { Callout } from 'nextra/components'
+
+# Simulate Virtual Account Funding
+
+This endpoint is a crucial tool for testing your integration in our **sandbox environment** 🧪. It allows you to simulate an incoming bank transfer to a specific virtual account, triggering any associated webhooks and updating the account's balance.
+
+<Callout type="warning" emoji="⚠️">
+  This endpoint is available **only in the sandbox environment** and will not work in production. It is designed exclusively for testing purposes.
+</Callout>
+
+---
+
+## Endpoint
+
+Use this endpoint to simulate a credit transaction to one of your virtual accounts.
+
+**`POST`** `/v1/virtual-account/simulate/transfer`
+
+---
+
+## Request Body
+
+The request body must include the amount and the unique reference of the virtual account you wish to fund.
+
+| Field       | Type   | Description                                                                 | Required |
+| :---------- | :----- | :-------------------------------------------------------------------------- | :------- |
+| `amount`    | Number | The amount to be credited, specified in the lowest denomination (e.g., kobo, cents). | ✅ Yes   |
+| `reference` | String | The unique reference number for the virtual account you are funding.         | ✅ Yes   |
+
+---
+
+## Request Example
+
+Here is an example of how to call the endpoint using cURL.
+
+```bash copy
+curl --location '{{baseurl}}/v1/virtual-account/simulate/transfer' \
+--header 'Content-Type: application/json' \
+--header 'x-api-key: YOUR_SANDBOX_API_KEY' \
+--data '{
+    "amount": 10000,
+    "reference": "your_virtual_account_reference"
+}'
+```
+
+
+```json
+curl --location '{{baseurl}}/v1/virtual-account/simulate/transfer' \
+--header 'Content-Type: application/json' \
+--header 'x-api-key: {{apikey}}' \
+--data '{
+    "amount": 10000,
+    "reference": "{{refNumber}}"
+}'
+```

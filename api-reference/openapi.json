@@ -831,22 +831,23 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "allOf": [
-                    {
-                      "$ref": "#/components/schemas/Success"
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "wallets fetched successfully"
                     },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "data": {
-                          "type": "array",
-                          "items": {
-                            "$ref": "#/components/schemas/Wallet"
-                          }
-                        }
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Wallet"
                       }
                     }
-                  ]
+                  }
                 }
               }
             }
@@ -1292,6 +1293,71 @@
           },
           "500": {
             "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/virtual-account/simulate/transfer": {
+      "post": {
+        "tags": [
+          "Virtual Account"
+        ],
+        "summary": "Simulate an Inbound Transfer",
+        "description": "Simulates an inbound credit transfer to a virtual account. This is a test-only endpoint.",
+        "operationId": "simulateVirtualAccountTransfer",
+        "requestBody": {
+          "description": "Details of the simulated transfer.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "amount",
+                  "reference"
+                ],
+                "properties": {
+                  "amount": {
+                    "type": "integer",
+                    "description": "The amount to transfer in the lowest currency unit (e.g., cents for USD).",
+                    "example": 10000
+                  },
+                  "reference": {
+                    "type": "string",
+                    "description": "A unique reference for the transaction.",
+                    "example": "TXN_SIM_12345"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transfer simulation successful.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Virtual account credited successfully."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
           }
         }
       }
