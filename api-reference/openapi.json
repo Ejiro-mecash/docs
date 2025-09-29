@@ -137,6 +137,96 @@
           "CARD_PAYMENT"
         ]
       },
+      "RecipientType": {
+        "type": "string",
+        "description": "The type of recipient.",
+        "enum": [
+          "INDIVIDUAL",
+          "BUSINESS"
+        ]
+      },
+      "PayoutRecipientAccount": {
+        "type": "object",
+        "description": "Bank account details for the recipient. The required fields depend on the currency and country.",
+        "properties": {
+          "accountNumber": {
+            "type": "string"
+          },
+          "sortCode": {
+            "type": "string",
+            "description": "Also known as bank code in some regions."
+          },
+          "bankName": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string",
+            "description": "Address of the recipient's bank."
+          },
+          "routingNumber": {
+            "type": "string",
+            "description": "Used for US payouts."
+          },
+          "swiftCode": {
+            "type": "string",
+            "description": "Used for international payouts."
+          },
+          "branchCode": {
+            "type": "string"
+          },
+          "bankCode": {
+            "type": "string",
+            "description": "Used for Nigerian payouts, equivalent to sortCode."
+          }
+        }
+      },
+      "PayoutRecipient": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Full name of the recipient or business name."
+          },
+          "firstName": {
+            "type": "string",
+            "description": "Recipient's first name (for individuals)."
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Recipient's last name (for individuals)."
+          },
+          "type": {
+            "$ref": "#/components/schemas/RecipientType"
+          },
+          "address": {
+            "type": "string",
+            "description": "Full address of the recipient."
+          },
+          "account": {
+            "$ref": "#/components/schemas/PayoutRecipientAccount"
+          },
+          "paymentChannel": {
+            "$ref": "#/components/schemas/PaymentChannel"
+          },
+          "currency": {
+            "$ref": "#/components/schemas/CurrencyCode"
+          },
+          "country": {
+            "$ref": "#/components/schemas/CountryCode"
+          },
+          "stored": {
+            "type": "boolean",
+            "description": "Indicates if the recipient is a stored beneficiary."
+          }
+        },
+        "required": [
+          "name",
+          "account",
+          "paymentChannel",
+          "currency",
+          "country"
+        ]
+      },
       "Wallet": {
         "type": "object",
         "properties": {
