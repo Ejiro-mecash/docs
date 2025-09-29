@@ -51,7 +51,7 @@
         "groups": [
           {
             "group": "Overview",
-            "pages": [
+            "page": [
               "api-reference/introduction"
             ]
           },
