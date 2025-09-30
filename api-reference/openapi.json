@@ -133,7 +133,6 @@
         "example": "BANK_TRANSFER",
         "enum": [
           "BANK_TRANSFER",
-          "MOBILE_MONEY",
           "CARD_PAYMENT"
         ]
       },
@@ -311,7 +310,6 @@
         "properties": {
           "paymentChannel": {
             "$ref": "#/components/schemas/PaymentChannel"
-
           },
           "source": {
             "$ref": "#/components/schemas/QuoteSource"
@@ -351,7 +349,8 @@
             ]
           }
         }
-      },      "QuoteTarget": {
+      },
+      "QuoteTarget": {
         "type": "object",
         "required": [
           "country",
@@ -398,89 +397,88 @@
         }
       },
       "CreatePayoutRequest": {
-  "type": "object",
-  "required": [
-    "quoteId",
-    "recipient"
-  ],
-  "properties": {
-    "quoteId": {
-      "type": "string",
-      "description": "The unique identifier for the quote obtained from the Create Quote endpoint."
-    },
-    "reason": {
-      "type": "string",
-      "description": "The reason for the payout.",
-      "enum": [
-        "FAMILY_SUPPORT",
-        "GIFT",
-        "SALARY_PAYMENT",
-        "EDUCATIONAL_FEES",
-        "BUSINESS_INVOICE",
-        "OTHER"
-      ]
-    },
-    "remark": {
-      "type": "string",
-      "description": "A standardized remark for the transaction.",
-      "enum": [
-        "TESTING",
-        "Q3_PAYMENT",
-        "PERSONAL_USE",
-        "URGENT"
-      ]
-    },
-    "recipient": {
-      "type": "object",
-      "description": "Details of the person or business receiving the funds.",
-      "required": [
-        "name",
-        "paymentChannel",
-        "currency",
-        "country",
-        "account"
-      ],
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": "Full name of the recipient."
-        },
-        "paymentChannel": {
-          "$ref": "#/components/schemas/PaymentChannel"
-        },
-        "currency": {
-          "$ref": "#/components/schemas/CurrencyCode"
-        },
-        "country": {
-          "$ref": "#/components/schemas/CountryCode"
-        },
-        "account": {
-          "type": "object",
-          "description": "Bank account details for the recipient.",
-          "required": [
-            "accountNumber",
-            "sortCode"
-          ],
-          "properties": {
-            "bankName": {
-              "type": "string",
-              "description": "Name of the recipient's bank."
-            },
-            "accountNumber": {
-              "type": "string",
-              "description": "The recipient's bank account number."
-            },
-            "sortCode": {
-              "type": "string",
-              "description": "The sort code or bank code for the recipient's bank."
+        "type": "object",
+        "required": [
+          "quoteId",
+          "recipient"
+        ],
+        "properties": {
+          "quoteId": {
+            "type": "string",
+            "description": "The unique identifier for the quote obtained from the Create Quote endpoint."
+          },
+          "reason": {
+            "type": "string",
+            "description": "The reason for the payout.",
+            "enum": [
+              "FAMILY_SUPPORT",
+              "GIFT",
+              "SALARY_PAYMENT",
+              "EDUCATIONAL_FEES",
+              "BUSINESS_INVOICE",
+              "OTHER"
+            ]
+          },
+          "remark": {
+            "type": "string",
+            "description": "A standardized remark for the transaction.",
+            "enum": [
+              "TESTING",
+              "Q3_PAYMENT",
+              "PERSONAL_USE",
+              "URGENT"
+            ]
+          },
+          "recipient": {
+            "type": "object",
+            "description": "Details of the person or business receiving the funds.",
+            "required": [
+              "name",
+              "paymentChannel",
+              "currency",
+              "country",
+              "account"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Full name of the recipient."
+              },
+              "paymentChannel": {
+                "$ref": "#/components/schemas/PaymentChannel"
+              },
+              "currency": {
+                "$ref": "#/components/schemas/CurrencyCode"
+              },
+              "country": {
+                "$ref": "#/components/schemas/CountryCode"
+              },
+              "account": {
+                "type": "object",
+                "description": "Bank account details for the recipient.",
+                "required": [
+                  "accountNumber",
+                  "sortCode"
+                ],
+                "properties": {
+                  "bankName": {
+                    "type": "string",
+                    "description": "Name of the recipient's bank."
+                  },
+                  "accountNumber": {
+                    "type": "string",
+                    "description": "The recipient's bank account number."
+                  },
+                  "sortCode": {
+                    "type": "string",
+                    "description": "The sort code or bank code for the recipient's bank."
+                  }
+                }
+              }
             }
           }
         }
-      }
-    }
-  }
-},
-
+      },
       "Payout": {
         "type": "object",
         "properties": {
@@ -1198,8 +1196,8 @@
                       "stored": false
                     },
                     "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
-                    "reason": "Gift",
-                    "remark": "Testing"
+                    "reason": "GIFT",
+                    "remark": "TESTING"
                   }
                 },
                 "GBP_Payout": {
@@ -1221,8 +1219,8 @@
                       "stored": true
                     },
                     "quoteId": "a4f7b2c1-ef14-4999-906b-xxxxxxxxxxxxx",
-                    "reason": "Gift",
-                    "remark": "Testing"
+                    "reason": "GIFT",
+                    "remark": "TESTING"
                   }
                 },
                 "EUR_Payout": {
@@ -1246,15 +1244,15 @@
                       "stored": true
                     },
                     "quoteId": "a4f7b2c1-ef14-4999-906b-xxxxxxxxxxxxx",
-                    "reason": "Gift",
-                    "remark": "Testing"
+                    "reason": "GIFT",
+                    "remark": "TESTING"
                   }
                 },
                 "NGN_Payout": {
                   "summary": "Example Payout to Nigeria (NGN)",
                   "value": {
-                    "remark": "Testing",
-                    "reason": "Gift",
+                    "remark": "TESTING",
+                    "reason": "GIFT",
                     "quoteId": "91e58c2d-ef14-4777-906b-xxxxxxxxxxxxx",
                     "recipient": {
                       "name": "Adeolu Adebayo",
@@ -1494,8 +1492,8 @@
         "tags": [
           "Virtual Account"
         ],
-        "summary": "Simulate Funding to Virtual Account",
-        "description": "Simulates an inbound funding to a virtual account. This is a test-only endpoint.",
+        "summary": "Simulate an Inbound Transfer",
+        "description": "Simulates an inbound credit transfer to a virtual account. This is a test-only endpoint.",
         "operationId": "simulateVirtualAccountTransfer",
         "requestBody": {
           "description": "Details of the simulated transfer.",
@@ -1516,7 +1514,7 @@
                   },
                   "reference": {
                     "type": "string",
-                    "description": "Reference number of Virtual Account to be funded",
+                    "description": "Reference number used in the virtual account creation.",
                     "example": "TXN1234567"
                   }
                 }
@@ -1546,8 +1544,7 @@
             }
           },
           "400": {
-            "message":"Virtual account does not exist",
-            "status": "failed"
+            "$ref": "#/components/responses/BadRequest"
           },
           "401": {
             "$ref": "#/components/responses/Unauthorized"
