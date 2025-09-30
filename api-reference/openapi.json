@@ -398,22 +398,89 @@
         }
       },
       "CreatePayoutRequest": {
-        "type": "object",
-        "properties": {
-          "recipient": {
-            "type": "object"
-          },
-          "quoteId": {
-            "type": "string"
-          },
-          "reason": {
-            "type": "string"
-          },
-          "remark": {
-            "type": "string"
+  "type": "object",
+  "required": [
+    "quoteId",
+    "recipient"
+  ],
+  "properties": {
+    "quoteId": {
+      "type": "string",
+      "description": "The unique identifier for the quote obtained from the Create Quote endpoint."
+    },
+    "reason": {
+      "type": "string",
+      "description": "The reason for the payout.",
+      "enum": [
+        "FAMILY_SUPPORT",
+        "GIFT",
+        "SALARY_PAYMENT",
+        "EDUCATIONAL_FEES",
+        "BUSINESS_INVOICE",
+        "OTHER"
+      ]
+    },
+    "remark": {
+      "type": "string",
+      "description": "A standardized remark for the transaction.",
+      "enum": [
+        "TESTING",
+        "Q3_PAYMENT",
+        "PERSONAL_USE",
+        "URGENT"
+      ]
+    },
+    "recipient": {
+      "type": "object",
+      "description": "Details of the person or business receiving the funds.",
+      "required": [
+        "name",
+        "paymentChannel",
+        "currency",
+        "country",
+        "account"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Full name of the recipient."
+        },
+        "paymentChannel": {
+          "$ref": "#/components/schemas/PaymentChannel"
+        },
+        "currency": {
+          "$ref": "#/components/schemas/CurrencyCode"
+        },
+        "country": {
+          "$ref": "#/components/schemas/CountryCode"
+        },
+        "account": {
+          "type": "object",
+          "description": "Bank account details for the recipient.",
+          "required": [
+            "accountNumber",
+            "sortCode"
+          ],
+          "properties": {
+            "bankName": {
+              "type": "string",
+              "description": "Name of the recipient's bank."
+            },
+            "accountNumber": {
+              "type": "string",
+              "description": "The recipient's bank account number."
+            },
+            "sortCode": {
+              "type": "string",
+              "description": "The sort code or bank code for the recipient's bank."
+            }
           }
         }
-      },
+      }
+    }
+  }
+},
+
       "Payout": {
         "type": "object",
         "properties": {
@@ -1479,7 +1546,8 @@
             }
           },
           "400": {
-            "$ref": "#/components/responses/BadRequest"
+            "message":"Virtual account does not exist",
+            "status": "failed"
           },
           "401": {
             "$ref": "#/components/responses/Unauthorized"
