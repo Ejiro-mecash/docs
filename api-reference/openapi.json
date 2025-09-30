@@ -1427,8 +1427,8 @@
         "tags": [
           "Virtual Account"
         ],
-        "summary": "Simulate an Inbound Transfer",
-        "description": "Simulates an inbound credit transfer to a virtual account. This is a test-only endpoint.",
+        "summary": "Simulate Funding to Virtual Account",
+        "description": "Simulates an inbound funding to a virtual account. This is a test-only endpoint.",
         "operationId": "simulateVirtualAccountTransfer",
         "requestBody": {
           "description": "Details of the simulated transfer.",
@@ -1449,7 +1449,7 @@
                   },
                   "reference": {
                     "type": "string",
-                    "description": "Reference number used in the virtual account creation.",
+                    "description": "Reference number of Virtual Account to be funded",
                     "example": "TXN1234567"
                   }
                 }
@@ -1517,7 +1517,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A list of banks retrieved successfully.",
+            "description": "List of banks retrieved successfully.",
             "content": {
               "application/json": {
                 "schema": {
