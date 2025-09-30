@@ -1449,8 +1449,8 @@
                   },
                   "reference": {
                     "type": "string",
-                    "description": "A unique reference for the transaction.",
-                    "example": "TXN_SIM_12345"
+                    "description": "Reference number used in the virtual account creation.",
+                    "example": "TXN1234567"
                   }
                 }
               }
@@ -1471,7 +1471,7 @@
                     },
                     "message": {
                       "type": "string",
-                      "example": "Virtual account credited successfully."
+                      "example": "Virtual account funded successfully."
                     }
                   }
                 }
