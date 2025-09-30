@@ -112,7 +112,8 @@
           "US",
           "GB",
           "DE",
-          "MW"
+          "MW",
+          "CA"
         ]
       },
       "CurrencyCode": {
@@ -124,7 +125,8 @@
           "USD",
           "GBP",
           "EUR",
-          "MWK"
+          "MWK",
+          "CAD"
         ]
       },
       "PaymentChannel": {
@@ -133,7 +135,7 @@
         "example": "BANK_TRANSFER",
         "enum": [
           "BANK_TRANSFER",
-          "CARD_PAYMENT"
+          "INTERAC"
         ]
       },
       "RecipientType": {
