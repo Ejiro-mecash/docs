@@ -151,25 +151,11 @@
         "properties": {
           "name": {
             "type": "string",
-            "description": "Full name of the individual or business."
-          },
-          "firstName": {
-            "type": "string",
-            "description": "Recipient's first name."
-          },
-          "lastName": {
-            "type": "string",
-            "description": "Recipient's last name."
+            "description": "Full name of the Recipient as found on the Account Enquiry endpoint."
           },
           "address": {
             "type": "string",
             "description": "Full address of the recipient."
-          },
-          "type": {
-            "$ref": "#/components/schemas/RecipientType"
-          },
-          "stored": {
-            "type": "boolean"
           },
           "paymentChannel": {
             "$ref": "#/components/schemas/PaymentChannel"
@@ -215,9 +201,9 @@
                     "type": "string",
                     "example": "0010401234"
                   },
-                  "bankCode": {
+                  "sortCode": {
                     "type": "string",
-                    "description": "The 3-digit NIP bank code.",
+                    "description": "The 3-digit NIP sort code.",
                     "example": "058"
                   }
                 }
@@ -284,8 +270,7 @@
           {
             "type": "object",
             "required": [
-              "firstName",
-              "lastName",
+              "name",
               "address"
             ],
             "properties": {
@@ -297,7 +282,8 @@
                 ],
                 "properties": {
                   "bankName": {
-                    "type": "string"
+                    "type": "string",
+                    "description":"Name of the bank, e.g Chase Bank"
                   },
                   "iban": {
                     "type": "string",
@@ -333,8 +319,7 @@
           {
             "type": "object",
             "required": [
-              "firstName",
-              "lastName"
+              "name",
             ],
             "properties": {
               "account": {
