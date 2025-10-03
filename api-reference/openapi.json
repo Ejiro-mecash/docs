@@ -146,65 +146,30 @@
           "BUSINESS"
         ]
       },
-      "PayoutRecipientAccount": {
-        "type": "object",
-        "description": "Bank account details for the recipient. The required fields depend on the currency and country.",
-        "properties": {
-          "accountNumber": {
-            "type": "string"
-          },
-          "sortCode": {
-            "type": "string",
-            "description": "Also known as bank code in some regions."
-          },
-          "bankName": {
-            "type": "string"
-          },
-          "address": {
-            "type": "string",
-            "description": "Address of the recipient's bank."
-          },
-          "routingNumber": {
-            "type": "string",
-            "description": "Used for US payouts."
-          },
-          "swiftCode": {
-            "type": "string",
-            "description": "Used for international payouts."
-          },
-          "branchCode": {
-            "type": "string"
-          },
-          "bankCode": {
-            "type": "string",
-            "description": "Used for Nigerian payouts, equivalent to sortCode."
-          }
-        }
-      },
-      "PayoutRecipient": {
+      "BaseRecipient": {
         "type": "object",
         "properties": {
           "name": {
             "type": "string",
-            "description": "Full name of the recipient or business name."
+            "description": "Full name of the individual or business."
           },
           "firstName": {
             "type": "string",
-            "description": "Recipient's first name (for individuals)."
+            "description": "Recipient's first name."
           },
           "lastName": {
             "type": "string",
-            "description": "Recipient's last name (for individuals)."
-          },
-          "type": {
-            "$ref": "#/components/schemas/RecipientType"
+            "description": "Recipient's last name."
           },
           "address": {
             "type": "string",
             "description": "Full address of the recipient."
           },
-          "account": {
-            "$ref": "#/components/schemas/PayoutRecipientAccount"
+          "type": {
+            "$ref": "#/components/schemas/RecipientType"
+          },
+          "stored": {
+            "type": "boolean"
           },
           "paymentChannel": {
             "$ref": "#/components/schemas/PaymentChannel"
@@ -214,19 +179,338 @@
           },
           "country": {
             "$ref": "#/components/schemas/CountryCode"
-          },
-          "stored": {
-            "type": "boolean",
-            "description": "Indicates if the recipient is a stored beneficiary."
           }
         },
         "required": [
-          "name",
-          "account",
           "paymentChannel",
           "currency",
-          "country"
+          "country",
+          "account"
         ]
+      },
+      "NgnRecipient": {
+        "description": "Recipient details for a payout to Nigeria (NGN).",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseRecipient"
+          },
+          {
+            "type": "object",
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "account": {
+                "type": "object",
+                "required": [
+                  "accountNumber",
+                  "bankCode"
+                ],
+                "properties": {
+                  "bankName": {
+                    "type": "string"
+                  },
+                  "accountNumber": {
+                    "type": "string",
+                    "example": "0010401234"
+                  },
+                  "bankCode": {
+                    "type": "string",
+                    "description": "The 3-digit NIP bank code.",
+                    "example": "058"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "UsdRecipient": {
+        "description": "Recipient details for a payout to the USA (USD).",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseRecipient"
+          },
+          {
+            "type": "object",
+            "required": [
+              "name",
+              "address"
+            ],
+            "properties": {
+              "account": {
+                "type": "object",
+                "required": [
+                  "accountNumber",
+                  "routingNumber"
+                ],
+                "properties": {
+                  "bankName": {
+                    "type": "string"
+                  },
+                  "accountNumber": {
+                    "type": "string",
+                    "example": "857362910"
+                  },
+                  "routingNumber": {
+                    "type": "string",
+                    "description": "The 9-digit ABA routing number for ACH transfers.",
+                    "example": "021000021"
+                  },
+                  "swiftCode": {
+                    "type": "string",
+                    "description": "SWIFT/BIC code, often for wire transfers.",
+                    "example": "CHASUS33XXX"
+                  },
+                  "address": {
+                    "type": "string",
+                    "description": "The bank's physical address."
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "EurRecipient": {
+        "description": "Recipient details for a payout within Europe (EUR).",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseRecipient"
+          },
+          {
+            "type": "object",
+            "required": [
+              "firstName",
+              "lastName",
+              "address"
+            ],
+            "properties": {
+              "account": {
+                "type": "object",
+                "required": [
+                  "iban",
+                  "swiftCode"
+                ],
+                "properties": {
+                  "bankName": {
+                    "type": "string"
+                  },
+                  "iban": {
+                    "type": "string",
+                    "description": "The International Bank Account Number.",
+                    "example": "DE89370400440532013000"
+                  },
+                  "swiftCode": {
+                    "type": "string",
+                    "description": "The SWIFT/BIC code for the bank.",
+                    "example": "DEUTDEFF"
+                  },
+                  "branchCode": {
+                    "type": "string",
+                    "description": "A bank branch identifier, if applicable."
+                  },
+                  "address": {
+                    "type": "string",
+                    "description": "The bank's physical address."
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "GbpRecipient": {
+        "description": "Recipient details for a payout to the UK (GBP).",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseRecipient"
+          },
+          {
+            "type": "object",
+            "required": [
+              "firstName",
+              "lastName"
+            ],
+            "properties": {
+              "account": {
+                "type": "object",
+                "required": [
+                  "accountNumber",
+                  "sortCode"
+                ],
+                "properties": {
+                  "bankName": {
+                    "type": "string"
+                  },
+                  "accountNumber": {
+                    "type": "string",
+                    "description": "The 8-digit UK bank account number.",
+                    "example": "78355047"
+                  },
+                  "sortCode": {
+                    "type": "string",
+                    "description": "The 6-digit UK bank sort code.",
+                    "example": "040004"
+                  },
+                  "address": {
+                    "type": "string",
+                    "description": "The bank's physical address."
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "CadRecipient": {
+        "description": "Recipient details for a payout to Canada (CAD).",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseRecipient"
+          },
+          {
+            "type": "object",
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "account": {
+                "type": "object",
+                "required": [
+                  "accountNumber",
+                  "transitNumber",
+                  "institutionNumber"
+                ],
+                "properties": {
+                  "bankName": {
+                    "type": "string"
+                  },
+                  "accountNumber": {
+                    "type": "string",
+                    "example": "2309912345"
+                  },
+                  "transitNumber": {
+                    "type": "string",
+                    "description": "The 5-digit branch transit number.",
+                    "example": "12345"
+                  },
+                  "institutionNumber": {
+                    "type": "string",
+                    "description": "The 3-digit financial institution number.",
+                    "example": "004"
+                  },
+                  "swiftCode": {
+                    "type": "string",
+                    "description": "SWIFT/BIC code, if applicable."
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "CreatePayoutRequest": {
+        "type": "object",
+        "required": [
+          "quoteId",
+          "recipient"
+        ],
+        "properties": {
+          "quoteId": {
+            "type": "string",
+            "description": "The unique identifier for the quote."
+          },
+          "reason": {
+            "type": "string",
+            "description": "The reason for the payout.",
+            "enum": [
+              "FAMILY_SUPPORT",
+              "GIFT",
+              "SALARY_PAYMENT",
+              "EDUCATIONAL_FEES",
+              "BUSINESS_INVOICE",
+              "OTHER"
+            ]
+          },
+          "remark": {
+            "type": "string",
+            "description": "A standardized remark for the transaction."
+          },
+          "recipient": {
+            "description": "Details of the recipient. The structure depends on the recipient's currency.",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/NgnRecipient"
+              },
+              {
+                "$ref": "#/components/schemas/UsdRecipient"
+              },
+              {
+                "$ref": "#/components/schemas/EurRecipient"
+              },
+              {
+                "$ref": "#/components/schemas/GbpRecipient"
+              },
+              {
+                "$ref": "#/components/schemas/CadRecipient"
+              }
+            ],
+            "discriminator": {
+              "propertyName": "currency",
+              "mapping": {
+                "NGN": "#/components/schemas/NgnRecipient",
+                "USD": "#/components/schemas/UsdRecipient",
+                "EUR": "#/components/schemas/EurRecipient",
+                "GBP": "#/components/schemas/GbpRecipient",
+                "CAD": "#/components/schemas/CadRecipient"
+              }
+            }
+          }
+        }
+      },
+      "Payout": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "c6611ad3-805a-415b-98b7-xxxxxxxxxxxxx"
+          },
+          "remark": {
+            "type": "string",
+            "example": "Testing"
+          },
+          "reason": {
+            "type": "string",
+            "example": "Gift"
+          },
+          "referenceNumber": {
+            "type": "string",
+            "example": "L2TEZEHNXXXXXX"
+          },
+          "type": {
+            "type": "string",
+            "example": "SEND"
+          },
+          "state": {
+            "type": "string",
+            "example": "COMPLETED"
+          },
+          "quote": {
+            "type": "object"
+          },
+          "recipient": {
+            "type": "object"
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "processed": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
       },
       "Wallet": {
         "type": "object",
@@ -247,36 +531,6 @@
           "country": {
             "type": "string",
             "example": "NG"
-          }
-        }
-      },
-      "WalletBalance": {
-        "type": "object",
-        "properties": {
-          "walletId": {
-            "type": "string",
-            "example": "wal_01HZX8W9K2Q1"
-          },
-          "currency": {
-            "type": "string",
-            "example": "NGN"
-          },
-          "country": {
-            "type": "string",
-            "example": "NG"
-          },
-          "balance": {
-            "type": "string",
-            "example": "250000.50"
-          },
-          "available": {
-            "type": "string",
-            "example": "240000.50"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time",
-            "example": "2025-09-19T10:15:30Z"
           }
         }
       },
@@ -395,132 +649,6 @@
           },
           "fees": {
             "type": "object"
-          }
-        }
-      },
-      "CreatePayoutRequest": {
-        "type": "object",
-        "required": [
-          "quoteId",
-          "recipient"
-        ],
-        "properties": {
-          "quoteId": {
-            "type": "string",
-            "description": "The unique identifier for the quote obtained from the Create Quote endpoint."
-          },
-          "reason": {
-            "type": "string",
-            "description": "The reason for the payout.",
-            "enum": [
-              "FAMILY_SUPPORT",
-              "GIFT",
-              "SALARY_PAYMENT",
-              "EDUCATIONAL_FEES",
-              "BUSINESS_INVOICE",
-              "OTHER"
-            ]
-          },
-          "remark": {
-            "type": "string",
-            "description": "A standardized remark for the transaction.",
-            "enum": [
-              "TESTING",
-              "Q3_PAYMENT",
-              "PERSONAL_USE",
-              "URGENT"
-            ]
-          },
-          "recipient": {
-            "type": "object",
-            "description": "Details of the person or business receiving the funds.",
-            "required": [
-              "name",
-              "paymentChannel",
-              "currency",
-              "country",
-              "account"
-            ],
-            "properties": {
-              "name": {
-                "type": "string",
-                "description": "Full name of the recipient."
-              },
-              "paymentChannel": {
-                "$ref": "#/components/schemas/PaymentChannel"
-              },
-              "currency": {
-                "$ref": "#/components/schemas/CurrencyCode"
-              },
-              "country": {
-                "$ref": "#/components/schemas/CountryCode"
-              },
-              "account": {
-                "type": "object",
-                "description": "Bank account details for the recipient.",
-                "required": [
-                  "accountNumber",
-                  "sortCode"
-                ],
-                "properties": {
-                  "bankName": {
-                    "type": "string",
-                    "description": "Name of the recipient's bank."
-                  },
-                  "accountNumber": {
-                    "type": "string",
-                    "description": "The recipient's bank account number."
-                  },
-                  "sortCode": {
-                    "type": "string",
-                    "description": "The sort code or bank code for the recipient's bank."
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "Payout": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "example": "c6611ad3-805a-415b-98b7-xxxxxxxxxxxxx"
-          },
-          "remark": {
-            "type": "string",
-            "example": "Testing"
-          },
-          "reason": {
-            "type": "string",
-            "example": "Gift"
-          },
-          "referenceNumber": {
-            "type": "string",
-            "example": "L2TEZEHNXXXXXX"
-          },
-          "type": {
-            "type": "string",
-            "example": "SEND"
-          },
-          "state": {
-            "type": "string",
-            "example": "COMPLETED"
-          },
-          "quote": {
-            "type": "object"
-          },
-          "recipient": {
-            "type": "object"
-          },
-          "created": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "processed": {
-            "type": "string",
-            "format": "date-time"
           }
         }
       },
@@ -1168,7 +1296,7 @@
           "Payout"
         ],
         "summary": "Create Payout",
-        "description": "Creates a payout transaction by transferring funds to a specified beneficiary. Select an example from the dropdown to see request bodies for different currencies.",
+        "description": "Creates a payout transaction by transferring funds to a specified beneficiary. The required fields in the `recipient` object depend on the destination `currency`.",
         "operationId": "createPayout",
         "requestBody": {
           "required": true,
@@ -1178,78 +1306,6 @@
                 "$ref": "#/components/schemas/CreatePayoutRequest"
               },
               "examples": {
-                "USD_Payout": {
-                  "summary": "Example Payout to the USA (USD)",
-                  "value": {
-                    "recipient": {
-                      "name": "Linda Collins",
-                      "type": "BUSINESS",
-                      "address": "200 Koch Vista, New York, NY 10001",
-                      "account": {
-                        "accountNumber": "857362910",
-                        "sortCode": "CHASUS33XXX",
-                        "bankName": "Chase Bank",
-                        "address": "1948 Kemmer Ville, New York, NY 10002",
-                        "routingNumber": "021000021"
-                      },
-                      "paymentChannel": "BANK_TRANSFER",
-                      "currency": "USD",
-                      "country": "US",
-                      "stored": false
-                    },
-                    "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
-                    "reason": "GIFT",
-                    "remark": "TESTING"
-                  }
-                },
-                "GBP_Payout": {
-                  "summary": "Example Payout to the UK (GBP)",
-                  "value": {
-                    "recipient": {
-                      "firstName": "Derick",
-                      "lastName": "Heaney",
-                      "type": "BUSINESS",
-                      "account": {
-                        "bankName": "Investment Account",
-                        "sortCode": "040004",
-                        "address": "8190 Amely Freeway",
-                        "accountNumber": "78355047"
-                      },
-                      "paymentChannel": "BANK_TRANSFER",
-                      "currency": "GBP",
-                      "country": "GB",
-                      "stored": true
-                    },
-                    "quoteId": "a4f7b2c1-ef14-4999-906b-xxxxxxxxxxxxx",
-                    "reason": "GIFT",
-                    "remark": "TESTING"
-                  }
-                },
-                "EUR_Payout": {
-                  "summary": "Example Payout to Germany (EUR)",
-                  "value": {
-                    "recipient": {
-                      "firstName": "Edmund",
-                      "lastName": "Veum",
-                      "address": "01676 Damien Fall",
-                      "type": "BUSINESS",
-                      "account": {
-                        "bankName": "Deutsche Bank",
-                        "address": "89730 Marcelle Vista",
-                        "swiftCode": "DEUTDEFF",
-                        "accountNumber": "DE89370400440532013000",
-                        "branchCode": "100"
-                      },
-                      "paymentChannel": "BANK_TRANSFER",
-                      "currency": "EUR",
-                      "country": "DE",
-                      "stored": true
-                    },
-                    "quoteId": "a4f7b2c1-ef14-4999-906b-xxxxxxxxxxxxx",
-                    "reason": "GIFT",
-                    "remark": "TESTING"
-                  }
-                },
                 "NGN_Payout": {
                   "summary": "Example Payout to Nigeria (NGN)",
                   "value": {
@@ -1265,6 +1321,26 @@
                         "bankName": "GT Bank",
                         "accountNumber": "0010401234",
                         "bankCode": "058"
+                      }
+                    }
+                  }
+                },
+                "USD_Payout": {
+                  "summary": "Example Payout to the USA (USD)",
+                  "value": {
+                    "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
+                    "reason": "GIFT",
+                    "remark": "TESTING",
+                    "recipient": {
+                      "name": "Linda Collins",
+                      "type": "BUSINESS",
+                      "address": "200 Koch Vista, New York, NY 10001",
+                      "paymentChannel": "BANK_TRANSFER",
+                      "currency": "USD",
+                      "country": "US",
+                      "account": {
+                        "accountNumber": "857362910",
+                        "routingNumber": "021000021"
                       }
                     }
                   }
