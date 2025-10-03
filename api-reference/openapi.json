@@ -195,11 +195,14 @@
                 ],
                 "properties": {
                   "bankName": {
-                    "type": "string"
+                    "type": "string",
+                    "description":"The name of the Bank"
+        
                   },
                   "accountNumber": {
                     "type": "string",
-                    "example": "0010401234"
+                    "example": "0010401234",
+                    "description":"Recipient's account number"
                   },
                   "sortCode": {
                     "type": "string",
@@ -234,7 +237,8 @@
                 ],
                 "properties": {
                   "bankName": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "The name of the bank"
                   },
                   "accountNumber": {
                     "type": "string",
@@ -330,7 +334,9 @@
                 ],
                 "properties": {
                   "bankName": {
-                    "type": "string"
+                    "type": "string",
+                    "description":"Name of the bank"
+
                   },
                   "accountNumber": {
                     "type": "string",
@@ -374,10 +380,12 @@
                 ],
                 "properties": {
                   "bankName": {
-                    "type": "string"
+                    "type": "string",
+                    "description":"Name of bank"
                   },
                   "accountNumber": {
                     "type": "string",
+                    "description":"Recipient account number",
                     "example": "2309912345"
                   },
                   "transitNumber": {

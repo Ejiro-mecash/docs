@@ -100,20 +100,6 @@
         ]
       },
       {
-        "tab": "Payout Examples",
-        "groups": [
-          {
-            "group": "Common Scenarios",
-            "pages": [
-              "payout/create-payout-examples/ngn-usd-example",
-              "payout/create-payout-examples/ngn-gbp-example",
-              "payout/create-payout-examples/ngn-eur-example",
-              "payout/create-payout-examples/ngn-ngn-example"
-            ]
-          }
-        ]
-      },
-      {
         "tab": "Resources",
         "groups": [
           {
