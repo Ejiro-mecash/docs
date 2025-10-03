@@ -189,6 +189,7 @@
         ]
       },
       "NgnRecipient": {
+        "title": "NGN Payout",
         "description": "Recipient details for a payout to Nigeria (NGN).",
         "allOf": [
           {
@@ -226,6 +227,7 @@
         ]
       },
       "UsdRecipient": {
+        "title": "USD Payout",
         "description": "Recipient details for a payout to the USA (USD).",
         "allOf": [
           {
@@ -273,6 +275,7 @@
         ]
       },
       "EurRecipient": {
+        "title": "EUR Payout",
         "description": "Recipient details for a payout within Europe (EUR).",
         "allOf": [
           {
@@ -321,6 +324,7 @@
         ]
       },
       "GbpRecipient": {
+        "title": "GBP Payout",
         "description": "Recipient details for a payout to the UK (GBP).",
         "allOf": [
           {
@@ -364,6 +368,7 @@
         ]
       },
       "CadRecipient": {
+        "title": "CAD Payout",
         "description": "Recipient details for a payout to Canada (CAD).",
         "allOf": [
           {
