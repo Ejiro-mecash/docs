@@ -12,38 +12,14 @@
     }
   ],
   "tags": [
-    {
-      "name": "Wallet",
-      "description": "Wallet management operations"
-    },
-    {
-      "name": "Quote",
-      "description": "Currency quote operations"
-    },
-    {
-      "name": "Payout",
-      "description": "Payout operations"
-    },
-    {
-      "name": "Transaction",
-      "description": "Transaction management"
-    },
-    {
-      "name": "Virtual Account",
-      "description": "Virtual account operations for static and dynamic accounts"
-    },
-    {
-      "name": "Bank",
-      "description": "Bank account and list operations"
-    },
-    {
-      "name": "Ramp",
-      "description": "Ramp operations for crypto"
-    },
-    {
-      "name": "Miscellaneous",
-      "description": "Utility and miscellaneous operations"
-    }
+    { "name": "Wallet", "description": "Wallet management operations" },
+    { "name": "Quote", "description": "Currency quote operations" },
+    { "name": "Payout", "description": "Payout operations" },
+    { "name": "Transaction", "description": "Transaction management" },
+    { "name": "Virtual Account", "description": "Virtual account operations for static and dynamic accounts" },
+    { "name": "Bank", "description": "Bank account and list operations" },
+    { "name": "Ramp", "description": "Ramp operations for crypto" },
+    { "name": "Miscellaneous", "description": "Utility and miscellaneous operations" }
   ],
   "security": [
     {
@@ -52,1764 +28,369 @@
   ],
   "components": {
     "securitySchemes": {
-      "ApiKeyAuth": {
-        "type": "apiKey",
-        "in": "header",
-        "name": "x-api-key"
-      }
+      "ApiKeyAuth": { "type": "apiKey", "in": "header", "name": "x-api-key" }
     },
     "schemas": {
       "Success": {
         "type": "object",
         "properties": {
-          "status": {
-            "type": "string",
-            "example": "success"
-          },
-          "message": {
-            "type": "string",
-            "example": "Operation completed successfully."
-          },
-          "data": {
-            "type": "object",
-            "description": "The payload of the successful response."
-          }
+          "status": { "type": "string", "example": "success" },
+          "message": { "type": "string", "example": "Operation completed successfully." },
+          "data": { "type": "object", "description": "The payload of the successful response." }
         },
-        "required": [
-          "status",
-          "message"
-        ]
+        "required": ["status", "message"]
       },
       "Error": {
         "type": "object",
         "properties": {
-          "status": {
-            "type": "string",
-            "example": "error"
-          },
-          "errorCode": {
-            "type": "string",
-            "description": "A unique code for the error that occurred.",
-            "example": "INVALID_PARAMETER"
-          },
-          "message": {
-            "type": "string",
-            "example": "An error occurred."
-          }
+          "status": { "type": "string", "example": "error" },
+          "errorCode": { "type": "string", "description": "A unique code for the error that occurred.", "example": "INVALID_PARAMETER" },
+          "message": { "type": "string", "example": "An error occurred." }
         },
-        "required": [
-          "status",
-          "errorCode",
-          "message"
-        ]
+        "required": ["status", "errorCode", "message"]
       },
-      "CountryCode": {
-        "type": "string",
-        "description": "Country code (ISO 3166-1 alpha-2).",
-        "example": "NG",
-        "enum": [
-          "NG",
-          "US",
-          "GB",
-          "DE",
-          "MW",
-          "CA"
-        ]
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "status": { "type": "string", "example": "error" },
+          "message": { "type": "string", "description": "A human-readable error message." },
+          "data": { "nullable": true, "description": "Optional data payload, often null in case of an error.", "example": null }
+        },
+        "required": ["status", "message"]
       },
-      "CurrencyCode": {
-        "type": "string",
-        "description": "Currency code (ISO 4217).",
-        "example": "NGN",
-        "enum": [
-          "NGN",
-          "USD",
-          "GBP",
-          "EUR",
-          "MWK",
-          "CAD"
-        ]
-      },
-      "PaymentChannel": {
-        "type": "string",
-        "description": "The channel through which the payment will be processed.",
-        "example": "BANK_TRANSFER",
-        "enum": [
-          "BANK_TRANSFER",
-          "INTERAC"
-        ]
-      },
-      "RecipientType": {
-        "type": "string",
-        "description": "The type of recipient.",
-        "enum": [
-          "INDIVIDUAL",
-          "BUSINESS"
-        ]
-      },
+      "CountryCode": { "type": "string", "description": "Country code (ISO 3166-1 alpha-2).", "example": "NG", "enum": ["NG", "US", "GB", "DE", "MW", "CA"] },
+      "CurrencyCode": { "type": "string", "description": "Currency code (ISO 4217).", "example": "NGN", "enum": ["NGN", "USD", "GBP", "EUR", "MWK", "CAD"] },
+      "PaymentChannel": { "type": "string", "description": "The channel through which the payment will be processed.", "example": "BANK_TRANSFER", "enum": ["BANK_TRANSFER", "INTERAC"] },
+      "RecipientType": { "type": "string", "description": "The type of recipient.", "enum": ["INDIVIDUAL", "BUSINESS"] },
       "BaseRecipient": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string",
-            "description": "Full name of the Recipient as found on the Account Enquiry endpoint."
-          },
-          "address": {
-            "type": "string",
-            "description": "Full address of the recipient."
-          },
-          "paymentChannel": {
-            "$ref": "#/components/schemas/PaymentChannel"
-          },
-          "currency": {
-            "$ref": "#/components/schemas/CurrencyCode"
-          },
-          "country": {
-            "$ref": "#/components/schemas/CountryCode"
-          }
+          "name": { "type": "string", "description": "Full name of the Recipient as found on the Account Enquiry endpoint." },
+          "address": { "type": "string", "description": "Full address of the recipient." },
+          "paymentChannel": { "$ref": "#/components/schemas/PaymentChannel" },
+          "currency": { "$ref": "#/components/schemas/CurrencyCode" },
+          "country": { "$ref": "#/components/schemas/CountryCode" }
         },
-        "required": [
-          "paymentChannel",
-          "currency",
-          "country",
-          "account"
-        ]
+        "required": ["paymentChannel", "currency", "country", "account"]
       },
       "NgnRecipient": {
-        "title": "NGN Payout",
-        "description": "Recipient details for a payout to Nigeria (NGN).",
+        "title": "NGN Payout", "description": "Recipient details for a payout to Nigeria (NGN).",
         "allOf": [
-          {
-            "$ref": "#/components/schemas/BaseRecipient"
-          },
-          {
-            "type": "object",
-            "required": [
-              "name"
-            ],
-            "properties": {
-              "account": {
-                "type": "object",
-                "required": [
-                  "accountNumber",
-                  "bankCode"
-                ],
-                "properties": {
-                  "bankName": {
-                    "type": "string",
-                    "description":"The name of the Bank"
-        
-                  },
-                  "accountNumber": {
-                    "type": "string",
-                    "example": "0010401234",
-                    "description":"Recipient's account number"
-                  },
-                  "sortCode": {
-                    "type": "string",
-                    "description": "The 3-digit NIP sort code.",
-                    "example": "058"
-                  }
-                }
-              }
-            }
-          }
+          { "$ref": "#/components/schemas/BaseRecipient" },
+          { "type": "object", "required": ["name"], "properties": { "account": { "type": "object", "required": ["accountNumber", "bankCode"], "properties": { "bankName": { "type": "string", "description": "The name of the Bank" }, "accountNumber": { "type": "string", "example": "0010401234", "description": "Recipient's account number" }, "sortCode": { "type": "string", "description": "The 3-digit NIP sort code.", "example": "058" } } } } }
         ]
       },
       "UsdRecipient": {
-        "title": "USD Payout",
-        "description": "Recipient details for a payout to the USA (USD).",
+        "title": "USD Payout", "description": "Recipient details for a payout to the USA (USD).",
         "allOf": [
-          {
-            "$ref": "#/components/schemas/BaseRecipient"
-          },
-          {
-            "type": "object",
-            "required": [
-              "name",
-              "address"
-            ],
-            "properties": {
-              "account": {
-                "type": "object",
-                "required": [
-                  "accountNumber",
-                  "routingNumber"
-                ],
-                "properties": {
-                  "bankName": {
-                    "type": "string",
-                    "description": "The name of the bank"
-                  },
-                  "accountNumber": {
-                    "type": "string",
-                    "example": "857362910"
-                  },
-                  "routingNumber": {
-                    "type": "string",
-                    "description": "The 9-digit ABA routing number for ACH transfers.",
-                    "example": "021000021"
-                  },
-                  "swiftCode": {
-                    "type": "string",
-                    "description": "SWIFT/BIC code, often for wire transfers.",
-                    "example": "CHASUS33XXX"
-                  },
-                  "address": {
-                    "type": "string",
-                    "description": "The bank's physical address."
-                  }
-                }
-              }
-            }
-          }
+          { "$ref": "#/components/schemas/BaseRecipient" },
+          { "type": "object", "required": ["name", "address"], "properties": { "account": { "type": "object", "required": ["accountNumber", "routingNumber"], "properties": { "bankName": { "type": "string", "description": "The name of the bank" }, "accountNumber": { "type": "string", "example": "857362910" }, "routingNumber": { "type": "string", "description": "The 9-digit ABA routing number for ACH transfers.", "example": "021000021" }, "swiftCode": { "type": "string", "description": "SWIFT/BIC code, often for wire transfers.", "example": "CHASUS33XXX" }, "address": { "type": "string", "description": "The bank's physical address." } } } } }
         ]
       },
       "EurRecipient": {
-        "title": "EUR Payout",
-        "description": "Recipient details for a payout within Europe (EUR).",
+        "title": "EUR Payout", "description": "Recipient details for a payout within Europe (EUR).",
         "allOf": [
-          {
-            "$ref": "#/components/schemas/BaseRecipient"
-          },
-          {
-            "type": "object",
-            "required": [
-              "name",
-              "address"
-            ],
-            "properties": {
-              "account": {
-                "type": "object",
-                "required": [
-                  "iban",
-                  "swiftCode"
-                ],
-                "properties": {
-                  "bankName": {
-                    "type": "string",
-                    "description":"Name of the bank, e.g Chase Bank"
-                  },
-                  "iban": {
-                    "type": "string",
-                    "description": "The International Bank Account Number.",
-                    "example": "DE89370400440532013000"
-                  },
-                  "swiftCode": {
-                    "type": "string",
-                    "description": "The SWIFT/BIC code for the bank.",
-                    "example": "DEUTDEFF"
-                  },
-                  "branchCode": {
-                    "type": "string",
-                    "description": "A bank branch identifier, if applicable."
-                  },
-                  "address": {
-                    "type": "string",
-                    "description": "The bank's physical address."
-                  }
-                }
-              }
-            }
-          }
+          { "$ref": "#/components/schemas/BaseRecipient" },
+          { "type": "object", "required": ["name", "address"], "properties": { "account": { "type": "object", "required": ["iban", "swiftCode"], "properties": { "bankName": { "type": "string", "description": "Name of the bank, e.g Chase Bank" }, "iban": { "type": "string", "description": "The International Bank Account Number.", "example": "DE89370400440532013000" }, "swiftCode": { "type": "string", "description": "The SWIFT/BIC code for the bank.", "example": "DEUTDEFF" }, "branchCode": { "type": "string", "description": "A bank branch identifier, if applicable." }, "address": { "type": "string", "description": "The bank's physical address." } } } } }
         ]
       },
       "GbpRecipient": {
-        "title": "GBP Payout",
-        "description": "Recipient details for a payout to the UK (GBP).",
+        "title": "GBP Payout", "description": "Recipient details for a payout to the UK (GBP).",
         "allOf": [
-          {
-            "$ref": "#/components/schemas/BaseRecipient"
-          },
-          {
-            "type": "object",
-            "required": [
-              "name",
-            ],
-            "properties": {
-              "account": {
-                "type": "object",
-                "required": [
-                  "accountNumber",
-                  "sortCode"
-                ],
-                "properties": {
-                  "bankName": {
-                    "type": "string",
-                    "description":"Name of the bank"
-
-                  },
-                  "accountNumber": {
-                    "type": "string",
-                    "description": "The 8-digit UK bank account number.",
-                    "example": "78355047"
-                  },
-                  "sortCode": {
-                    "type": "string",
-                    "description": "The 6-digit UK bank sort code.",
-                    "example": "040004"
-                  },
-                  "address": {
-                    "type": "string",
-                    "description": "The bank's physical address."
-                  }
-                }
-              }
-            }
-          }
+          { "$ref": "#/components/schemas/BaseRecipient" },
+          { "type": "object", "required": ["name"], "properties": { "account": { "type": "object", "required": ["accountNumber", "sortCode"], "properties": { "bankName": { "type": "string", "description": "Name of the bank" }, "accountNumber": { "type": "string", "description": "The 8-digit UK bank account number.", "example": "78355047" }, "sortCode": { "type": "string", "description": "The 6-digit UK bank sort code.", "example": "040004" }, "address": { "type": "string", "description": "The bank's physical address." } } } } }
         ]
       },
       "CadRecipient": {
-        "title": "CAD Payout",
-        "description": "Recipient details for a payout to Canada (CAD).",
+        "title": "CAD Payout", "description": "Recipient details for a payout to Canada (CAD).",
         "allOf": [
-          {
-            "$ref": "#/components/schemas/BaseRecipient"
-          },
-          {
-            "type": "object",
-            "required": [
-              "name"
-            ],
-            "properties": {
-              "account": {
-                "type": "object",
-                "required": [
-                  "accountNumber",
-                  "transitNumber",
-                  "institutionNumber"
-                ],
-                "properties": {
-                  "bankName": {
-                    "type": "string",
-                    "description":"Name of bank"
-                  },
-                  "accountNumber": {
-                    "type": "string",
-                    "description":"Recipient account number",
-                    "example": "2309912345"
-                  },
-                  "transitNumber": {
-                    "type": "string",
-                    "description": "The 5-digit branch transit number.",
-                    "example": "12345"
-                  },
-                  "institutionNumber": {
-                    "type": "string",
-                    "description": "The 3-digit financial institution number.",
-                    "example": "004"
-                  },
-                  "swiftCode": {
-                    "type": "string",
-                    "description": "SWIFT/BIC code, if applicable."
-                  }
-                }
-              }
-            }
-          }
+          { "$ref": "#/components/schemas/BaseRecipient" },
+          { "type": "object", "required": ["name"], "properties": { "account": { "type": "object", "required": ["accountNumber", "transitNumber", "institutionNumber"], "properties": { "bankName": { "type": "string", "description": "Name of bank" }, "accountNumber": { "type": "string", "description": "Recipient account number", "example": "2309912345" }, "transitNumber": { "type": "string", "description": "The 5-digit branch transit number.", "example": "12345" }, "institutionNumber": { "type": "string", "description": "The 3-digit financial institution number.", "example": "004" }, "swiftCode": { "type": "string", "description": "SWIFT/BIC code, if applicable." } } } } }
         ]
       },
       "CreatePayoutRequest": {
-        "type": "object",
-        "required": [
-          "quoteId",
-          "recipient"
-        ],
+        "type": "object", "required": ["quoteId", "recipient"],
         "properties": {
-          "quoteId": {
-            "type": "string",
-            "description": "The unique identifier for the quote."
-          },
-          "reason": {
-            "type": "string",
-            "description": "The reason for the payout.",
-            "enum": [
-              "FAMILY_SUPPORT",
-              "GIFT",
-              "SALARY_PAYMENT",
-              "EDUCATIONAL_FEES",
-              "BUSINESS_INVOICE",
-              "OTHER"
-            ]
-          },
-          "remark": {
-            "type": "string",
-            "description": "A standardized remark for the transaction."
-          },
+          "quoteId": { "type": "string", "description": "The unique identifier for the quote." },
+          "reason": { "type": "string", "description": "The reason for the payout.", "enum": ["FAMILY_SUPPORT", "GIFT", "SALARY_PAYMENT", "EDUCATIONAL_FEES", "BUSINESS_INVOICE", "OTHER"] },
+          "remark": { "type": "string", "description": "A standardized remark for the transaction." },
           "recipient": {
             "description": "Details of the recipient. The structure depends on the recipient's currency.",
             "oneOf": [
-              {
-                "$ref": "#/components/schemas/NgnRecipient"
-              },
-              {
-                "$ref": "#/components/schemas/UsdRecipient"
-              },
-              {
-                "$ref": "#/components/schemas/EurRecipient"
-              },
-              {
-                "$ref": "#/components/schemas/GbpRecipient"
-              },
-              {
-                "$ref": "#/components/schemas/CadRecipient"
-              }
+              { "$ref": "#/components/schemas/NgnRecipient" },
+              { "$ref": "#/components/schemas/UsdRecipient" },
+              { "$ref": "#/components/schemas/EurRecipient" },
+              { "$ref": "#/components/schemas/GbpRecipient" },
+              { "$ref": "#/components/schemas/CadRecipient" }
             ],
-            "discriminator": {
-              "propertyName": "currency",
-              "mapping": {
-                "NGN": "#/components/schemas/NgnRecipient",
-                "USD": "#/components/schemas/UsdRecipient",
-                "EUR": "#/components/schemas/EurRecipient",
-                "GBP": "#/components/schemas/GbpRecipient",
-                "CAD": "#/components/schemas/CadRecipient"
-              }
-            }
+            "discriminator": { "propertyName": "currency", "mapping": { "NGN": "#/components/schemas/NgnRecipient", "USD": "#/components/schemas/UsdRecipient", "EUR": "#/components/schemas/EurRecipient", "GBP": "#/components/schemas/GbpRecipient", "CAD": "#/components/schemas/CadRecipient" } }
           }
         }
       },
       "Payout": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string",
-            "example": "c6611ad3-805a-415b-98b7-xxxxxxxxxxxxx"
-          },
-          "remark": {
-            "type": "string",
-            "example": "Testing"
-          },
-          "reason": {
-            "type": "string",
-            "example": "Gift"
-          },
-          "referenceNumber": {
-            "type": "string",
-            "example": "L2TEZEHNXXXXXX"
-          },
-          "type": {
-            "type": "string",
-            "example": "SEND"
-          },
-          "state": {
-            "type": "string",
-            "example": "COMPLETED"
-          },
-          "quote": {
-            "type": "object"
-          },
-          "recipient": {
-            "type": "object"
-          },
-          "created": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "processed": {
-            "type": "string",
-            "format": "date-time"
-          }
+          "id": { "type": "string", "example": "c6611ad3-805a-415b-98b7-xxxxxxxxxxxxx" },
+          "remark": { "type": "string", "example": "Testing" },
+          "reason": { "type": "string", "example": "Gift" },
+          "referenceNumber": { "type": "string", "example": "L2TEZEHNXXXXXX" },
+          "type": { "type": "string", "example": "SEND" },
+          "state": { "type": "string", "example": "COMPLETED" },
+          "quote": { "type": "object" },
+          "recipient": { "type": "object" },
+          "created": { "type": "string", "format": "date-time" },
+          "processed": { "type": "string", "format": "date-time" }
         }
       },
       "Wallet": {
         "type": "object",
+        "description": "An object representing a user's wallet.",
         "properties": {
-          "id": {
-            "type": "string",
-            "example": "fdef9aac-bd91-4ab0-b866-xxxxxxxxxxxx"
-          },
-          "balance": {
-            "type": "number",
-            "format": "float",
-            "example": 11262
-          },
-          "currency": {
-            "type": "string",
-            "example": "NGN"
-          },
-          "country": {
-            "type": "string",
-            "example": "NG"
-          }
+          "id": { "type": "string", "format": "uuid", "description": "The unique identifier for the wallet.", "example": "cfd2de64-a896-4405-8736-a1b2c3d4e5f6" },
+          "balance": { "type": "number", "format": "float", "description": "The available balance in the wallet.", "example": 23094071.00 },
+          "currency": { "type": "string", "description": "The currency code (ISO 4217) of the wallet.", "example": "NGN" },
+          "country": { "type": "string", "description": "The country code (ISO 3166-1 alpha-2) associated with the wallet.", "example": "NG" }
+        },
+        "required": ["id", "balance", "currency", "country"]
+      },
+      "GetAllWalletsSuccessResponse": {
+        "type": "object",
+        "properties": {
+          "status": { "type": "string", "example": "success" },
+          "message": { "type": "string", "example": "Wallets fetched successfully" },
+          "data": { "type": "array", "items": { "$ref": "#/components/schemas/Wallet" } }
         }
       },
       "UpdateBalanceRequest": {
-        "type": "object",
-        "required": [
-          "amount",
-          "country",
-          "currency"
-        ],
+        "type": "object", "required": ["amount", "country", "currency"],
         "properties": {
-          "amount": {
-            "type": "number",
-            "description": "Amount to update"
-          },
-          "country": {
-            "type": "string",
-            "description": "Country code (ISO 3166-1 alpha-2)"
-          },
-          "currency": {
-            "type": "string",
-            "description": "Currency code (ISO 4217)"
-          }
+          "amount": { "type": "number", "description": "Amount to update" },
+          "country": { "type": "string", "description": "Country code (ISO 3166-1 alpha-2)" },
+          "currency": { "type": "string", "description": "Currency code (ISO 4217)" }
         }
       },
       "CreateQuoteRequest": {
-        "type": "object",
-        "required": [
-          "paymentChannel",
-          "source",
-          "target"
-        ],
-        "properties": {
-          "paymentChannel": {
-            "$ref": "#/components/schemas/PaymentChannel"
-          },
-          "source": {
-            "$ref": "#/components/schemas/QuoteSource"
-          },
-          "target": {
-            "$ref": "#/components/schemas/QuoteTarget"
-          }
-        }
+        "type": "object", "required": ["paymentChannel", "source", "target"],
+        "properties": { "paymentChannel": { "$ref": "#/components/schemas/PaymentChannel" }, "source": { "$ref": "#/components/schemas/QuoteSource" }, "target": { "$ref": "#/components/schemas/QuoteTarget" } }
       },
       "QuoteSource": {
-        "type": "object",
-        "required": [
-          "amount",
-          "country",
-          "currency"
-        ],
+        "type": "object", "required": ["amount", "country", "currency"],
         "properties": {
-          "amount": {
-            "type": "number",
-            "description": "The amount in the source currency.",
-            "example": 150000
-          },
-          "country": {
-            "type": "string",
-            "description": "The source country code (ISO 3166-1 alpha-2).",
-            "enum": [
-              "NG",
-              "MW"
-            ]
-          },
-          "currency": {
-            "type": "string",
-            "description": "The source currency code (ISO 4217).",
-            "enum": [
-              "NGN",
-              "MWK"
-            ]
-          }
+          "amount": { "type": "number", "description": "The amount in the source currency.", "example": 150000 },
+          "country": { "type": "string", "description": "The source country code (ISO 3166-1 alpha-2).", "enum": ["NG", "MW"] },
+          "currency": { "type": "string", "description": "The source currency code (ISO 4217).", "enum": ["NGN", "MWK"] }
         }
       },
       "QuoteTarget": {
-        "type": "object",
-        "required": [
-          "country",
-          "currency"
-        ],
-        "properties": {
-          "country": {
-            "$ref": "#/components/schemas/CountryCode"
-          },
-          "currency": {
-            "$ref": "#/components/schemas/CurrencyCode"
-          }
-        }
+        "type": "object", "required": ["country", "currency"],
+        "properties": { "country": { "$ref": "#/components/schemas/CountryCode" }, "currency": { "$ref": "#/components/schemas/CurrencyCode" } }
       },
       "Quote": {
         "type": "object",
         "properties": {
-          "quoteId": {
-            "type": "string",
-            "example": "3b97a379-817b-4816-938f-xxxxxxxxxxxxx"
-          },
-          "paymentChannel": {
-            "type": "string",
-            "example": "BANK_TRANSFER"
-          },
-          "rate": {
-            "type": "string",
-            "example": "1000"
-          },
-          "expiresAt": {
-            "type": "string",
-            "format": "date-time",
-            "example": "2025-09-19T10:20:00Z"
-          },
-          "source": {
-            "type": "object"
-          },
-          "target": {
-            "type": "object"
-          },
-          "fees": {
-            "type": "object"
-          }
+          "quoteId": { "type": "string", "example": "3b97a379-817b-4816-938f-xxxxxxxxxxxxx" },
+          "paymentChannel": { "type": "string", "example": "BANK_TRANSFER" },
+          "rate": { "type": "string", "example": "1000" },
+          "expiresAt": { "type": "string", "format": "date-time", "example": "2025-09-19T10:20:00Z" },
+          "source": { "type": "object" },
+          "target": { "type": "object" },
+          "fees": { "type": "object" }
         }
       },
       "Transaction": {
         "type": "object",
         "properties": {
-          "transactionId": {
-            "type": "string",
-            "example": "01HZXXF9PMQWXXXXXXXXXXX"
-          },
-          "type": {
-            "type": "string",
-            "example": "payout"
-          },
-          "amount": {
-            "type": "string",
-            "example": "1000.00"
-          },
-          "currency": {
-            "type": "string",
-            "example": "NGN"
-          },
-          "status": {
-            "type": "string",
-            "example": "completed"
-          },
-          "reference": {
-            "type": "string",
-            "example": "001XXXXXXXXXX"
-          },
-          "recipient": {
-            "type": "object"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time",
-            "example": "2025-09-19T10:15:30Z"
-          },
-          "completedAt": {
-            "type": "string",
-            "format": "date-time",
-            "example": "2025-09-19T14:15:30Z"
-          },
-          "fees": {
-            "type": "object"
-          }
+          "transactionId": { "type": "string", "example": "01HZXXF9PMQWXXXXXXXXXXX" },
+          "type": { "type": "string", "example": "payout" },
+          "amount": { "type": "string", "example": "1000.00" },
+          "currency": { "type": "string", "example": "NGN" },
+          "status": { "type": "string", "example": "completed" },
+          "reference": { "type": "string", "example": "001XXXXXXXXXX" },
+          "recipient": { "type": "object" },
+          "createdAt": { "type": "string", "format": "date-time", "example": "2025-09-19T10:15:30Z" },
+          "completedAt": { "type": "string", "format": "date-time", "example": "2025-09-19T14:15:30Z" },
+          "fees": { "type": "object" }
         }
       },
       "CreateStaticVirtualAccountRequest": {
-        "type": "object",
-        "required": [
-          "currency",
-          "country",
-          "firstName",
-          "lastName",
-          "email",
-          "phoneNumber",
-          "bvn",
-          "reference",
-          "accountName"
-        ],
+        "type": "object", "required": ["currency", "country", "firstName", "lastName", "email", "phoneNumber", "bvn", "reference", "accountName"],
         "properties": {
-          "currency": {
-            "type": "string",
-            "description": "Currency code (e.g., `NGN`)."
-          },
-          "country": {
-            "type": "string",
-            "description": "Country code (e.g., `NG`)."
-          },
-          "firstName": {
-            "type": "string",
-            "description": "The customer's first name."
-          },
-          "lastName": {
-            "type": "string",
-            "description": "The customer's last name."
-          },
-          "email": {
-            "type": "string",
-            "format": "email",
-            "description": "The customer's email address."
-          },
-          "phoneNumber": {
-            "type": "string",
-            "description": "The customer's phone number."
-          },
-          "bvn": {
-            "type": "string",
-            "description": "The customer's 11-digit Bank Verification Number."
-          },
-          "reference": {
-            "type": "string",
-            "description": "A unique reference for the request (max 30 characters)."
-          },
-          "accountName": {
-            "type": "string",
-            "description": "The desired name for the virtual account."
-          }
+          "currency": { "type": "string", "description": "Currency code (e.g., `NGN`)." },
+          "country": { "type": "string", "description": "Country code (e.g., `NG`)." },
+          "firstName": { "type": "string", "description": "The customer's first name." },
+          "lastName": { "type": "string", "description": "The customer's last name." },
+          "email": { "type": "string", "format": "email", "description": "The customer's email address." },
+          "phoneNumber": { "type": "string", "description": "The customer's phone number." },
+          "bvn": { "type": "string", "description": "The customer's 11-digit Bank Verification Number." },
+          "reference": { "type": "string", "description": "A unique reference for the request (max 30 characters)." },
+          "accountName": { "type": "string", "description": "The desired name for the virtual account." }
         }
       },
       "StaticVirtualAccount": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string",
-            "example": "e21f7365-4fc9-4669-a9d9-xxxxxxxxxxxxx"
-          },
-          "firstName": {
-            "type": "string"
-          },
-          "lastName": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string",
-            "format": "email"
-          },
-          "phoneNumber": {
-            "type": "string"
-          },
-          "bvn": {
-            "type": "string",
-            "example": "********"
-          },
-          "reference": {
-            "type": "string"
-          },
-          "account": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "bankName": {
-                "type": "string"
-              },
-              "sortCode": {
-                "type": "string",
-                "nullable": true
-              },
-              "number": {
-                "type": "string"
-              }
-            }
-          },
-          "status": {
-            "type": "string",
-            "example": "ACTIVE"
-          },
-          "currency": {
-            "type": "string"
-          },
-          "country": {
-            "type": "string"
-          },
-          "created": {
-            "type": "string",
-            "format": "date-time"
-          }
+          "id": { "type": "string", "example": "e21f7365-4fc9-4669-a9d9-xxxxxxxxxxxxx" },
+          "firstName": { "type": "string" }, "lastName": { "type": "string" }, "email": { "type": "string", "format": "email" }, "phoneNumber": { "type": "string" }, "bvn": { "type": "string", "example": "********" }, "reference": { "type": "string" },
+          "account": { "type": "object", "properties": { "name": { "type": "string" }, "bankName": { "type": "string" }, "sortCode": { "type": "string", "nullable": true }, "number": { "type": "string" } } },
+          "status": { "type": "string", "example": "ACTIVE" }, "currency": { "type": "string" }, "country": { "type": "string" }, "created": { "type": "string", "format": "date-time" }
         }
       },
       "CreateDynamicVirtualAccountRequest": {
-        "type": "object",
-        "required": [
-          "currency",
-          "country",
-          "amount",
-          "duration",
-          "reference"
-        ],
+        "type": "object", "required": ["currency", "country", "amount", "duration", "reference"],
         "properties": {
-          "currency": {
-            "type": "string",
-            "description": "Currency code (e.g., `NGN`)."
-          },
-          "country": {
-            "type": "string",
-            "description": "Country code (e.g., `NG`)."
-          },
-          "amount": {
-            "type": "number",
-            "description": "The exact amount expected for the transaction."
-          },
-          "duration": {
-            "type": "integer",
-            "description": "The time in minutes for which the account will remain active."
-          },
-          "reference": {
-            "type": "string",
-            "description": "A unique reference for the transaction."
-          }
+          "currency": { "type": "string", "description": "Currency code (e.g., `NGN`)." },
+          "country": { "type": "string", "description": "Country code (e.g., `NG`)." },
+          "amount": { "type": "number", "description": "The exact amount expected for the transaction." },
+          "duration": { "type": "integer", "description": "The time in minutes for which the account will remain active." },
+          "reference": { "type": "string", "description": "A unique reference for the transaction." }
         }
       },
       "DynamicVirtualAccount": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string",
-            "example": "30fe4022-09da-46fb-bafa-xxxxxxxxxxxxx"
-          },
-          "reference": {
-            "type": "string"
-          },
-          "account": {
-            "type": "object",
-            "properties": {
-              "bankName": {
-                "type": "string"
-              },
-              "sortCode": {
-                "type": "string",
-                "nullable": true
-              },
-              "number": {
-                "type": "string"
-              }
-            }
-          },
-          "expiryTime": {
-            "type": "integer",
-            "format": "int64",
-            "description": "UNIX timestamp of when the account expires."
-          },
-          "status": {
-            "type": "string",
-            "example": "ACTIVE"
-          },
-          "currency": {
-            "type": "string"
-          },
-          "country": {
-            "type": "string"
-          },
-          "created": {
-            "type": "string",
-            "format": "date-time"
-          }
+          "id": { "type": "string", "example": "30fe4022-09da-46fb-bafa-xxxxxxxxxxxxx" }, "reference": { "type": "string" },
+          "account": { "type": "object", "properties": { "bankName": { "type": "string" }, "sortCode": { "type": "string", "nullable": true }, "number": { "type": "string" } } },
+          "expiryTime": { "type": "integer", "format": "int64", "description": "UNIX timestamp of when the account expires." },
+          "status": { "type": "string", "example": "ACTIVE" }, "currency": { "type": "string" }, "country": { "type": "string" }, "created": { "type": "string", "format": "date-time" }
         }
       },
       "CreateAccountEnquiryRequest": {
-        "type": "object",
-        "required": [
-          "currency",
-          "country",
-          "account"
-        ],
+        "type": "object", "required": ["currency", "country", "account"],
         "properties": {
-          "currency": {
-            "type": "string",
-            "description": "Currency code (e.g., NGN)",
-            "example": "NGN"
-          },
-          "country": {
-            "type": "string",
-            "description": "Country code (e.g., NG)",
-            "example": "NG"
-          },
-          "account": {
-            "type": "object",
-            "required": [
-              "accountNumber",
-              "sortCode"
-            ],
-            "properties": {
-              "accountNumber": {
-                "type": "string",
-                "description": "Bank account number to enquire about"
-              },
-              "sortCode": {
-                "type": "string",
-                "description": "Bank sort code (bank code)"
-              }
-            }
-          }
+          "currency": { "type": "string", "description": "Currency code (e.g., NGN)", "example": "NGN" },
+          "country": { "type": "string", "description": "Country code (e.g., NG)", "example": "NG" },
+          "account": { "type": "object", "required": ["accountNumber", "sortCode"], "properties": { "accountNumber": { "type": "string", "description": "Bank account number to enquire about" }, "sortCode": { "type": "string", "description": "Bank sort code (bank code)" } } }
         }
       },
       "AccountEnquiry": {
         "type": "object",
         "properties": {
-          "accountNumber": {
-            "type": "string",
-            "example": "0690000032"
-          },
-          "accountName": {
-            "type": "string",
-            "example": "JOHN DOE"
-          },
-          "bankName": {
-            "type": "string",
-            "example": "ACCESS BANK NIGERIA"
-          },
-          "sortCode": {
-            "type": "string",
-            "example": "044"
-          },
-          "currency": {
-            "type": "string",
-            "example": "NGN"
-          },
-          "country": {
-            "type": "string",
-            "example": "NG"
-          }
+          "accountNumber": { "type": "string", "example": "0690000032" }, "accountName": { "type": "string", "example": "JOHN DOE" }, "bankName": { "type": "string", "example": "ACCESS BANK NIGERIA" },
+          "sortCode": { "type": "string", "example": "044" }, "currency": { "type": "string", "example": "NGN" }, "country": { "type": "string", "example": "NG" }
         }
       },
       "Bank": {
         "type": "object",
         "properties": {
-          "bankName": {
-            "type": "string",
-            "example": "Page MFBank"
-          },
-          "sortCode": {
-            "type": "string",
-            "example": "561"
-          },
-          "branchCode": {
-            "type": "string",
-            "nullable": true
-          },
-          "country": {
-            "type": "string",
-            "nullable": true
-          }
+          "bankName": { "type": "string", "example": "Page MFBank" }, "sortCode": { "type": "string", "example": "561" },
+          "branchCode": { "type": "string", "nullable": true }, "country": { "type": "string", "nullable": true }
         }
       },
       "ValidateCryptoAddressRequest": {
-        "type": "object",
-        "required": [
-          "blockchain",
-          "address"
-        ],
-        "properties": {
-          "blockchain": {
-            "type": "string",
-            "description": "Blockchain network (e.g., 'MATIC')",
-            "example": "MATIC"
-          },
-          "address": {
-            "type": "string",
-            "description": "Address to validate",
-            "example": "0x..."
-          }
-        }
+        "type": "object", "required": ["blockchain", "address"],
+        "properties": { "blockchain": { "type": "string", "description": "Blockchain network (e.g., 'MATIC')", "example": "MATIC" }, "address": { "type": "string", "description": "Address to validate", "example": "0x..." } }
       },
       "CryptoAddressValidation": {
-        "type": "object",
-        "properties": {
-          "valid": {
-            "type": "boolean",
-            "example": true
-          }
-        }
+        "type": "object", "properties": { "valid": { "type": "boolean", "example": true } }
       }
     },
     "responses": {
-      "Success": {
-        "description": "The request was successful.",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/Success"
-            }
-          }
-        }
-      },
-      "BadRequest": {
-        "description": "Bad Request. The server could not process the request due to a client error (e.g., malformed request syntax, invalid parameters).",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/Error"
-            }
-          }
-        }
-      },
-      "Unauthorized": {
-        "description": "Unauthorized. The request requires a valid API key.",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/Error"
-            },
-            "example": {
-              "status": "error",
-              "errorCode": "UNAUTHORIZED",
-              "message": "No valid API key provided."
-            }
-          }
-        }
-      },
-      "Forbidden": {
-        "description": "Forbidden. The provided API key does not have permission to perform this request.",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/Error"
-            }
-          }
-        }
-      },
-      "NotFound": {
-        "description": "Not Found. The requested resource could not be found.",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/Error"
-            },
-            "example": {
-              "status": "error",
-              "errorCode": "NOT_FOUND",
-              "message": "The requested resource doesn't exist."
-            }
-          }
-        }
-      },
-      "Conflict": {
-        "description": "Conflict. The request could not be completed due to a conflict with the current state of the target resource, such as a duplicate reference.",
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "properties": {
-                "message": {
-                  "type": "string"
-                },
-                "status": {
-                  "type": "string"
-                }
-              }
-            },
-            "example": {
-              "message": "reference already exists",
-              "status": "failed"
-            }
-          }
-        }
-      },
-      "UnprocessableEntity": {
-        "description": "Unprocessable Entity. The request was well-formed but was unable to be followed due to semantic errors.",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/Error"
-            },
-            "example": {
-              "status": "error",
-              "errorCode": "VALIDATION_FAILED",
-              "message": "Invalid account details."
-            }
-          }
-        }
-      },
-      "TooManyRequests": {
-        "description": "Too Many Requests. You have hit the rate limit. Please try again later.",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/Error"
-            }
-          }
-        }
-      },
-      "InternalServerError": {
-        "description": "Internal Server Error. We had a problem with our server. Try again later.",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/Error"
-            }
-          }
-        }
-      },
-      "ServiceUnavailable": {
-        "description": "Service Unavailable. The server is temporarily unavailable. Please try again later.",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/Error"
-            }
-          }
-        }
-      }
+      "Success": { "description": "The request was successful.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Success" } } } },
+      "WalletsSuccess": { "description": "OK. A list of wallets was successfully retrieved.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/GetAllWalletsSuccessResponse" } } } },
+      "BadRequest": { "description": "Bad Request. The server could not process the request due to a client error (e.g., malformed request syntax, invalid parameters).", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } },
+      "Unauthorized": { "description": "Unauthorized. The request requires a valid API key.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" }, "example": { "status": "error", "errorCode": "UNAUTHORIZED", "message": "No valid API key provided." } } } },
+      "UnauthorizedError": { "description": "Unauthorized. The provided API key is invalid or missing.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" }, "example": { "status": "error", "message": "Invalid API key.", "data": null } } } },
+      "Forbidden": { "description": "Forbidden. The provided API key does not have permission to perform this request.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } },
+      "ForbiddenError": { "description": "Forbidden. The request is not allowed, e.g., the source IP is not whitelisted.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" }, "example": { "status": "error", "message": "IP not whitelisted." } } } },
+      "NotFound": { "description": "Not Found. The requested resource could not be found.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" }, "example": { "status": "error", "errorCode": "NOT_FOUND", "message": "The requested resource doesn't exist." } } } },
+      "NotFoundError": { "description": "Not Found. The requested resource, like a specific wallet, could not be found.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" }, "example": { "status": "error", "message": "Invalid Wallet Address" } } } },
+      "Conflict": { "description": "Conflict. The request could not be completed due to a conflict with the current state of the target resource, such as a duplicate reference.", "content": { "application/json": { "schema": { "type": "object", "properties": { "message": { "type": "string" }, "status": { "type": "string" } } }, "example": { "message": "reference already exists", "status": "failed" } } } },
+      "UnprocessableEntity": { "description": "Unprocessable Entity. The request was well-formed but was unable to be followed due to semantic errors.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" }, "example": { "status": "error", "errorCode": "VALIDATION_FAILED", "message": "Invalid account details." } } } },
+      "TooManyRequests": { "description": "Too Many Requests. You have hit the rate limit. Please try again later.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } },
+      "InternalServerError": { "description": "Internal Server Error. We had a problem with our server. Try again later.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } },
+      "ServiceUnavailable": { "description": "Service Unavailable. The server is temporarily unavailable. Please try again later.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } }
     }
   },
   "paths": {
     "/v1/wallet": {
       "get": {
-        "tags": [
-          "Wallet"
-        ],
+        "tags": ["Wallet"],
         "summary": "Get All Wallets",
         "description": "This API is used to fetch all wallets for a user.",
         "operationId": "getAllWallets",
         "responses": {
-          "200": {
-            "description": "A list of all user wallets retrieved successfully.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string",
-                      "example": "wallets fetched successfully"
-                    },
-                    "status": {
-                      "type": "string",
-                      "example": "success"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Wallet"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
+          "200": { "$ref": "#/components/responses/WalletsSuccess" },
+          "401": { "$ref": "#/components/responses/UnauthorizedError" },
+          "403": { "$ref": "#/components/responses/ForbiddenError" },
+          "404": { "$ref": "#/components/responses/NotFoundError" }
         }
       }
     },
     "/v1/wallet/balance": {
       "put": {
-        "tags": [
-          "Wallet"
-        ],
-        "summary": "Update Wallet Balance",
-        "description": "This API updates the user's wallet balance for a specified currency.",
-        "operationId": "updateWalletBalance",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateBalanceRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/Success"
-          }
-        }
+        "tags": ["Wallet"], "summary": "Update Wallet Balance", "description": "This API updates the user's wallet balance for a specified currency.", "operationId": "updateWalletBalance",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/UpdateBalanceRequest" } } } },
+        "responses": { "200": { "$ref": "#/components/responses/Success" } }
       }
     },
     "/v1/wallet/{walletId}/balance": {
       "get": {
-        "tags": [
-          "Wallet"
-        ],
-        "summary": "Get Wallet Balance",
-        "description": "This API fetches the balance of a specific wallet.",
-        "operationId": "getWalletBalance",
-        "parameters": [
-          {
-            "name": "walletId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "The unique identifier of the wallet"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Wallet balance retrieved successfully.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string",
-                      "example": "wallet balance fetched successfully"
-                    },
-                    "status": {
-                      "type": "string",
-                      "example": "success"
-                    },
-                    "data": {
-                      "$ref": "#/components/schemas/Wallet"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
+        "tags": ["Wallet"], "summary": "Get Wallet Balance", "description": "This API fetches the balance of a specific wallet.", "operationId": "getWalletBalance",
+        "parameters": [ { "name": "walletId", "in": "path", "required": true, "schema": { "type": "string" }, "description": "The unique identifier of the wallet" } ],
+        "responses": { "200": { "description": "Wallet balance retrieved successfully.", "content": { "application/json": { "schema": { "type": "object", "properties": { "message": { "type": "string", "example": "wallet balance fetched successfully" }, "status": { "type": "string", "example": "success" }, "data": { "$ref": "#/components/schemas/Wallet" } } } } } } }
       }
     },
     "/v1/quote": {
       "post": {
-        "tags": [
-          "Quote"
-        ],
-        "summary": "Create Quote",
-        "description": "Creates a quote for a source and destination currency specified by a user.",
-        "operationId": "createQuote",
-        "requestBody": {
-          "description": "Details for the new quote.",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateQuoteRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Quote created successfully.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "allOf": [
-                    {
-                      "$ref": "#/components/schemas/Success"
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "data": {
-                          "$ref": "#/components/schemas/Quote"
-                        }
-                      }
-                    }
-                  ]
-                }
-              }
-            }
-          }
-        }
+        "tags": ["Quote"], "summary": "Create Quote", "description": "Creates a quote for a source and destination currency specified by a user.", "operationId": "createQuote",
+        "requestBody": { "description": "Details for the new quote.", "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CreateQuoteRequest" } } } },
+        "responses": { "200": { "description": "Quote created successfully.", "content": { "application/json": { "schema": { "allOf": [ { "$ref": "#/components/schemas/Success" }, { "type": "object", "properties": { "data": { "$ref": "#/components/schemas/Quote" } } } ] } } } } }
       }
     },
     "/v1/payout": {
       "post": {
-        "tags": [
-          "Payout"
-        ],
-        "summary": "Create Payout",
-        "description": "Creates a payout transaction by transferring funds to a specified beneficiary. The required fields in the `recipient` object depend on the destination `currency`.",
-        "operationId": "createPayout",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreatePayoutRequest"
-              },
-              "examples": {
-                "NGN_Payout": {
-                  "summary": "Example Payout to Nigeria (NGN)",
-                  "value": {
-                    "remark": "TESTING",
-                    "reason": "GIFT",
-                    "quoteId": "91e58c2d-ef14-4777-906b-xxxxxxxxxxxxx",
-                    "recipient": {
-                      "name": "Adeolu Adebayo",
-                      "paymentChannel": "BANK_TRANSFER",
-                      "currency": "NGN",
-                      "country": "NG",
-                      "account": {
-                        "bankName": "GT Bank",
-                        "accountNumber": "0010401234",
-                        "bankCode": "058"
-                      }
-                    }
-                  }
-                },
-                "USD_Payout": {
-                  "summary": "Example Payout to the USA (USD)",
-                  "value": {
-                    "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
-                    "reason": "GIFT",
-                    "remark": "TESTING",
-                    "recipient": {
-                      "name": "Linda Collins",
-                      "type": "BUSINESS",
-                      "address": "200 Koch Vista, New York, NY 10001",
-                      "paymentChannel": "BANK_TRANSFER",
-                      "currency": "USD",
-                      "country": "US",
-                      "account": {
-                        "accountNumber": "857362910",
-                        "routingNumber": "021000021"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Transaction created successfully.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "allOf": [
-                    {
-                      "$ref": "#/components/schemas/Success"
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "data": {
-                          "$ref": "#/components/schemas/Payout"
-                        }
-                      }
-                    }
-                  ]
-                }
-              }
-            }
-          }
-        }
+        "tags": ["Payout"], "summary": "Create Payout", "description": "Creates a payout transaction by transferring funds to a specified beneficiary. The required fields in the `recipient` object depend on the destination `currency`.", "operationId": "createPayout",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CreatePayoutRequest" }, "examples": { "NGN_Payout": { "summary": "Example Payout to Nigeria (NGN)", "value": { "remark": "TESTING", "reason": "GIFT", "quoteId": "91e58c2d-ef14-4777-906b-xxxxxxxxxxxxx", "recipient": { "name": "Adeolu Adebayo", "paymentChannel": "BANK_TRANSFER", "currency": "NGN", "country": "NG", "account": { "bankName": "GT Bank", "accountNumber": "0010401234", "bankCode": "058" } } } }, "USD_Payout": { "summary": "Example Payout to the USA (USD)", "value": { "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx", "reason": "GIFT", "remark": "TESTING", "recipient": { "name": "Linda Collins", "type": "BUSINESS", "address": "200 Koch Vista, New York, NY 10001", "paymentChannel": "BANK_TRANSFER", "currency": "USD", "country": "US", "account": { "accountNumber": "857362910", "routingNumber": "021000021" } } } } } } } },
+        "responses": { "200": { "description": "Transaction created successfully.", "content": { "application/json": { "schema": { "allOf": [ { "$ref": "#/components/schemas/Success" }, { "type": "object", "properties": { "data": { "$ref": "#/components/schemas/Payout" } } } ] } } } } }
       }
     },
     "/v1/transaction/{transactionId}": {
       "get": {
-        "tags": [
-          "Transaction"
-        ],
-        "summary": "Get Transaction",
-        "description": "Retrieves details of a specific transaction by its ID.",
-        "operationId": "getTransactionById",
-        "parameters": [
-          {
-            "name": "transactionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "The unique identifier of the transaction"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Transaction details retrieved successfully.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "allOf": [
-                    {
-                      "$ref": "#/components/schemas/Success"
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "data": {
-                          "$ref": "#/components/schemas/Transaction"
-                        }
-                      }
-                    }
-                  ]
-                }
-              }
-            }
-          }
-        }
+        "tags": ["Transaction"], "summary": "Get Transaction", "description": "Retrieves details of a specific transaction by its ID.", "operationId": "getTransactionById",
+        "parameters": [ { "name": "transactionId", "in": "path", "required": true, "schema": { "type": "string" }, "description": "The unique identifier of the transaction" } ],
+        "responses": { "200": { "description": "Transaction details retrieved successfully.", "content": { "application/json": { "schema": { "allOf": [ { "$ref": "#/components/schemas/Success" }, { "type": "object", "properties": { "data": { "$ref": "#/components/schemas/Transaction" } } } ] } } } } }
       }
     },
     "/v1/virtual-account": {
       "post": {
-        "tags": [
-          "Virtual Account"
-        ],
-        "summary": "Create Static Virtual Account",
-        "description": "Creates a permanent virtual account for a user, tied to their identity.",
-        "operationId": "createStaticVirtualAccount",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateStaticVirtualAccountRequest"
-              },
-              "example": {
-                "currency": "NGN",
-                "country": "NG",
-                "firstName": "Jumoke",
-                "lastName": "Dumebi",
-                "email": "example@email.com",
-                "phoneNumber": "+23481345XXXX",
-                "bvn": "12345678901",
-                "reference": "00006597506292872311029472",
-                "accountName": "Jumoke Dumebi"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Virtual account created successfully.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "allOf": [
-                    {
-                      "$ref": "#/components/schemas/Success"
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "data": {
-                          "$ref": "#/components/schemas/StaticVirtualAccount"
-                        }
-                      }
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "409": {
-            "$ref": "#/components/responses/Conflict"
-          },
-          "500": {
-            "$ref": "#/components/responses/InternalServerError"
-          }
-        }
+        "tags": ["Virtual Account"], "summary": "Create Static Virtual Account", "description": "Creates a permanent virtual account for a user, tied to their identity.", "operationId": "createStaticVirtualAccount",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CreateStaticVirtualAccountRequest" }, "example": { "currency": "NGN", "country": "NG", "firstName": "Jumoke", "lastName": "Dumebi", "email": "example@email.com", "phoneNumber": "+23481345XXXX", "bvn": "12345678901", "reference": "00006597506292872311029472", "accountName": "Jumoke Dumebi" } } } },
+        "responses": { "200": { "description": "Virtual account created successfully.", "content": { "application/json": { "schema": { "allOf": [ { "$ref": "#/components/schemas/Success" }, { "type": "object", "properties": { "data": { "$ref": "#/components/schemas/StaticVirtualAccount" } } } ] } } } }, "400": { "$ref": "#/components/responses/BadRequest" }, "401": { "$ref": "#/components/responses/Unauthorized" }, "409": { "$ref": "#/components/responses/Conflict" }, "500": { "$ref": "#/components/responses/InternalServerError" } }
       }
     },
     "/v1/virtual-account/dynamic": {
       "post": {
-        "tags": [
-          "Virtual Account"
-        ],
-        "summary": "Create Dynamic Virtual Account",
-        "description": "Creates a temporary, single-use virtual account that is locked to a specific amount and expires after a set duration.",
-        "operationId": "createDynamicVirtualAccount",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateDynamicVirtualAccountRequest"
-              },
-              "examples": {
-                "NGN_Example": {
-                  "summary": "Nigeria (NGN) Example",
-                  "value": {
-                    "currency": "NGN",
-                    "country": "NG",
-                    "amount": 5000,
-                    "duration": 30,
-                    "reference": "TXN_REF_DYNAMIC_12345678"
-                  }
-                },
-                "MWK_Example": {
-                  "summary": "Malawi (MWK) Example",
-                  "value": {
-                    "currency": "MWK",
-                    "country": "MW",
-                    "amount": 10000,
-                    "duration": 30,
-                    "reference": "TXN_REF_DYNAMIC_98765432"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Dynamic virtual account created successfully.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "allOf": [
-                    {
-                      "$ref": "#/components/schemas/Success"
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "data": {
-                          "$ref": "#/components/schemas/DynamicVirtualAccount"
-                        }
-                      }
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "409": {
-            "$ref": "#/components/responses/Conflict"
-          },
-          "500": {
-            "$ref": "#/components/responses/InternalServerError"
-          }
-        }
+        "tags": ["Virtual Account"], "summary": "Create Dynamic Virtual Account", "description": "Creates a temporary, single-use virtual account that is locked to a specific amount and expires after a set duration.", "operationId": "createDynamicVirtualAccount",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CreateDynamicVirtualAccountRequest" }, "examples": { "NGN_Example": { "summary": "Nigeria (NGN) Example", "value": { "currency": "NGN", "country": "NG", "amount": 5000, "duration": 30, "reference": "TXN_REF_DYNAMIC_12345678" } }, "MWK_Example": { "summary": "Malawi (MWK) Example", "value": { "currency": "MWK", "country": "MW", "amount": 10000, "duration": 30, "reference": "TXN_REF_DYNAMIC_98765432" } } } } } },
+        "responses": { "200": { "description": "Dynamic virtual account created successfully.", "content": { "application/json": { "schema": { "allOf": [ { "$ref": "#/components/schemas/Success" }, { "type": "object", "properties": { "data": { "$ref": "#/components/schemas/DynamicVirtualAccount" } } } ] } } } }, "400": { "$ref": "#/components/responses/BadRequest" }, "401": { "$ref": "#/components/responses/Unauthorized" }, "409": { "$ref": "#/components/responses/Conflict" }, "500": { "$ref": "#/components/responses/InternalServerError" } }
       }
     },
     "/v1/virtual-account/simulate/transfer": {
       "post": {
-        "tags": [
-          "Virtual Account"
-        ],
-        "summary": "Simulate an Inbound Transfer",
-        "description": "Simulates an inbound credit transfer to a virtual account. This is a test-only endpoint.",
-        "operationId": "simulateVirtualAccountTransfer",
-        "requestBody": {
-          "description": "Details of the simulated transfer.",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "amount",
-                  "reference"
-                ],
-                "properties": {
-                  "amount": {
-                    "type": "integer",
-                    "description": "The amount to transfer in the lowest currency unit (e.g., cents for USD).",
-                    "example": 10000
-                  },
-                  "reference": {
-                    "type": "string",
-                    "description": "Reference number used in the virtual account creation.",
-                    "example": "TXN1234567"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Transfer simulation successful.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "example": "success"
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Virtual account funded successfully."
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          }
-        }
+        "tags": ["Virtual Account"], "summary": "Simulate an Inbound Transfer", "description": "Simulates an inbound credit transfer to a virtual account. This is a test-only endpoint.", "operationId": "simulateVirtualAccountTransfer",
+        "requestBody": { "description": "Details of the simulated transfer.", "required": true, "content": { "application/json": { "schema": { "type": "object", "required": ["amount", "reference"], "properties": { "amount": { "type": "integer", "description": "The amount to transfer in the lowest currency unit (e.g., cents for USD).", "example": 10000 }, "reference": { "type": "string", "description": "Reference number used in the virtual account creation.", "example": "TXN1234567" } } } } } },
+        "responses": { "200": { "description": "Transfer simulation successful.", "content": { "application/json": { "schema": { "type": "object", "properties": { "status": { "type": "string", "example": "success" }, "message": { "type": "string", "example": "Virtual account funded successfully." } } } } } }, "400": { "$ref": "#/components/responses/BadRequest" }, "401": { "$ref": "#/components/responses/Unauthorized" } }
       }
     },
     "/v1/bank": {
       "get": {
-        "tags": [
-          "Bank"
-        ],
-        "summary": "Get Bank List",
-        "description": "Retrieves a list of available banks for a given country and currency.",
-        "operationId": "getBankList",
-        "parameters": [
-          {
-            "name": "currency",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Currency code (e.g., NGN)"
-          },
-          {
-            "name": "country",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Country code (e.g., NG)"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "List of banks retrieved successfully.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "allOf": [
-                    {
-                      "$ref": "#/components/schemas/Success"
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "data": {
-                          "type": "array",
-                          "items": {
-                            "$ref": "#/components/schemas/Bank"
-                          }
-                        }
-                      }
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          }
-        }
+        "tags": ["Bank"], "summary": "Get Bank List", "description": "Retrieves a list of available banks for a given country and currency.", "operationId": "getBankList",
+        "parameters": [ { "name": "currency", "in": "query", "required": true, "schema": { "type": "string" }, "description": "Currency code (e.g., NGN)" }, { "name": "country", "in": "query", "required": true, "schema": { "type": "string" }, "description": "Country code (e.g., NG)" } ],
+        "responses": { "200": { "description": "List of banks retrieved successfully.", "content": { "application/json": { "schema": { "allOf": [ { "$ref": "#/components/schemas/Success" }, { "type": "object", "properties": { "data": { "type": "array", "items": { "$ref": "#/components/schemas/Bank" } } } } ] } } } }, "400": { "$ref": "#/components/responses/BadRequest" }, "401": { "$ref": "#/components/responses/Unauthorized" } }
       }
     },
     "/v1/account/enquiry": {
       "post": {
-        "tags": [
-          "Bank"
-        ],
-        "summary": "Account Enquiry",
-        "description": "Retrieves details about a specific bank account.",
-        "operationId": "enquireAccountDetails",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateAccountEnquiryRequest"
-              },
-              "example": {
-                "currency": "NGN",
-                "country": "NG",
-                "account": {
-                  "accountNumber": "0690000032",
-                  "sortCode": "044"
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Account details fetched successfully.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "allOf": [
-                    {
-                      "$ref": "#/components/schemas/Success"
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "data": {
-                          "$ref": "#/components/schemas/AccountEnquiry"
-                        }
-                      }
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "422": {
-            "$ref": "#/components/responses/UnprocessableEntity"
-          }
-        }
+        "tags": ["Bank"], "summary": "Account Enquiry", "description": "Retrieves details about a specific bank account.", "operationId": "enquireAccountDetails",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CreateAccountEnquiryRequest" }, "example": { "currency": "NGN", "country": "NG", "account": { "accountNumber": "0690000032", "sortCode": "044" } } } } },
+        "responses": { "200": { "description": "Account details fetched successfully.", "content": { "application/json": { "schema": { "allOf": [ { "$ref": "#/components/schemas/Success" }, { "type": "object", "properties": { "data": { "$ref": "#/components/schemas/AccountEnquiry" } } } ] } } } }, "400": { "$ref": "#/components/responses/BadRequest" }, "401": { "$ref": "#/components/responses/Unauthorized" }, "404": { "$ref": "#/components/responses/NotFound" }, "422": { "$ref": "#/components/responses/UnprocessableEntity" } }
       }
     },
     "/v1/ramp/address/validate": {
       "post": {
-        "tags": [
-          "Ramp"
-        ],
-        "summary": "Validate Crypto Address",
-        "description": "Validates a blockchain address to confirm its format and existence.",
-        "operationId": "validateRampAddress",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ValidateCryptoAddressRequest"
-              },
-              "example": {
-                "blockchain": "MATIC",
-                "address": "0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Crypto account details fetched successfully.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "allOf": [
-                    {
-                      "$ref": "#/components/schemas/Success"
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "data": {
-                          "$ref": "#/components/schemas/CryptoAddressValidation"
-                        }
-                      }
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "500": {
-            "$ref": "#/components/responses/InternalServerError"
-          }
-        }
+        "tags": ["Ramp"], "summary": "Validate Crypto Address", "description": "Validates a blockchain address to confirm its format and existence.", "operationId": "validateRampAddress",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ValidateCryptoAddressRequest" }, "example": { "blockchain": "MATIC", "address": "0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B" } } } },
+        "responses": { "200": { "description": "Crypto account details fetched successfully.", "content": { "application/json": { "schema": { "allOf": [ { "$ref": "#/components/schemas/Success" }, { "type": "object", "properties": { "data": { "$ref": "#/components/schemas/CryptoAddressValidation" } } } ] } } } }, "400": { "$ref": "#/components/responses/BadRequest" }, "401": { "$ref": "#/components/responses/Unauthorized" }, "500": { "$ref": "#/components/responses/InternalServerError" } }
       }
     }
   }
