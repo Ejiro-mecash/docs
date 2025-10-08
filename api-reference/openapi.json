@@ -1,3 +1,16 @@
+Of course. Based on the new payloads you've provided, I'll update the recipient schemas in your OpenAPI specification.
+
+You've correctly identified that the original schemas didn't match the required fields. Key changes include adding `firstName`/`lastName` fields for some currencies, adding a bank `address` to the account details, and including new recipient-level fields like `type` and `stored`.
+
+I have carefully updated the `UsdRecipient`, `EurRecipient`, `GbpRecipient`, and `CadRecipient` schemas to reflect these new structures.
+
+-----
+
+### Complete Updated OpenAPI Specification
+
+Here is the full file with the corrected schemas for the payout recipients.
+
+```json
 {
   "openapi": "3.0.3",
   "info": {
@@ -58,6 +71,22 @@
         },
         "required": ["status", "message"]
       },
+      "QuoteFailedResponse": {
+        "type": "object",
+        "properties": {
+          "message": { "type": "string" },
+          "status": { "type": "string", "example": "failed" }
+        },
+        "required": ["message", "status"]
+      },
+      "QuoteValidationErrorResponse": {
+        "type": "object",
+        "properties": {
+          "message": { "type": "string" },
+          "status": { "type": "string", "example": "error" }
+        },
+        "required": ["message", "status"]
+      },
       "CountryCode": { "type": "string", "description": "Country code (ISO 3166-1 alpha-2).", "example": "NG", "enum": ["NG", "US", "GB", "DE", "MW", "CA"] },
       "CurrencyCode": { "type": "string", "description": "Currency code (ISO 4217).", "example": "NGN", "enum": ["NGN", "USD", "GBP", "EUR", "MWK", "CAD"] },
       "PaymentChannel": { "type": "string", "description": "The channel through which the payment will be processed.", "example": "BANK_TRANSFER", "enum": ["BANK_TRANSFER", "INTERAC"] },
@@ -65,11 +94,12 @@
       "BaseRecipient": {
         "type": "object",
         "properties": {
-          "name": { "type": "string", "description": "Full name of the Recipient as found on the Account Enquiry endpoint." },
           "address": { "type": "string", "description": "Full address of the recipient." },
           "paymentChannel": { "$ref": "#/components/schemas/PaymentChannel" },
           "currency": { "$ref": "#/components/schemas/CurrencyCode" },
-          "country": { "$ref": "#/components/schemas/CountryCode" }
+          "country": { "$ref": "#/components/schemas/CountryCode" },
+          "type": { "$ref": "#/components/schemas/RecipientType" },
+          "stored": { "type": "boolean", "description": "Indicates if the recipient details should be stored for future use." }
         },
         "required": ["paymentChannel", "currency", "country", "account"]
       },
@@ -77,92 +107,104 @@
         "title": "NGN Payout", "description": "Recipient details for a payout to Nigeria (NGN).",
         "allOf": [
           { "$ref": "#/components/schemas/BaseRecipient" },
-          { "type": "object", "required": ["name"], "properties": { "account": { "type": "object", "required": ["accountNumber", "bankCode"], "properties": { "bankName": { "type": "string", "description": "The name of the Bank" }, "accountNumber": { "type": "string", "example": "0010401234", "description": "Recipient's account number" }, "sortCode": { "type": "string", "description": "The 3-digit NIP sort code.", "example": "058" } } } } }
+          {
+            "type": "object", "required": ["name"],
+            "properties": {
+              "name": { "type": "string", "description": "Full name of the recipient." },
+              "account": { "type": "object", "required": ["accountNumber", "bankCode"], "properties": { "bankName": { "type": "string", "description": "The name of the Bank" }, "accountNumber": { "type": "string", "example": "0010401234", "description": "Recipient's account number" }, "sortCode": { "type": "string", "description": "The 3-digit NIP sort code.", "example": "058" } } }
+            }
+          }
         ]
       },
       "UsdRecipient": {
-        "title": "USD Payout",
-         "description": "Recipient details for a payout to the USA (USD).",
-       "allOf": [
-    { "$ref": "#/components/schemas/BaseRecipient" },
-    {
-      "type": "object",
-      "required": ["name", "address", "type"],
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": "The full name of the recipient.",
-          "example": "Linda Collins"
-        },
-        "address": {
-          "type": "string",
-          "description": "The recipient's full address.",
-          "example": "200 Koch Vista, New York, NY 10001"
-        },
-        "type": {
-          "type": "string",
-          "description": "The type of recipient.",
-          "enum": ["INDIVIDUAL", "BUSINESS"],
-          "example": "BUSINESS"
-        },
-        "stored": {
-          "type": "boolean",
-          "description": "Set to true to save the recipient's details for future payouts.",
-          "example": false
-        },
-        "account": {
-          "type": "object",
-          "required": ["accountNumber", "routingNumber"],
-          "properties": {
-            "bankName": {
-              "type": "string",
-              "description": "The name of the bank.",
-              "example": "Chase Bank"
-            },
-            "accountNumber": {
-              "type": "string",
-              "example": "857362910"
-            },
-            "routingNumber": {
-              "type": "string",
-              "description": "The 9-digit ABA routing number for ACH transfers.",
-              "example": "021000021"
-            },
-            "swiftCode": {
-              "type": "string",
-              "description": "SWIFT/BIC code, often for international wire transfers.",
-              "example": "CHASUS33XXX"
-            },
-            "address": {
-              "type": "string",
-              "description": "The bank's physical address.",
-              "example": "1948 Kemmer Ville, New York, NY 10002"
+        "title": "USD Payout", "description": "Recipient details for a payout to the USA (USD).",
+        "allOf": [
+          { "$ref": "#/components/schemas/BaseRecipient" },
+          {
+            "type": "object", "required": ["name", "address"],
+            "properties": {
+              "name": { "type": "string", "description": "Full name of the recipient." },
+              "account": {
+                "type": "object", "required": ["accountNumber", "routingNumber"],
+                "properties": {
+                  "bankName": { "type": "string", "description": "The name of the bank." },
+                  "accountNumber": { "type": "string", "example": "857362910" },
+                  "routingNumber": { "type": "string", "description": "The 9-digit ABA routing number for ACH transfers.", "example": "021000021" },
+                  "swiftCode": { "type": "string", "description": "SWIFT/BIC code, often for wire transfers.", "example": "CHASUS33XXX" },
+                  "address": { "type": "string", "description": "The bank's physical address." }
+                }
+              }
             }
           }
-        }
-      }
-    }
-  ]
-},
+        ]
+      },
       "EurRecipient": {
         "title": "EUR Payout", "description": "Recipient details for a payout within Europe (EUR).",
         "allOf": [
           { "$ref": "#/components/schemas/BaseRecipient" },
-          { "type": "object", "required": ["name", "address"], "properties": { "account": { "type": "object", "required": ["iban", "swiftCode"], "properties": { "bankName": { "type": "string", "description": "Name of the bank, e.g Chase Bank" }, "iban": { "type": "string", "description": "The International Bank Account Number.", "example": "DE89370400440532013000" }, "swiftCode": { "type": "string", "description": "The SWIFT/BIC code for the bank.", "example": "DEUTDEFF" }, "branchCode": { "type": "string", "description": "A bank branch identifier, if applicable." }, "address": { "type": "string", "description": "The bank's physical address." } } } } }
+          {
+            "type": "object", "required": ["firstName", "lastName", "address"],
+            "properties": {
+              "firstName": { "type": "string", "description": "Recipient's first name." },
+              "lastName": { "type": "string", "description": "Recipient's last name." },
+              "account": {
+                "type": "object", "required": ["accountNumber", "swiftCode"],
+                "properties": {
+                  "bankName": { "type": "string", "description": "Name of the bank, e.g Deutsche Bank" },
+                  "accountNumber": { "type": "string", "description": "The International Bank Account Number (IBAN).", "example": "DE89370400440532013000" },
+                  "swiftCode": { "type": "string", "description": "The SWIFT/BIC code for the bank.", "example": "DEUTDEFF" },
+                  "branchCode": { "type": "string", "description": "A bank branch identifier, if applicable." },
+                  "address": { "type": "string", "description": "The bank's physical address." }
+                }
+              }
+            }
+          }
         ]
       },
       "GbpRecipient": {
         "title": "GBP Payout", "description": "Recipient details for a payout to the UK (GBP).",
         "allOf": [
           { "$ref": "#/components/schemas/BaseRecipient" },
-          { "type": "object", "required": ["name"], "properties": { "account": { "type": "object", "required": ["accountNumber", "sortCode"], "properties": { "bankName": { "type": "string", "description": "Name of the bank" }, "accountNumber": { "type": "string", "description": "The 8-digit UK bank account number.", "example": "78355047" }, "sortCode": { "type": "string", "description": "The 6-digit UK bank sort code.", "example": "040004" }, "address": { "type": "string", "description": "The bank's physical address." } } } } }
+          {
+            "type": "object", "required": ["firstName", "lastName"],
+            "properties": {
+              "firstName": { "type": "string", "description": "Recipient's first name." },
+              "lastName": { "type": "string", "description": "Recipient's last name." },
+              "account": {
+                "type": "object", "required": ["accountNumber", "sortCode"],
+                "properties": {
+                  "bankName": { "type": "string", "description": "Name of the bank" },
+                  "accountNumber": { "type": "string", "description": "The 8-digit UK bank account number.", "example": "78355047" },
+                  "sortCode": { "type": "string", "description": "The 6-digit UK bank sort code.", "example": "040004" },
+                  "address": { "type": "string", "description": "The bank's physical address." }
+                }
+              }
+            }
+          }
         ]
       },
       "CadRecipient": {
         "title": "CAD Payout", "description": "Recipient details for a payout to Canada (CAD).",
         "allOf": [
           { "$ref": "#/components/schemas/BaseRecipient" },
-          { "type": "object", "required": ["name"], "properties": { "account": { "type": "object", "required": ["accountNumber", "transitNumber", "institutionNumber"], "properties": { "bankName": { "type": "string", "description": "Name of bank" }, "accountNumber": { "type": "string", "description": "Recipient account number", "example": "2309912345" }, "transitNumber": { "type": "string", "description": "The 5-digit branch transit number.", "example": "12345" }, "institutionNumber": { "type": "string", "description": "The 3-digit financial institution number.", "example": "004" }, "swiftCode": { "type": "string", "description": "SWIFT/BIC code, if applicable." } } } } }
+          {
+            "type": "object", "required": ["name", "address"],
+            "properties": {
+              "name": { "type": "string", "description": "Full name of the recipient." },
+              "account": {
+                "type": "object", "required": ["accountNumber", "transitNumber"],
+                "properties": {
+                  "bankName": { "type": "string", "description": "Name of bank" },
+                  "accountNumber": { "type": "string", "description": "Recipient account number", "example": "2309912345" },
+                  "transitNumber": { "type": "string", "description": "The 5-digit branch transit number.", "example": "12345" },
+                  "institutionNumber": { "type": "string", "description": "The 3-digit financial institution number.", "example": "004" },
+                  "swiftCode": { "type": "string", "description": "SWIFT/BIC code, if applicable." },
+                  "sortCode": { "type": "string", "description": "Bank sort code." },
+                  "address": { "type": "string", "description": "The bank's physical address." }
+                }
+              }
+            }
+          }
         ]
       },
       "CreatePayoutRequest": {
@@ -242,16 +284,31 @@
         "type": "object", "required": ["country", "currency"],
         "properties": { "country": { "$ref": "#/components/schemas/CountryCode" }, "currency": { "$ref": "#/components/schemas/CurrencyCode" } }
       },
-      "Quote": {
+      "CreateQuoteSuccessData": {
         "type": "object",
         "properties": {
-          "quoteId": { "type": "string", "example": "3b97a379-817b-4816-938f-xxxxxxxxxxxxx" },
-          "paymentChannel": { "type": "string", "example": "BANK_TRANSFER" },
-          "rate": { "type": "string", "example": "1000" },
-          "expiresAt": { "type": "string", "format": "date-time", "example": "2025-09-19T10:20:00Z" },
-          "source": { "type": "object" },
-          "target": { "type": "object" },
-          "fees": { "type": "object" }
+          "id": { "type": "string", "format": "uuid", "example": "e5eec724-38f9-40e2-9i86-xxxxxxxxxxxxx" },
+          "source": { "type": "object", "properties": { "currency": { "type": "string", "example": "NGN" }, "country": { "type": "string", "example": "NG" }, "amount": { "type": "number", "example": 150000.00 } } },
+          "target": { "type": "object", "properties": { "currency": { "type": "string", "example": "USD" }, "country": { "type": "string", "example": "US" }, "amount": { "type": "number", "example": 81.97 } } },
+          "rate": { "type": "number", "example": 1830.00 },
+          "fee": { "type": "object", "properties": { "amount": { "type": "number", "example": 0.00 } } },
+          "rules": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "category": { "type": "string", "example": "LIMIT" },
+                "appliedCurrency": { "type": "string", "example": "USD" },
+                "appliedCountry": { "type": "string", "example": "US" },
+                "transaction": { "type": "object", "properties": { "minimum": { "type": "number", "example": 1.00 }, "maximum": { "type": "number", "example": 20000000000000.00 } } },
+                "invoice": { "type": "number", "example": 200000000000.00 }
+              }
+            }
+          },
+          "summary": { "type": "object", "properties": { "total": { "type": "number", "example": 150000.00 } } },
+          "settlementTime": { "type": "string", "example": "1 hr" },
+          "quoteCurrency": { "type": "string", "example": "USD" },
+          "expiresInSeconds": { "type": "integer", "example": 600 }
         }
       },
       "Transaction": {
@@ -343,6 +400,48 @@
     },
     "responses": {
       "Success": { "description": "The request was successful.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Success" } } } },
+      "QuoteCreatedSuccess": {
+        "description": "Quote created successfully.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": { "type": "string", "example": "quote successfully created" },
+                "status": { "type": "string", "example": "success" },
+                "data": { "$ref": "#/components/schemas/CreateQuoteSuccessData" }
+              }
+            }
+          }
+        }
+      },
+      "QuoteBadRequest": {
+        "description": "Bad Request. The request could not be processed due to a client error.",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/QuoteFailedResponse" },
+            "examples": {
+              "InvalidAPIKey": {
+                "summary": "Invalid API Key",
+                "value": { "message": "Invalid API key", "status": "failed" }
+              },
+              "QuoteNotFound": {
+                "summary": "Quote Not Found",
+                "value": { "message": "Quote does not exist", "status": "failed" }
+              }
+            }
+          }
+        }
+      },
+      "QuoteValidationError": {
+        "description": "Unauthorized. A required parameter may be missing.",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/QuoteValidationErrorResponse" },
+            "example": { "message": "paymentChannel is required", "status": "error" }
+          }
+        }
+      },
       "WalletsSuccess": { "description": "OK. A list of wallets was successfully retrieved.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/GetAllWalletsSuccessResponse" } } } },
       "BadRequest": { "description": "Bad Request. The server could not process the request due to a client error (e.g., malformed request syntax, invalid parameters).", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } },
       "Unauthorized": { "description": "Unauthorized. The request requires a valid API key.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" }, "example": { "status": "error", "errorCode": "UNAUTHORIZED", "message": "No valid API key provided." } } } },
@@ -389,9 +488,16 @@
     },
     "/v1/quote": {
       "post": {
-        "tags": ["Quote"], "summary": "Create Quote", "description": "Creates a quote for a source and destination currency specified by a user.", "operationId": "createQuote",
+        "tags": ["Quote"],
+        "summary": "Create Quote",
+        "description": "Creates a quote for a source and destination currency specified by a user.",
+        "operationId": "createQuote",
         "requestBody": { "description": "Details for the new quote.", "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CreateQuoteRequest" } } } },
-        "responses": { "200": { "description": "Quote created successfully.", "content": { "application/json": { "schema": { "allOf": [ { "$ref": "#/components/schemas/Success" }, { "type": "object", "properties": { "data": { "$ref": "#/components/schemas/Quote" } } } ] } } } } }
+        "responses": {
+          "200": { "$ref": "#/components/responses/QuoteCreatedSuccess" },
+          "400": { "$ref": "#/components/responses/QuoteBadRequest" },
+          "401": { "$ref": "#/components/responses/QuoteValidationError" }
+        }
       }
     },
     "/v2/payout": {
