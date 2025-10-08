@@ -1,16 +1,3 @@
-Of course. Based on the new payloads you've provided, I'll update the recipient schemas in your OpenAPI specification.
-
-You've correctly identified that the original schemas didn't match the required fields. Key changes include adding `firstName`/`lastName` fields for some currencies, adding a bank `address` to the account details, and including new recipient-level fields like `type` and `stored`.
-
-I have carefully updated the `UsdRecipient`, `EurRecipient`, `GbpRecipient`, and `CadRecipient` schemas to reflect these new structures.
-
------
-
-### Complete Updated OpenAPI Specification
-
-Here is the full file with the corrected schemas for the payout recipients.
-
-```json
 {
   "openapi": "3.0.3",
   "info": {
@@ -76,6 +63,20 @@ Here is the full file with the corrected schemas for the payout recipients.
         "properties": {
           "message": { "type": "string" },
           "status": { "type": "string", "example": "failed" }
+        },
+        "required": ["message", "status"]
+      },
+      "PayoutFailedResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "A human-readable error message."
+          },
+          "status": {
+            "type": "string",
+            "example": "failed"
+          }
         },
         "required": ["message", "status"]
       },
@@ -241,6 +242,14 @@ Here is the full file with the corrected schemas for the payout recipients.
           "processed": { "type": "string", "format": "date-time" }
         }
       },
+      "CreatePayoutSuccessResponse": {
+        "type": "object",
+        "properties": {
+          "status": { "type": "string", "example": "success" },
+          "message": { "type": "string", "example": "Transaction created successfully." },
+          "data": { "$ref": "#/components/schemas/Payout" }
+        }
+      },
       "Wallet": {
         "type": "object",
         "description": "An object representing a user's wallet.",
@@ -400,6 +409,14 @@ Here is the full file with the corrected schemas for the payout recipients.
     },
     "responses": {
       "Success": { "description": "The request was successful.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Success" } } } },
+      "CreatePayoutSuccess": {
+        "description": "Payout transaction created successfully.",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/CreatePayoutSuccessResponse" }
+          }
+        }
+      },
       "QuoteCreatedSuccess": {
         "description": "Quote created successfully.",
         "content": {
@@ -454,7 +471,75 @@ Here is the full file with the corrected schemas for the payout recipients.
       "UnprocessableEntity": { "description": "Unprocessable Entity. The request was well-formed but was unable to be followed due to semantic errors.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" }, "example": { "status": "error", "errorCode": "VALIDATION_FAILED", "message": "Invalid account details." } } } },
       "TooManyRequests": { "description": "Too Many Requests. You have hit the rate limit. Please try again later.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } },
       "InternalServerError": { "description": "Internal Server Error. We had a problem with our server. Try again later.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } },
-      "ServiceUnavailable": { "description": "Service Unavailable. The server is temporarily unavailable. Please try again later.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } }
+      "ServiceUnavailable": { "description": "Service Unavailable. The server is temporarily unavailable. Please try again later.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } },
+      "PayoutUnauthorized": {
+        "description": "Unauthorized. The provided API key is invalid or missing.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/PayoutFailedResponse"
+            },
+            "example": {
+              "message": "Invalid API key",
+              "status": "failed"
+            }
+          }
+        }
+      },
+      "PayoutForbidden": {
+        "description": "Forbidden. The request is not allowed because the source IP is not whitelisted.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/PayoutFailedResponse"
+            },
+            "example": {
+              "message": "Access denied: IP address not whitelisted",
+              "status": "failed"
+            }
+          }
+        }
+      },
+      "PayoutBadRequest": {
+        "description": "Bad Request. The request could not be processed due to a client-side error, such as an expired quote or insufficient funds.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/PayoutFailedResponse"
+            },
+            "examples": {
+              "QuoteExpired": {
+                "summary": "Quote has expired",
+                "value": {
+                  "message": "Quote expired",
+                  "status": "failed"
+                }
+              },
+              "InsufficientBalance": {
+                "summary": "Insufficient wallet balance",
+                "value": {
+                  "message": "Insufficient Balance",
+                  "status": "failed"
+                }
+              }
+            }
+          }
+        }
+      },
+      "PayoutInternalServerError": {
+        "description": "Internal Server Error. The server failed to process the request.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/PayoutFailedResponse"
+            },
+            "example": {
+              "message": "Server failed to process request.",
+              "status": "failed"
+            }
+          }
+        }
+      }
     }
   },
   "paths": {
@@ -502,9 +587,28 @@ Here is the full file with the corrected schemas for the payout recipients.
     },
     "/v2/payout": {
       "post": {
-        "tags": ["Payout"], "summary": "Create Payout", "description": "Creates a payout transaction by transferring funds to a specified beneficiary. The required fields in the `recipient` object depend on the destination `currency`.", "operationId": "createPayout",
+        "tags": ["Payout"],
+        "summary": "Create Payout",
+        "description": "Creates a payout transaction by transferring funds to a specified beneficiary. The required fields in the `recipient` object depend on the destination `currency`.",
+        "operationId": "createPayout",
         "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CreatePayoutRequest" }, "examples": { "NGN_Payout": { "summary": "Example Payout to Nigeria (NGN)", "value": { "remark": "TESTING", "reason": "GIFT", "quoteId": "91e58c2d-ef14-4777-906b-xxxxxxxxxxxxx", "recipient": { "name": "Adeolu Adebayo", "paymentChannel": "BANK_TRANSFER", "currency": "NGN", "country": "NG", "account": { "bankName": "GT Bank", "accountNumber": "0010401234", "bankCode": "058" } } } }, "USD_Payout": { "summary": "Example Payout to the USA (USD)", "value": { "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx", "reason": "GIFT", "remark": "TESTING", "recipient": { "name": "Linda Collins", "type": "BUSINESS", "address": "200 Koch Vista, New York, NY 10001", "paymentChannel": "BANK_TRANSFER", "currency": "USD", "country": "US", "account": { "accountNumber": "857362910", "routingNumber": "021000021" } } } } } } } },
-        "responses": { "200": { "description": "Transaction created successfully.", "content": { "application/json": { "schema": { "allOf": [ { "$ref": "#/components/schemas/Success" }, { "type": "object", "properties": { "data": { "$ref": "#/components/schemas/Payout" } } } ] } } } } }
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/CreatePayoutSuccess"
+          },
+          "400": {
+            "$ref": "#/components/responses/PayoutBadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/PayoutUnauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/PayoutForbidden"
+          },
+          "500": {
+            "$ref": "#/components/responses/PayoutInternalServerError"
+          }
+        }
       }
     },
     "/v1/transaction/{transactionId}": {
