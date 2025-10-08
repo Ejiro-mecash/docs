@@ -81,12 +81,69 @@
         ]
       },
       "UsdRecipient": {
-        "title": "USD Payout", "description": "Recipient details for a payout to the USA (USD).",
-        "allOf": [
-          { "$ref": "#/components/schemas/BaseRecipient" },
-          { "type": "object", "required": ["name", "address"], "properties": { "account": { "type": "object", "required": ["accountNumber", "routingNumber"], "properties": { "bankName": { "type": "string", "description": "The name of the bank" }, "accountNumber": { "type": "string", "example": "857362910" }, "routingNumber": { "type": "string", "description": "The 9-digit ABA routing number for ACH transfers.", "example": "021000021" }, "swiftCode": { "type": "string", "description": "SWIFT/BIC code, often for wire transfers.", "example": "CHASUS33XXX" }, "address": { "type": "string", "description": "The bank's physical address." } } } } }
-        ]
-      },
+        "title": "USD Payout",
+         "description": "Recipient details for a payout to the USA (USD).",
+       "allOf": [
+    { "$ref": "#/components/schemas/BaseRecipient" },
+    {
+      "type": "object",
+      "required": ["name", "address", "type"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The full name of the recipient.",
+          "example": "Linda Collins"
+        },
+        "address": {
+          "type": "string",
+          "description": "The recipient's full address.",
+          "example": "200 Koch Vista, New York, NY 10001"
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of recipient.",
+          "enum": ["INDIVIDUAL", "BUSINESS"],
+          "example": "BUSINESS"
+        },
+        "stored": {
+          "type": "boolean",
+          "description": "Set to true to save the recipient's details for future payouts.",
+          "example": false
+        },
+        "account": {
+          "type": "object",
+          "required": ["accountNumber", "routingNumber"],
+          "properties": {
+            "bankName": {
+              "type": "string",
+              "description": "The name of the bank.",
+              "example": "Chase Bank"
+            },
+            "accountNumber": {
+              "type": "string",
+              "example": "857362910"
+            },
+            "routingNumber": {
+              "type": "string",
+              "description": "The 9-digit ABA routing number for ACH transfers.",
+              "example": "021000021"
+            },
+            "swiftCode": {
+              "type": "string",
+              "description": "SWIFT/BIC code, often for international wire transfers.",
+              "example": "CHASUS33XXX"
+            },
+            "address": {
+              "type": "string",
+              "description": "The bank's physical address.",
+              "example": "1948 Kemmer Ville, New York, NY 10002"
+            }
+          }
+        }
+      }
+    }
+  ]
+},
       "EurRecipient": {
         "title": "EUR Payout", "description": "Recipient details for a payout within Europe (EUR).",
         "allOf": [
@@ -337,7 +394,7 @@
         "responses": { "200": { "description": "Quote created successfully.", "content": { "application/json": { "schema": { "allOf": [ { "$ref": "#/components/schemas/Success" }, { "type": "object", "properties": { "data": { "$ref": "#/components/schemas/Quote" } } } ] } } } } }
       }
     },
-    "/v1/payout": {
+    "/v2/payout": {
       "post": {
         "tags": ["Payout"], "summary": "Create Payout", "description": "Creates a payout transaction by transferring funds to a specified beneficiary. The required fields in the `recipient` object depend on the destination `currency`.", "operationId": "createPayout",
         "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CreatePayoutRequest" }, "examples": { "NGN_Payout": { "summary": "Example Payout to Nigeria (NGN)", "value": { "remark": "TESTING", "reason": "GIFT", "quoteId": "91e58c2d-ef14-4777-906b-xxxxxxxxxxxxx", "recipient": { "name": "Adeolu Adebayo", "paymentChannel": "BANK_TRANSFER", "currency": "NGN", "country": "NG", "account": { "bankName": "GT Bank", "accountNumber": "0010401234", "bankCode": "058" } } } }, "USD_Payout": { "summary": "Example Payout to the USA (USD)", "value": { "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx", "reason": "GIFT", "remark": "TESTING", "recipient": { "name": "Linda Collins", "type": "BUSINESS", "address": "200 Koch Vista, New York, NY 10001", "paymentChannel": "BANK_TRANSFER", "currency": "USD", "country": "US", "account": { "accountNumber": "857362910", "routingNumber": "021000021" } } } } } } } },
