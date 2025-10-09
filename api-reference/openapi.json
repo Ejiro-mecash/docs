@@ -320,19 +320,41 @@
           "expiresInSeconds": { "type": "integer", "example": 600 }
         }
       },
-      "Transaction": {
+      "GetTransactionSuccessData": {
         "type": "object",
         "properties": {
-          "transactionId": { "type": "string", "example": "01HZXXF9PMQWXXXXXXXXXXX" },
-          "type": { "type": "string", "example": "payout" },
-          "amount": { "type": "string", "example": "1000.00" },
-          "currency": { "type": "string", "example": "NGN" },
-          "status": { "type": "string", "example": "completed" },
-          "reference": { "type": "string", "example": "001XXXXXXXXXX" },
-          "recipient": { "type": "object" },
-          "createdAt": { "type": "string", "format": "date-time", "example": "2025-09-19T10:15:30Z" },
-          "completedAt": { "type": "string", "format": "date-time", "example": "2025-09-19T14:15:30Z" },
-          "fees": { "type": "object" }
+          "id": { "type": "string", "format": "uuid" },
+          "remark": { "type": "string" },
+          "reason": { "type": "string" },
+          "referenceNumber": { "type": "string" },
+          "type": { "type": "string" },
+          "state": { "type": "string" },
+          "quote": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string", "format": "uuid" },
+              "source": { "type": "object", "properties": { "currency": { "type": "string" }, "country": { "type": "string" }, "amount": { "type": "number" } } },
+              "target": { "type": "object", "properties": { "currency": { "type": "string" }, "country": { "type": "string" }, "amount": { "type": "number" } } },
+              "rate": { "type": "number" },
+              "fee": { "type": "object", "properties": { "amount": { "type": "number" } } }
+            }
+          },
+          "recipient": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "firstName": { "type": "string" },
+              "lastName": { "type": "string" },
+              "relationship": { "type": "string" },
+              "type": { "type": "string" },
+              "account": { "type": "object", "properties": { "sortCode": { "type": "string" }, "accountNumber": { "type": "string" }, "branchCode": { "type": "string" }, "mobileProvider": { "type": "string" } } },
+              "paymentChannel": { "type": "string" },
+              "currency": { "type": "string" },
+              "country": { "type": "string" }
+            }
+          },
+          "created": { "type": "string", "format": "date-time" },
+          "processed": { "type": "string", "format": "date-time" }
         }
       },
       "CreateStaticVirtualAccountRequest": {
@@ -371,10 +393,22 @@
       "DynamicVirtualAccount": {
         "type": "object",
         "properties": {
-          "id": { "type": "string", "example": "30fe4022-09da-46fb-bafa-xxxxxxxxxxxxx" }, "reference": { "type": "string" },
+          "id": { "type": "string", "example": "30fe4022-09da-46fb-bafa-xxxxxxxxxxxxx" },
+          "reference": { "type": "string" },
           "account": { "type": "object", "properties": { "bankName": { "type": "string" }, "sortCode": { "type": "string", "nullable": true }, "number": { "type": "string" } } },
           "expiryTime": { "type": "integer", "format": "int64", "description": "UNIX timestamp of when the account expires." },
-          "status": { "type": "string", "example": "ACTIVE" }, "currency": { "type": "string" }, "country": { "type": "string" }, "created": { "type": "string", "format": "date-time" }
+          "status": { "type": "string", "example": "ACTIVE" },
+          "currency": { "type": "string" },
+          "country": { "type": "string" },
+          "created": { "type": "string", "format": "date-time" }
+        }
+      },
+      "CreateDynamicVAccountSuccessResponse": {
+        "type": "object",
+        "properties": {
+          "message": { "type": "string", "example": "virtual account created successfully" },
+          "status": { "type": "string", "example": "success" },
+          "data": { "$ref": "#/components/schemas/DynamicVirtualAccount" }
         }
       },
       "CreateAccountEnquiryRequest": {
@@ -409,11 +443,36 @@
     },
     "responses": {
       "Success": { "description": "The request was successful.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Success" } } } },
+      "GetTransactionSuccess": {
+        "description": "Transaction details retrieved successfully.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": { "type": "string", "example": "transaction fetched successfully" },
+                "status": { "type": "string", "example": "success" },
+                "data": { "$ref": "#/components/schemas/GetTransactionSuccessData" }
+              }
+            }
+          }
+        }
+      },
       "CreatePayoutSuccess": {
         "description": "Payout transaction created successfully.",
         "content": {
           "application/json": {
             "schema": { "$ref": "#/components/schemas/CreatePayoutSuccessResponse" }
+          }
+        }
+      },
+      "CreateDynamicVAccountSuccess": {
+        "description": "Dynamic virtual account created successfully.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/CreateDynamicVAccountSuccessResponse"
+            }
           }
         }
       },
@@ -461,13 +520,40 @@
       },
       "WalletsSuccess": { "description": "OK. A list of wallets was successfully retrieved.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/GetAllWalletsSuccessResponse" } } } },
       "BadRequest": { "description": "Bad Request. The server could not process the request due to a client error (e.g., malformed request syntax, invalid parameters).", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } },
+      "DynamicVAccountBadRequest": {
+        "description": "Bad Request. Occurs if the request body is missing required fields or contains invalid data types.",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/PayoutFailedResponse" },
+            "example": { "message": "Invalid request payload", "status": "failed" }
+          }
+        }
+      },
       "Unauthorized": { "description": "Unauthorized. The request requires a valid API key.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" }, "example": { "status": "error", "errorCode": "UNAUTHORIZED", "message": "No valid API key provided." } } } },
       "UnauthorizedError": { "description": "Unauthorized. The provided API key is invalid or missing.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" }, "example": { "status": "error", "message": "Invalid API key.", "data": null } } } },
       "Forbidden": { "description": "Forbidden. The provided API key does not have permission to perform this request.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } },
       "ForbiddenError": { "description": "Forbidden. The request is not allowed, e.g., the source IP is not whitelisted.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" }, "example": { "status": "error", "message": "IP not whitelisted." } } } },
       "NotFound": { "description": "Not Found. The requested resource could not be found.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" }, "example": { "status": "error", "errorCode": "NOT_FOUND", "message": "The requested resource doesn't exist." } } } },
       "NotFoundError": { "description": "Not Found. The requested resource, like a specific wallet, could not be found.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" }, "example": { "status": "error", "message": "Invalid Wallet Address" } } } },
+      "TransactionNotFoundOrInvalid": {
+        "description": "Not Found. The transaction ID could not be found or the parameter is invalid.",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/PayoutFailedResponse" },
+            "example": { "message": "Invalid parameter", "status": "failed" }
+          }
+        }
+      },
       "Conflict": { "description": "Conflict. The request could not be completed due to a conflict with the current state of the target resource, such as a duplicate reference.", "content": { "application/json": { "schema": { "type": "object", "properties": { "message": { "type": "string" }, "status": { "type": "string" } } }, "example": { "message": "reference already exists", "status": "failed" } } } },
+      "DynamicVAccountConflict": {
+        "description": "Conflict. Occurs if the reference has already been used in a previous request.",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/PayoutFailedResponse" },
+            "example": { "message": "reference already exists", "status": "failed" }
+          }
+        }
+      },
       "UnprocessableEntity": { "description": "Unprocessable Entity. The request was well-formed but was unable to be followed due to semantic errors.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" }, "example": { "status": "error", "errorCode": "VALIDATION_FAILED", "message": "Invalid account details." } } } },
       "TooManyRequests": { "description": "Too Many Requests. You have hit the rate limit. Please try again later.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } },
       "InternalServerError": { "description": "Internal Server Error. We had a problem with our server. Try again later.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } },
@@ -476,13 +562,8 @@
         "description": "Unauthorized. The provided API key is invalid or missing.",
         "content": {
           "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/PayoutFailedResponse"
-            },
-            "example": {
-              "message": "Invalid API key",
-              "status": "failed"
-            }
+            "schema": { "$ref": "#/components/schemas/PayoutFailedResponse" },
+            "example": { "message": "Invalid API key", "status": "failed" }
           }
         }
       },
@@ -490,13 +571,8 @@
         "description": "Forbidden. The request is not allowed because the source IP is not whitelisted.",
         "content": {
           "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/PayoutFailedResponse"
-            },
-            "example": {
-              "message": "Access denied: IP address not whitelisted",
-              "status": "failed"
-            }
+            "schema": { "$ref": "#/components/schemas/PayoutFailedResponse" },
+            "example": { "message": "Access denied: IP address not whitelisted", "status": "failed" }
           }
         }
       },
@@ -504,23 +580,15 @@
         "description": "Bad Request. The request could not be processed due to a client-side error, such as an expired quote or insufficient funds.",
         "content": {
           "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/PayoutFailedResponse"
-            },
+            "schema": { "$ref": "#/components/schemas/PayoutFailedResponse" },
             "examples": {
               "QuoteExpired": {
                 "summary": "Quote has expired",
-                "value": {
-                  "message": "Quote expired",
-                  "status": "failed"
-                }
+                "value": { "message": "Quote expired", "status": "failed" }
               },
               "InsufficientBalance": {
                 "summary": "Insufficient wallet balance",
-                "value": {
-                  "message": "Insufficient Balance",
-                  "status": "failed"
-                }
+                "value": { "message": "Insufficient Balance", "status": "failed" }
               }
             }
           }
@@ -530,13 +598,8 @@
         "description": "Internal Server Error. The server failed to process the request.",
         "content": {
           "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/PayoutFailedResponse"
-            },
-            "example": {
-              "message": "Server failed to process request.",
-              "status": "failed"
-            }
+            "schema": { "$ref": "#/components/schemas/PayoutFailedResponse" },
+            "example": { "message": "Server failed to process request.", "status": "failed" }
           }
         }
       }
@@ -613,9 +676,25 @@
     },
     "/v1/transaction/{transactionId}": {
       "get": {
-        "tags": ["Transaction"], "summary": "Get Transaction", "description": "Retrieves details of a specific transaction by its ID.", "operationId": "getTransactionById",
+        "tags": ["Transaction"],
+        "summary": "Get Transaction",
+        "description": "Retrieves details of a specific transaction by its ID.",
+        "operationId": "getTransactionById",
         "parameters": [ { "name": "transactionId", "in": "path", "required": true, "schema": { "type": "string" }, "description": "The unique identifier of the transaction" } ],
-        "responses": { "200": { "description": "Transaction details retrieved successfully.", "content": { "application/json": { "schema": { "allOf": [ { "$ref": "#/components/schemas/Success" }, { "type": "object", "properties": { "data": { "$ref": "#/components/schemas/Transaction" } } } ] } } } } }
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/GetTransactionSuccess"
+          },
+          "401": {
+            "$ref": "#/components/responses/PayoutUnauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/PayoutForbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/TransactionNotFoundOrInvalid"
+          }
+        }
       }
     },
     "/v1/virtual-account": {
@@ -627,9 +706,28 @@
     },
     "/v1/virtual-account/dynamic": {
       "post": {
-        "tags": ["Virtual Account"], "summary": "Create Dynamic Virtual Account", "description": "Creates a temporary, single-use virtual account that is locked to a specific amount and expires after a set duration.", "operationId": "createDynamicVirtualAccount",
+        "tags": ["Virtual Account"],
+        "summary": "Create Dynamic Virtual Account",
+        "description": "Creates a temporary, single-use virtual account that is locked to a specific amount and expires after a set duration.",
+        "operationId": "createDynamicVirtualAccount",
         "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CreateDynamicVirtualAccountRequest" }, "examples": { "NGN_Example": { "summary": "Nigeria (NGN) Example", "value": { "currency": "NGN", "country": "NG", "amount": 5000, "duration": 30, "reference": "TXN_REF_DYNAMIC_12345678" } }, "MWK_Example": { "summary": "Malawi (MWK) Example", "value": { "currency": "MWK", "country": "MW", "amount": 10000, "duration": 30, "reference": "TXN_REF_DYNAMIC_98765432" } } } } } },
-        "responses": { "200": { "description": "Dynamic virtual account created successfully.", "content": { "application/json": { "schema": { "allOf": [ { "$ref": "#/components/schemas/Success" }, { "type": "object", "properties": { "data": { "$ref": "#/components/schemas/DynamicVirtualAccount" } } } ] } } } }, "400": { "$ref": "#/components/responses/BadRequest" }, "401": { "$ref": "#/components/responses/Unauthorized" }, "409": { "$ref": "#/components/responses/Conflict" }, "500": { "$ref": "#/components/responses/InternalServerError" } }
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/CreateDynamicVAccountSuccess"
+          },
+          "400": {
+            "$ref": "#/components/responses/DynamicVAccountBadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/PayoutUnauthorized"
+          },
+          "409": {
+            "$ref": "#/components/responses/DynamicVAccountConflict"
+          },
+          "500": {
+            "$ref": "#/components/responses/PayoutInternalServerError"
+          }
+        }
       }
     },
     "/v1/virtual-account/simulate/transfer": {
