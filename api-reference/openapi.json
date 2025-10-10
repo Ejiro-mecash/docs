@@ -371,13 +371,40 @@
           "accountName": { "type": "string", "description": "The desired name for the virtual account." }
         }
       },
-      "StaticVirtualAccount": {
+      "VirtualAccountDetails": {
         "type": "object",
         "properties": {
-          "id": { "type": "string", "example": "e21f7365-4fc9-4669-a9d9-xxxxxxxxxxxxx" },
-          "firstName": { "type": "string" }, "lastName": { "type": "string" }, "email": { "type": "string", "format": "email" }, "phoneNumber": { "type": "string" }, "bvn": { "type": "string", "example": "********" }, "reference": { "type": "string" },
-          "account": { "type": "object", "properties": { "name": { "type": "string" }, "bankName": { "type": "string" }, "sortCode": { "type": "string", "nullable": true }, "number": { "type": "string" } } },
-          "status": { "type": "string", "example": "ACTIVE" }, "currency": { "type": "string" }, "country": { "type": "string" }, "created": { "type": "string", "format": "date-time" }
+          "id": { "type": "string", "format": "uuid" },
+          "firstName": { "type": "string" },
+          "lastName": { "type": "string" },
+          "email": { "type": "string", "format": "email" },
+          "phoneNumber": { "type": "string" },
+          "bvn": { "type": "string" },
+          "reference": { "type": "string" },
+          "account": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "bankName": { "type": "string" },
+              "sortCode": { "type": "string", "nullable": true },
+              "number": { "type": "string" }
+            }
+          },
+          "status": { "type": "string" },
+          "currency": { "type": "string" },
+          "country": { "type": "string" },
+          "isPermanent": { "type": "boolean" },
+          "expiryTime": { "type": "integer", "description": "The expiry time or duration, context-dependent." },
+          "created": { "type": "string", "format": "date-time" },
+          "expired": { "type": "string", "format": "date-time", "nullable": true }
+        }
+      },
+      "GetVirtualAccountSuccessResponse": {
+        "type": "object",
+        "properties": {
+          "message": { "type": "string", "example": "virtual account fetched successfully" },
+          "status": { "type": "string", "example": "success" },
+          "data": { "$ref": "#/components/schemas/VirtualAccountDetails" }
         }
       },
       "CreateStaticVAccountSuccessResponse": {
@@ -466,6 +493,14 @@
           }
         }
       },
+      "GetVirtualAccountSuccess": {
+        "description": "Virtual account details retrieved successfully.",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/GetVirtualAccountSuccessResponse" }
+          }
+        }
+      },
       "CreatePayoutSuccess": {
         "description": "Payout transaction created successfully.",
         "content": {
@@ -536,7 +571,7 @@
           }
         }
       },
-      "WalletsSuccess": { "description": "OK. A list of wallets was successfully retrieved.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/GetAllWalletsSuccessResponse" } } } },
+      "WalletsSuccess": { "description": " A list of wallets was successfully retrieved.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/GetAllWalletsSuccessResponse" } } } },
       "BadRequest": { "description": "Bad Request. The server could not process the request due to a client error (e.g., malformed request syntax, invalid parameters).", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } },
       "StaticVAccountBadRequest": {
         "description": "Bad Request. The provided BVN is not a valid 11-digit number.",
@@ -596,6 +631,15 @@
               "message": "Account not found",
               "status": "failed"
             }
+          }
+        }
+      },
+      "VAccountNotFound": {
+        "description": "Not Found. The virtual account with the specified ID was not found.",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/PayoutFailedResponse" },
+            "example": { "message": "Virtual account not found", "status": "failed" }
           }
         }
       },
@@ -816,6 +860,42 @@
           },
           "500": {
             "$ref": "#/components/responses/PayoutInternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/virtual-account/{VirtualAccountId}": {
+      "get": {
+        "tags": [
+          "Virtual Account"
+        ],
+        "summary": "Get Virtual Account Details",
+        "description": "Retrieves the details of a specific virtual account by its unique identifier.",
+        "operationId": "getVirtualAccountById",
+        "parameters": [
+          {
+            "name": "VirtualAccountId",
+            "in": "path",
+            "required": true,
+            "description": "The unique identifier of the virtual account.",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/GetVirtualAccountSuccess"
+          },
+          "401": {
+            "$ref": "#/components/responses/PayoutUnauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/PayoutForbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/VAccountNotFound"
           }
         }
       }
