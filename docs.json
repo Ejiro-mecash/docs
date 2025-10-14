@@ -82,7 +82,7 @@
               "virtual-account/create-virtual-account",
               "virtual-account/create-dynamic-virtual-account",
               "virtual-account/fund-virtual-account",
-              "virtual-account/get-virtual-account-balance"
+              "virtual-account/get-virtual-account"
              
             ]
           },
