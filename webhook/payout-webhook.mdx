@@ -1,0 +1,135 @@
+# Webhook Event: `payout.completed` (NGN to NGN)
+
+Webhook payload when a payout is completed successfully.
+
+```json
+{
+  "event": "payout.completed",
+  "data": {
+    "id": "9099c245-350a-4d58-xxxxxxxxxxx",
+    "referenceNumber": "YOBQ8OXXXXX",
+    "type": "SEND",
+    "state": "COMPLETED",
+    "quote": {
+      "id": "0463d13a-354b-489c-ae57-xxxxxxxxxxxx",
+      "source": {
+        "currency": "NGN",
+        "country": "NG",
+        "amount": 90000
+      },
+      "target": {
+        "currency": "NGN",
+        "country": "NG",
+        "amount": 90000
+      },
+      "rate": 1,
+      "fee": {
+        "amount": 100
+      },
+      "summary": {
+        "total": 90100
+      }
+    },
+    "recipient": {
+      "name": "OMOLOKUN OMOYEMI",
+      "account": {
+        "bankName": "Guaranty Trust Bank",
+        "sortCode": "058",
+        "accountNumber": "00104096XX"
+      },
+      "currency": "NGN",
+      "country": "NG",
+      "stored": false
+    },
+    "created": "2025-05-19T16:13:33.401911",
+    "processed": "2025-05-19T16:14:06.964998699"
+  }
+}
+```
+
+## Payload Breakdown
+
+The top-level `event` field identifies the webhook type. All transaction details are nested within the `data` object.
+
+---
+
+### `data` Object
+
+This is the main object containing all the information about the payout.
+
+| Field | Type | Description |
+| :--- | :--- | :--- |
+| `id` | `string` | The unique identifier for the payout transaction. |
+| `referenceNumber` | `string` | An internal reference code for tracking the payment. |
+| `type` | `string` | The type of payout. For this event, it will be `SEND`. |
+| `state` | `string` | The final status of the transaction (e.g., `COMPLETED`). |
+| `quote` | `object` | An object containing the detailed financial breakdown of the transaction. |
+| `recipient` | `object` | An object containing information about the person receiving the funds. |
+| `created` | `timestamp` | The timestamp when the payout was initiated. |
+| `processed` | `timestamp` | The timestamp when the payout was successfully completed. |
+
+---
+
+### `quote` Object
+
+This object details the financial aspects of the transaction.
+
+| Field | Type | Description |
+| :--- | :--- | :--- |
+| `quote.id` | `string` | The unique identifier for this specific financial quote. |
+| `quote.source` | `object` | An object detailing the funds being sent (`currency`, `country`, `amount`). |
+| `quote.target` | `object` | An object detailing the funds being received (`currency`, `country`, `amount`). |
+| `quote.rate` | `number` | The conversion rate. This will always be `1` for same-currency transfers. |
+| `quote.fee.amount` | `number` | The fee charged for processing the transaction. |
+| `quote.summary.total` | `number` | The total amount debited from the sender (`source.amount` + `fee.amount`). |
+
+---
+
+### `recipient` Object
+
+This object provides all necessary details about the receiver of the funds.
+
+| Field | Type | Description |
+| :--- | :--- | :--- |
+| `name` | `string` | The full name of the recipient. |
+| `account.bankName` | `string` | The name of the recipient's bank (e.g., "Guaranty Trust Bank"). |
+| `account.sortCode` | `string` | The Nigerian NIP bank code. For example, `'058'` is the code for GTB. |
+| `account.accountNumber` | `string` | The recipient's 10-digit NUBAN account number. |
+| `currency` | `string` | The currency the recipient receives (e.g., `NGN`). |
+| `country` | `string` | The recipient's country code (e.g., `NG` for Nigeria). |
+| `stored` | `boolean` | Indicates if the recipient's details were saved for future use. |
+
+## `payout.pending` OR `payout.failed`
+
+This payload is sent when a payout request is created but still in progress (not yet completed or failed).
+
+```json
+{
+  "event": "payout.pending",
+  "data": {
+    "id": "8b99b9d8-998a-48db-9102-xxxxxxxxxxxxx",
+    "referenceNumber": "RRT6CBX1NMGUJ",
+    "type": "SEND",
+    "state": "PENDING",
+    "quote": {
+      "id": "68d2bae4-7365-42fc-bbc2-xxxxxxxxxxxxx",
+      "source": { "currency": "NGN", "amount": 3000 },
+      "target": { "currency": "CNY", "amount": 13.62 },
+      "rate": 220.3431138,
+      "fee": { "amount": 5 },
+      "summary": { "total": 3005 }
+    },
+    "recipient": {
+      "name": "Zui len",
+      "account": { "sortCode": "", "accountNumber": "8612343562723", "branchCode": "" },
+      "currency": "CNY",
+      "country": "CN",
+      "stored": false
+    },
+    "created": "2025-03-13T15:28:37.258Z",
+    "processed": "2025-03-13T15:28:37.258Z"
+  }
+}
+```
+
+Payload structure and field definitions are the same as in `payout.completed`.

@@ -1,0 +1,145 @@
+---
+title: 'Get Wallet Balance API'
+---
+
+Use this endpoint to retrieve the available balance for a wallet you previously created. It accepts the wallet identifier as a path parameter and returns the latest balance snapshot.
+
+## Endpoint
+
+**GET** `{{baseURL}}/v1/wallet/{walletId}/balance`
+
+<Callout type="info" emoji="ℹ️">
+  Use the wallet ID returned from the <a href="/wallet-docs/get-all-wallet-api">Get Wallets API</a> or any wallet creation workflow.
+</Callout>
+
+### Path parameters
+
+| Parameter | Type | Description | Required | Example |
+|-----------|------|-------------|----------|---------|
+| `walletId` | String | Unique identifier of the wallet whose balance you want to query. | ✅ Yes | `739d7131-d523-49ui-8524-xxxxxxxxxx` |
+
+### Request headers
+
+| Header | Type | Description | Required | Example |
+|--------|------|-------------|----------|---------|
+| `x-api-key` | String | Your meCash API key for authentication. | ✅ Yes | `YOUR_API_KEY` |
+| `Content-Type` | String | Media type of the request. | ✅ Yes | `application/json` |
+
+## Request examples
+
+<Tabs items={['cURL', 'JavaScript (fetch)', 'Python (requests)', 'Node.js (axios)']}>
+  <Tabs.Tab>
+    ```bash copy
+    curl --request GET '{{baseURL}}/v1/wallet/739d7131-d523-49ui-8524-xxxxxxxxxx/balance' \
+      --header 'x-api-key: YOUR_API_KEY' \
+      --header 'Content-Type: application/json'
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```js copy
+    const walletId = '739d7131-d523-49ui-8524-xxxxxxxxxx';
+
+    fetch(`{{baseURL}}/v1/wallet/${walletId}/balance`, {
+      method: 'GET',
+      headers: {
+        'x-api-key': 'YOUR_API_KEY',
+        'Content-Type': 'application/json'
+      }
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`Request failed with status ${res.status}`);
+        }
+        return res.json();
+      })
+      .then((body) => console.log(body))
+      .catch((error) => console.error('Failed to fetch wallet balance', error));
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```python copy
+    import requests
+
+    wallet_id = "739d7131-d523-49ui-8524-xxxxxxxxxx"
+    url = f"{{baseURL}}/v1/wallet/{wallet_id}/balance"
+    headers = {
+        "x-api-key": "YOUR_API_KEY",
+        "Content-Type": "application/json",
+    }
+
+    response = requests.get(url, headers=headers, timeout=30)
+    response.raise_for_status()
+    print(response.json())
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```js copy
+    const axios = require('axios');
+
+    const walletId = '739d7131-d523-49ui-8524-xxxxxxxxxx';
+
+    axios.get(`{{baseURL}}/v1/wallet/${walletId}/balance`, {
+      headers: {
+        'x-api-key': 'YOUR_API_KEY',
+        'Content-Type': 'application/json'
+      },
+      timeout: 30000
+    })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.error('API error:', error.response.data);
+        } else {
+          console.error('Request error:', error.message);
+        }
+      });
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+## Successful response
+
+```json copy
+{
+  "message": "wallet balance fetched successfully",
+  "status": "success",
+  "data": {
+    "id": "739d7131-d523-49ui-8524-xxxxxxxxxx",
+    "balance": 2300000000,
+    "currency": "NGN",
+    "country": "NG"
+  }
+}
+```
+
+### Field reference
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `message` | String | High-level description of the outcome. |
+| `status` | String | `success` if the request succeeded, otherwise `error`. |
+| `data` | Object | Wallet details returned from the service. |
+| `data.id` | String | Wallet identifier you supplied in the path. |
+| `data.balance` | Number | Latest wallet balance in the wallet currency. |
+| `data.currency` | String | Three-letter ISO currency code for the balance. |
+| `data.country` | String | Two-letter ISO country code tied to the wallet. |
+
+## Error responses
+
+| Status | Meaning | Example message | Next steps |
+|--------|---------|-----------------|------------|
+| 400 | Missing or invalid `walletId`. | `walletId is required` | Confirm you are sending a valid UUID in the path. |
+| 401 | Authentication failed. | `Invalid API key.` | Verify your `x-api-key` header. |
+| 403 | IP not whitelisted. | `IP not whitelisted.` | Add your IP to the dashboard allowlist. |
+| 404 | Wallet does not exist. | `Wallet not found.` | Make sure the wallet ID belongs to your business. |
+| 422 | Wallet ID has the wrong format. | `Invalid wallet format.` | Double-check the ID you are passing. |
+| 429 | Rate limit exceeded. | `Too many requests.` | Implement retry logic with exponential backoff. |
+| 500 | Unexpected server error. | `Internal server error.` | Retry later or contact support. |
+
+## Tips
+
+- Log both the request and response IDs when troubleshooting mismatched balances.
+- Consider caching the balance if you call this endpoint frequently within a short window.
+- Pair this endpoint with webhooks to react to balance changes in near real-time.

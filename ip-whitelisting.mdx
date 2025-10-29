@@ -1,51 +1,65 @@
+---
+title: "Whitelist Your IP Addresses"
+description: "Allow only trusted servers to access the meCash API."
+---
 
 
-To use the meCash API services, you must whitelist your IP address. 
-This is a mandatory security step.
+To use the meCash API, you must first add at least one trusted IP address. Requests coming from non-whitelisted sources are rejected automatically, keeping your integration secure.
 
-IP whitelisting ensures that only authorized servers can access your API endpoints. 
-Requests from non-whitelisted IPs will be denied.
-
-
-
-## ⚠️ Error Response for Non-Whitelisted IPs:
+## What happens if an IP isn’t whitelisted?
 
 ```json "403 Forbidden"
 {
   "message": "Forbidden: Your IP address is not whitelisted to access this resource."
 }
-
-```
-Also, remember that your API keys remain inactive until you've whitelisted at least one IP address.
-
----
-## How to Whitelist Your IP Address on meCash
-
-
-1. Log in to your meCash  dashboard. Open the Developers section.
-
-```md
-![Developer Section](/Screenshot100106.png)
 ```
 
-2. Navigate to the **IP Whitelisting** tab.
+Your API keys remain inactive until a valid IP is on the list, so complete this step before attempting live calls.
 
+## Add an IP address
 
-3. You will see the whitelisting dashboard displaying the number of IPs added and a button to add new ones.
-Select the + 'Add IP Address button`
+<AccordionGroup>
+  <Accordion icon="compass-drafting" title="1. Open the Developers area">
+    <Frame>
+      <img
+        src="public/images/Screenshot100106.png"
+        alt="Dashboard navigation showing the Developers section highlighted"
+        style={{ borderRadius: '0.75rem' }}
+      />
+    </Frame>
 
-![add ip address button](/ipwhiteliisting1.png)
+    Log in to the meCash dashboard and select **Developers** from the sidebar.
+  </Accordion>
 
-4. Enter a valid server IP address, and click confirm.
-![Enter ip address](/Screenshot134017.png)
+  <Accordion icon="shield-check" title="2. Switch to the IP Whitelisting tab">
+    In the Developers workspace, open **IP Whitelisting** to view existing addresses and available actions.
+  </Accordion>
 
+  <Accordion icon="plus" title="3. Add a new IP address">
+    <Frame>
+      <img
+        src="public/images/ipwhitelisitng1.png"
+        alt="IP whitelisting dashboard with the Add IP Address button visible"
+        style={{ borderRadius: '0.75rem' }}
+      />
+    </Frame>
 
-5. Click **Confirm** to register the ip address
-Once added, the ip address will appear in the list along with its status.
+    Click **Add IP Address** to launch the entry form.
+  </Accordion>
 
+  <Accordion icon="keyboard" title="4. Enter the IP and confirm">
+    <Frame>
+      <img
+        src="public/images/Screenshot134017.png"
+        alt="Modal prompting for a new IP address entry"
+        style={{ borderRadius: '0.75rem' }}
+      />
+    </Frame>
 
-import { Callout } from 'nextra/components'
- 
+    Provide the static IP of your server, then click **Confirm**. The address appears in the list with its current status.
+  </Accordion>
+</AccordionGroup>
+
 <Callout type="info" emoji="ℹ️">
-  Remember: Use a static IP if possible. Update your whitelist if your server's IP changes.
+  Prefer static IPs. Update the whitelist immediately if your infrastructure’s public IP changes.
 </Callout>

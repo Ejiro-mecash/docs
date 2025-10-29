@@ -1,0 +1,506 @@
+---
+title: "Troubleshooting Guide"
+description: "Common issues and solutions when integrating with meCash API"
+---
+
+## Troubleshooting Guide
+
+This guide helps you resolve common issues when integrating with the meCash API.
+
+## Table of Contents
+
+- [Authentication Issues](#authentication-issues)
+- [API Endpoint Issues](#api-endpoint-issues)
+- [Payout Issues](#payout-issues)
+- [Webhook Issues](#webhook-issues)
+- [Rate Limiting](#rate-limiting)
+- [Environment Issues](#environment-issues)
+- [Getting Help](#getting-help)
+
+## Authentication Issues
+
+### Problem: 401 Unauthorized Error
+
+**Symptoms:**
+```json
+{
+  "status": "error",
+  "errorCode": "UNAUTHORIZED",
+  "message": "Invalid API key"
+}
+```
+
+**Solutions:**
+
+1. **Check API Key Format**
+   ```bash
+   # ✅ Correct format
+   x-api-key: your_api_key_here
+   
+   # ❌ Incorrect format
+   x-api-key: API_KEY:your_api_key_here
+   ```
+
+2. **Verify API Key Validity**
+   - Log into your meCash dashboard
+   - Navigate to **Developer** → **API Keys**
+   - Ensure your key is active and not expired
+
+3. **Check Environment**
+   - Sandbox: Use sandbox API keys with `sandboxapi.me-cash.com`
+   - Production: Use production API keys with `api.me-cash.com`
+
+### Problem: 403 Forbidden Error
+
+**Symptoms:**
+```json
+{
+  "status": "error",
+  "errorCode": "FORBIDDEN",
+  "message": "IP address not whitelisted"
+}
+```
+
+**Solutions:**
+
+1. **Whitelist Your IP Address**
+   - Go to **Developer** → **IP Whitelisting**
+   - Add your server's IP address
+   - Wait 5-10 minutes for changes to take effect
+
+2. **Check IP Address**
+   ```bash
+   # Check your public IP
+   curl ifconfig.me
+   
+   # Or use
+   curl ipinfo.io/ip
+   ```
+
+## API Endpoint Issues
+
+### Problem: 404 Not Found Error
+
+**Symptoms:**
+```json
+{
+  "status": "error",
+  "errorCode": "NOT_FOUND",
+  "message": "Endpoint not found"
+}
+```
+
+**Solutions:**
+
+1. **Check Endpoint URL**
+   ```bash
+   # ✅ Correct endpoint
+   POST https://sandboxapi.me-cash.com/v2/payout
+   
+   # ❌ Incorrect endpoint
+   POST https://sandboxapi.me-cash.com/v1/payout
+   ```
+
+2. **Verify HTTP Method**
+   - Quotes: `POST /v1/quote`
+   - Payouts: `POST /v2/payout`
+   - Transactions: `GET /v1/transaction/{id}`
+
+### Problem: 400 Bad Request Error
+
+**Symptoms:**
+```json
+{
+  "status": "error",
+  "errorCode": "BAD_REQUEST",
+  "message": "Invalid request parameters"
+}
+```
+
+**Solutions:**
+
+1. **Validate Request Body**
+   ```javascript
+   // Check required fields
+   const requiredFields = ['quoteId', 'recipient'];
+   for (const field of requiredFields) {
+     if (!requestBody[field]) {
+       throw new Error(`Missing required field: ${field}`);
+     }
+   }
+   ```
+
+2. **Check Data Types**
+   ```javascript
+   // Ensure correct data types
+   const payload = {
+     quoteId: "string", // Not a number
+     recipient: {}, // Object, not string
+     reason: "string" // Not an array
+   };
+   ```
+
+## Payout Issues
+
+### Problem: Quote Expired Error
+
+**Symptoms:**
+```json
+{
+  "status": "failed",
+  "message": "Quote expired"
+}
+```
+
+**Solutions:**
+
+1. **Generate New Quote**
+   ```javascript
+   // Always generate a fresh quote before payout
+   const quote = await api.quotes.create(quoteData);
+   const payout = await api.payouts.create({
+     quoteId: quote.id, // Use fresh quote ID
+     recipient: recipientData
+   });
+   ```
+
+2. **Check Quote Expiry**
+   ```javascript
+   // Check quote expiry before using
+   if (quote.expiresInSeconds <= 0) {
+     throw new Error('Quote has expired');
+   }
+   ```
+
+### Problem: Insufficient Balance Error
+
+**Symptoms:**
+```json
+{
+  "status": "failed",
+  "message": "Insufficient Balance"
+}
+```
+
+**Solutions:**
+
+1. **Check Wallet Balance**
+   ```javascript
+   const wallets = await api.wallets.getAll();
+   const ngnWallet = wallets.find(w => w.currency === 'NGN');
+   console.log('Available balance:', ngnWallet.balance);
+   ```
+
+2. **Fund Your Wallet**
+   - Log into your meCash dashboard
+   - Navigate to **Wallet** section
+   - Add funds to your wallet
+
+### Problem: Invalid Recipient Data
+
+**Symptoms:**
+```json
+{
+  "status": "error",
+  "message": "Invalid recipient data"
+}
+```
+
+**Solutions:**
+
+1. **Validate Recipient Information**
+   ```javascript
+   const validateRecipient = (recipient) => {
+     // Check required fields
+     if (!recipient.name || !recipient.account) {
+       throw new Error('Missing required recipient fields');
+     }
+     
+     // Validate account details
+     if (!recipient.account.accountNumber || !recipient.account.bankName) {
+       throw new Error('Missing account details');
+     }
+   };
+   ```
+
+2. **Use Correct Format for Each Currency**
+   ```javascript
+   // NGN recipient
+   const ngnRecipient = {
+     name: "John Doe",
+     paymentChannel: "BANK_TRANSFER",
+     currency: "NGN",
+     country: "NG",
+     account: {
+       bankName: "GT Bank",
+       sortCode: "058",
+       accountNumber: "0010401234"
+     }
+   };
+   
+   // USD recipient
+   const usdRecipient = {
+     firstName: "Jane",
+     lastName: "Smith",
+     type: "INDIVIDUAL",
+     address: "123 Main St, New York, NY 10001",
+     paymentChannel: "BANK_TRANSFER",
+     currency: "USD",
+     country: "US",
+     account: {
+       bankName: "Chase Bank",
+       accountNumber: "1234567890",
+       routingNumber: "021000021"
+     }
+   };
+   ```
+
+## Webhook Issues
+
+### Problem: Webhooks Not Received
+
+**Symptoms:**
+- No webhook events received
+- Webhook delivery failures
+
+**Solutions:**
+
+1. **Check Webhook URL**
+   ```bash
+   # Test webhook endpoint
+   curl -X POST https://your-webhook-url.com/webhook \
+     -H "Content-Type: application/json" \
+     -d '{"test": "data"}'
+   ```
+
+2. **Verify Webhook Configuration**
+   - Ensure webhook URL is HTTPS
+   - Check that your server responds with 200 OK
+   - Verify webhook events are enabled
+
+3. **Test with ngrok**
+   ```bash
+   # Expose local server for testing
+   ngrok http 3000
+   
+   # Use ngrok URL in webhook configuration
+   # https://abc123.ngrok.io/webhook
+   ```
+
+### Problem: Webhook Signature Verification Failed
+
+**Symptoms:**
+```json
+{
+  "error": "Invalid webhook signature"
+}
+```
+
+**Solutions:**
+
+1. **Verify Signature Implementation**
+   ```javascript
+   const crypto = require('crypto');
+   
+   function verifyWebhookSignature(payload, signature, secret) {
+     const receivedSignature = signature.replace('sha256=', '');
+     const expectedSignature = crypto
+       .createHmac('sha256', secret)
+       .update(payload, 'utf8')
+       .digest('hex');
+     
+     return crypto.timingSafeEqual(
+       Buffer.from(receivedSignature, 'hex'),
+       Buffer.from(expectedSignature, 'hex')
+     );
+   }
+   ```
+
+2. **Check Webhook Secret**
+   - Verify webhook secret in dashboard
+   - Ensure secret is stored securely
+   - Use environment variables for secrets
+
+## Rate Limiting
+
+### Problem: 429 Too Many Requests
+
+**Symptoms:**
+```json
+{
+  "status": "error",
+  "errorCode": "RATE_LIMIT_EXCEEDED",
+  "message": "Too many requests"
+}
+```
+
+**Solutions:**
+
+1. **Implement Rate Limiting**
+   ```javascript
+   class RateLimiter {
+     constructor(requestsPerMinute = 100) {
+       this.requestsPerMinute = requestsPerMinute;
+       this.requests = [];
+     }
+     
+     async waitIfNeeded() {
+       const now = Date.now();
+       this.requests = this.requests.filter(time => now - time < 60000);
+       
+       if (this.requests.length >= this.requestsPerMinute) {
+         const waitTime = 60000 - (now - this.requests[0]);
+         await new Promise(resolve => setTimeout(resolve, waitTime));
+       }
+       
+       this.requests.push(now);
+     }
+   }
+   ```
+
+2. **Use Exponential Backoff**
+   ```javascript
+   async function retryWithBackoff(fn, maxRetries = 3) {
+     for (let i = 0; i < maxRetries; i++) {
+       try {
+         return await fn();
+       } catch (error) {
+         if (error.status === 429 && i < maxRetries - 1) {
+           const delay = Math.pow(2, i) * 1000; // Exponential backoff
+           await new Promise(resolve => setTimeout(resolve, delay));
+         } else {
+           throw error;
+         }
+       }
+     }
+   }
+   ```
+
+## Environment Issues
+
+### Problem: Wrong Environment
+
+**Symptoms:**
+- API calls failing with wrong base URL
+- Confusion between sandbox and production
+
+**Solutions:**
+
+1. **Use Correct Base URLs**
+   ```javascript
+   const config = {
+     sandbox: {
+       baseURL: 'https://sandboxapi.me-cash.com',
+       apiKey: process.env.MECASH_SANDBOX_API_KEY
+     },
+     production: {
+       baseURL: 'https://api.me-cash.com',
+       apiKey: process.env.MECASH_PRODUCTION_API_KEY
+     }
+   };
+   
+   const environment = process.env.NODE_ENV === 'production' ? 'production' : 'sandbox';
+   const apiConfig = config[environment];
+   ```
+
+2. **Environment Validation**
+   ```javascript
+   function validateEnvironment() {
+     const requiredEnvVars = ['MECASH_API_KEY', 'MECASH_BASE_URL'];
+     
+     for (const envVar of requiredEnvVars) {
+       if (!process.env[envVar]) {
+         throw new Error(`Missing required environment variable: ${envVar}`);
+       }
+     }
+   }
+   ```
+
+## Getting Help
+
+### Before Contacting Support
+
+1. **Check Documentation**
+   - Review API reference documentation
+   - Check error codes and messages
+   - Verify request/response formats
+
+2. **Test in Sandbox**
+   - Reproduce issue in sandbox environment
+   - Test with minimal request data
+   - Check logs for detailed error information
+
+3. **Gather Information**
+   - API endpoint and method
+   - Request payload (sanitized)
+   - Response error message
+   - Timestamp of occurrence
+   - Your API key (last 4 characters only)
+
+### Contacting Support
+
+**Email Support:**
+- Email: [support@me-cash.com](mailto:support@me-cash.com)
+- Subject: "API Issue - [Brief Description]"
+- Include: Error details, request/response data, steps to reproduce
+
+**Community Support:**
+- Discord: [Join our community](https://discord.gg/CC5v6h52Wk)
+- GitHub: [Report issues](https://github.com/mecash/api-issues)
+
+**Emergency Support:**
+- For production emergencies, use subject: "PRODUCTION EMERGENCY"
+- Include: Impact description, affected transactions, immediate steps needed
+
+### Debugging Tools
+
+1. **API Logging**
+   ```javascript
+   // Enable detailed logging
+   const api = new MeCashAPI({
+     apiKey: process.env.MECASH_API_KEY,
+     debug: true, // Enable debug logging
+     logLevel: 'debug'
+   });
+   ```
+
+2. **Request/Response Logging**
+   ```javascript
+   // Log all API requests and responses
+   api.on('request', (req) => console.log('Request:', req));
+   api.on('response', (res) => console.log('Response:', res));
+   api.on('error', (err) => console.error('Error:', err));
+   ```
+
+3. **Health Check Endpoint**
+   ```javascript
+   // Create health check endpoint
+   app.get('/health', async (req, res) => {
+     try {
+       const wallets = await api.wallets.getAll();
+       res.json({ status: 'healthy', timestamp: new Date().toISOString() });
+     } catch (error) {
+       res.status(500).json({ status: 'unhealthy', error: error.message });
+     }
+   });
+   ```
+
+## Common Error Codes
+
+| Error Code | Description | Solution |
+|------------|-------------|----------|
+| `UNAUTHORIZED` | Invalid API key | Check API key format and validity |
+| `FORBIDDEN` | IP not whitelisted | Whitelist your IP address |
+| `NOT_FOUND` | Resource not found | Check endpoint URL and resource ID |
+| `BAD_REQUEST` | Invalid request data | Validate request payload |
+| `RATE_LIMIT_EXCEEDED` | Too many requests | Implement rate limiting |
+| `QUOTE_EXPIRED` | Quote has expired | Generate new quote |
+| `INSUFFICIENT_BALANCE` | Not enough funds | Fund your wallet |
+| `INVALID_RECIPIENT` | Invalid recipient data | Validate recipient information |
+
+## Next Steps
+
+- [API Reference](/api-reference) - Complete endpoint documentation
+- [Error Handling Guide](/error-handling) - Handle errors gracefully
+- [SDK & Testing Guide](/sdk-testing-guide) - Use official SDKs
+- [Webhook Signature Verification](/webhooks-signature-verification) - Secure webhook handling

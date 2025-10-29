@@ -1,0 +1,450 @@
+---
+title: "Webhook Signature Verification"
+description: "Learn how to verify webhook signatures for security"
+---
+
+## Webhook Signature Verification
+
+Webhooks are signed with HMAC-SHA256 to ensure authenticity and integrity. This guide shows you how to verify webhook signatures in different programming languages.
+
+## Overview
+
+Each webhook request includes a signature in the `X-meCash-Signature` header. You must verify this signature to ensure the webhook came from meCash and wasn't tampered with.
+
+### Signature Format
+
+```
+X-meCash-Signature: sha256=<signature>
+```
+
+## Getting Your Webhook Secret
+
+1. Log into your meCash dashboard
+2. Navigate to **Developer** → **Webhooks**
+3. Find your webhook endpoint
+4. Copy the webhook secret
+
+<Warning>
+Keep your webhook secret secure and never expose it in client-side code.
+</Warning>
+
+## Verification Process
+
+1. **Extract the signature** from the `X-meCash-Signature` header
+2. **Create a payload string** from the request body
+3. **Generate HMAC-SHA256** using your webhook secret
+4. **Compare signatures** using a constant-time comparison
+
+## Code Examples
+
+### Node.js
+
+```javascript
+const crypto = require('crypto');
+
+function verifyWebhookSignature(payload, signature, secret) {
+  // Remove 'sha256=' prefix from signature
+  const receivedSignature = signature.replace('sha256=', '');
+  
+  // Create HMAC-SHA256 signature
+  const expectedSignature = crypto
+    .createHmac('sha256', secret)
+    .update(payload, 'utf8')
+    .digest('hex');
+  
+  // Use constant-time comparison to prevent timing attacks
+  return crypto.timingSafeEqual(
+    Buffer.from(receivedSignature, 'hex'),
+    Buffer.from(expectedSignature, 'hex')
+  );
+}
+
+// Express.js middleware example
+app.post('/webhook', express.raw({ type: 'application/json' }), (req, res) => {
+  const signature = req.headers['x-mecash-signature'];
+  const webhookSecret = process.env.MECASH_WEBHOOK_SECRET;
+  
+  if (!signature) {
+    return res.status(400).send('Missing signature');
+  }
+  
+  const payload = req.body;
+  const isValid = verifyWebhookSignature(payload, signature, webhookSecret);
+  
+  if (!isValid) {
+    return res.status(401).send('Invalid signature');
+  }
+  
+  // Process webhook
+  const event = JSON.parse(payload);
+  console.log('Received webhook:', event);
+  
+  res.status(200).send('OK');
+});
+```
+
+### Python
+
+```python
+import hmac
+import hashlib
+import json
+from flask import Flask, request, abort
+
+app = Flask(__name__)
+
+def verify_webhook_signature(payload, signature, secret):
+    """Verify webhook signature"""
+    # Remove 'sha256=' prefix
+    received_signature = signature.replace('sha256=', '')
+    
+    # Create expected signature
+    expected_signature = hmac.new(
+        secret.encode('utf-8'),
+        payload,
+        hashlib.sha256
+    ).hexdigest()
+    
+    # Use constant-time comparison
+    return hmac.compare_digest(received_signature, expected_signature)
+
+@app.route('/webhook', methods=['POST'])
+def webhook():
+    signature = request.headers.get('X-meCash-Signature')
+    webhook_secret = os.getenv('MECASH_WEBHOOK_SECRET')
+    
+    if not signature:
+        abort(400, 'Missing signature')
+    
+    payload = request.get_data()
+    is_valid = verify_webhook_signature(payload, signature, webhook_secret)
+    
+    if not is_valid:
+        abort(401, 'Invalid signature')
+    
+    # Process webhook
+    event = json.loads(payload)
+    print(f'Received webhook: {event}')
+    
+    return 'OK', 200
+```
+
+### PHP
+
+```php
+<?php
+function verifyWebhookSignature($payload, $signature, $secret) {
+    // Remove 'sha256=' prefix
+    $receivedSignature = str_replace('sha256=', '', $signature);
+    
+    // Create expected signature
+    $expectedSignature = hash_hmac('sha256', $payload, $secret);
+    
+    // Use hash_equals for constant-time comparison
+    return hash_equals($receivedSignature, $expectedSignature);
+}
+
+// Handle webhook request
+$signature = $_SERVER['HTTP_X_MECASH_SIGNATURE'] ?? '';
+$webhookSecret = $_ENV['MECASH_WEBHOOK_SECRET'];
+$payload = file_get_contents('php://input');
+
+if (empty($signature)) {
+    http_response_code(400);
+    echo 'Missing signature';
+    exit;
+}
+
+$isValid = verifyWebhookSignature($payload, $signature, $webhookSecret);
+
+if (!$isValid) {
+    http_response_code(401);
+    echo 'Invalid signature';
+    exit;
+}
+
+// Process webhook
+$event = json_decode($payload, true);
+echo 'OK';
+?>
+```
+
+### Ruby
+
+```ruby
+require 'openssl'
+require 'sinatra'
+require 'json'
+
+def verify_webhook_signature(payload, signature, secret)
+  # Remove 'sha256=' prefix
+  received_signature = signature.gsub('sha256=', '')
+  
+  # Create expected signature
+  expected_signature = OpenSSL::HMAC.hexdigest(
+    'sha256',
+    secret,
+    payload
+  )
+  
+  # Use secure comparison
+  secure_compare(received_signature, expected_signature)
+end
+
+def secure_compare(a, b)
+  return false if a.length != b.length
+  
+  result = 0
+  a.bytes.zip(b.bytes) { |x, y| result |= x ^ y }
+  result == 0
+end
+
+post '/webhook' do
+  signature = request.env['HTTP_X_MECASH_SIGNATURE']
+  webhook_secret = ENV['MECASH_WEBHOOK_SECRET']
+  payload = request.body.read
+  
+  if signature.nil? || signature.empty?
+    status 400
+    return 'Missing signature'
+  end
+  
+  unless verify_webhook_signature(payload, signature, webhook_secret)
+    status 401
+    return 'Invalid signature'
+  end
+  
+  # Process webhook
+  event = JSON.parse(payload)
+  puts "Received webhook: #{event}"
+  
+  'OK'
+end
+```
+
+### Go
+
+```go
+package main
+
+import (
+    "crypto/hmac"
+    "crypto/sha256"
+    "encoding/hex"
+    "fmt"
+    "net/http"
+    "strings"
+    "time"
+)
+
+func verifyWebhookSignature(payload, signature, secret string) bool {
+    // Remove 'sha256=' prefix
+    receivedSignature := strings.TrimPrefix(signature, "sha256=")
+    
+    // Create expected signature
+    mac := hmac.New(sha256.New, []byte(secret))
+    mac.Write([]byte(payload))
+    expectedSignature := hex.EncodeToString(mac.Sum(nil))
+    
+    // Use constant-time comparison
+    return hmac.Equal([]byte(receivedSignature), []byte(expectedSignature))
+}
+
+func webhookHandler(w http.ResponseWriter, r *http.Request) {
+    signature := r.Header.Get("X-meCash-Signature")
+    webhookSecret := os.Getenv("MECASH_WEBHOOK_SECRET")
+    
+    if signature == "" {
+        http.Error(w, "Missing signature", http.StatusBadRequest)
+        return
+    }
+    
+    body, err := io.ReadAll(r.Body)
+    if err != nil {
+        http.Error(w, "Error reading body", http.StatusBadRequest)
+        return
+    }
+    
+    if !verifyWebhookSignature(string(body), signature, webhookSecret) {
+        http.Error(w, "Invalid signature", http.StatusUnauthorized)
+        return
+    }
+    
+    // Process webhook
+    fmt.Println("Received webhook:", string(body))
+    
+    w.WriteHeader(http.StatusOK)
+    w.Write([]byte("OK"))
+}
+
+func main() {
+    http.HandleFunc("/webhook", webhookHandler)
+    http.ListenAndServe(":8080", nil)
+}
+```
+
+## Testing Webhook Verification
+
+### Test Your Implementation
+
+```bash
+# Test webhook signature verification
+curl -X POST http://localhost:8080/webhook \
+  -H "Content-Type: application/json" \
+  -H "X-meCash-Signature: sha256=test_signature" \
+  -d '{"test": "data"}'
+```
+
+### Expected Responses
+
+- **Missing signature**: 400 Bad Request.
+- **Invalid signature**: 401 Unauthorized.
+- **Valid signature**: 200 OK.
+
+## Security Best Practices
+
+### 1. Always Verify Signatures
+
+Never process webhooks without signature verification:
+
+```javascript
+// ❌ Bad: Processing webhook without verification
+app.post('/webhook', (req, res) => {
+  const event = req.body;
+  // Process webhook without verification
+});
+
+// ✅ Good: Verify signature first
+app.post('/webhook', (req, res) => {
+  const signature = req.headers['x-mecash-signature'];
+  const isValid = verifyWebhookSignature(req.body, signature, secret);
+  
+  if (!isValid) {
+    return res.status(401).send('Invalid signature');
+  }
+  
+  // Process webhook
+});
+```
+
+### 2. Use Constant-Time Comparison
+
+Always use constant-time comparison to prevent timing attacks:
+
+```javascript
+// ❌ Bad: Using regular string comparison
+if (receivedSignature === expectedSignature) {
+  // Vulnerable to timing attacks
+}
+
+// ✅ Good: Using constant-time comparison
+if (crypto.timingSafeEqual(
+  Buffer.from(receivedSignature, 'hex'),
+  Buffer.from(expectedSignature, 'hex')
+)) {
+  // Secure comparison
+}
+```
+
+### 3. Store Secrets Securely
+
+```javascript
+// ❌ Bad: Hardcoded secret
+const webhookSecret = "whsec_1234567890abcdef";
+
+// ✅ Good: Environment variable
+const webhookSecret = process.env.MECASH_WEBHOOK_SECRET;
+```
+
+### 4. Handle Raw Request Body
+
+Make sure to use the raw request body for signature verification:
+
+```javascript
+// Express.js: Use raw middleware
+app.use('/webhook', express.raw({ type: 'application/json' }));
+
+// Or use body-parser with raw option
+app.use(bodyParser.raw({ type: 'application/json' }));
+```
+
+## Common Issues
+
+### Issue 1: Signature Mismatch
+
+**Problem**: Signature verification always fails.
+
+**Solutions**:
+- Check that you're using the raw request body.
+- Verify the webhook secret is correct.
+- Ensure you're removing the 'sha256=' prefix.
+
+### Issue 2: Missing Signature Header
+
+**Problem**: `X-meCash-Signature` header is missing.
+
+**Solutions**:
+- Check your webhook endpoint configuration.
+- Verify the header name is correct (case-sensitive).
+- Ensure your server is receiving all headers.
+
+### Issue 3: Body Parsing Issues
+
+**Problem**: Request body is modified before verification.
+
+**Solutions**:
+- Use raw body parsing for webhook endpoints.
+- Don't use JSON middleware before signature verification.
+- Parse JSON after signature verification.
+
+## Monitoring & Debugging
+
+### Log Signature Verification
+
+```javascript
+function verifyWebhookSignature(payload, signature, secret) {
+  const receivedSignature = signature.replace('sha256=', '');
+  const expectedSignature = crypto
+    .createHmac('sha256', secret)
+    .update(payload, 'utf8')
+    .digest('hex');
+  
+  console.log('Received signature:', receivedSignature);
+  console.log('Expected signature:', expectedSignature);
+  
+  const isValid = crypto.timingSafeEqual(
+    Buffer.from(receivedSignature, 'hex'),
+    Buffer.from(expectedSignature, 'hex')
+  );
+  
+  console.log('Signature valid:', isValid);
+  return isValid;
+}
+```
+
+### Webhook Testing Tool
+
+Create a simple test endpoint:
+
+```javascript
+app.post('/test-webhook', (req, res) => {
+  const signature = req.headers['x-mecash-signature'];
+  const payload = JSON.stringify(req.body);
+  const secret = process.env.MECASH_WEBHOOK_SECRET;
+  
+  const isValid = verifyWebhookSignature(payload, signature, secret);
+  
+  res.json({
+    signature,
+    payload,
+    isValid,
+    timestamp: new Date().toISOString()
+  });
+});
+```
+
+## Next Steps
+
+- [Webhook Events](/webhooks-event) - Learn about webhook events.
+- [Webhook Retry Logic](/webhooks-retry) - Implement webhook retry handling.
+- [Webhook Monitoring](/webhooks-monitoring) - Monitor webhook delivery.

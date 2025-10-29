@@ -1,0 +1,157 @@
+---
+title: 'Get Virtual Account'
+description: 'Retrieve the details of a virtual account by its identifier.'
+---
+
+import { Callout, Tabs } from 'nextra/components'
+
+## Get Virtual Account
+
+Use this endpoint to look up the latest data for a static or dynamic virtual account. It returns the account number, status, expiry information, and the customer profile you attached during creation.
+
+## Endpoint
+
+**GET** `{{baseURL}}/v1/virtual-account/{virtualAccountId}`
+
+## Request headers
+
+| Header | Description | Required | Example |
+|--------|-------------|----------|---------|
+| `x-api-key` | Workspace API key for authentication. | ✅ Yes | `YOUR_API_KEY` |
+| `Content-Type` | Media type of the request. | Optional | `application/json` |
+
+## Path parameters
+
+| Parameter | Type | Description | Required | Example |
+|-----------|------|-------------|----------|---------|
+| `virtualAccountId` | String | Unique identifier returned when the account was created. | ✅ Yes | `30fe4022-09da-46fb-bafa-xxxxxxxxxxxxx` |
+
+<Callout type="info" emoji="ℹ️">
+  You can obtain the `virtualAccountId` from the response of the static or dynamic account creation endpoints.
+</Callout>
+
+## Request examples
+
+<Tabs items={['cURL', 'JavaScript (fetch)', 'Python (requests)', 'Node.js (axios)']}>
+  <Tabs.Tab>
+    ```bash copy
+    curl --request GET '{{baseURL}}/v1/virtual-account/30fe4022-09da-46fb-bafa-xxxxxxxxxxxxx' \
+      --header 'x-api-key: YOUR_API_KEY'
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```js copy
+    const virtualAccountId = '30fe4022-09da-46fb-bafa-xxxxxxxxxxxxx';
+
+    fetch(`{{baseURL}}/v1/virtual-account/${virtualAccountId}`, {
+      method: 'GET',
+      headers: {
+        'x-api-key': 'YOUR_API_KEY'
+      }
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`Request failed with status ${res.status}`);
+        }
+        return res.json();
+      })
+      .then((body) => console.log(body))
+      .catch((error) => console.error('Failed to fetch virtual account', error));
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```python copy
+    import requests
+
+    virtual_account_id = "30fe4022-09da-46fb-bafa-xxxxxxxxxxxxx"
+    url = f"{{baseURL}}/v1/virtual-account/{virtual_account_id}"
+    headers = {
+        "x-api-key": "YOUR_API_KEY"
+    }
+
+    response = requests.get(url, headers=headers, timeout=30)
+    response.raise_for_status()
+    print(response.json())
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```js copy
+    const axios = require('axios');
+
+    const virtualAccountId = '30fe4022-09da-46fb-bafa-xxxxxxxxxxxxx';
+
+    axios.get(`{{baseURL}}/v1/virtual-account/${virtualAccountId}`, {
+      headers: {
+        'x-api-key': 'YOUR_API_KEY'
+      },
+      timeout: 30000
+    })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.error('API error:', error.response.data);
+        } else {
+          console.error('Request error:', error.message);
+        }
+      });
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+## Successful response
+
+```json copy
+{
+  "message": "virtual account fetched successfully",
+  "status": "success",
+  "data": {
+    "id": "30fe4022-09da-46fb-bafa-xxxxxxxxxxxxx",
+    "firstName": "John",
+    "lastName": "Jonathan",
+    "email": "someexample@gmail.com",
+    "phoneNumber": "+2348123XXXX",
+    "reference": "REF_YERT8JPXXXXXX",
+    "account": {
+      "name": "NNDDD",
+      "bankName": "Sterling Bank",
+      "sortCode": null,
+      "number": "88178XXXXX"
+    },
+    "status": "ACTIVE",
+    "currency": "NGN",
+    "country": "NG",
+    "isPermanent": false,
+    "expiryTime": 1751221691,
+    "created": "2025-06-26T17:46:11.636Z",
+    "expired": "2025-06-26T17:46:11.636Z"
+  }
+}
+```
+
+### Response fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `data.account.number` | String | Virtual bank account number customers use to pay you. |
+| `data.account.bankName` | String | Issuing bank for the account. |
+| `data.status` | String | Current state (`ACTIVE`, `EXPIRED`, etc.). |
+| `data.isPermanent` | Boolean | `true` for static accounts, `false` for dynamic. |
+| `data.expiryTime` | Number | Unix timestamp when a dynamic account expires (null for static). |
+| `data.expired` | String | ISO timestamp set when the account expires. |
+
+## Error responses
+
+| Status | Meaning | Example message | Next steps |
+|--------|---------|-----------------|-----------|
+| 401 | Authentication failed. | `Invalid API key` | Verify the `x-api-key` header. |
+| 404 | Account not found. | `virtual account not found` | Confirm the ID belongs to your workspace and hasn’t been deleted. |
+| 429 | Rate limit exceeded. | `Too many requests` | Add exponential backoff before retrying. |
+| 500 | Server error. | `Server failed to process request.` | Retry later or contact support. |
+
+## Usage tips
+
+- Use this endpoint to refresh the account status before showing details to a customer-facing UI.
+- Combine it with payment webhooks to confirm final settlement timestamps for reconciliation.
+- Archive or anonymise responses containing PII according to your data retention policy.

@@ -1,76 +1,93 @@
-# Account Creation
-
-Welcome to the meCash API!
-
-To start using the meCash API Services, you first need to create a business account and complete KYB verification to access our APIs.
-
 ---
-
-## Creating a meCash Business Account
-
-Begin by setting up your business account on the meCash platform:
-
-1. Visit the [meCash website](https://www.me-cash.com).
-
-2. Select **Business** and click **Sign Up**.
-
-
-![Business page](images/Screenshot203328.png)
-
-3. You’ll be taken to the **Create your meCash business account** page.
-
-
-![Create Business Account](images/image.png)
-
-
-4. Complete the form with:
-   - First Name  
-   - Last Name  
-   - Business Name  
-   - Business Email  
-   - Password (and confirm)
-
-5. Click **Continue** to submit your registration.
-
-6. Check your email and click the verification link to activate your account.
-
-Once your account is active, you’ll need to verify your business identity through KYB (Know Your Business):
-
+title: "Account Creation"
 ---
+Before you can authenticate with the meCash API, you need a verified business workspace. Follow these steps to set up your account and complete KYB (Know Your Business) verification.
 
-## Complete KYB Verification
+## Create your business account
+<AccordionGroup>
+  <Accordion icon="user-plus" title="1. Open the Business sign-up page">
+    <Frame>
+      <img
+        src="public/images/Screenshot203328.png"
+        alt="meCash Business landing page with the Sign Up button highlighted"
+        style={{ borderRadius: '0.75rem' }}
+      />
+    </Frame>
 
-To access the API, you must complete KYB (Know Your Business) verification:
+    1. Visit the [meCash Business portal](https://business.me-cash.com).
+    2. Choose the **Business** option and click **Sign Up**.
+    3. Continue to the account creation form.
 
-1. From your dashboard, go to the **KYB Verification** section and click **Complete Setup Now**.
+  </Accordion>
+  <Accordion icon="id-card" title="2. Complete the registration form">
+    <Frame>
+      <img
+        src="public/images/image.png"
+        alt="Create your meCash business account form requesting company information"
+        style={{ borderRadius: '0.75rem' }}
+      />
+    </Frame>
+    Provide the required business details:
+    - First and last name  
+    - Business name and business email  
+    - Secure password (confirm it before submitting)
+    Click **Continue** to submit your registration.
+  </Accordion>
 
+  <Accordion icon="envelope" title="3. Verify your email address">
+    Look for a verification email from meCash and click the confirmation link to activate your account. You cannot continue until this step is complete.
+  </Accordion>
 
-![KYB section](images/Screenshot210630.png)
+</AccordionGroup>
+## Complete KYB verification
+<AccordionGroup>
+  <Accordion icon="shield-check" title="1. Launch the KYB workflow">
+    <Frame>
+      <img
+        src="public/images/Screenshot210630.png"
+        alt="KYB verification section on the meCash dashboard showing the Complete Setup button"
+        style={{ borderRadius: '0.75rem' }}
+      />
+    </Frame>
 
+    1. Sign in to your dashboard.  
+    2. Open the **KYB Verification** tile.  
+    3. Click **Complete Setup Now** to start the review process.
+  </Accordion>
 
-2. Fill out your personal details on the **Business Contact Form** page, then proceed to the **Business Details** section.
+  <Accordion icon="user" title="2. Fill in business contact information">
+    <Frame>
+      <img
+        src="public/images/Screenshot212131.png"
+        alt="Business contact form requesting director identification details"
+        style={{ borderRadius: '0.75rem' }}
+      />
+    </Frame>
+    Enter accurate personal and business details. The director’s first and last name must exactly match the information associated with their BVN.
+  </Accordion>
+  <Accordion icon="file-arrow-up" title="3. Upload verification documents">
+    <Frame>
+      <img
+        src="public/images/Screenshot212359.png"
+        alt="Document upload page for KYB verification displaying required files"
+        style={{ borderRadius: '0.75rem' }}
+      />
+    </Frame>
 
-   > The first and last name must match the details on the Business Director’s BVN.
+    Attach the required documentation:
+    - Business registration certificate  
+    - Valid government-issued ID  
+    - Proof of address
+    Submit the KYB application when every field is complete.
+  </Accordion>
 
-![Business Contact Form](/Screenshot212131.png)
+  <Accordion icon="circle-check" title="4. Wait for approval">
+    Our compliance team will review your submission and notify you by email once the account is verified. You can track the status from the dashboard.
+  </Accordion>
+</AccordionGroup>
+<Tip>
+  Need to update your documents? You can revisit the KYB flow from the dashboard at any time before approval.
+</Tip>
 
-3. Upload the required documents:
-   - Business registration certificate  
-   - Valid ID  
-   - Proof of address  
-
-
-![Business Details](images/Screenshot212359.png)
-
-
-4. Submit for review.
-
-5. You’ll be notified by email once your KYB is approved.
-
-
-
----
-
-### Next Steps
-
-Once verified, you can [generate your API key](/authentication.mdx) and start building with meCash services.
+## Next steps
+Once verification is complete, you can [generate your API keys](/authentication) and begin testing endpoints in the [Quickstart guide](/quickstart).

@@ -1,0 +1,54 @@
+---
+title: Validating Webhook Signatures
+description: How to securely validate incoming webhook events from meCash using HMAC-512 signatures.
+---
+
+import { Callout } from 'nextra/components'
+
+# Validating Webhook Signatures
+
+To ensure your application processes only legitimate requests from **meCash**, every webhook event is signed with a unique signature.  
+Verifying this signature is a **critical security measure** to protect your endpoint from malicious or accidental requests.
+
+---
+
+## Step-by-Step Verification Guide
+
+<Callout type="info" emoji="ℹ️">
+  You can find your **secret key** for each webhook endpoint in the **Developers → Webhooks** section of your meCash dashboard.
+</Callout>
+
+### Step 1: Extract the Signature  
+Get the value of the `X-Signature` header from the incoming request.  
+<Callout type="info" emoji="ℹ️">
+  **Note:** HTTP headers are case-insensitive, so `x-signature` and `X-Signature` are treated the same.
+</Callout>
+
+---
+
+### Step 2: Prepare the Payload for Hashing  
+You must use the **raw, unmodified JSON body** of the request.  
+Do **not** parse and re-stringify the JSON — changes in whitespace or key order will alter the computed hash and cause verification to fail.
+
+---
+
+### Step 3: Compute Your Expected Signature  
+Calculate an **HMAC-512** hash of the raw request body (from Step 2) using your endpoint's secret key.
+
+---
+
+### Step 4: Compare the Signatures  
+Compare the signature you computed with the one from the `X-Signature` header.  
+If they match, the request is valid.
+
+---
+
+<Callout type="warning" emoji="⚠️">
+  **Security Best Practice:** Use a timing-attack-safe comparison method instead of `==` or `===`.  
+  This prevents attackers from guessing valid signatures by measuring response times.
+</Callout>
+
+<Callout type="warning" emoji="🛡️">
+  **Replay Attack Prevention:** If your webhook request includes a timestamp (in headers or payload), validate that it’s within a short window (e.g., 5 minutes).  
+  Reject older requests to prevent replayed webhooks from being processed.
+</Callout>

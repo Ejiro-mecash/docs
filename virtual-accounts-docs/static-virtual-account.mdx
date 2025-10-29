@@ -1,0 +1,149 @@
+---
+title: 'Static Virtual Account'
+---
+
+Static accounts provide a permanent bank account number that routes funds into your meCash wallet. Use them for customers who deposit multiple times or for payment streams that need a consistent destination.
+
+## Endpoint
+
+**POST** `{{baseURL}}/v1/virtual-account`
+
+## Request headers
+
+| Header | Description | Required | Example |
+|--------|-------------|----------|---------|
+| `x-api-key` | Workspace API key tied to your environment. | ✅ Yes | `YOUR_API_KEY` |
+| `Content-Type` | Media type of the request. | ✅ Yes | `application/json` |
+
+## Request body
+
+```json copy
+{
+  "currency": "NGN",
+  "country": "NG",
+  "firstName": "Jumoke",
+  "lastName": "Dumebi",
+  "email": "example@email.com",
+  "phoneNumber": "+23481345XXXX",
+  "bvn": "12345678901",
+  "reference": "000023456X",
+  "accountName": "Jumoke Dumebi"
+}
+```
+
+### Field reference
+
+| Field | Type | Description | Required | Example |
+|-------|------|-------------|----------|---------|
+| `currency` | String | ISO 4217 code for the account currency. | ✅ Yes | `NGN` |
+| `country` | String | ISO 3166-1 alpha-2 country code for the account. | ✅ Yes | `NG` |
+| `firstName` | String | Account holder’s first name. | ✅ Yes | `Jumoke` |
+| `lastName` | String | Account holder’s last name. | ✅ Yes | `Dumebi` |
+| `email` | String | Email address associated with the customer. | ✅ Yes | `example@email.com` |
+| `phoneNumber` | String | Phone number in international format. | ✅ Yes | `+23481345XXXX` |
+| `bvn` | String | Bank Verification Number (11 digits, Nigeria only). | Conditionally | `12345678901` |
+| `reference` | String | Unique identifier you control; enforces idempotency. | ✅ Yes | `000023456X` |
+| `accountName` | String | Display name on the virtual bank account. | ✅ Yes | `Jumoke Dumebi` |
+
+<Callout type="info" emoji="ℹ️">
+  Supported currencies today: NGN (Nigeria) and MWK (Malawi). Pass the combination that matches the corridor you want to enable.
+</Callout>
+
+<CardGroup cols={1}>
+  <Card title="API Reference: Create Static Virtual Account" icon="code" href="/virtual-account/create-virtual-account">
+    Jump to the OpenAPI entry for `POST /v1/virtual-account` to review schema details, example requests, and live playground access.
+  </Card>
+</CardGroup>
+
+## Request examples
+
+<Tabs items={['Nigeria (NGN)', 'Malawi (MWK)']}>
+  <Tabs.Tab>
+    ```bash copy
+    curl --request POST '{{baseURL}}/v1/virtual-account' \
+      --header 'x-api-key: YOUR_API_KEY' \
+      --header 'Content-Type: application/json' \
+      --data '{
+        "currency": "NGN",
+        "country": "NG",
+        "firstName": "Jumoke",
+        "lastName": "Dumebi",
+        "email": "example@email.com",
+        "phoneNumber": "+23481345XXXX",
+        "bvn": "12345678901",
+        "reference": "000023456X",
+        "accountName": "Jumoke Dumebi"
+      }'
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash copy
+    curl --request POST '{{baseURL}}/v1/virtual-account' \
+      --header 'x-api-key: YOUR_API_KEY' \
+      --header 'Content-Type: application/json' \
+      --data '{
+        "currency": "MWK",
+        "country": "MW",
+        "firstName": "Corrine",
+        "lastName": "Schinner",
+        "email": "kathl@example.com",
+        "phoneNumber": "+265813XXXXXX",
+        "reference": "000033556X",
+        "accountName": "Kathleen Langosh"
+      }'
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+## Successful response
+
+```json copy
+{
+  "message": "virtual account created successfully",
+  "status": "success",
+  "data": {
+    "id": "e21f7365-4fc9-4669-a9d9-xxxxxxxxxxxxx",
+    "firstName": "Jumoke",
+    "lastName": "Dumebi",
+    "email": "example@email.com",
+    "phoneNumber": "+234813456XXXXX",
+    "reference": "000033556X",
+    "account": {
+      "name": "Jumoke Dumebi",
+      "bankName": "Mock Bank",
+      "sortCode": null,
+      "number": "881725XXXXX"
+    },
+    "status": "ACTIVE",
+    "currency": "NGN",
+    "country": "NG",
+    "created": "2025-05-15T13:39:57.405Z"
+  }
+}
+```
+
+### Response fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `data.id` | String | Identifier for the virtual account resource. |
+| `data.account.number` | String | Bank account number customers will fund. |
+| `data.account.bankName` | String | Issuing bank for the virtual account. |
+| `data.status` | String | Account status (`ACTIVE`, `INACTIVE`, etc.). |
+| `data.created` | String | ISO 8601 timestamp when the account was created. |
+
+## Error responses
+
+| Status | Meaning | Example message | Next steps |
+|--------|---------|-----------------|-----------|
+| 400 | Invalid payload. | `Invalid request payload` | Validate required fields and data types. |
+| 401 | Authentication failed. | `Invalid API key` | Confirm the `x-api-key` header. |
+| 409 | Duplicate reference. | `reference already exists` | Reuse the previous response or send a new unique reference. |
+| 422 | BVN validation error. | `BVN must be exactly 11 digits` | Provide a valid BVN for Nigerian accounts. |
+| 500 | Server error. | `Server failed to process request` | Retry later or contact support if persistent. |
+
+## Best practices
+
+- Store the `reference` and response payload so you can reuse the virtual account without additional API calls.
+- Mask the BVN and other PII when logging requests to comply with data-protection policies.
+- Pair this endpoint with [`Get Virtual Account`](/virtual-accounts-docs/get-virtual-account) to confirm account details before displaying them to a customer.

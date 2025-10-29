@@ -1,0 +1,295 @@
+---
+title: Webhook Event - ramp.payout.completed
+description: Detailed reference for the `ramp.payout.completed` webhook event, covering both Off-Ramp and Crypto-to-Crypto payout scenarios.
+---
+
+# Webhook Event: `ramp.payout.completed`
+
+This webhook is triggered when a ramp payout is successfully completed.  
+It supports two scenarios:  
+1. **Off-Ramp** – Converting cryptocurrency to fiat.  
+2. **Crypto-to-Crypto** – Transferring cryptocurrency to another cryptocurrency wallet.  
+
+---
+
+## 1. `ramp.payout.completed` (Off-Ramp)
+
+For off-ramp payout, the category is set as `OFF_RAMP`.  
+The source type is `CRYPTOCURRENCY` and the target type is `FIAT`.
+
+### Example Payload
+```json
+{
+  "event": "ramp.payout.completed",
+  "data": {
+    "id": "8bd9a372-8d2b-494c-b0b2-xxxxxxxxxxxxx",
+    "type": "SEND",
+    "category": "OFF_RAMP",
+    "state": "COMPLETED",
+    "referenceNumber": "YQXUA0ELOXXXXXX",
+    "quote": {
+      "id": "55ce26f5-96c1-40cd-9fd3-xxxxxxxxxxxxx",
+      "source": {
+        "currency": "USDC",
+        "symbol": "USDC",
+        "type": "CRYPTOCURRENCY",
+        "amount": 0.12,
+        "blockchain": "MATIC"
+      },
+      "target": {
+        "currency": "NGN",
+        "country": "NG",
+        "type": "FIAT",
+        "paymentChannel": "BANK_TRANSFER",
+        "amount": 201.68
+      },
+      "rate": 0,
+      "fees": {
+        "amount": 0,
+        "gas": {
+          "type": "MEDIUM",
+          "amount": 0.02
+        }
+      },
+      "summary": {
+        "total": 0.14
+      }
+    },
+    "recipient": {
+      "name": "NZAN  CHRISTIANA OMOM",
+      "address": "",
+      "email": "",
+      "website": "",
+      "type": "BUSINESS",
+      "account": {
+        "bankName": "Guaranty Trust Bank",
+        "sortCode": "058",
+        "accountNumber": "071261XXXXXXXX",
+        "branchCode": "",
+        "mobileProvider": "",
+        "address": "",
+        "swiftCode": "",
+        "routingNumber": ""
+      },
+      "paymentChannel": "BANK_TRANSFER",
+      "currency": "NGN",
+      "country": "NG"
+    },
+    "created": "2025-01-08T12:23:51.908663",
+    "processed": "2025-01-08T12:30:10.499526"
+  }
+}
+```
+
+
+## Payload Breakdown
+
+### Top-Level Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| event | string | Event type (`ramp.payout.completed`) |
+| data  | object | Contains all transaction details |
+
+---
+
+### Transaction Data (`data` object)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| id | string | Unique transaction identifier |
+| type | string | Transaction type (`SEND`) |
+| category | string | Ramp category (`OFF_RAMP`) |
+| state | string | Transaction status (`COMPLETED`) |
+| referenceNumber | string | Internal reference ID |
+| created | string | ISO 8601 creation timestamp |
+| processed | string | ISO 8601 processing timestamp |
+
+---
+
+### Quote Details (`data.quote` object)
+
+#### Quote Metadata
+| Field | Type | Description |
+|-------|------|-------------|
+| id | string | Unique quote ID |
+
+#### Source (Crypto)
+| Field | Type | Description |
+|-------|------|-------------|
+| source.currency | string | Source cryptocurrency code |
+| source.symbol | string | Cryptocurrency symbol |
+| source.type | string | Asset type (`CRYPTOCURRENCY`) |
+| source.amount | number | Amount sent in crypto |
+| source.blockchain | string | Blockchain network |
+
+#### Target (Fiat)
+| Field | Type | Description |
+|-------|------|-------------|
+| target.currency | string | Target fiat currency |
+| target.country | string | Target country code |
+| target.type | string | Asset type (`FIAT`) |
+| target.paymentChannel | string | Transfer method |
+| target.amount | number | Amount received in fiat |
+
+#### Fees & Summary
+| Field | Type | Description |
+|-------|------|-------------|
+| fees.amount | number | Total service fee |
+| fees.gas.type | string | Gas fee tier (`LOW`/`MEDIUM`/`HIGH`) |
+| fees.gas.amount | number | Gas fee amount |
+| summary.total | number | Total crypto amount (source + fees) |
+
+---
+
+### Recipient Details (`data.recipient` object)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| name | string | Recipient name |
+| type | string | Recipient type (`BUSINESS`/`INDIVIDUAL`) |
+| paymentChannel | string | Transfer method |
+| currency | string | Settlement currency |
+| country | string | Recipient country |
+
+#### Bank Account (Fiat-specific fields)
+| Field | Type | Description |
+|-------|------|-------------|
+| account.bankName | string | Recipient bank name |
+| account.sortCode | string | Bank sort code |
+| account.accountNumber | string | Bank account number |
+| account.branchCode | string | Bank branch code |
+| account.mobileProvider | string | Mobile money provider |
+| account.address | string | Recipient physical address |
+| account.swiftCode | string | SWIFT/BIC code |
+| account.routingNumber | string | Bank routing number |
+
+---
+
+## 2. ramp.payout.completed (Crypto)
+For crypto-to-crypto payout, the category is set as `CRYPTOCURRENCY`.  
+Both the `source.type` and `target.type` are `CRYPTOCURRENCY`.
+
+---
+
+### Example Payload (Crypto)
+
+```json
+{
+  "event": "ramp.payout.completed",
+  "data": {
+    "id": "8bd9a372-8d2b-494c-b0b2-xxxxxxxxxxxxx",
+    "type": "SEND",
+    "category": "CRYPTOCURRENCY",
+    "state": "COMPLETED",
+    "referenceNumber": "YQXUA0ELOHXDL",
+    "quote": {
+      "id": "55ce26f5-96c1-4ghd-9fd3-xxxxxxxxxxxxx",
+      "source": {
+        "currency": "USDC",
+        "symbol": "USDC",
+        "type": "CRYPTOCURRENCY",
+        "amount": 0.12,
+        "blockchain": "MATIC"
+      },
+      "target": {
+        "currency": "USDC",
+        "symbol": "USDC",
+        "type": "CRYPTOCURRENCY",
+        "amount": 0.12,
+        "blockchain": "MATIC"
+      },
+      "rate": 0,
+      "fees": {
+        "amount": 0,
+        "gas": {
+          "type": "MEDIUM",
+          "amount": 0.02
+        }
+      },
+      "summary": {
+        "total": 0.14
+      }
+    },
+    "recipient": {
+      "address": "0x018b979db90e60d2b2a4xxxxxxxxxxxxxxxxxxxx",
+      "alias": "Testing",
+      "blockchain": "MATIC",
+      "symbol": "POL"
+    },
+    "created": "2025-01-08T12:23:51.908663",
+    "processed": "2025-01-08T12:30:10.499526"
+  }
+}
+```
+
+---
+title: Payload Breakdown (Crypto)
+description: Detailed breakdown of the payload structure for crypto-related webhook events, including transaction metadata, asset details, fees, and recipient information.
+---
+
+# Payload Breakdown (Crypto)
+
+## Top-Level Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `event` | string | Webhook event type |
+| `data` | object | Transaction details container |
+
+## Transaction Metadata
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | string | Unique transaction ID |
+| `type` | string | Always `"SEND"` for transfers |
+| `category` | string | `"CRYPTOCURRENCY"` identifier |
+| `state` | string | Current transaction state |
+| `referenceNumber` | string | Internal tracking reference |
+| `created` | string | Transaction initiation timestamp |
+| `processed` | string | Transaction completion timestamp |
+
+## Quote Information
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | string | Unique quote reference |
+
+## Source Assets
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `source.currency` | string | Cryptocurrency ticker |
+| `source.symbol` | string | Asset symbol |
+| `source.type` | string | Asset classification |
+| `source.amount` | number | Sent amount |
+| `source.blockchain` | string | Originating network |
+
+## Destination Assets
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `target.currency` | string | Destination asset ticker |
+| `target.symbol` | string | Destination symbol |
+| `target.type` | string | Destination asset type |
+| `target.amount` | number | Received amount |
+| `target.blockchain` | string | Destination network |
+
+## Fee Structure
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `fees.amount` | number | Platform fees |
+| `fees.gas.type` | string | Network fee priority |
+| `fees.gas.amount` | number | Estimated gas costs |
+| `summary.total` | number | Total amount deducted |
+
+## Recipient Information
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `address` | string | Destination wallet address |
+| `alias` | string | Wallet identifier |
+| `blockchain` | string | Destination chain |
+| `symbol` | string | Native token symbol |
+---

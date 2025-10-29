@@ -1,0 +1,138 @@
+---
+title: 'Dynamic Virtual Account'
+---
+
+Dynamic accounts are short-lived bank account numbers designed for one-time payments. They ensure funds match a specific amount and expire automatically after the window you define.
+
+## Endpoint
+
+**POST** `{{baseURL}}/v1/virtual-account/dynamic`
+
+## Request headers
+
+| Header | Description | Required | Example |
+|--------|-------------|----------|---------|
+| `x-api-key` | Workspace API key tied to your environment. | ✅ Yes | `YOUR_API_KEY` |
+| `Content-Type` | Media type of the request. | ✅ Yes | `application/json` |
+
+## Request body
+
+```json copy
+{
+  "currency": "NGN",
+  "country": "NG",
+  "amount": 5000,
+  "duration": 30,
+  "reference": "TXN_REF_DYNAMIC_12345678"
+}
+```
+
+### Field reference
+
+| Field | Type | Description | Required | Example |
+|-------|------|-------------|----------|---------|
+| `currency` | String | ISO 4217 code for the account currency. | ✅ Yes | `NGN` |
+| `country` | String | ISO 3166-1 alpha-2 code for the corridor. | ✅ Yes | `NG` |
+| `amount` | Number | Amount you expect to collect; payments must match this value. | ✅ Yes | `5000` |
+| `duration` | Integer | Lifetime of the account in minutes (minimum 1). | ✅ Yes | `30` |
+| `reference` | String | Unique string you control for idempotency. | ✅ Yes | `TXN_REF_DYNAMIC_12345678` |
+
+<Callout type="info" emoji="ℹ️">
+  Dynamic accounts currently support NGN (Nigeria) and MWK (Malawi). Choose the combination that matches the customer you’re invoicing.
+</Callout>
+
+<CardGroup cols={1}>
+  <Card title="API Reference: Create Dynamic Virtual Account" icon="code" href="/virtual-account/create-dynamic-virtual-account">
+    Explore the API Reference for `POST /v1/virtual-account/dynamic`, including schema definitions and testing tools.
+  </Card>
+</CardGroup>
+
+## Request examples
+
+<Tabs items={['Nigeria (NGN)', 'Malawi (MWK)']}>
+  <Tabs.Tab>
+    ```bash copy
+    curl --request POST '{{baseURL}}/v1/virtual-account/dynamic' \
+      --header 'x-api-key: YOUR_API_KEY' \
+      --header 'Content-Type: application/json' \
+      --data '{
+        "currency": "NGN",
+        "country": "NG",
+        "amount": 5000,
+        "duration": 30,
+        "reference": "TXN_REF_DYNAMIC_12345678"
+      }'
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash copy
+    curl --request POST '{{baseURL}}/v1/virtual-account/dynamic' \
+      --header 'x-api-key: YOUR_API_KEY' \
+      --header 'Content-Type: application/json' \
+      --data '{
+        "currency": "MWK",
+        "country": "MW",
+        "amount": 10000,
+        "duration": 45,
+        "reference": "TXN_REF_DYNAMIC_98765432"
+      }'
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+## Successful response
+
+```json copy
+{
+  "message": "virtual account created successfully",
+  "status": "success",
+  "data": {
+    "id": "30fe4022-09da-46fb-bafa-xxxxxxxxxxxxx",
+    "reference": "TXN_REF_DYNAMIC_12345678",
+    "account": {
+      "bankName": "Sterling Bank",
+      "sortCode": null,
+      "number": "8817835350"
+    },
+    "expiryTime": 1751221691,
+    "status": "ACTIVE",
+    "currency": "NGN",
+    "country": "NG",
+    "created": "2025-06-26T17:46:11.636Z"
+  }
+}
+```
+
+### Response fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `data.account.number` | String | Virtual account number customers will fund. |
+| `data.expiryTime` | Number | Unix timestamp (seconds) when the account expires. |
+| `data.status` | String | Account status; becomes `EXPIRED` after the duration elapses. |
+| `data.reference` | String | Echo of the idempotency reference you sent. |
+
+## Error responses
+
+| Status | Meaning | Example message | How to fix |
+|--------|---------|-----------------|-----------|
+| 400 | Invalid request. | `Invalid request payload` | Confirm `amount`, `duration`, and required fields are present. |
+| 401 | Authentication failed. | `Invalid API key` | Verify the `x-api-key` and environment. |
+| 409 | Duplicate reference. | `reference already exists` | Reuse the previous response or provide a new reference. |
+| 422 | Amount mismatch. | `Amount must be greater than zero` | Provide a positive number. |
+| 500 | Server error. | `Server failed to process request.` | Retry later or contact support if persistent. |
+
+## Webhooks
+
+Payments to the dynamic account trigger webhooks:
+
+- `virtualaccount.completed` — deposit succeeded and the wallet was credited.
+- `virtualaccount.failed` — payment attempt failed or expired.
+
+Check [`webhooks-event`](/webhooks-event) for payload schemas and signature verification instructions.
+
+## Best practices
+
+- Use a unique `reference` per transaction to keep your ledger idempotent.
+- Expire accounts as soon as the invoice is paid by deleting or ignoring them once you receive the webhook.
+- Display a countdown timer in your UI using the `expiryTime` so payers know when the account will close.

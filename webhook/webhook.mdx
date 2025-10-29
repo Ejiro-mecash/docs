@@ -1,0 +1,70 @@
+---
+title: Webhooks
+---
+
+Webhooks are a way for meCash to send your application automatic notifications whenever specific events take place. Instead of your application constantly asking meCash for updates, meCash pushes information to you in real-time.
+<AccordionGroup>
+  <Accordion icon="diagram-project" title="How Webhooks Work">
+    ```mermaid
+    sequenceDiagram
+        participant A as meCash System
+        participant B as Your Webhook Endpoint
+        A->>A: Event occurs (payout, collection, etc.)
+        A->>B: Send secure HTTP POST with event payload
+        B-->>A: Return 2XX acknowledgment
+        B->>B: Validate X-Signature using HMAC-512
+        B->>B: Confirm authenticity of the request
+    ```
+    The process is straightforward:
+    1. **An Event Occurs**: Something happens in your account, like a successful payout or a collection.
+    2. **meCash Sends a Request**: We send a secure HTTP POST request containing the event details to the webhook URL you've configured.
+    3. **You Acknowledge and Verify**: Your server acknowledges receipt by returning a `2XX` status code and then validates the request's signature to confirm it's genuinely from meCash.
+  </Accordion>
+  <Accordion icon="shield-halved" title="Webhook Security">
+    <Callout type="info" emoji="🛡️">
+      All meCash webhook events are signed using an `HMAC-512` signature in the `X-Signature` header. The signature is computed from the raw request body using your webhook secret key (found in **Developers → Webhooks** in your dashboard). Always verify this signature before processing the event to ensure authenticity and prevent replay attacks.
+    </Callout>
+    - Reject requests with missing or invalid signatures.
+    - Log every webhook delivery for auditability.
+    - Retry failed processing gracefully and return `2XX` only after you persist the event.
+  </Accordion>
+  <Accordion icon="gear" title="Configure Your Webhook in the Dashboard">
+    <AccordionGroup>
+      <Accordion icon="compass-drafting" title="Navigate to the Webhooks page">
+        In the **Developers** section of your meCash dashboard, select **Webhooks** from the left-hand menu to review existing endpoints and create new ones.
+        <Frame>
+          <img
+            src="public/images/webhooks2.png"
+            alt="Developers dashboard highlighting the Webhooks navigation item"
+            style={{ borderRadius: '0.75rem' }}
+          />
+        </Frame>
+      </Accordion>
+      <Accordion icon="plus" title="Create a new webhook">
+        Click the **Create Webhook** button at the top-right corner to launch the configuration modal for a new endpoint.
+        <Frame>
+          <img
+            src="public/images/webhooks.png"
+            alt="Create webhook dialog in the meCash dashboard"
+            style={{ borderRadius: '0.75rem' }}
+          />
+        </Frame>
+      </Accordion>
+      <Accordion icon="link" title="Provide your webhook URL">
+        - Enter the publicly accessible **URL** where you want to receive webhook events.<br />
+        - Ensure the endpoint accepts HTTPS POST requests and responds within 10 seconds.<br />
+        - Return an HTTP **2XX status code** to acknowledge receipt and prevent retries.
+        <Frame>
+          <img
+            src="public/images/Screenshot202316.png"
+            alt="Webhook configuration form requesting callback URL"
+            style={{ borderRadius: '0.75rem' }}
+          />
+        </Frame>
+      </Accordion>
+      <Accordion icon="circle-check" title="Confirm and monitor delivery">
+        After clicking **Confirm**, your webhook appears in the list with its current status. Use the dashboard to pause, resume, or regenerate the signing secret if needed.
+      </Accordion>
+    </AccordionGroup>
+  </Accordion>
+</AccordionGroup>

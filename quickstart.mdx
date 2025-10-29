@@ -11,6 +11,14 @@ Follow this quickstart guide to integrate meCash API into your application.
 
 <AccordionGroup>
   <Accordion icon="user-plus" title="Sign up for meCash Business">
+    <Frame>
+      <img
+        src="public/images/buisness-page.png"
+        alt="meCash Business sign-up screen highlighting the create account button"
+        style={{ borderRadius: '0.75rem' }}
+      />
+    </Frame>
+
     1. Visit [meCash Business](https://business.me-cash.com)
     2. Click **Sign Up** and complete the registration form
     3. Verify your email address
@@ -32,9 +40,17 @@ Follow this quickstart guide to integrate meCash API into your application.
 
 <AccordionGroup>
   <Accordion icon="key" title="Generate API Key">
+    <Frame>
+      <img
+        src="public/images/api-key-1.png"
+        alt="Developer dashboard showing sandbox API key creation"
+        style={{ borderRadius: '0.75rem' }}
+      />
+    </Frame>
+
     1. Log into your meCash Business dashboard
-    2. Navigate to **Developer** section
-    3. Click **Create a Key** in the API Keys section
+    2. From the sidebar, open **Developers → API Keys**
+    3. Click **Create a Key** (ensure the Sandbox environment is selected)
     4. Copy and securely store your API key
     
     <Tip>Keep your API key secure and never share it publicly.</Tip>
@@ -50,6 +66,14 @@ Follow this quickstart guide to integrate meCash API into your application.
 ### Step 3: Configure Security
 
 <Accordion icon="shield" title="IP Whitelisting">
+  <Frame>
+    <img
+      src="public/images/ipwhitelisitng1.png"
+      alt="IP whitelisting configuration page listing approved IP addresses"
+      style={{ borderRadius: '0.75rem' }}
+    />
+  </Frame>
+
   1. Go to **Developer** section in your dashboard
   2. Navigate to **IP Whitelisting**
   3. Add your server's IP addresses
@@ -61,6 +85,7 @@ Follow this quickstart guide to integrate meCash API into your application.
 ### Step 4: Make Your First API Call
 
 <Accordion icon="code" title="Test API Connection">
+
   Try this simple request to test your setup:
 
   ```bash

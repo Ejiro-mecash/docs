@@ -1,0 +1,170 @@
+---
+title: 'Get Quote API'
+description: 'Retrieve the details of a previously created quote using its quoteId.'
+---
+
+import { Tabs } from 'nextra/components'
+
+## Get Quote API
+
+Use this endpoint to fetch the latest state of a quote before completing the payout. It returns the locked-in rate, fees, and the remaining validity window.
+
+## Endpoint
+
+**GET** `{{baseURL}}/v1/quote/{quoteId}`
+
+## Request headers
+
+| Header | Description | Required | Example |
+|--------|-------------|----------|---------|
+| `x-api-key` | API key tied to your environment. | ✅ Yes | `YOUR_API_KEY` |
+| `Content-Type` | Media type of the request. | ✅ Yes | `application/json` |
+
+## Request examples
+
+<Tabs items={['cURL', 'JavaScript (fetch)', 'Python (requests)', 'Node.js (axios)']}>
+  <Tabs.Tab>
+    ```bash copy
+    curl --request GET '{{baseURL}}/v1/quote/15tyyba81-f71a-76ha-b579-xxxxxxxxxxxxx' \
+      --header 'x-api-key: YOUR_API_KEY' \
+      --header 'Content-Type: application/json'
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```js copy
+    const quoteId = '15tyyba81-f71a-76ha-b579-xxxxxxxxxxxxx';
+
+    fetch(`{{baseURL}}/v1/quote/${quoteId}`, {
+      method: 'GET',
+      headers: {
+        'x-api-key': 'YOUR_API_KEY',
+        'Content-Type': 'application/json'
+      }
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`Request failed with status ${res.status}`);
+        }
+        return res.json();
+      })
+      .then((body) => console.log(body))
+      .catch((error) => console.error('Failed to fetch quote', error));
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```python copy
+    import requests
+
+    quote_id = "15tyyba81-f71a-76ha-b579-xxxxxxxxxxxxx"
+    url = f"{{baseURL}}/v1/quote/{quote_id}"
+    headers = {
+        "x-api-key": "YOUR_API_KEY",
+        "Content-Type": "application/json",
+    }
+
+    response = requests.get(url, headers=headers, timeout=30)
+    response.raise_for_status()
+    print(response.json())
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```js copy
+    const axios = require('axios');
+
+    const quoteId = '15tyyba81-f71a-76ha-b579-xxxxxxxxxxxxx';
+
+    axios.get(`{{baseURL}}/v1/quote/${quoteId}`, {
+      headers: {
+        'x-api-key': 'YOUR_API_KEY',
+        'Content-Type': 'application/json'
+      },
+      timeout: 30000
+    })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.error('API error:', error.response.data);
+        } else {
+          console.error('Request error:', error.message);
+        }
+      });
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+## Successful response
+
+```json copy
+{
+  "message": "quote successfully fetched",
+  "status": "success",
+  "data": {
+    "id": "15tyyba81-f71a-76ha-b579-xxxxxxxxxxxxx",
+    "source": {
+      "currency": "NGN",
+      "country": "NG",
+      "amount": 150000
+    },
+    "target": {
+      "currency": "EUR",
+      "country": "AT",
+      "amount": 81.97
+    },
+    "rate": 1830,
+    "fee": {
+      "amount": 0
+    },
+    "rules": [
+      {
+        "category": "LIMIT",
+        "appliedCurrency": "EUR",
+        "appliedCountry": "AT",
+        "transaction": {
+          "minimum": 1,
+          "maximum": 200000
+        },
+        "invoice": 200000
+      }
+    ],
+    "summary": {
+      "total": 150000
+    },
+    "settlementTime": "1 hr",
+    "quoteCurrency": "EUR",
+    "expiresInSeconds": 600
+  }
+}
+```
+
+### Field reference
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `message` | String | Overall result of the request. |
+| `status` | String | `success` if the quote was found; `error` otherwise. |
+| `data.id` | String | Quote identifier you supplied in the path. |
+| `data.source` | Object | Source currency, country, and amount. |
+| `data.target` | Object | Target currency, country, and converted amount. |
+| `data.rate` | Number | Exchange rate locked for the quote. |
+| `data.fee.amount` | Number | Total fees applied. |
+| `data.rules` | Array | Rule evaluations (limits, compliance constraints, etc.). |
+| `data.summary.total` | Number | Total debit amount in the source currency. |
+| `data.expiresInSeconds` | Number | Time remaining before the quote expires. |
+
+## Error responses
+
+| Status | Meaning | Example message | How to fix |
+|--------|---------|-----------------|------------|
+| 400 | Quote not found or invalid ID. | `Quote does not exist` | Confirm the `quoteId` is correct and unexpired. |
+| 401 | Authentication failed. | `Invalid API key` | Verify the `x-api-key` header. |
+| 403 | IP not whitelisted. | `Access denied: IP address not whitelisted` | Register your IP under Developers → IP Whitelisting. |
+| 429 | Rate limit exceeded. | `Too many requests` | Back off and retry after the window resets. |
+| 500 | Server error. | `Internal server error` | Retry later or contact support if the issue persists. |
+
+## Usage tips
+
+- Fetch the quote immediately before you initiate a payout to ensure it is still valid.
+- Cache the quote in your session store so you can re-display the guaranteed amount in confirmation UIs.
+- If the quote has expired, call [`Create Quote`](/quote-docs/create-quote) again and repeat the flow.

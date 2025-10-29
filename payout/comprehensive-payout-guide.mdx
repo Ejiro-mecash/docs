@@ -1,0 +1,514 @@
+---
+title: "Comprehensive Payout Guide"
+description: "Complete guide to creating payouts across all supported currencies and payment channels"
+---
+
+## Comprehensive Payout Guide
+
+This guide covers all payout scenarios supported by the meCash API, including different currencies, payment channels, and recipient types.
+
+## Overview
+
+The Payout API allows you to send money to recipients worldwide using various payment methods. All payouts require a valid quote ID from the Quote API.
+
+### Supported Currencies & Payment Channels
+
+| Currency | Country | Payment Channels | Recipient Types |
+|----------|---------|------------------|-----------------|
+| NGN | Nigeria 🇳🇬 | Bank Transfer | Individual, Business |
+| USD | United States 🇺🇸 | Bank Transfer | Individual, Business |
+| EUR | Europe 🇪🇺 | Bank Transfer | Individual, Business |
+| GBP | United Kingdom 🇬🇧 | Bank Transfer | Individual, Business |
+| CAD | Canada 🇨🇦 | Bank Transfer | Individual, Business |
+| CNY | China 🇨🇳 | Bank Transfer, Alipay, WeChat | Individual, Business |
+
+## Endpoint
+
+**`POST`** `{{baseURL}}/v2/payout`
+
+### Authentication
+
+All requests require an API key in the header:
+
+```bash
+x-api-key: YOUR_API_KEY
+```
+
+## Request Format
+
+All payout requests use `multipart/form-data` with a `transaction` field containing JSON data.
+
+## Payout Examples by Currency
+
+### 1. Nigerian Naira (NGN) Payout
+
+<CodeGroup>
+
+```bash cURL
+curl --location '{{baseURL}}/v2/payout' \
+--header 'x-api-key: YOUR_API_KEY' \
+--form 'transaction={
+  "recipient": {
+    "name": "John Doe",
+    "paymentChannel": "BANK_TRANSFER",
+    "currency": "NGN",
+    "country": "NG",
+    "type": "INDIVIDUAL",
+    "account": {
+      "bankName": "Guaranty Trust Bank",
+      "sortCode": "058",
+      "accountNumber": "0010401234"
+    }
+  },
+  "quoteId": "your-quote-id-here",
+  "reason": "FAMILY_SUPPORT",
+  "remark": "Monthly support"
+}'
+```
+
+```javascript JavaScript
+const formData = new FormData();
+const transaction = {
+  recipient: {
+    name: "John Doe",
+    paymentChannel: "BANK_TRANSFER",
+    currency: "NGN",
+    country: "NG",
+    type: "INDIVIDUAL",
+    account: {
+      bankName: "Guaranty Trust Bank",
+      sortCode: "058",
+      accountNumber: "0010401234"
+    }
+  },
+  quoteId: "your-quote-id-here",
+  reason: "FAMILY_SUPPORT",
+  remark: "Monthly support"
+};
+
+formData.append('transaction', JSON.stringify(transaction));
+
+fetch('{{baseURL}}/v2/payout', {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'YOUR_API_KEY'
+  },
+  body: formData
+})
+.then(response => response.json())
+.then(data => console.log(data));
+```
+
+```python Python
+import requests
+import json
+
+url = "{{baseURL}}/v2/payout"
+headers = {
+    "x-api-key": "YOUR_API_KEY"
+}
+
+transaction = {
+    "recipient": {
+        "name": "John Doe",
+        "paymentChannel": "BANK_TRANSFER",
+        "currency": "NGN",
+        "country": "NG",
+        "type": "INDIVIDUAL",
+        "account": {
+            "bankName": "Guaranty Trust Bank",
+            "sortCode": "058",
+            "accountNumber": "0010401234"
+        }
+    },
+    "quoteId": "your-quote-id-here",
+    "reason": "FAMILY_SUPPORT",
+    "remark": "Monthly support"
+}
+
+files = {
+    'transaction': (None, json.dumps(transaction))
+}
+
+response = requests.post(url, headers=headers, files=files)
+print(response.json())
+```
+
+</CodeGroup>
+
+### 2. US Dollar (USD) Payout
+
+<CodeGroup>
+
+```bash cURL
+curl --location '{{baseURL}}/v2/payout' \
+--header 'x-api-key: YOUR_API_KEY' \
+--form 'transaction={
+  "recipient": {
+    "firstName": "Jane",
+    "lastName": "Smith",
+    "type": "BUSINESS",
+    "address": "123 Main St, New York, NY 10001",
+    "paymentChannel": "BANK_TRANSFER",
+    "currency": "USD",
+    "country": "US",
+    "account": {
+      "bankName": "Chase Bank",
+      "accountNumber": "857362910",
+      "routingNumber": "021000021"
+    }
+  },
+  "quoteId": "your-quote-id-here",
+  "reason": "BUSINESS_INVOICE"
+}'
+```
+
+```javascript JavaScript
+const formData = new FormData();
+const transaction = {
+  recipient: {
+    firstName: "Jane",
+    lastName: "Smith",
+    type: "BUSINESS",
+    address: "123 Main St, New York, NY 10001",
+    paymentChannel: "BANK_TRANSFER",
+    currency: "USD",
+    country: "US",
+    account: {
+      bankName: "Chase Bank",
+      accountNumber: "857362910",
+      routingNumber: "021000021"
+    }
+  },
+  quoteId: "your-quote-id-here",
+  reason: "BUSINESS_INVOICE"
+};
+
+formData.append('transaction', JSON.stringify(transaction));
+
+fetch('{{baseURL}}/v2/payout', {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'YOUR_API_KEY'
+  },
+  body: formData
+})
+.then(response => response.json())
+.then(data => console.log(data));
+```
+
+```python Python
+import requests
+import json
+
+url = "{{baseURL}}/v2/payout"
+headers = {
+    "x-api-key": "YOUR_API_KEY"
+}
+
+transaction = {
+    "recipient": {
+        "firstName": "Jane",
+        "lastName": "Smith",
+        "type": "BUSINESS",
+        "address": "123 Main St, New York, NY 10001",
+        "paymentChannel": "BANK_TRANSFER",
+        "currency": "USD",
+        "country": "US",
+        "account": {
+            "bankName": "Chase Bank",
+            "accountNumber": "857362910",
+            "routingNumber": "021000021"
+        }
+    },
+    "quoteId": "your-quote-id-here",
+    "reason": "BUSINESS_INVOICE"
+}
+
+files = {
+    'transaction': (None, json.dumps(transaction))
+}
+
+response = requests.post(url, headers=headers, files=files)
+print(response.json())
+```
+
+</CodeGroup>
+
+### 3. Chinese Yuan (CNY) - Alipay Payout
+
+<CodeGroup>
+
+```bash cURL
+curl --location '{{baseURL}}/v2/payout' \
+--header 'x-api-key: YOUR_API_KEY' \
+--form 'transaction={
+  "recipient": {
+    "name": "Li Wei",
+    "firstName": "Li",
+    "lastName": "Wei",
+    "email": "liwei@example.com",
+    "type": "EMAIL",
+    "paymentChannel": "ALI_PAY",
+    "currency": "CNY",
+    "country": "CN",
+    "account": {
+      "accountNumber": "861"
+    }
+  },
+  "quoteId": "your-quote-id-here",
+  "reason": "GIFT"
+}'
+```
+
+```javascript JavaScript
+const formData = new FormData();
+const transaction = {
+  recipient: {
+    name: "Li Wei",
+    firstName: "Li",
+    lastName: "Wei",
+    email: "liwei@example.com",
+    type: "EMAIL",
+    paymentChannel: "ALI_PAY",
+    currency: "CNY",
+    country: "CN",
+    account: {
+      accountNumber: "861"
+    }
+  },
+  quoteId: "your-quote-id-here",
+  reason: "GIFT"
+};
+
+formData.append('transaction', JSON.stringify(transaction));
+
+fetch('{{baseURL}}/v2/payout', {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'YOUR_API_KEY'
+  },
+  body: formData
+})
+.then(response => response.json())
+.then(data => console.log(data));
+```
+
+```python Python
+import requests
+import json
+
+url = "{{baseURL}}/v2/payout"
+headers = {
+    "x-api-key": "YOUR_API_KEY"
+}
+
+transaction = {
+    "recipient": {
+        "name": "Li Wei",
+        "firstName": "Li",
+        "lastName": "Wei",
+        "email": "liwei@example.com",
+        "type": "EMAIL",
+        "paymentChannel": "ALI_PAY",
+        "currency": "CNY",
+        "country": "CN",
+        "account": {
+            "accountNumber": "861"
+        }
+    },
+    "quoteId": "your-quote-id-here",
+    "reason": "GIFT"
+}
+
+files = {
+    'transaction': (None, json.dumps(transaction))
+}
+
+response = requests.post(url, headers=headers, files=files)
+print(response.json())
+```
+
+</CodeGroup>
+
+## Request Parameters Reference
+
+### Transaction Object
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `recipient` | Object | ✅ | Recipient details (structure varies by currency) |
+| `quoteId` | String | ✅ | Valid quote ID from Quote API |
+| `reason` | String | ✅ | Transaction reason (see enum values below) |
+| `remark` | String | ❌ | Optional transaction note |
+
+### Reason Enum Values
+
+- `FAMILY_SUPPORT` - Family financial support
+- `GIFT` - Gift payments
+- `SALARY_PAYMENT` - Salary payments
+- `EDUCATIONAL_FEES` - Educational expenses
+- `BUSINESS_INVOICE` - Business invoice payments
+- `OTHER` - Other purposes
+
+### Recipient Object (by Currency)
+
+#### NGN Recipient
+```json
+{
+  "name": "string",
+  "paymentChannel": "BANK_TRANSFER",
+  "currency": "NGN",
+  "country": "NG",
+  "type": "INDIVIDUAL|BUSINESS",
+  "account": {
+    "bankName": "string",
+    "sortCode": "string",
+    "accountNumber": "string"
+  }
+}
+```
+
+#### USD Recipient
+```json
+{
+  "firstName": "string",
+  "lastName": "string",
+  "type": "INDIVIDUAL|BUSINESS",
+  "address": "string",
+  "paymentChannel": "BANK_TRANSFER",
+  "currency": "USD",
+  "country": "US",
+  "account": {
+    "bankName": "string",
+    "accountNumber": "string",
+    "routingNumber": "string"
+  }
+}
+```
+
+#### CNY Recipient (Alipay)
+```json
+{
+  "name": "string",
+  "firstName": "string",
+  "lastName": "string",
+  "email": "string",
+  "type": "EMAIL",
+  "paymentChannel": "ALI_PAY",
+  "currency": "CNY",
+  "country": "CN",
+  "account": {
+    "accountNumber": "string"
+  }
+}
+```
+
+## Response Format
+
+All successful payout responses follow this structure:
+
+```json
+{
+  "status": "success",
+  "message": "Transaction created successfully",
+  "data": {
+    "id": "transaction-uuid",
+    "remark": "string",
+    "reason": "string",
+    "referenceNumber": "string",
+    "type": "SEND",
+    "state": "PENDING|COMPLETED|FAILED",
+    "quote": {
+      "id": "quote-uuid",
+      "source": {
+        "currency": "string",
+        "country": "string",
+        "amount": "number"
+      },
+      "target": {
+        "currency": "string",
+        "country": "string",
+        "amount": "number"
+      },
+      "rate": "number",
+      "fee": {
+        "amount": "number"
+      },
+      "summary": {
+        "total": "number"
+      }
+    },
+    "recipient": {
+      // Recipient details as provided in request
+    },
+    "created": "ISO-8601-timestamp",
+    "processed": "ISO-8601-timestamp"
+  }
+}
+```
+
+## Error Handling
+
+### Common Error Responses
+
+| Status Code | Error Type | Description | Solution |
+|-------------|------------|-------------|----------|
+| 400 | Bad Request | Invalid parameters | Check request payload |
+| 401 | Unauthorized | Invalid API key | Verify API key |
+| 403 | Forbidden | IP not whitelisted | Whitelist your IP |
+| 422 | Unprocessable Entity | Invalid quote ID | Generate new quote |
+
+### Error Response Format
+
+```json
+{
+  "status": "error",
+  "errorCode": "ERROR_CODE",
+  "message": "Human readable error message"
+}
+```
+
+## Best Practices
+
+### Before Creating Payouts
+
+1. **Generate a Quote First**: Always create a quote using the Quote API before creating a payout
+2. **Validate Recipient Data**: Ensure all recipient information is accurate and complete
+3. **Check Rate Limits**: Be aware of API rate limits (100 requests/minute)
+
+### Security
+
+1. **Use HTTPS**: Always use HTTPS endpoints
+2. **Secure API Keys**: Store API keys securely, never in client-side code
+3. **IP Whitelisting**: Ensure your server IP is whitelisted
+
+### Monitoring
+
+1. **Track Transaction States**: Monitor transaction states via webhooks
+2. **Handle Failures**: Implement retry logic for failed transactions
+3. **Log Everything**: Log all API calls for debugging and auditing
+
+## Next Steps
+
+After successfully creating payouts, consider these next steps:
+
+### Immediate Actions
+- [Create a Quote](/quote/create-quote) - Generate quotes for currency conversion
+- [View Transaction Details](/transaction/get-transaction) - Track payout status
+- [Set up Webhooks](/webhooks-event) - Receive real-time transaction notifications
+
+### Advanced Integration
+- [Production Environment Setup](/environments-production) - Move to production
+- [Webhook Signature Verification](/webhooks-signature-verification) - Secure webhook handling
+- [SDK & Testing Guide](/sdk-testing-guide) - Use official SDKs and testing tools
+
+### Troubleshooting
+- [Error Handling Guide](/error-handling) - Handle API errors gracefully
+- [API Reference](/api-reference) - Complete endpoint documentation
+
+## Need Help?
+
+- **Documentation**: [API Reference](/api-reference)
+- **Support**: [support@me-cash.com](mailto:support@me-cash.com)
+- **Community**: [Discord](https://discord.gg/CC5v6h52Wk)

@@ -2,48 +2,21 @@
 title: Introduction
 ---
 
-Welcome to the meCash API! Our RESTful API provides the tools to build sophisticated financial applications, from processing instant global payouts to managing multi-currency digital wallets.
+Welcome to the meCash API Docs! 
 
-This page guides you through the essential first steps and core concepts for a successful integration.
+Our RESTful API provides the tools to build sophisticated financial applications, from processing instant global payouts to managing multi-currency digital wallets.
 
-## Quickstart Guide
+This page highlights key concepts and points you to the resources you need to start building quickly.
 
-Follow these four steps to get your account configured and ready to build.
-
-<Columns cols={2}>
-  <Card 
-    title="1. Create Your Account" 
-    icon="user-plus"
-    href="https://docs.me-cash.com//account-creation"
+<CardGroup cols={1}>
+  <Card
+    title="Follow the Quickstart"
+    icon="rocket"
+    href="/quickstart"
   >
-    Sign up for a meCash Business account to get access to your developer dashboard.
+    Walk through account setup, security requirements, and your first API call in one guided flow.
   </Card>
-  <Card 
-    title="2. Get Your API Keys" 
-    icon="key"
-    href="https://docs.me-cash.com//authentication"
-  >
-    Generate your API key from the developer dashboard to authenticate API requests.
-  </Card>
-  <Card 
-    title="3. Whitelist IP Addresses" 
-    icon="shield-check"
-    href="https://docs.me-cash.com//ip-whitelisting"
-  >
-    For security, all API calls must come from a whitelisted IP address.
-  </Card>
-  <Card 
-    title="4. Set Up Webhooks" 
-    icon="webhook"
-    href="/webhooks-event"
-  >
-    Configure an endpoint to receive real-time notifications for transaction events.
-  </Card>
-</Columns>
-
-Once your setup is complete, you're ready to start building.
-
-➡️ **[Explore the API Reference](/api-reference)** to see all available endpoints.
+</CardGroup>
 
 ## Core Features
 
@@ -81,7 +54,7 @@ Keep these critical concepts in mind.
   <Card title="Environments" icon="arrows-split">
     Two environments are available for development and production:
     - **Production**: `https://api.me-cash.com` - For live transactions
-    - **Sandbox**: `https://sandbox.api.me-cash.com` - For testing and development
+    - **Sandbox**: `https://sandboxapi.me-cash.com` - For testing and development
     
     <Note>Use sandbox for testing, production for real transactions.</Note>
   </Card>
@@ -116,9 +89,9 @@ API errors include detailed information to help with debugging:
 
 ## Rate Limits
 
-- **Standard Rate Limit**: 100 requests per minute per API key
-- **Burst Limit**: 10 requests per second
-- **Webhook Rate Limit**: 1000 events per minute
+- **Standard Rate Limit**: 100 requests per minute per API key.
+- **Burst Limit**: 10 requests per second.
+- **Webhook Rate Limit**: 1000 events per minute.
 
 <Warning>Exceeding rate limits will result in 429 Too Many Requests errors.</Warning>
 

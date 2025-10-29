@@ -1,0 +1,46 @@
+---
+title: 'Request Virtual Account Access'
+description: 'Enable virtual accounts on your workspace and satisfy compliance prerequisites before creating accounts.'
+---
+
+import { Callout, Steps } from 'nextra/components'
+
+## Request virtual account access
+
+Before you can issue static or dynamic virtual accounts via the API, your workspace must be approved for the corridors you plan to support. Follow the steps below to get enabled quickly.
+
+## Prerequisites
+
+| Requirement | Description |
+|-------------|-------------|
+| Verified business profile | Complete KYC/KYB checks in the meCash Business dashboard. |
+| Active sandbox wallet | Create at least one wallet in each currency you plan to support. |
+| Compliance documents | Provide proof of address and business incorporation where required. |
+| Settlement account | Configure the bank account you’ll use for settling collected funds. |
+
+<Callout type="warning" emoji="⚠️">
+  Regulatory requirements vary by country. The compliance team may request additional documentation for high-risk industries or high-volume corridors.
+</Callout>
+
+## Submit your request
+
+<Steps>
+### 1. Open a support ticket
+From the dashboard, go to **Support → Contact Us** or email <a href="mailto:support@me-cash.com">support@me-cash.com</a>. Choose the **Virtual Accounts** topic.
+### 2. Share intended use
+Provide the currencies, expected monthly volume, and whether you need static or dynamic accounts. Include any anticipated payout destinations.
+### 3. Upload documents
+Attach the compliance and settlement information outlined above. The team will confirm if additional material is required.
+### 4. Review and approval
+meCash reviews the request (typically within 2–3 business days). If approved, your workspace is flagged for the selected corridors and you receive confirmation via email.
+</Steps>
+
+## After approval
+
+- You will see the virtual accounts section unlocked inside the dashboard.
+- Both the [`Create Static Virtual Account`](/virtual-accounts-docs/static-virtual-account) and [`Create Dynamic Virtual Account`](/virtual-accounts-docs/dynamic-virtual-account) endpoints become available in the sandbox and production environments.
+- Production access may be staged; you can begin testing in sandbox immediately while compliance finalises production corridors.
+
+## Need help?
+
+Contact the support team at <a href="mailto:support@me-cash.com">support@me-cash.com</a> or join the community Discord at <a href="https://discord.com/invite/CC5v6h52Wk">discord.com/invite/CC5v6h52Wk</a> for implementation tips.

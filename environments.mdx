@@ -1,53 +1,89 @@
+---
+title: "Sandbox vs Production Environments"
+description: "Understand how to test safely in sandbox and go live confidently in production."
+---
 
+meCash provides two isolated environments so you can build, test, and launch without risk. Use the sandbox for iterative development and only switch to production once your flows are certified.
 
-meCash offers two environments to support your development workflow: **Sandbox** for testing and **Production** for live transactions.(The details for the Production Enviroment are not in this docs)
+<Frame>
+  <img
+    src="public/images/enviroments.png"
+    alt="Dashboard toggle for switching between sandbox and production environments"
+    style={{ borderRadius: '0.75rem' }}
+  />
+</Frame>
 
-## Sandbox Environment
-
-The Sandbox environment is perfect for development, testing, and integration before going live.
-
-#### Sandbox Base URL
-`https://sandboxapi.me-cash.com`
-
-### Key Features:
-- **Safe Testing:** Test all API functionality without affecting real accounts or transactions
-- **Realistic Data:** Use test data that mirrors production behavior
-- **Full API Access:** All endpoints and features available for testing
-- **No Real Money:** All transactions are simulated
-
-### How to Access:
-- **Account Setup:** Create a [meCash sandbox account](/account-creation)
-- **API Keys:** Generate sandbox API keys from your Developer dashboard
-- **Testing:** Use sandbox keys for all development and testing
-
-<Note>Always test your integration thoroughly in sandbox before moving to production.</Note>
-
-
-## Best Practices
+---
 
 <CardGroup cols={2}>
-  <Card title="Development Workflow" icon="code">
-    1. Start with sandbox environment
-    2. Test all API endpoints thoroughly
-    3. Validate webhook handling
-    4. Test error scenarios
-    5. Move to production when ready
+  <Card title="Sandbox" icon="flask">
+    `https://sandboxapi.me-cash.com`  
+    Simulated money movement, ideal for integration testing and demos.
   </Card>
-
-  <Card title="API Key Management" icon="key">
-    - Use different API keys for each environment
-    - Never mix sandbox and production keys
-    - Store keys securely in environment variables
-    - Rotate keys regularly for security
+  <Card title="Production" icon="rocket">
+    `https://api.me-cash.com`  
+    Processes real transactions once your business is approved.
   </Card>
 </CardGroup>
 
 
-## Need Help?
+## Sandbox environment
 
-- Check the [Quickstart Guide](/quickstart) for setup instructions
-- Review the [API Reference](/api-reference) for endpoint details
-- Contact support at [support@me-cash.com](mailto:support@me-cash.com)
+The sandbox mirrors live behavior while keeping funds virtual—perfect for prototyping and QA.
 
+- **Authentication:** Use your sandbox API keys from the dashboard.  
+- **Webhooks & events:** All endpoints fire test payloads so you can validate handlers.  
+- **Data reset:** Wallet balances and transactions are synthetic and may reset periodically.
 
+**How to access**
 
+1. [Create your business account](/account-creation).  
+2. Follow the [Quickstart](/quickstart) to generate sandbox keys.  
+3. Whitelist the IPs that will call the API via [/ip-whitelisting](/ip-whitelisting).
+
+<Tip>
+  Keep development strictly in sandbox until you have end‑to‑end tests, webhook verification, and monitoring in place.
+</Tip>
+
+## Production environment
+
+Production is where your customers experience real payouts, collections, and settlements.
+
+- **Base URL:** `https://api.me-cash.com`.  
+- **Traffic:** Real money movement with full compliance monitoring.  
+- **Rate limits:** Higher throughput tiers are available on request—contact support with your projected volumes.  
+- **API keys:** Issued separately from sandbox; never reuse test keys in production.
+
+**Access prerequisites**
+
+1. Complete KYB.  
+2. Finish smoke testing in sandbox, including webhook verification.  
+3. Request production keys from the dashboard or by emailing [support@me-cash.com](mailto:support@me-cash.com).  
+4. Whitelist the production IP addresses that will originate live traffic.
+
+<Note>
+  Keep production credentials in a secure secrets manager. Rotate keys regularly and remove unused IP addresses to minimize attack surface.
+</Note>
+
+## Best practices
+
+<CardGroup cols={2}>
+  <Card title="Deployment workflow" icon="code">
+    1. Build and test in sandbox.  
+    2. Run automated contract and webhook tests.  
+    3. Perform a supervised pilot in production.  
+    4. Monitor logs and metrics continuously.
+  </Card>
+  <Card title="Environment hygiene" icon="key">
+    - Maintain separate API keys and IP whitelists.  
+    - Document every environment change.  
+    - Use feature flags to control rollout.  
+    - Set alerts for 4XX/5XX spikes.
+  </Card>
+</CardGroup>
+
+## Need help?
+
+- Jump to the [Quickstart](/quickstart) for a guided setup.  
+- Review the [API Reference](/api-reference) for endpoint specifics.  
+- Reach out to [support@me-cash.com](mailto:support@me-cash.com) if you need higher limits or additional environments.

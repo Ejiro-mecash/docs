@@ -1,0 +1,54 @@
+# Webhook Event : `collection.completed`
+
+This event notifies you when funds have been successfully collected, meaning a merchant's wallet has been successfully funded. This typically happens after a customer payment is settled.
+
+---
+
+### Sample Payload
+
+```json
+{
+  "event": "<event name i.e collection.completed>",
+  "data": {
+    "id": "866be9f6-1e3c-4083-87a5-xxxxxxxxxxxxx",
+    "referenceNumber": "V6FUNZNGIVXXX",
+    "amount": 100,
+    "fee": {
+      "vat": 2,
+      "stampDuty": 2,
+      "base": 2
+    },
+    "settlementAmount": 94.00,
+    "type": "FUNDING",
+    "state": "COMPLETED",
+    "destination": "NGN wallet",
+    "source": {
+      "bankName": "Mock Bank",
+      "accountName": "Jane Doe",
+      "accountNumber": "25078429XXXX"
+    },
+    "created": "2023-08-16T23:12:28.256678",
+    "processed": "2023-08-16T23:12:28.256678"
+  }
+}
+```
+### Payload Breakdown
+
+| **Field** | **Type** | **Description** |
+| :--- | :--- | :--- |
+| `event` | string | The name of the event that occurred (e.g., "collection.completed"). |
+| `data.id` | string | Unique identifier for the transaction. |
+| `data.referenceNumber` | string | Unique reference number assigned to the transaction. |
+| `data.amount` | number | The total gross amount of the transaction. |
+| `data.fee.vat` | number | The Value Added Tax portion of the fee. |
+| `data.fee.stampDuty` | number | The stamp duty portion of the fee. |
+| `data.fee.base` | number | The base fee for the transaction. |
+| `data.settlementAmount` | number | The final amount settled after deducting all fees. |
+| `data.type` | string | The type of transaction (e.g., "FUNDING"). |
+| `data.state` | string | The final state of the transaction (e.g., "COMPLETED"). |
+| `data.destination` | string | The destination of the funds (e.g., "NGN wallet"). |
+| `data.source.bankName` | string | The name of the source bank or financial institution. |
+| `data.source.accountName` | string | The name on the source account. |
+| `data.source.accountNumber` | string | The account number or identifier of the source. |
+| `data.created` | string | ISO 8601 timestamp of when the transaction was created. |
+| `data.processed` | string | ISO 8601 timestamp of when the transaction was processed. |

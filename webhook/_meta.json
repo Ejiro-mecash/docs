@@ -1,0 +1,9 @@
+{
+    "webhook": "⚙️ How Webhooks work in meCash",
+    "validate-webhook": "🛡️ Validate your Webhook",
+    "webhook-event": "🔔 Webhook Events",
+    "payout-webhook": "💸 Payout Webhook",
+    "collection-webhook": "💰 Collection Webhook",
+    "virtualaccount-webhook": "💳 Virtual Account Webhook",
+    "ramp-webhook": "💱 Ramp Webhook"
+  }

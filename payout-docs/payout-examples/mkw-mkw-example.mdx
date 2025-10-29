@@ -1,0 +1,179 @@
+---
+title: 'MKW to MKW Payout'
+---
+
+This endpoint allows users to **send payouts in MKW** to recipients in **Malawi**. 
+The request must include recipient details, payment method, and payout amounts.
+
+## Endpoint
+**Post:** `{{baseURL}}/v2/payout`
+
+## **Request Details**
+
+### Headers
+Include these headers in your request:
+| Header         | Value                | Required |
+|----------------|----------------------|----------|
+| `Content-Type` | `application/json`   | ✅ Yes   |
+| `x-api-key`    | `YOUR_API_KEY`       | ✅ Yes   |
+
+---
+
+## **Sample cURL Request**
+
+```bash
+curl --location --request POST '{{baseURL}}/v2/payout' \
+--header 'x-api-key: YOUR_API_KEY' \
+--header 'Content-Type: application/json' \
+--data '{
+"recipient": {
+            "id": "5925d918-b459-4009-8f42-xxxxxxxxxxxx",
+            "name": "John Doe",
+            "account": {
+                "bankName": "National Bank of Malawi",
+                "accountNumber": "123456789"
+            },
+            "paymentChannel": "BANK_TRANSFER",
+            "currency": "MWK",
+            "country": "MW"
+        },
+  "quoteId": "d19a64f9-5a47-4bda-b7c2-xxxxxxxxxx",
+  "reason": "Invoice Payment"
+}'
+```
+
+### **Request Body**
+The following fields are required when making an **NGN payout request**:
+
+| **Field**                         | **Type**  | **Description**                                      | **Required** |
+|-----------------------------------|---------|------------------------------------------------------|-------------|
+| `recipient.name`                  | String  | Full name of the recipient                          | ✅ Yes   |
+| `recipient.firstName`             | String  | First name of the recipient                         | ✅ Yes   |
+| `recipient.lastName`              | String  | Last name of the recipient                          | ✅ Yes   |
+| `recipient.type`                  | String  | Recipient type (e.g, `BUSINESS`)     | ✅ Yes   |
+| `recipient.account.accountNumber` | String  | Recipient’s **bank account number**                 | ✅ Yes   |
+| `recipient.account.bankCode`      | String  | Bank code of the recipient's bank                  | ✅ Yes   |
+| `recipient.paymentChannel`        | String  | Payment method (`BANK_TRANSFER`, `MOBILE_WALLET`)  | ✅ Yes   |
+| `recipient.currency`              | String  | `MKW` (Malawian kwacha)                             | ✅ Yes   |
+| `recipient.country`               | String  | `MK` (Malamwi)                                     | ✅ Yes   |
+| `quoteId`                         | String  | Unique Quote ID for the payout                     | ✅ Yes   |
+| `reason`                          | String  | Reason for the payout (e.g., `Gift`, `Invoice Payment`) | ✅ Yes   |
+
+
+---
+
+## **Success Response (200 OK)**
+
+If the payout is successfully created, the API returns the following response:
+
+```json
+{
+    "message": "Transaction created successfully",
+    "status": "success",
+    "data": {
+        "id": "a1b2c3d4-e5f6-7890-abcd-xxxxxxxxxxxxx",
+        "remark": "Gift",
+        "reason": "Gift",
+        "referenceNumber": "TXYZD6RWSQMKF",
+        "type": "SEND",
+        "state": "PENDING",
+        "quote": {
+            "id": "d19a64f9-5a47-4bda-b7c2-xxxxxxxxxxxxx",
+            "source": {
+                "currency": "MKW",
+                "country": "MK",
+                "amount": 100
+            },
+            "target": {
+                "currency": "MKW",
+                "country": "MKW",
+                "amount": 147000
+            },
+            "rate": 1,
+            "fee": {
+                "amount": 100
+            }
+        },
+    "recipient": {
+            "id": "5925d918-b459-4009-8f42-c29206b11940",
+            "name": "John Doe",
+            "account": {
+                "bankName": "National Bank of Malawi",
+                "accountNumber": "123456789"
+            },
+            "paymentChannel": "BANK_TRANSFER",
+            "currency": "MWK",
+            "country": "MW"
+        }
+        "created": "2025-07-24T14:17:48.038044",
+        "processed": "2025-07-24T14:20:49.712685"
+    }
+}
+```
+---
+
+
+## Success Response Breakdown (200 OK)
+
+| Field                               | Type    | Description                                                                 |
+| :---------------------------------- | :------ | :-------------------------------------------------------------------------- |
+| `message`                            | String  | Confirmation message indicating the result of the request.                  |
+| `status`                             | String  | Overall status of the request (`success`).                                   |
+| `data`                               | Object  | Container for the payout transaction details.                                 |
+| `data.id`                            | String  | Unique identifier for the payout transaction.                                 |
+| `data.remark`                        | String  | Optional note about the transaction (e.g., `Gift`).                           |
+| `data.reason`                        | String  | Reason for the payout (e.g., `Gift`).                                        |
+| `data.referenceNumber`               | String  | Unique reference number generated for the payout.                             |
+| `data.type`                          | String  | Type of transaction (e.g., `SEND`).                                          |
+| `data.state`                         | String  | Current state of the payout (`PENDING`, `COMPLETED`, `FAILED`, `REFUNDED`). |
+| `data.quote.id`                      | String  | Unique ID of the quote used for the transaction.                              |
+| `data.quote.source.currency`         | String  | Currency of the source funds (`MKW`).                                         |
+| `data.quote.source.country`          | String  | ISO country code of the source (`MK`).                                        |
+| `data.quote.source.amount`           | Number  | Amount debited from the source.                                              |
+| `data.quote.target.currency`         | String  | Currency received by the recipient (`MKW`).                                   |
+| `data.quote.target.country`          | String  | ISO country code of the recipient (`MW`).                                     |
+| `data.quote.target.amount`           | Number  | Amount credited to the recipient.                                             |
+| `data.quote.rate`                    | Number  | Conversion rate applied.                                                     |
+| `data.quote.fee.amount`              | Number  | Fee charged for the payout.                                                  |
+| `data.recipient.id`                  | String  | Unique identifier for the recipient.                                         |
+| `data.recipient.name`                | String  | Full name of the recipient.                                                  |
+| `data.recipient.account.bankName`    | String  | Name of the recipient’s bank.                                               |
+| `data.recipient.account.accountNumber` | String | Recipient’s bank account number.                                             |
+| `data.recipient.paymentChannel`      | String  | Payment method used (`BANK_TRANSFER`).                                       |
+| `data.recipient.currency`            | String  | Currency of the recipient’s account (`MWK`).                                  |
+| `data.recipient.country`             | String  | Recipient’s ISO country code (`MW`).                                         |
+| `data.created`                       | String  | ISO 8601 timestamp when the transaction was created.                         |
+| `data.processed`                     | String  | ISO 8601 timestamp when the transaction was processed.                       |
+
+---
+## **Payout Transaction States**
+
+The payout transaction can have one of the following states:
+
+| State      | Description                               |
+|------------|-------------------------------------------|
+| `COMPLETED` | The payout was successfully processed.   |
+| `PENDING`   | The payout is still being processed.     |
+| `FAILED`    | The payout failed to process.           |
+| `REFUNDED`  | The payout has been sent back to sender. |
+
+---
+## Error Handling
+
+| **Status Code** | **Meaning**                | **Example Response**                                |
+|:------------|:-----------------------|:------------------------------------------------|
+| `400`       | Insufficient Balance   | Insufficient Balance                            |
+| `401`       | Unauthorized           | Invalid API key provided.                       |
+| `403`       | Forbidden              | IP not whitelisted                              |
+| `404`       | Not Found              | The requested endpoint does not exist.          |
+| `422`       | Unprocessable Entity   | Invalid quote ID provided.                      |
+| `500`       | Internal Server Error  | An internal error occurred.                     |
+
+---
+
+
+## **Best Practices**
+✅ Ensure `quoteId` is valid and linked to an existing quote.  
+✅ Confirm that the recipient’s **bank account number** and **bank code** are correct.  
+✅ Use a valid API key in the headers.  
+✅ Handle error responses correctly in your integration.  

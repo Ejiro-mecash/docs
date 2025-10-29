@@ -1,0 +1,257 @@
+---
+title: 'Create Quote Examples'
+---
+
+Use the samples below to experiment with the [`POST /v1/quote`](/quote-docs/create-quote) endpoint. Each tab shows the request payload and the success response for a different corridor.
+
+## Endpoint
+
+**POST** `{{baseURL}}/v1/quote`
+
+## Required headers
+
+| Header | Description | Required | Example |
+|--------|-------------|----------|---------|
+| `x-api-key` | Workspace API key. | ✅ Yes | `YOUR_API_KEY` |
+| `Content-Type` | Media type of the request body. | ✅ Yes | `application/json` |
+
+## Requests and responses
+
+<Tabs items={['NGN → EUR', 'NGN → GBP', 'NGN → USD', 'NGN → NGN']}>
+  <Tabs.Tab>
+    ### Convert 100,000 NGN to EUR
+
+    ```bash copy
+    curl --request POST '{{baseURL}}/v1/quote' \
+      --header 'x-api-key: YOUR_API_KEY' \
+      --header 'Content-Type: application/json' \
+      --data '{
+        "paymentChannel": "BANK_TRANSFER",
+        "source": {
+          "amount": 100000,
+          "country": "NG",
+          "currency": "NGN"
+        },
+        "target": {
+          "country": "DK",
+          "currency": "EUR"
+        }
+      }'
+    ```
+
+    ```json copy
+    {
+      "message": "quote successfully created",
+      "status": "success",
+      "data": {
+        "id": "74bgf9ea-141e-13c7-ade9-xxxxxxxxxxxxx",
+        "source": { "currency": "NGN", "country": "NG", "amount": 100000 },
+        "target": { "currency": "EUR", "country": "DK", "amount": 61.72 },
+        "rate": 1620.21,
+        "fee": { "amount": 1000 },
+        "rules": [
+          {
+            "category": "LIMIT",
+            "appliedCurrency": "EUR",
+            "appliedCountry": "DK",
+            "transaction": { "minimum": 10, "maximum": 25000 },
+            "invoice": 25000
+          }
+        ],
+        "summary": { "total": 101000 },
+        "settlementTime": "15 minutes",
+        "quoteCurrency": "EUR",
+        "expiresInSeconds": 600
+      }
+    }
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ### Convert 100,000 NGN to GBP
+
+    ```bash copy
+    curl --request POST '{{baseURL}}/v1/quote' \
+      --header 'x-api-key: YOUR_API_KEY' \
+      --header 'Content-Type: application/json' \
+      --data '{
+        "paymentChannel": "BANK_TRANSFER",
+        "source": { "amount": 100000, "country": "NG", "currency": "NGN" },
+        "target": { "country": "GB", "currency": "GBP" }
+      }'
+    ```
+
+    ```json copy
+    {
+      "message": "quote successfully created",
+      "status": "success",
+      "data": {
+        "id": "19agf2da-441e-54b7-cde9-xxxxxxxxxxxxx",
+        "source": { "currency": "NGN", "country": "NG", "amount": 100000 },
+        "target": { "currency": "GBP", "country": "GB", "amount": 52.5 },
+        "rate": 1904.76,
+        "fee": { "amount": 1000 },
+        "rules": [
+          {
+            "category": "LIMIT",
+            "appliedCurrency": "GBP",
+            "appliedCountry": "GB",
+            "transaction": { "minimum": 10, "maximum": 5000 },
+            "invoice": 5000
+          }
+        ],
+        "summary": { "total": 101000 },
+        "settlementTime": "15 minutes",
+        "quoteCurrency": "GBP",
+        "expiresInSeconds": 600
+      }
+    }
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ### Convert 500,000 NGN to USD
+
+    ```bash copy
+    curl --request POST '{{baseURL}}/v1/quote' \
+      --header 'x-api-key: YOUR_API_KEY' \
+      --header 'Content-Type: application/json' \
+      --data '{
+        "paymentChannel": "BANK_TRANSFER",
+        "source": { "amount": 500000, "country": "NG", "currency": "NGN" },
+        "target": { "country": "US", "currency": "USD" }
+      }'
+    ```
+
+    ```json copy
+    {
+      "message": "quote successfully created",
+      "status": "success",
+      "data": {
+        "id": "98agb1da-351e-54b7-cde9-xxxxxxxxxxxxx",
+        "source": { "currency": "NGN", "country": "NG", "amount": 500000 },
+        "target": { "currency": "USD", "country": "US", "amount": 335.5 },
+        "rate": 1490.31,
+        "fee": { "amount": 5000 },
+        "rules": [
+          {
+            "category": "LIMIT",
+            "appliedCurrency": "USD",
+            "appliedCountry": "US",
+            "transaction": { "minimum": 20, "maximum": 1000000 },
+            "invoice": 1000000
+          }
+        ],
+        "summary": { "total": 505000 },
+        "settlementTime": "1 hour",
+        "quoteCurrency": "USD",
+        "expiresInSeconds": 600
+      }
+    }
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ### Convert 5,000 NGN domestically
+
+    ```bash copy
+    curl --request POST '{{baseURL}}/v1/quote' \
+      --header 'x-api-key: YOUR_API_KEY' \
+      --header 'Content-Type: application/json' \
+      --data '{
+        "paymentChannel": "BANK_TRANSFER",
+        "source": { "amount": 5000, "country": "NG", "currency": "NGN" },
+        "target": { "country": "NG", "currency": "NGN" }
+      }'
+    ```
+
+    ```json copy
+    {
+      "message": "quote successfully created",
+      "status": "success",
+      "data": {
+        "id": "23cdd48e-06a9-4d1e-9704-xxxxxxxxxxxxx",
+        "source": { "currency": "NGN", "country": "NG", "amount": 5000 },
+        "target": { "currency": "NGN", "country": "NG", "amount": 5000 },
+        "rate": 1,
+        "fee": { "amount": 100 },
+        "rules": [
+          {
+            "category": "LIMIT",
+            "appliedCurrency": "NGN",
+            "appliedCountry": "NG",
+            "transaction": { "minimum": 10, "maximum": 2000000 },
+            "invoice": 2000000
+          }
+        ],
+        "summary": { "total": 5100 },
+        "settlementTime": "1 minute",
+        "quoteCurrency": "NGN",
+        "expiresInSeconds": 600
+      }
+    }
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+## Response field reference
+
+<Callout type="info" emoji="ℹ️">
+  Quotes expire 10 minutes after creation unless otherwise stated. If `expiresInSeconds` hits zero, request a new quote.
+</Callout>
+
+### General attributes
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `message` | String | Overall result of the request. |
+| `status` | String | `success` or `error`. |
+| `data.id` | String | Quote identifier required when creating payouts. |
+
+### Source (send) details
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `source.currency` | String | Currency being debited. |
+| `source.country` | String | Country where funds originate. |
+| `source.amount` | Number | Amount the sender pays before fees. |
+
+### Target (receive) details
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `target.currency` | String | Currency being delivered. |
+| `target.country` | String | Destination country. |
+| `target.amount` | Number | Amount the recipient receives. |
+
+### Rates, fees, and rules
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `rate` | Number | Exchange rate applied. |
+| `fee.amount` | Number | Fees charged on this quote. |
+| `rules[].category` | String | Rule category (e.g. `LIMIT`). |
+| `rules[].transaction.minimum` | Number | Minimum transaction size allowed. |
+| `rules[].transaction.maximum` | Number | Maximum transaction size allowed. |
+
+### Expiry and settlement
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `summary.total` | Number | Total debit amount including fees. |
+| `settlementTime` | String | Estimated delivery time for the payout. |
+| `quoteCurrency` | String | Currency context for the quote rate. |
+| `expiresInSeconds` | Number | Time remaining before the quote becomes invalid. |
+
+## Error handling
+
+| Status | Meaning | Example message | Next steps |
+|--------|---------|-----------------|-----------|
+| 400 | Bad request. | `Required field missing or invalid request`. | Validate the payload and field formats. |
+| 401 | Authentication failed. | `Invalid authentication credentials`. | Confirm the API key matches the active environment. |
+| 403 | Forbidden. | `Access denied: IP address not whitelisted`. | Whitelist your server IP in the dashboard. |
+| 429 | Rate limit exceeded. | `API rate limit exceeded`. | Add retry logic with exponential backoff. |
+| 500 | Server error. | `Internal server error`. | Retry later; contact support if persistent. |
+
+## Best practices
+
+- Keep the `quoteId` from the response and use it immediately when you call the payout API.
+- Inspect the `rules` array to decide whether to prompt the user for a different amount.
+- When running demos, delete sensitive logs that may contain your API key before sharing.

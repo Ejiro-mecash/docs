@@ -1,0 +1,302 @@
+---
+title: 'NGN Payout'
+---
+
+This endpoint allows you to **send payouts in NGN** to recipients in **Nigeria**. The request must include the recipient's details, payment method, and a valid `quoteId`.
+
+## Endpoint
+**POST:** `{{baseURL}}/v2/payout`
+
+## Request Details
+
+### Headers
+Include these headers in your request:
+
+| Header         | Value              | Required |
+| :------------- | :----------------- | :------- |
+| `Content-Type` | `application/json` | ✅ Yes    |
+| `x-api-key`    | `YOUR_API_KEY`     | ✅ Yes    |
+
+---
+
+## Request Examples
+
+<Tabs items={['cURL', 'JavaScript', 'Python', 'Node.js']}>
+  <Tabs.Tab>
+    ```bash copy
+    curl --location --request POST '{{baseURL}}/v2/payout' \
+    --header 'x-api-key: YOUR_API_KEY' \
+    --header 'Content-Type: application/json' \
+    --data-raw '{
+      "remark": "Testing",
+      "reason": "Gift",
+      "quoteId": "91e58c2d-ef14-4777-906b-xxxxxxxxxxxxx",
+      "recipient": {
+        "name": "Adeolu Adebayo",
+        "paymentChannel": "BANK_TRANSFER",
+        "currency": "NGN",
+        "country": "NG",
+        "account": {
+          "bankName": "GT Bank",
+          "accountNumber": "001040XXXXX",
+          "sortCode": "058"
+        }
+      }
+    }'
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```javascript copy
+    const url = '{{baseURL}}/v2/payout';
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': 'YOUR_API_KEY'
+      },
+      body: JSON.stringify({
+        remark: 'Testing',
+        reason: 'Gift',
+        quoteId: '91e58c2d-ef14-4777-906b-xxxxxxxxxxxxx',
+        recipient: {
+          name: 'Adeolu Adebayo',
+          paymentChannel: 'BANK_TRANSFER',
+          currency: 'NGN',
+          country: 'NG',
+          account: {
+            bankName: 'GT Bank',
+            accountNumber: '001040XXXXX',
+            sortCode: '058'
+          }
+        }
+      })
+    };
+
+    fetch(url, options)
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then(data => console.log(data))
+      .catch(error => console.error('Error:', error));
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```python copy
+    import requests
+
+    url = "{{baseURL}}/v2/payout"
+
+    payload = {
+        "remark": "Testing",
+        "reason": "Gift",
+        "quoteId": "91e58c2d-ef14-4777-906b-xxxxxxxxxxxxx",
+        "recipient": {
+            "name": "Adeolu Adebayo",
+            "paymentChannel": "BANK_TRANSFER",
+            "currency": "NGN",
+            "country": "NG",
+            "account": {
+                "bankName": "GT Bank",
+                "accountNumber": "001040XXXXX",
+                "sortCode": "058"
+            }
+        }
+    }
+
+    headers = {
+        "x-api-key": "YOUR_API_KEY"
+    }
+
+    try:
+        response = requests.post(url, headers=headers, json=payload)
+        response.raise_for_status()  # Raises an HTTPError for bad responses (4xx or 5xx)
+        print(response.json())
+    except requests.exceptions.HTTPError as err:
+        print(f"HTTP Error: {err}")
+    except requests.exceptions.RequestException as e:
+        print(f"Request Error: {e}")
+
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```javascript copy
+    const axios = require('axios');
+
+    const url = '{{baseURL}}/v2/payout';
+    
+    const data = {
+      remark: 'Testing',
+      reason: 'Gift',
+      quoteId: '91e58c2d-ef14-4777-906b-xxxxxxxxxxxxx',
+      recipient: {
+        name: 'Adeolu Adebayo',
+        paymentChannel: 'BANK_TRANSFER',
+        currency: 'NGN',
+        country: 'NG',
+        account: {
+          bankName: 'GT Bank',
+          accountNumber: '001040XXXXX',
+          sortCode: '058'
+        }
+      }
+    };
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': 'YOUR_API_KEY'
+      }
+    };
+
+    axios.post(url, data, config)
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.error('Error:', error.response ? error.response.data : error.message);
+      });
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+
+<Callout type="info" emoji="ℹ️"> **Note**: Recipient’s name and Bank name must match the details in the [Bank list endpoint](/get-bank-api.mdx) and [Account enquiry endpoint](/account-lookup.mdx). </Callout>
+
+
+---
+
+### Request Body
+The following fields are required when making an **NGN payout request**:
+
+| Field                           | Type   | Description                                           |
+| :------------------------------ | :----- | :---------------------------------------------------- |
+| `remark`                        | String | Additional note about the transaction.                |
+| `reason`                        | String | Purpose of the transfer (e.g., `Gift`).               |
+| `quoteId`                       | String | Unique Quote ID for the payout.                       |
+| `recipient.name`                | String | Full name of the recipient.                           |
+| `recipient.paymentChannel`      | String | Payment method (`BANK_TRANSFER`).                     |
+| `recipient.currency`            | String | ISO currency code (`NGN`).                            |
+| `recipient.country`             | String | ISO country code (`NG`).                              |
+| `recipient.account.bankName`    | String | Name of the recipient's bank.                         |
+| `recipient.account.accountNumber`| String | Recipient’s bank account number.                      |
+| `recipient.account.sortCode`    | String | The 3-digit bank unique code (e.g., `058` for GTBank).       |
+
+---
+
+## Success Response (200 OK)
+
+If the payout is successfully created, the API returns the following response:
+
+```json copy
+{
+  "message": "Transaction created successfully",
+  "status": "success",
+  "data": {
+    "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "remark": "Testing",
+    "reason": "Gift",
+    "referenceNumber": "TXYZD6RWSQMKF",
+    "type": "SEND",
+    "state": "COMPLETED",
+    "quote": {
+      "id": "91e58c2d-ef14-4777-906b-xxxxxxxxxxxxx",
+      "source": {
+        "currency": "NGN",
+        "country": "NG",
+        "amount": 100000
+      },
+      "target": {
+        "currency": "NGN",
+        "country": "NG",
+        "amount": 100000
+      },
+      "rate": 1,
+      "fee": {
+        "amount": 100
+      }
+    },
+    "recipient": {
+      "name": "Adeolu Adebayo",
+      "firstName": "Adeolu",
+      "lastName": "Adebayo",
+      "relationship": "SELF",
+      "type": "BUSINESS",
+      "account": {
+        "bankName": "GT Bank",
+        "accountNumber": "001040XXXXX",
+        "sortCode": "058"
+      },
+      "paymentChannel": "BANK_TRANSFER",
+      "currency": "NGN",
+      "country": "NG"
+    },
+    "created": "2025-08-22T10:55:48.038044",
+    "processed": "2025-08-22T10:58:49.712685"
+  }
+}
+```
+## Response Breakdown
+
+| Field                              | Type    | Description                                                                 |
+| :--------------------------------- | :------ | :-------------------------------------------------------------------------- |
+| `message`                           | String  | Confirmation message indicating the result of the request.                  |
+| `status`                            | String  | Overall status of the request (`success`).                                   |
+| `data`                              | Object  | Container for the payout transaction details.                                 |
+| `data.id`                           | String  | Unique identifier for the payout transaction.                                 |
+| `data.remark`                       | String  | Optional note about the transaction, as provided in the request.             |
+| `data.reason`                       | String  | Reason for the payout, as provided in the request.                           |
+| `data.referenceNumber`              | String  | Unique reference number generated for the payout.                             |
+| `data.type`                         | String  | Type of transaction (e.g., `SEND`).                                          |
+| `data.state`                        | String  | Current state of the payout (`COMPLETED`, `PENDING`, `FAILED`, `REFUNDED`).  |
+| `data.quote.id`                     | String  | Unique ID of the quote used for the transaction.                              |
+| `data.quote.source.currency`        | String  | Currency of the source funds (`NGN`).                                         |
+| `data.quote.source.country`         | String  | ISO country code of the source (`NG`).                                        |
+| `data.quote.source.amount`          | Number  | Amount debited from the source.                                              |
+| `data.quote.target.currency`        | String  | Currency received by the recipient (`NGN`).                                   |
+| `data.quote.target.country`         | String  | ISO country code of the recipient (`NG`).                                     |
+| `data.quote.target.amount`          | Number  | Amount credited to the recipient.                                             |
+| `data.quote.rate`                   | Number  | Conversion rate applied (1 for NGN → NGN).                                   |
+| `data.quote.fee.amount`             | Number  | Fee charged for the payout.                                                  |
+| `data.recipient.name`               | String  | Full name of the recipient.                                                  |
+| `data.recipient.firstName`          | String  | Recipient’s first name.                                                      |
+| `data.recipient.lastName`           | String  | Recipient’s last name.                                                       |
+| `data.recipient.relationship`       | String  | Relationship to account holder (e.g., `SELF`).                               |
+| `data.recipient.type`               | String  | Recipient type (`BUSINESS`).                                                     |
+| `data.recipient.account.accountNumber` | String | Recipient’s bank account number.                                             |
+| `data.recipient.account.sortCode`   | String  | Bank unique code (e.g., `058` for GTBank).                                   |
+| `data.recipient.account.bankName`   | String  | Name of the recipient's bank.                                                |
+| `data.recipient.paymentChannel`     | String  | Payment method used (`BANK_TRANSFER`).                                       |
+| `data.recipient.currency`           | String  | Currency of the recipient’s account (`NGN`).                                  |
+| `data.recipient.country`            | String  | Recipient’s ISO country code (`NG`).                                         |
+| `data.created`                      | String  | ISO 8601 timestamp when the transaction was created.                         |
+| `data.processed`                    | String  | ISO 8601 timestamp when the transaction was processed.                       |
+
+
+
+---
+
+## Error Handling
+
+| **Status Code** | **Meaning**                | **Example Response**                                |
+|:------------|:-----------------------|:------------------------------------------------|
+| `400`       | Insufficient Balance   | Insufficient Balance                            |
+| `401`       | Unauthorized           | Invalid API key provided.                       |
+| `403`       | Forbidden              | IP not whitelisted                              |
+| `404`       | Not Found              | The requested endpoint does not exist.          |
+| `422`       | Unprocessable Entity   | Invalid quote ID provided.                      |
+| `500`       | Internal Server Error  | An internal error occurred.                     |
+
+---
+
+
+## **Best Practices**
+✅ Ensure `quoteId` is valid and linked to an existing quote.  
+✅ Confirm that the recipient’s **bank account number** and **bank code** are correct.  
+✅ Use a valid API key in the headers.  
+✅ Handle error responses correctly in your integration.  
+
+

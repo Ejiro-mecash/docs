@@ -18,7 +18,17 @@
       "languages": [
         "javascript",
         "curl",
-        "python"
+        "python",
+        "nodejs",
+        "php",
+        "java",
+        "ruby",
+        "swift",
+        "kotlin",
+        "rust",
+        "go",
+        "scala",
+        "erlang"
       ]
     }
   },
@@ -41,11 +51,86 @@
               "account-creation",
               "authentication",
               "ip-whitelisting",
-              "environments"
+              "environments",
+              "webhook/webhook"
+            ]
+          }  
+          
+        ]
+      },
+
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "documentation-overview"
+            ]
+          },
+          {
+            "group": "Wallets",
+            "pages": [
+              "wallet-docs/wallet-overview",
+              "wallet-docs/funding-wallet"
+              
+            ]
+          },
+          {
+            "group": "Quotes",
+            "pages": [
+              "quote-docs/about-quote",
+              "quote-docs/supported-curriencies"
+            ]
+          },
+          {
+            "group": "Payouts",
+            "pages": [
+              "payout-docs/payout",
+              "payout-docs/supported-payouts",
+              {
+                "group": "Payout Examples",
+                "pages": [
+                  "payout-docs/payout-examples/ngn-ngn-example",
+                  "payout-docs/payout-examples/ngn-usd-example",
+                  "payout-docs/payout-examples/ngn-eur-example",
+                  "payout-docs/payout-examples/ngn-gbp-example",
+                  "payout-docs/payout-examples/ngn-cad-example",
+                  "payout-docs/payout-examples/mkw-mkw-example"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Virtual Accounts",
+            "pages": [
+              "virtual-accounts-docs/about-virtual-account",
+              "virtual-accounts-docs/static-virtual-account",
+              "virtual-accounts-docs/dynamic-virtual-account"
+            ]
+          },
+          {
+            "group": "Transactions",
+            "pages": [
+              "transaction-docs/get-transaction"
+            ]
+          },
+          {
+            "group": "Webhooks",
+            "pages": [
+              "webhook/webhook",
+              "webhook/validate-webhook",
+              "webhook/webhook-event",
+              "webhook/payout-webhook",
+              "webhook/collection-webhook",
+              "webhook/virtualaccount-webhook",
+              "webhook/ramp-webhook"
             ]
           }
         ]
       },
+
+      
       {
         "tab": "API Reference",
         "groups": [
@@ -106,33 +191,17 @@
         "groups": [
           {
             "group": "Support",
-            "pages": [
-              "faq",
-              "community"
-            ]
-          }
-        ]
+              "pages": [
+                "faq",
+                "community",
+                "webhook/webhooks-signature-verification",
+                "sitemap"
+              ]
+            }
+          ]
       }
     ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://docs.me-cash.com",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Community",
-          "href": "https://discord.com/invite/CC5v6h52Wk",
-          "icon": "discord"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://blog.me-cash.com",
-          "icon": "newspaper"
-        }
-      ]
-    }
+    "global": {}
   },
   "logo": {
     "light": "/logo/dark.png",
@@ -143,6 +212,14 @@
       {
         "label": "Support",
         "href": "mailto:support@me-cash.com"
+      },
+      {
+        "label": "Community",
+        "href": "https://discord.com/invite/CC5v6h52Wk"
+      },
+      {
+        "label": "Blog",
+        "href": "https://blog.me-cash.com"
       }
     ],
     "primary": {

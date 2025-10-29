@@ -1,0 +1,93 @@
+---
+title: 'Webhook Events Overview'
+description: 'Explore the different categories of meCash webhook events. Find links to detailed payloads for Collections, Payouts, Virtual Accounts, and Ramp transactions.'
+---
+
+# meCash Webhook Events
+
+meCash uses webhooks to send your application real-time notifications for key events in your payout and virtual account workflows. You can monitor these events as they happen via the **Webhook Logs** section on your Dashboard.
+
+This page provides an overview of the event categories and common data fields. For detailed information and data payloads, please see the specific pages for each event type.
+
+## Viewing Webhook Events
+
+To see a live log of the events sent to your endpoint:
+
+1.  Navigate to the **Developers** section on your meCash Dashboard.
+2.  On the left-side menu, click on the **Webhook Logs** tab.
+
+![webhook logs](/webhooklog2.png)
+
+Each log entry provides a quick summary, including the event type, the HTTP response code from your server, response time, and status. You can click on any entry to view the full JSON payload that was sent.
+
+![Webhook Summary](/webhook-summary.png)
+
+## Event Categories
+
+meCash webhook events are grouped into four main categories based on the type of transaction. Select a category below to see a detailed list of its specific event types and their corresponding data payloads.
+
+---
+
+### [💰 Collection Events & Payloads](/webhook/collection-webhook)
+These events notify you about the status of funds being collected and deposited into your merchant wallet.
+* `collection.completed`
+* `collection.failed`
+
+---
+
+
+### [💸 Fiat Payout Events & Payloads](/webhook/payout-webhook)
+These events track the lifecycle of payouts made from your account to an external fiat recipient, like a bank account.
+* `payout.completed`
+* `payout.failed`
+* `payout.pending`
+
+---
+
+### [💳 Virtual Account Events & Payloads](/webhook/virtualaccount-webhook)
+These events inform you about funding activities related to your virtual accounts.
+* `virtualaccount.completed`
+* `virtualaccount.failed`
+
+
+---
+
+### [💱 Ramp Payout Events & Payloads](/webhook/ramp-webhook)
+These events provide updates for off-chain transfers, including both crypto-to-fiat (Off-Ramp) and crypto-to-crypto payouts.
+* `ramp.payout.completed`
+* `ramp.payout.failed`
+* `ramp.payout.pending`
+* `ramp.payout.refund`
+
+---
+
+## Common Transaction Details
+
+Across all event payloads, you'll find common fields that describe the transaction's status and nature.
+
+### Transaction States
+This explains the different possible statuses of a transaction within the webhook payload:
+
+| **State** | **Description** |
+| :--- | :--- |
+| `COMPLETED` | The transaction was processed successfully. |
+| `PENDING` | The transaction is still in progress. |
+| `FAILED` | The transaction could not be processed. |
+
+### Transaction Types
+The `type` and `category` fields describe the nature of the transaction.
+
+| **Field** | **Example Value** | **Description** |
+| :--- | :--- | :--- |
+| **type** | `SEND` | Describes an outbound transaction, like a payout. |
+| | `FUNDING` | Describes an inbound transaction, like a deposit or top-up. |
+| **category** | `OFF_RAMP` | Identifies a crypto-to-fiat conversion. |
+| | `CRYPTOCURRENCY` | Identifies a transaction involving only cryptocurrencies. |
+
+
+## Next Steps
+
+Now that you have an overview of the event types, here are the next logical steps for your integration:
+
+- **[⚙️ Configure Your Webhook Endpoint](/webhook/webhook):** Learn how to set up the URL where meCash will send events.
+- **[🛡️ Validate Webhook Signatures](/validate-webhook):** A crucial step to ensure your endpoint is secure and only processes authentic requests from meCash.

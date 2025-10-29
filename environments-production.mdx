@@ -1,0 +1,276 @@
+---
+title: "Production Environment"
+description: "Complete guide to setting up and using the meCash API in production"
+---
+
+## Production Environment
+
+The production environment is where your live transactions are processed. This guide covers everything you need to know about using meCash API in production.
+
+## Production Base URL
+
+```
+https://api.me-cash.com
+```
+
+## Getting Production Access
+
+### Prerequisites
+
+Before accessing the production environment, ensure you have:
+
+1. **Completed KYB Verification**: Your business must be fully verified
+2. **Sandbox Testing**: Thoroughly tested your integration in sandbox
+3. **Production API Keys**: Generated production API keys from your dashboard
+
+### Requesting Production Access
+
+1. **Complete KYB Verification**
+   - Ensure all business documents are approved
+   - Verify your business contact information
+   - Complete any additional verification steps
+
+2. **Submit Production Access Request**
+   - Contact support at [support@me-cash.com](mailto:support@me-cash.com)
+   - Include your business details and use case
+   - Provide sandbox testing evidence
+
+3. **Wait for Approval**
+   - Production access is reviewed manually
+   - Approval typically takes 2-5 business days
+   - You'll receive email notification when approved
+
+## Production API Keys
+
+### Generating Production Keys
+
+1. Log into your meCash Business dashboard
+2. Navigate to **Developer** → **API Keys**
+3. Switch to **Production** environment
+4. Click **Create Production Key**
+5. Securely store your production API key
+
+<Warning>
+Production API keys process real money transactions. Keep them secure and never expose them in client-side code.
+</Warning>
+
+### Key Differences from Sandbox
+
+| Feature | Sandbox | Production |
+|---------|---------|------------|
+| **Base URL** | `https://sandboxapi.me-cash.com` | `https://api.me-cash.com` |
+| **Transactions** | Simulated | Real money |
+| **Rate Limits** | Standard | Higher limits available |
+| **Support** | Community | Priority support |
+| **Monitoring** | Basic | Advanced monitoring |
+
+## Security Considerations
+
+### API Key Management
+
+```javascript
+// ✅ Good: Store keys in environment variables
+const API_KEY = process.env.MECASH_API_KEY;
+
+// ❌ Bad: Never hardcode keys
+const API_KEY = "live_sk_1234567890abcdef";
+```
+
+### IP Whitelisting
+
+Production environments require stricter IP whitelisting:
+
+1. **Static IPs Only**: Use static IP addresses for your servers
+2. **Multiple IPs**: Whitelist all server IPs that will make API calls
+3. **Regular Updates**: Update whitelist when server IPs change
+
+### HTTPS Requirements
+
+All production API calls must use HTTPS:
+
+```bash
+# ✅ Correct production endpoint
+curl -X POST https://api.me-cash.com/v2/payout
+
+# ❌ Never use HTTP in production
+curl -X POST http://api.me-cash.com/v2/payout
+```
+
+## Rate Limits
+
+### Production Rate Limits
+
+| Limit Type | Standard | Enhanced |
+|------------|----------|----------|
+| **Requests per minute** | 100 | 1,000 |
+| **Requests per hour** | 1,000 | 10,000 |
+| **Requests per day** | 10,000 | 100,000 |
+
+### Requesting Higher Limits
+
+Contact support to request higher rate limits:
+
+```json
+{
+  "business_name": "Your Business Name",
+  "expected_volume": "transactions per day",
+  "use_case": "Brief description of your use case",
+  "current_limits": "current rate limits you're hitting"
+}
+```
+
+## Monitoring & Alerts
+
+### Production Monitoring
+
+Production accounts include enhanced monitoring:
+
+1. **Real-time Metrics**: Track API performance and errors
+2. **Transaction Monitoring**: Monitor payout success rates
+3. **Alert System**: Get notified of issues immediately
+
+### Setting Up Alerts
+
+1. **Dashboard Alerts**: Configure alerts in your dashboard
+2. **Email Notifications**: Set up email alerts for critical events
+3. **Webhook Monitoring**: Monitor webhook delivery status
+
+### Key Metrics to Monitor
+
+- **API Response Times**: Should be under 2 seconds
+- **Error Rates**: Should be under 1%
+- **Transaction Success Rates**: Should be over 95%
+- **Webhook Delivery**: Should be 100% successful
+
+## Testing in Production
+
+### Gradual Rollout
+
+1. **Start Small**: Begin with small transaction amounts
+2. **Monitor Closely**: Watch for any issues or errors
+3. **Scale Gradually**: Increase volume as confidence grows
+
+### Testing Strategies
+
+```javascript
+// Example: Gradual rollout implementation
+const isProduction = process.env.NODE_ENV === 'production';
+const maxTestAmount = isProduction ? 100 : 10000; // Lower limits in production
+
+if (amount > maxTestAmount) {
+  throw new Error('Amount exceeds production testing limits');
+}
+```
+
+## Compliance & Regulations
+
+### Regulatory Requirements
+
+Production usage must comply with:
+
+1. **AML/KYC**: Anti-money laundering and know your customer
+2. **PCI DSS**: Payment card industry data security standards
+3. **GDPR**: General data protection regulation (if applicable)
+4. **Local Regulations**: Country-specific financial regulations
+
+### Documentation Requirements
+
+Maintain documentation for:
+
+1. **Transaction Records**: Keep detailed transaction logs
+2. **Audit Trails**: Maintain audit trails for compliance
+3. **User Verification**: Document user verification processes
+
+## Support & Escalation
+
+### Production Support
+
+Production accounts receive priority support:
+
+- **Response Time**: 2-4 hours for critical issues
+- **Availability**: 24/7 for production issues
+- **Escalation**: Direct escalation to engineering team
+
+### Emergency Contacts
+
+For production emergencies:
+
+- **Email**: [support@me-cash.com](mailto:support@me-cash.com)
+- **Subject**: "PRODUCTION EMERGENCY - [Brief Description]"
+- **Phone**: Available for enterprise customers
+
+## Migration from Sandbox
+
+### Migration Checklist
+
+- [ ] Complete KYB verification
+- [ ] Test all API endpoints in sandbox
+- [ ] Generate production API keys
+- [ ] Update application configuration
+- [ ] Implement monitoring and alerts
+- [ ] Set up webhook endpoints
+- [ ] Conduct small-scale testing
+- [ ] Monitor initial transactions
+- [ ] Scale up gradually
+
+### Configuration Updates
+
+```javascript
+// Update your configuration
+const config = {
+  baseURL: process.env.NODE_ENV === 'production' 
+    ? 'https://api.me-cash.com' 
+    : 'https://sandboxapi.me-cash.com',
+  apiKey: process.env.MECASH_API_KEY,
+  timeout: 30000, // 30 seconds for production
+  retries: 3 // Retry failed requests
+};
+```
+
+## Best Practices
+
+### Security
+
+1. **Environment Variables**: Store sensitive data in environment variables
+2. **Key Rotation**: Rotate API keys regularly
+3. **Access Control**: Limit access to production credentials
+4. **Audit Logs**: Maintain comprehensive audit logs
+
+### Performance
+
+1. **Connection Pooling**: Use connection pooling for better performance
+2. **Caching**: Cache frequently accessed data
+3. **Async Processing**: Use async processing for better throughput
+4. **Monitoring**: Monitor performance metrics continuously
+
+### Reliability
+
+1. **Error Handling**: Implement comprehensive error handling
+2. **Retry Logic**: Implement exponential backoff for retries
+3. **Circuit Breakers**: Use circuit breakers for fault tolerance
+4. **Health Checks**: Implement health check endpoints
+
+## Troubleshooting
+
+### Common Issues
+
+| Issue | Cause | Solution |
+|-------|-------|----------|
+| **401 Unauthorized** | Invalid API key | Verify API key format and validity |
+| **403 Forbidden** | IP not whitelisted | Add server IP to whitelist |
+| **429 Rate Limited** | Too many requests | Implement rate limiting |
+| **500 Server Error** | Internal server error | Retry with exponential backoff |
+
+### Getting Help
+
+1. **Check Documentation**: Review API documentation
+2. **Contact Support**: Email support with detailed error information
+3. **Community**: Ask questions in Discord community
+4. **Status Page**: Check [status.me-cash.com](https://status.me-cash.com) for outages
+
+## Next Steps
+
+- [Set up Monitoring](/monitoring) - Configure production monitoring
+- [Implement Webhooks](/webhooks-event) - Set up real-time notifications
+- [Security Best Practices](/security) - Learn security best practices
+- [Performance Optimization](/performance) - Optimize API performance
