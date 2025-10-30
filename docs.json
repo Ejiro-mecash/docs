@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
+  "theme": "palm",
   "name": "meCash API Reference",
   "api": {
     "playground": {
@@ -118,13 +118,30 @@
           {
             "group": "Webhooks",
             "pages": [
-              "webhook/webhook",
-              "webhook/validate-webhook",
-              "webhook/webhook-event",
-              "webhook/payout-webhook",
-              "webhook/collection-webhook",
-              "webhook/virtualaccount-webhook",
-              "webhook/ramp-webhook"
+              {
+                "group": "Guides",
+                "pages": [
+                  "webhook/webhook",
+                  "webhook/validate-webhook"
+                ]
+              },
+              {
+                "group": "Event Payloads",
+                "pages": [
+                  "webhook/webhook-event",
+                  "webhook/payout-webhook",
+                  "webhook/collection-webhook",
+                  "webhook/virtualaccount-webhook",
+                  "webhook/ramp-webhook"
+                ]
+              },
+              {
+                "group": "Operations",
+                "pages": [
+                  "webhook/webhooks-event",
+                  "webhook/webhooks-signature-verification"
+                ]
+              }
             ]
           }
         ]
@@ -193,9 +210,7 @@
             "group": "Support",
               "pages": [
                 "faq",
-                "community",
-                "webhook/webhooks-signature-verification",
-                "sitemap"
+                "community"
               ]
             }
           ]

@@ -49,36 +49,32 @@ Dynamic accounts are short-lived bank account numbers designed for one-time paym
 
 ## Request examples
 
-<Tabs items={['Nigeria (NGN)', 'Malawi (MWK)']}>
-  <Tabs.Tab>
-    ```bash copy
-    curl --request POST '{{baseURL}}/v1/virtual-account/dynamic' \
-      --header 'x-api-key: YOUR_API_KEY' \
-      --header 'Content-Type: application/json' \
-      --data '{
-        "currency": "NGN",
-        "country": "NG",
-        "amount": 5000,
-        "duration": 30,
-        "reference": "TXN_REF_DYNAMIC_12345678"
-      }'
-    ```
-  </Tabs.Tab>
-  <Tabs.Tab>
-    ```bash copy
-    curl --request POST '{{baseURL}}/v1/virtual-account/dynamic' \
-      --header 'x-api-key: YOUR_API_KEY' \
-      --header 'Content-Type: application/json' \
-      --data '{
-        "currency": "MWK",
-        "country": "MW",
-        "amount": 10000,
-        "duration": 45,
-        "reference": "TXN_REF_DYNAMIC_98765432"
-      }'
-    ```
-  </Tabs.Tab>
-</Tabs>
+<CodeGroup>
+```bash Nigeria (NGN)
+curl --request POST '{{baseURL}}/v1/virtual-account/dynamic' \
+  --header 'x-api-key: YOUR_API_KEY' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "currency": "NGN",
+    "country": "NG",
+    "amount": 5000,
+    "duration": 30,
+    "reference": "TXN_REF_DYNAMIC_12345678"
+  }'
+```
+```bash Malawi (MWK)
+curl --request POST '{{baseURL}}/v1/virtual-account/dynamic' \
+  --header 'x-api-key: YOUR_API_KEY' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "currency": "MWK",
+    "country": "MW",
+    "amount": 10000,
+    "duration": 45,
+    "reference": "TXN_REF_DYNAMIC_98765432"
+  }'
+```
+</CodeGroup>
 
 ## Successful response
 

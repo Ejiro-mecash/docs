@@ -17,179 +17,168 @@ Use the samples below to experiment with the [`POST /v1/quote`](/quote-docs/crea
 
 ## Requests and responses
 
-<Tabs items={['NGN → EUR', 'NGN → GBP', 'NGN → USD', 'NGN → NGN']}>
-  <Tabs.Tab>
-    ### Convert 100,000 NGN to EUR
+### Convert 100,000 NGN to EUR
 
-    ```bash copy
-    curl --request POST '{{baseURL}}/v1/quote' \
-      --header 'x-api-key: YOUR_API_KEY' \
-      --header 'Content-Type: application/json' \
-      --data '{
-        "paymentChannel": "BANK_TRANSFER",
-        "source": {
-          "amount": 100000,
-          "country": "NG",
-          "currency": "NGN"
-        },
-        "target": {
-          "country": "DK",
-          "currency": "EUR"
-        }
-      }'
-    ```
-
-    ```json copy
-    {
-      "message": "quote successfully created",
-      "status": "success",
-      "data": {
-        "id": "74bgf9ea-141e-13c7-ade9-xxxxxxxxxxxxx",
-        "source": { "currency": "NGN", "country": "NG", "amount": 100000 },
-        "target": { "currency": "EUR", "country": "DK", "amount": 61.72 },
-        "rate": 1620.21,
-        "fee": { "amount": 1000 },
-        "rules": [
-          {
-            "category": "LIMIT",
-            "appliedCurrency": "EUR",
-            "appliedCountry": "DK",
-            "transaction": { "minimum": 10, "maximum": 25000 },
-            "invoice": 25000
-          }
-        ],
-        "summary": { "total": 101000 },
-        "settlementTime": "15 minutes",
-        "quoteCurrency": "EUR",
-        "expiresInSeconds": 600
-      }
+<CodeGroup>
+```bash Request
+curl --request POST '{{baseURL}}/v1/quote' \
+  --header 'x-api-key: YOUR_API_KEY' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "paymentChannel": "BANK_TRANSFER",
+    "source": {
+      "amount": 100000,
+      "country": "NG",
+      "currency": "NGN"
+    },
+    "target": {
+      "country": "DK",
+      "currency": "EUR"
     }
-    ```
-  </Tabs.Tab>
-  <Tabs.Tab>
-    ### Convert 100,000 NGN to GBP
-
-    ```bash copy
-    curl --request POST '{{baseURL}}/v1/quote' \
-      --header 'x-api-key: YOUR_API_KEY' \
-      --header 'Content-Type: application/json' \
-      --data '{
-        "paymentChannel": "BANK_TRANSFER",
-        "source": { "amount": 100000, "country": "NG", "currency": "NGN" },
-        "target": { "country": "GB", "currency": "GBP" }
-      }'
-    ```
-
-    ```json copy
-    {
-      "message": "quote successfully created",
-      "status": "success",
-      "data": {
-        "id": "19agf2da-441e-54b7-cde9-xxxxxxxxxxxxx",
-        "source": { "currency": "NGN", "country": "NG", "amount": 100000 },
-        "target": { "currency": "GBP", "country": "GB", "amount": 52.5 },
-        "rate": 1904.76,
-        "fee": { "amount": 1000 },
-        "rules": [
-          {
-            "category": "LIMIT",
-            "appliedCurrency": "GBP",
-            "appliedCountry": "GB",
-            "transaction": { "minimum": 10, "maximum": 5000 },
-            "invoice": 5000
-          }
-        ],
-        "summary": { "total": 101000 },
-        "settlementTime": "15 minutes",
-        "quoteCurrency": "GBP",
-        "expiresInSeconds": 600
+  }'
+```
+```json Response
+{
+  "message": "quote successfully created",
+  "status": "success",
+  "data": {
+    "id": "74bgf9ea-141e-13c7-ade9-xxxxxxxxxxxxx",
+    "source": { "currency": "NGN", "country": "NG", "amount": 100000 },
+    "target": { "currency": "EUR", "country": "DK", "amount": 61.72 },
+    "rate": 1620.21,
+    "fee": { "amount": 1000 },
+    "rules": [
+      {
+        "category": "LIMIT",
+        "appliedCurrency": "EUR",
+        "appliedCountry": "DK",
+        "transaction": { "minimum": 10, "maximum": 25000 },
+        "invoice": 25000
       }
-    }
-    ```
-  </Tabs.Tab>
-  <Tabs.Tab>
-    ### Convert 500,000 NGN to USD
+    ],
+    "summary": { "total": 101000 },
+    "settlementTime": "15 minutes",
+    "quoteCurrency": "EUR",
+    "expiresInSeconds": 600
+  }
+}
+```
+</CodeGroup>
 
-    ```bash copy
-    curl --request POST '{{baseURL}}/v1/quote' \
-      --header 'x-api-key: YOUR_API_KEY' \
-      --header 'Content-Type: application/json' \
-      --data '{
-        "paymentChannel": "BANK_TRANSFER",
-        "source": { "amount": 500000, "country": "NG", "currency": "NGN" },
-        "target": { "country": "US", "currency": "USD" }
-      }'
-    ```
+### Convert 100,000 NGN to GBP
 
-    ```json copy
-    {
-      "message": "quote successfully created",
-      "status": "success",
-      "data": {
-        "id": "98agb1da-351e-54b7-cde9-xxxxxxxxxxxxx",
-        "source": { "currency": "NGN", "country": "NG", "amount": 500000 },
-        "target": { "currency": "USD", "country": "US", "amount": 335.5 },
-        "rate": 1490.31,
-        "fee": { "amount": 5000 },
-        "rules": [
-          {
-            "category": "LIMIT",
-            "appliedCurrency": "USD",
-            "appliedCountry": "US",
-            "transaction": { "minimum": 20, "maximum": 1000000 },
-            "invoice": 1000000
-          }
-        ],
-        "summary": { "total": 505000 },
-        "settlementTime": "1 hour",
-        "quoteCurrency": "USD",
-        "expiresInSeconds": 600
+<CodeGroup>
+```bash Request
+curl --request POST '{{baseURL}}/v1/quote' \
+  --header 'x-api-key: YOUR_API_KEY' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "paymentChannel": "BANK_TRANSFER",
+    "source": { "amount": 100000, "country": "NG", "currency": "NGN" },
+    "target": { "country": "GB", "currency": "GBP" }
+  }'
+```
+```json Response
+{
+  "message": "quote successfully created",
+  "status": "success",
+  "data": {
+    "id": "19agf2da-441e-54b7-cde9-xxxxxxxxxxxxx",
+    "source": { "currency": "NGN", "country": "NG", "amount": 100000 },
+    "target": { "currency": "GBP", "country": "GB", "amount": 52.5 },
+    "rate": 1904.76,
+    "fee": { "amount": 1000 },
+    "rules": [
+      {
+        "category": "LIMIT",
+        "appliedCurrency": "GBP",
+        "appliedCountry": "GB",
+        "transaction": { "minimum": 10, "maximum": 5000 },
+        "invoice": 5000
       }
-    }
-    ```
-  </Tabs.Tab>
-  <Tabs.Tab>
-    ### Convert 5,000 NGN domestically
+    ],
+    "summary": { "total": 101000 },
+    "settlementTime": "15 minutes",
+    "quoteCurrency": "GBP",
+    "expiresInSeconds": 600
+  }
+}
+```
+</CodeGroup>
 
-    ```bash copy
-    curl --request POST '{{baseURL}}/v1/quote' \
-      --header 'x-api-key: YOUR_API_KEY' \
-      --header 'Content-Type: application/json' \
-      --data '{
-        "paymentChannel": "BANK_TRANSFER",
-        "source": { "amount": 5000, "country": "NG", "currency": "NGN" },
-        "target": { "country": "NG", "currency": "NGN" }
-      }'
-    ```
+### Convert 500,000 NGN to USD
 
-    ```json copy
-    {
-      "message": "quote successfully created",
-      "status": "success",
-      "data": {
-        "id": "23cdd48e-06a9-4d1e-9704-xxxxxxxxxxxxx",
-        "source": { "currency": "NGN", "country": "NG", "amount": 5000 },
-        "target": { "currency": "NGN", "country": "NG", "amount": 5000 },
-        "rate": 1,
-        "fee": { "amount": 100 },
-        "rules": [
-          {
-            "category": "LIMIT",
-            "appliedCurrency": "NGN",
-            "appliedCountry": "NG",
-            "transaction": { "minimum": 10, "maximum": 2000000 },
-            "invoice": 2000000
-          }
-        ],
-        "summary": { "total": 5100 },
-        "settlementTime": "1 minute",
-        "quoteCurrency": "NGN",
-        "expiresInSeconds": 600
+<CodeGroup>
+```bash Request
+curl --request POST '{{baseURL}}/v1/quote' \
+  --header 'x-api-key: YOUR_API_KEY' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "paymentChannel": "BANK_TRANSFER",
+    "source": { "amount": 500000, "country": "NG", "currency": "NGN" },
+    "target": { "country": "US", "currency": "USD" }
+  }'
+```
+```json Response
+{
+  "message": "quote successfully created",
+  "status": "success",
+  "data": {
+    "id": "98agb1da-351e-54b7-cde9-xxxxxxxxxxxxx",
+    "source": { "currency": "NGN", "country": "NG", "amount": 500000 },
+    "target": { "currency": "USD", "country": "US", "amount": 335.5 },
+    "rate": 1490.31,
+    "fee": { "amount": 5000 },
+    "rules": [
+      {
+        "category": "LIMIT",
+        "appliedCurrency": "USD",
+        "appliedCountry": "US",
+        "transaction": { "minimum": 20, "maximum": 1000000 },
+        "invoice": 1000000
       }
-    }
-    ```
-  </Tabs.Tab>
-</Tabs>
+    ],
+    "summary": { "total": 505000 },
+    "settlementTime": "1 hour",
+    "quoteCurrency": "USD",
+    "expiresInSeconds": 600
+  }
+}
+```
+</CodeGroup>
+
+### Convert 5,000 NGN domestically
+
+<CodeGroup>
+```bash Request
+curl --request POST '{{baseURL}}/v1/quote' \
+  --header 'x-api-key: YOUR_API_KEY' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "paymentChannel": "BANK_TRANSFER",
+    "source": { "amount": 5000, "country": "NG", "currency": "NGN" },
+    "target": { "country": "NG", "currency": "NGN" }
+  }'
+```
+```json Response
+{
+  "message": "quote successfully created",
+  "status": "success",
+  "data": {
+    "id": "02fjf834-665g-77h8-ade9-xxxxxxxxxxxxx",
+    "source": { "currency": "NGN", "country": "NG", "amount": 5000 },
+    "target": { "currency": "NGN", "country": "NG", "amount": 4850 },
+    "rate": 1,
+    "fee": { "amount": 150 },
+    "rules": [],
+    "summary": { "total": 5150 },
+    "settlementTime": "Instant",
+    "quoteCurrency": "NGN",
+    "expiresInSeconds": 600
+  }
+}
+```
+</CodeGroup>
 
 ## Response field reference
 

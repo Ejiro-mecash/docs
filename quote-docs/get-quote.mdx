@@ -3,8 +3,6 @@ title: 'Get Quote API'
 description: 'Retrieve the details of a previously created quote using its quoteId.'
 ---
 
-import { Tabs } from 'nextra/components'
-
 ## Get Quote API
 
 Use this endpoint to fetch the latest state of a quote before completing the payout. It returns the locked-in rate, fees, and the remaining validity window.
@@ -22,77 +20,70 @@ Use this endpoint to fetch the latest state of a quote before completing the pay
 
 ## Request examples
 
-<Tabs items={['cURL', 'JavaScript (fetch)', 'Python (requests)', 'Node.js (axios)']}>
-  <Tabs.Tab>
-    ```bash copy
-    curl --request GET '{{baseURL}}/v1/quote/15tyyba81-f71a-76ha-b579-xxxxxxxxxxxxx' \
-      --header 'x-api-key: YOUR_API_KEY' \
-      --header 'Content-Type: application/json'
-    ```
-  </Tabs.Tab>
-  <Tabs.Tab>
-    ```js copy
-    const quoteId = '15tyyba81-f71a-76ha-b579-xxxxxxxxxxxxx';
+<CodeGroup>
+```bash cURL
+curl --request GET '{{baseURL}}/v1/quote/15tyyba81-f71a-76ha-b579-xxxxxxxxxxxxx' \
+  --header 'x-api-key: YOUR_API_KEY' \
+  --header 'Content-Type: application/json'
+```
+```js JavaScript (fetch)
+const quoteId = '15tyyba81-f71a-76ha-b579-xxxxxxxxxxxxx';
 
-    fetch(`{{baseURL}}/v1/quote/${quoteId}`, {
-      method: 'GET',
-      headers: {
-        'x-api-key': 'YOUR_API_KEY',
-        'Content-Type': 'application/json'
-      }
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`Request failed with status ${res.status}`);
-        }
-        return res.json();
-      })
-      .then((body) => console.log(body))
-      .catch((error) => console.error('Failed to fetch quote', error));
-    ```
-  </Tabs.Tab>
-  <Tabs.Tab>
-    ```python copy
-    import requests
-
-    quote_id = "15tyyba81-f71a-76ha-b579-xxxxxxxxxxxxx"
-    url = f"{{baseURL}}/v1/quote/{quote_id}"
-    headers = {
-        "x-api-key": "YOUR_API_KEY",
-        "Content-Type": "application/json",
+fetch(`{{baseURL}}/v1/quote/${quoteId}`, {
+  method: 'GET',
+  headers: {
+    'x-api-key': 'YOUR_API_KEY',
+    'Content-Type': 'application/json'
+  }
+})
+  .then((res) => {
+    if (!res.ok) {
+      throw new Error(`Request failed with status ${res.status}`);
     }
+    return res.json();
+  })
+  .then((body) => console.log(body))
+  .catch((error) => console.error('Failed to fetch quote', error));
+```
 
-    response = requests.get(url, headers=headers, timeout=30)
-    response.raise_for_status()
-    print(response.json())
-    ```
-  </Tabs.Tab>
-  <Tabs.Tab>
-    ```js copy
-    const axios = require('axios');
+```python Python (requests)
+import requests
 
-    const quoteId = '15tyyba81-f71a-76ha-b579-xxxxxxxxxxxxx';
+quote_id = "15tyyba81-f71a-76ha-b579-xxxxxxxxxxxxx"
+url = f"{{baseURL}}/v1/quote/{quote_id}"
+headers = {
+    "x-api-key": "YOUR_API_KEY",
+    "Content-Type": "application/json",
+}
 
-    axios.get(`{{baseURL}}/v1/quote/${quoteId}`, {
-      headers: {
-        'x-api-key': 'YOUR_API_KEY',
-        'Content-Type': 'application/json'
-      },
-      timeout: 30000
-    })
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.error('API error:', error.response.data);
-        } else {
-          console.error('Request error:', error.message);
-        }
-      });
-    ```
-  </Tabs.Tab>
-</Tabs>
+response = requests.get(url, headers=headers, timeout=30)
+response.raise_for_status()
+print(response.json())
+```
+```js Node.js (axios)
+const axios = require('axios');
+
+const quoteId = '15tyyba81-f71a-76ha-b579-xxxxxxxxxxxxx';
+
+axios.get(`{{baseURL}}/v1/quote/${quoteId}`, {
+  headers: {
+    'x-api-key': 'YOUR_API_KEY',
+    'Content-Type': 'application/json'
+  },
+  timeout: 30000
+})
+  .then((response) => {
+    console.log(response.data);
+  })
+  .catch((error) => {
+    if (error.response) {
+      console.error('API error:', error.response.data);
+    } else {
+      console.error('Request error:', error.message);
+    }
+  });
+```
+</CodeGroup>
 
 ## Successful response
 

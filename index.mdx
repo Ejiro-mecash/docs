@@ -1,137 +1,136 @@
 ---
-title: Introduction
+title: "Welcome"
+description: "Your starting point for building with the meCash API platform."
+mode: custom
 ---
 
-Welcome to the meCash API Docs! 
+<div
+  style={{
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '4rem',
+    padding: '4rem 0',
+    maxWidth: '1100px',
+    margin: '0 auto'
+  }}
+>
+  <section style={{ textAlign: 'center', display: 'grid', gap: '1.5rem' }}>
+    <span style={{ fontSize: '0.975rem', fontWeight: 600, color: '#9747FF' }}>
+      meCash Developer Hub
+    </span>
+    <h1 style={{ fontSize: '2.75rem', fontWeight: 700, color:'#fffff', margin: 0 }}>
+      Ship global payouts, wallets, and collections faster.
+    </h1>
+    <p style={{ fontSize: '1.125rem', color: '#4b4b57', margin: '0 auto', maxWidth: '620px' }}>
+      Build real-time money movement into your product with clear guides, OpenAPI references,
+      and prebuilt examples. Move from sandbox to production-ready integrations in hours, not weeks.
+    </p>
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        gap: '1rem',
+        flexWrap: 'wrap'
+      }}
+    >
+      <a
+        href="/quickstart"
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '0.9rem 1.6rem',
+          borderRadius: '999px',
+          background: '#9747FF',
+          color: '#fff',
+          fontWeight: 600,
+          textDecoration: 'none'
+        }}
+      >
+        Start in Sandbox
+      </a>
+      <a
+        href="/api-reference/introduction"
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '0.9rem 1.6rem',
+          borderRadius: '999px',
+          border: '1px solid #d0c4ff',
+          color: '#5236a2',
+          fontWeight: 600,
+          textDecoration: 'none',
+          background: '#ffffff'
+        }}
+      >
+        Explore API Reference
+      </a>
+    </div>
+  </section>
 
-Our RESTful API provides the tools to build sophisticated financial applications, from processing instant global payouts to managing multi-currency digital wallets.
+  <section>
+    <h2 style={{ fontSize: '1.9rem', fontWeight: 700, textAlign: 'center', marginBottom: '2rem' }}>
+      Navigate the Docs
+    </h2>
+    <CardGroup cols={4}>
+      <Card title="Getting Started" icon="rocket" href="/quickstart">
+        Create your workspace, secure your credentials, and verify IPs before your first request.
+      </Card>
+      <Card title="Documentation" icon="book" href="/documentation-overview">
+        Learn how wallets, quotes, payouts, and virtual accounts work together across flows.
+      </Card>
+      <Card title="API Reference" icon="code" href="/api-reference/introduction">
+        Browse every endpoint schema, test requests in the playground, and grab ready-made examples.
+      </Card>
+      <Card title="Resources" icon="lifebuoy" href="/faq">
+        Tap into FAQs, troubleshooting guides, and support channels whenever you need assistance.
+      </Card>
+    </CardGroup>
+  </section>
 
-This page highlights key concepts and points you to the resources you need to start building quickly.
+  <section>
+    <h2 style={{ fontSize: '1.9rem', fontWeight: 700, textAlign: 'center', marginBottom: '2rem' }}>
+      Launch a Use Case
+    </h2>
+    <CardGroup cols={2}>
+      <Card title="Manage Wallets" icon="wallet" href="/wallet-docs/wallet-overview">
+        Issue and monitor multi-currency wallets, sync balances, and reconcile funds across regions.
+      </Card>
+      <Card title="Lock in Rates" icon="calculator" href="/quote-docs/about-quote">
+        Generate guaranteed quotes with fee transparency and corridor-specific compliance rules.
+      </Card>
+      <Card title="Send Payouts" icon="money-bill-transfer" href="/payout-docs/payout">
+        Orchestrate bank transfers and mobile money payouts with detailed, corridor-specific recipes.
+      </Card>
+      <Card
+        title="Collect via Virtual Accounts"
+        icon="building-columns"
+        href="/virtual-accounts-docs/about-virtual-account"
+      >
+        Spin up static or dynamic collection accounts, automate notifications, and reconcile deposits seamlessly.
+      </Card>
+    </CardGroup>
+  </section>
 
-<CardGroup cols={1}>
-  <Card
-    title="Follow the Quickstart"
-    icon="rocket"
-    href="/quickstart"
-  >
-    Walk through account setup, security requirements, and your first API call in one guided flow.
-  </Card>
-</CardGroup>
-
-## Core Features
-
-meCash API provides comprehensive financial services through these main categories:
-
-<CardGroup cols={2}>
-  <Card title="FIAT API" icon="money-bill">
-    Process traditional currency transactions including:
-    - Multi-currency wallet management
-    - Currency conversion quotes
-    - Bank transfers and mobile money payouts
-    - Virtual account creation
-  </Card>
-  <Card title="RAMP API" icon="arrows-rotate">
-    Handle cryptocurrency operations:
-    - Crypto-to-crypto conversions
-    - Fiat-to-crypto onramp/offramp
-    - Gas fee estimation
-    - Blockchain address validation
-  </Card>
-</CardGroup>
-
-## Before Your First Call
-
-Keep these critical concepts in mind.
-
-<CardGroup cols={2}>
-  <Card title="Authentication" icon="lock">
-    All requests must include an `x-api-key` header with your secret key.
-    
-    ```bash
-    x-api-key: YOUR_API_KEY
-    ```
-  </Card>
-  <Card title="Environments" icon="arrows-split">
-    Two environments are available for development and production:
-    - **Production**: `https://api.me-cash.com` - For live transactions
-    - **Sandbox**: `https://sandboxapi.me-cash.com` - For testing and development
-    
-    <Note>Use sandbox for testing, production for real transactions.</Note>
-  </Card>
-</CardGroup>
-
-## API Response Format
-
-All meCash API responses follow a consistent format:
-
-```json
-{
-  "status": "success",
-  "message": "Operation completed successfully",
-  "data": {
-    // Response data here
-  }
-}
-```
-
-## Error Handling
-
-API errors include detailed information to help with debugging:
-
-```json
-{
-  "status": "error",
-  "errorCode": "INVALID_API_KEY",
-  "message": "The provided API key is invalid",
-  "details": "Additional error context"
-}
-```
-
-## Rate Limits
-
-- **Standard Rate Limit**: 100 requests per minute per API key.
-- **Burst Limit**: 10 requests per second.
-- **Webhook Rate Limit**: 1000 events per minute.
-
-<Warning>Exceeding rate limits will result in 429 Too Many Requests errors.</Warning>
-
-## Need Help?
-
-We're here to support you. If you run into any issues, don't hesitate to reach out.
-
-<CardGroup cols={3}>
-  <Card
-    title="Email Support"
-    icon="envelope"
-    href="mailto:support@me-cash.com"
-  />
-  <Card
-    title="Discord Community"
-    icon="discord-logo"
-    href="https://discord.gg/Thbzep8297"
-  />
-  <Card
-    title="Updates on X"
-    icon="x-logo"
-    href="https://x.com/meCash14"
-  />
-</CardGroup>
-
-## Getting Started Examples
-
-Ready to dive in? Check out these practical examples:
-
-<CardGroup cols={2}>
-  <Card title="Create Your First Quote" icon="calculator" href="/quote/create-quote">
-    Learn how to generate currency conversion quotes for your users.
-  </Card>
-  <Card title="Process a Payout" icon="money-bill-transfer" href="/payout/create-payout">
-    Send money to bank accounts and mobile wallets worldwide.
-  </Card>
-  <Card title="Manage Wallets" icon="wallet" href="/wallet/get-all-wallets">
-    Create and manage multi-currency digital wallets.
-  </Card>
-  <Card title="View Examples" icon="code" href="/FIAT-API/payout/create-payout-examples/ngn-usd-example">
-    Explore detailed code examples for different use cases.
-  </Card>
-</CardGroup>
+  <section>
+    <h2 style={{ fontSize: '1.9rem', fontWeight: 700, textAlign: 'center', marginBottom: '2rem' }}>
+      Stay Connected
+    </h2>
+    <CardGroup cols={3}>
+      <Card title="Sitemap" icon="list" href="/sitemap">
+        Jump to any page instantly with a searchable index of every guide, reference, and support doc.
+      </Card>
+      <Card title="Webhook Center" icon="bell" href="/webhook/webhook">
+        Secure your event handler with signature validation, retry logic, and payload walkthroughs.
+      </Card>
+      <Card
+        title="Need a Hand?"
+        icon="envelope"
+        href="mailto:support@me-cash.com"
+      >
+        Contact the support team or hop into the community to collaborate with fellow meCash builders.
+      </Card>
+    </CardGroup>
+  </section>
+</div>

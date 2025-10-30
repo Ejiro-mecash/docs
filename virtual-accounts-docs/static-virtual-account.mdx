@@ -57,43 +57,39 @@ Static accounts provide a permanent bank account number that routes funds into y
 
 ## Request examples
 
-<Tabs items={['Nigeria (NGN)', 'Malawi (MWK)']}>
-  <Tabs.Tab>
-    ```bash copy
-    curl --request POST '{{baseURL}}/v1/virtual-account' \
-      --header 'x-api-key: YOUR_API_KEY' \
-      --header 'Content-Type: application/json' \
-      --data '{
-        "currency": "NGN",
-        "country": "NG",
-        "firstName": "Jumoke",
-        "lastName": "Dumebi",
-        "email": "example@email.com",
-        "phoneNumber": "+23481345XXXX",
-        "bvn": "12345678901",
-        "reference": "000023456X",
-        "accountName": "Jumoke Dumebi"
-      }'
-    ```
-  </Tabs.Tab>
-  <Tabs.Tab>
-    ```bash copy
-    curl --request POST '{{baseURL}}/v1/virtual-account' \
-      --header 'x-api-key: YOUR_API_KEY' \
-      --header 'Content-Type: application/json' \
-      --data '{
-        "currency": "MWK",
-        "country": "MW",
-        "firstName": "Corrine",
-        "lastName": "Schinner",
-        "email": "kathl@example.com",
-        "phoneNumber": "+265813XXXXXX",
-        "reference": "000033556X",
-        "accountName": "Kathleen Langosh"
-      }'
-    ```
-  </Tabs.Tab>
-</Tabs>
+<CodeGroup>
+```bash Nigeria (NGN)
+curl --request POST '{{baseURL}}/v1/virtual-account' \
+  --header 'x-api-key: YOUR_API_KEY' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "currency": "NGN",
+    "country": "NG",
+    "firstName": "Jumoke",
+    "lastName": "Dumebi",
+    "email": "example@email.com",
+    "phoneNumber": "+23481345XXXX",
+    "bvn": "12345678901",
+    "reference": "000023456X",
+    "accountName": "Jumoke Dumebi"
+  }'
+```
+```bash Malawi (MWK)
+curl --request POST '{{baseURL}}/v1/virtual-account' \
+  --header 'x-api-key: YOUR_API_KEY' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "currency": "MWK",
+    "country": "MW",
+    "firstName": "Corrine",
+    "lastName": "Schinner",
+    "email": "kathl@example.com",
+    "phoneNumber": "+265813XXXXXX",
+    "reference": "000033556X",
+    "accountName": "Kathleen Langosh"
+  }'
+```
+</CodeGroup>
 
 ## Successful response
 

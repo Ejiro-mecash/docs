@@ -43,7 +43,6 @@ All payout requests use `multipart/form-data` with a `transaction` field contain
 ### 1. Nigerian Naira (NGN) Payout
 
 <CodeGroup>
-
 ```bash cURL
 curl --location '{{baseURL}}/v2/payout' \
 --header 'x-api-key: YOUR_API_KEY' \
@@ -133,13 +132,11 @@ files = {
 response = requests.post(url, headers=headers, files=files)
 print(response.json())
 ```
-
 </CodeGroup>
 
 ### 2. US Dollar (USD) Payout
 
 <CodeGroup>
-
 ```bash cURL
 curl --location '{{baseURL}}/v2/payout' \
 --header 'x-api-key: YOUR_API_KEY' \
@@ -232,13 +229,11 @@ files = {
 response = requests.post(url, headers=headers, files=files)
 print(response.json())
 ```
-
 </CodeGroup>
 
 ### 3. Chinese Yuan (CNY) - Alipay Payout
 
 <CodeGroup>
-
 ```bash cURL
 curl --location '{{baseURL}}/v2/payout' \
 --header 'x-api-key: YOUR_API_KEY' \
@@ -328,7 +323,6 @@ files = {
 response = requests.post(url, headers=headers, files=files)
 print(response.json())
 ```
-
 </CodeGroup>
 
 ## Request Parameters Reference
