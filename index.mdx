@@ -14,63 +14,32 @@ mode: custom
     margin: '0 auto'
   }}
 >
-  <section style={{ textAlign: 'center', display: 'grid', gap: '1.5rem' }}>
-    <span style={{ fontSize: '0.975rem', fontWeight: 600, color: '#9747FF' }}>
-      meCash Developer Hub
-    </span>
-    <h1 style={{ fontSize: '2.75rem', fontWeight: 700, color:'#fffff', margin: 0 }}>
-      Ship global payouts, wallets, and collections faster.
-    </h1>
-    <p style={{ fontSize: '1.125rem', color: '#4b4b57', margin: '0 auto', maxWidth: '620px' }}>
-      Build real-time money movement into your product with clear guides, OpenAPI references,
-      and prebuilt examples. Move from sandbox to production-ready integrations in hours, not weeks.
-    </p>
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        gap: '1rem',
-        flexWrap: 'wrap'
-      }}
-    >
-      <a
-        href="/quickstart"
-        style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: '0.9rem 1.6rem',
-          borderRadius: '999px',
-          background: '#9747FF',
-          color: '#fff',
-          fontWeight: 600,
-          textDecoration: 'none'
-        }}
-      >
-        Start in Sandbox
-      </a>
-      <a
-        href="/api-reference/introduction"
-        style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: '0.9rem 1.6rem',
-          borderRadius: '999px',
-          border: '1px solid #d0c4ff',
-          color: '#5236a2',
-          fontWeight: 600,
-          textDecoration: 'none',
-          background: '#ffffff'
-        }}
-      >
-        Explore API Reference
-      </a>
+  <section className="hero-gradient">
+    <div className="hero-copy">
+      <span className="hero-kicker" style={{ color: '#000000' }}>meCash Developer Hub</span>
+      <h1 className="hero-title" style={{ color: '#000000' }}>
+        Make global payouts, wallets, and collections faster.
+      </h1>
+      <p className="hero-subtitle" style={{ color: '#000000' }}>
+        Build real-time money movement into your product with clear guides, OpenAPI references,
+        and prebuilt examples. Move from sandbox to production-ready integrations in hours, not weeks.
+      </p>
+      <div className="hero-actions">
+        <a className="hero-primary" href="/quickstart">
+          Let's get started
+        </a>
+        <a className="hero-secondary" href="wallet/get-all-wallets">
+          Explore API Reference
+        </a>
+      </div>
+    </div>
+    <div className="hero-illustration">
+      <img className="hero-illustration-dark" src="public/images/code-banner.png" alt="Purple document illustration" />
     </div>
   </section>
 
   <section>
-    <h2 style={{ fontSize: '1.9rem', fontWeight: 700, textAlign: 'center', marginBottom: '2rem' }}>
+    <h2 className="section-title centered">
       Navigate the Docs
     </h2>
     <CardGroup cols={4}>
@@ -83,14 +52,14 @@ mode: custom
       <Card title="API Reference" icon="code" href="/api-reference/introduction">
         Browse every endpoint schema, test requests in the playground, and grab ready-made examples.
       </Card>
-      <Card title="Resources" icon="lifebuoy" href="/faq">
+      <Card title="Resources" icon="question" href="/faq">
         Tap into FAQs, troubleshooting guides, and support channels whenever you need assistance.
       </Card>
     </CardGroup>
   </section>
 
   <section>
-    <h2 style={{ fontSize: '1.9rem', fontWeight: 700, textAlign: 'center', marginBottom: '2rem' }}>
+    <h2 className="section-title centered">
       Launch a Use Case
     </h2>
     <CardGroup cols={2}>
@@ -114,22 +83,30 @@ mode: custom
   </section>
 
   <section>
-    <h2 style={{ fontSize: '1.9rem', fontWeight: 700, textAlign: 'center', marginBottom: '2rem' }}>
-      Stay Connected
+    <h2 className="section-title centered">
+      Need a Hand?
     </h2>
     <CardGroup cols={3}>
-      <Card title="Sitemap" icon="list" href="/sitemap">
-        Jump to any page instantly with a searchable index of every guide, reference, and support doc.
-      </Card>
-      <Card title="Webhook Center" icon="bell" href="/webhook/webhook">
-        Secure your event handler with signature validation, retry logic, and payload walkthroughs.
+      <Card
+        title="Join the Community"
+        icon="users"
+        href="https://discord.com/invite/CC5v6h52Wk"
+      >
+        Chat with the meCash team and other builders in our Discord server for quick tips and support.
       </Card>
       <Card
-        title="Need a Hand?"
+        title="Follow Updates on X"
+        icon="message-circle"
+        href="https://x.com/mecash14"
+      >
+        Stay in the loop on releases, maintenance windows, and product highlights directly on X (Twitter).
+      </Card>
+      <Card
+        title="Email Support"
         icon="envelope"
         href="mailto:support@me-cash.com"
       >
-        Contact the support team or hop into the community to collaborate with fellow meCash builders.
+        Prefer email? Reach the support team anytime at support@me-cash.com for tailored assistance.
       </Card>
     </CardGroup>
   </section>

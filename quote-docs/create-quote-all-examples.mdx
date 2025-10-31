@@ -1,8 +1,8 @@
 ---
-title: 'Create Quote Examples'
+title: 'Quote Examples'
 ---
 
-Use the samples below to experiment with the [`POST /v1/quote`](/quote-docs/create-quote) endpoint. Each tab shows the request payload and the success response for a different corridor.
+Use the samples below to experiment with the [`POST /v1/quote`](/quote/create-quote) endpoint. Each tab shows the request payload and the success response for a different corridor.
 
 ## Endpoint
 
@@ -182,9 +182,7 @@ curl --request POST '{{baseURL}}/v1/quote' \
 
 ## Response field reference
 
-<Callout type="info" emoji="ℹ️">
-  Quotes expire 10 minutes after creation unless otherwise stated. If `expiresInSeconds` hits zero, request a new quote.
-</Callout>
+<Note>Quotes expire 10 minutes after creation unless otherwise stated. If `expiresInSeconds` hits zero, request a new quote.</Note>
 
 ### General attributes
 

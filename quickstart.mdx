@@ -3,7 +3,16 @@ title: "Quickstart Guide"
 description: "Get started with meCash API in minutes"
 ---
 
-## Get started with meCash API in 4 steps
+## Before you begin
+
+Make sure you have:
+
+- A registered [meCash Business](https://business.me-cash.com) account for your company.
+- Legal and compliance documents handy (KYB form, director IDs, proof of address, BVN).
+- A dedicated IP address or CIDR block for outbound traffic.
+- A publicly reachable HTTPS endpoint that can receive webhook events.
+
+## Get started with meCash API in 5 steps
 
 Follow this quickstart guide to integrate meCash API into your application.
 
@@ -19,27 +28,34 @@ Follow this quickstart guide to integrate meCash API into your application.
       />
     </Frame>
 
-    1. Visit [meCash Business](https://business.me-cash.com)
-    2. Click **Sign Up** and complete the registration form
-    3. Verify your email address
-    4. Complete KYB (Know Your Business) verification
-    
-    <Tip>KYB verification is required to access API services.</Tip>
+    1. Visit [meCash Business](https://business.me-cash.com).
+    2. Select **Sign Up**, complete the registration form, and set a strong password.
+    3. Verify your email address to unlock the dashboard.
+    4. Assign teammates under **Team Management** so they can collaborate.
+
   </Accordion>
   <Accordion icon="shield-check" title="Complete KYB Verification">
-    Submit the required documents:
-    - Business registration certificate
-    - Valid ID of business director
-    - Proof of address
-    
-    <Warning>Your API access will be enabled after KYB approval.</Warning>
+    - Fill out the KYB form in full—partial submissions delay approvals.
+    - Upload clear copies of:
+        - Business registration certificate
+        - Valid government-issued ID for the business director
+        - Recent proof of address (utility bill or bank statement)
+
+    <Warning>The first and last name on the form must match the BVN you submit.</Warning>
+  </Accordion>
+
+  <Accordion icon="wallet" title="Activate your NGN virtual account">
+    - Provide your BVN for account verification to unlock an NGN account.
+    - Once approved, the account details appear under **Accounts → NGN**.
+
+    <Tip>The BVN name must exactly match the first and last name submitted in KYB.</Tip>
   </Accordion>
 </AccordionGroup>
 
-### Step 2: Get Your API Keys
+### Step 2: Generate Your API Keys
 
 <AccordionGroup>
-  <Accordion icon="key" title="Generate API Key">
+  <Accordion icon="key" title="Create a sandbox API key">
     <Frame>
       <img
         src="public/images/api-key-1.png"
@@ -48,18 +64,20 @@ Follow this quickstart guide to integrate meCash API into your application.
       />
     </Frame>
 
-    1. Log into your meCash Business dashboard
-    2. From the sidebar, open **Developers → API Keys**
-    3. Click **Create a Key** (ensure the Sandbox environment is selected)
-    4. Copy and securely store your API key
-    
-    <Tip>Keep your API key secure and never share it publicly.</Tip>
+    1. Log in to the meCash Business dashboard.
+    2. Open **Developers → API Keys**.
+    3. Confirm the **Sandbox** environment is selected, then click **Create a Key**.
+    4. Label the key to match your environment and copy it to your secrets manager.
+
+    <Tip>Never expose API keys in client-side code or public repos.</Tip>
   </Accordion>
   <Accordion icon="arrows-split" title="Environment Setup">
-    - **Production**: `https://api.me-cash.com` - For live transactions
-    - **Sandbox**: `https://sandboxapi.me-cash.com` - For testing and development
-    
-    <Note>Use sandbox for testing your integration before going live.</Note>
+    From the dashboard you can toggle between the sandbox and production environments.
+    The environment URLs are:
+      - **Production**: `https://api.me-cash.com` - For live transactions.
+      - **Sandbox**: `https://sandboxapi.me-cash.com` - For testing and development.
+
+    <Note>Request a production key after KYB approval and final testing.</Note>
   </Accordion>
 </AccordionGroup>
 
@@ -74,29 +92,90 @@ Follow this quickstart guide to integrate meCash API into your application.
     />
   </Frame>
 
-  1. Go to **Developer** section in your dashboard
-  2. Navigate to **IP Whitelisting**
-  3. Add your server's IP addresses
-  4. Save the configuration
+  1. Go to **Developer** section in your dashboard.
+  2. Navigate to **IP Whitelisting**.
+  3. Add your outbound server IPs or CIDR ranges.
+  4. Save the configuration.
   
-  <Warning>API calls will be rejected from non-whitelisted IPs.</Warning>
+  <Warning>Calls from non-whitelisted IPs are rejected automatically.</Warning>
+</Accordion> 
+
+### Step 4: Set up your webhook
+
+<Accordion icon="gear" title="Configure Your Webhook in the Dashboard">
+  <AccordionGroup>
+    <Accordion icon="compass-drafting" title="Navigate to the Webhooks page">
+      In the **Developers** section of your meCash dashboard, select **Webhooks** from the left-hand menu to review existing endpoints and create new ones.
+      <Frame>
+        <img
+          src="public/images/webhooks2.png"
+          alt="Developers dashboard highlighting the Webhooks navigation item"
+          style={{ borderRadius: '0.75rem' }}
+        />
+      </Frame>
+    </Accordion>
+    <Accordion icon="plus" title="Create a new webhook">
+      Click the **Create Webhook** button at the top-right corner to launch the configuration modal for a new endpoint.
+      <Frame>
+        <img
+          src="public/images/webhooks.png"
+          alt="Create webhook dialog in the meCash dashboard"
+          style={{ borderRadius: '0.75rem' }}
+        />
+      </Frame>
+    </Accordion>
+    <Accordion icon="link" title="Provide your webhook URL">
+      - Enter the publicly accessible **URL** where you want to receive webhook events.<br />
+      - Ensure the endpoint accepts HTTPS POST requests and responds within 10 seconds.<br />
+      - Return an HTTP **2XX** status code to acknowledge receipt and prevent retries.
+      <Frame>
+        <img
+          src="public/images/Screenshot202316.png"
+          alt="Webhook configuration form requesting callback URL"
+          style={{ borderRadius: '0.75rem' }}
+        />
+      </Frame>
+    </Accordion>
+    <Accordion icon="circle-check" title="Confirm and monitor delivery">
+      After clicking **Confirm**, your webhook appears in the list with its current status. Use the dashboard to pause, resume, rotate the signing secret, or trigger test events whenever you need a validation payload.
+    </Accordion>
+  </AccordionGroup>
 </Accordion>
 
-### Step 4: Make Your First API Call
+
+### Step 5: Make Your First API Call
 
 <Accordion icon="code" title="Test API Connection">
 
-  Try this simple request to test your setup:
+  Start by listing wallets in the sandbox to confirm connectivity:
 
-  ```bash
-  # Test with sandbox environment
-  curl -X GET "https://sandboxapi.me-cash.com/v1/wallets" \
-    -H "x-api-key: YOUR_API_KEY" \
-    -H "Content-Type: application/json"
+  ```bash title="List wallets in sandbox"
+  export MCASH_API_KEY="YOUR_SANDBOX_API_KEY"
+
+  curl -sS https://sandboxapi.me-cash.com/v1/wallets \
+    -H "Content-Type: application/json" \
+    -H "x-api-key: $MCASH_API_KEY"
   ```
 
-  <Tip>Replace `YOUR_SANDBOX_API_KEY` with your sandbox API key. Use sandbox for testing!</Tip>
+  A successful call returns a `200` response with your available wallets:
+
+  ```json title="Example response"
+  {
+    "data": [
+      {
+        "wallet_id": "WALLET-12345",
+        "currency": "NGN",
+        "balance": "0.00"
+      }
+    ]
+  }
+  ```
+
+  <Tip>Keep sandbox and production keys separate. Rotate keys periodically via the dashboard.</Tip>
 </Accordion>
+
+
+
 
 ## Next steps
 
@@ -116,7 +195,7 @@ Now that you have basic setup complete, explore these key features:
   Create and manage multi-currency wallets.
 </Card>
 
-<Card title="Handle Webhooks" icon="webhook" href="/api-reference/endpoint/webhook">
+<Card title="Create Virtual Account" icon="account" href="/virtual-account-docs/about-virtual-account">
   Set up real-time transaction notifications.
 </Card>
 

@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "palm",
+  "theme": "mint",
   "name": "meCash API Reference",
   "api": {
     "playground": {
@@ -33,7 +33,7 @@
     }
   },
   "colors": {
-    "primary": "#9747FF",
+    "primary": "#240552",
     "light": "#F8F2FC",
     "dark": "#240552"
   },
@@ -80,7 +80,9 @@
             "group": "Quotes",
             "pages": [
               "quote-docs/about-quote",
-              "quote-docs/supported-curriencies"
+              "quote-docs/supported-curriencies",
+              "quote-docs/create-quote-all-examples"
+
             ]
           },
           {
@@ -220,7 +222,8 @@
   },
   "logo": {
     "light": "/logo/dark.png",
-    "dark": "/logo/light.png"
+    "dark": "/logo/light.png",
+    "height": 42
   },
   "navbar": {
     "links": [

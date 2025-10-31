@@ -5,9 +5,7 @@ title: 'How Quotes Works'
 
 The **meCash Quote API** returns a guaranteed exchange rate, fee breakdown, and settlement summary before you send money. Presenting this data to your users builds trust and prevents surprises when they confirm a payout.
 
-<Callout type="info" emoji="ℹ️">
-  Every quote response contains a `quoteId`. You must send the same ID when creating a payout so the locked-in rate, fees, and rules are applied.
-</Callout>
+<Tip> Every quote response contains a `quoteId`. You must send the same ID when creating a payout so the locked-in rate, fees, and rules are applied.</Tip>
 
 ## Quote lifecycle
 
@@ -45,7 +43,7 @@ Store the quote and prompt the user to continue to payout before it expires (`ex
   <summary>Watch the in-product experience</summary>
   <Bleed full>
     <iframe
-      src="/meCash.mp4"
+      src="public/images/meCash.mp4"
       width="100%"
       height="480px"
       title="meCash Quote flow demo"
@@ -57,7 +55,7 @@ Store the quote and prompt the user to continue to payout before it expires (`ex
 
 - **Totals**: Exchange rate, fee breakdown, and target currency amount.
 - **Rules**: Corridor limits and compliance requirements that applied.
-- **Expiry**: `expiresInSeconds` tells you how long the quote remains valid.
+- **Expiry**: `expiresInSeconds` tells you how long the quote remains valid. Quotes expire 10 minutes after creation unless otherwise stated in the response.
 
 If the quote expires or fails validation, the payout endpoint returns an error. Refresh the quote and retry the payout with the new `quoteId`.
 
