@@ -64,7 +64,7 @@ Dynamic accounts are highly effective for managing one-to-one payments.
 
 ### Custom naming behavior
 
-If you provide an `name`, the same string is applied to the newly created dynamic account. When the field is not supplied, we automatically use the workspace’s registered business name.
+If you provide a `accountName`, the same string is applied to the newly created dynamic account. When the field is not supplied, we automatically use the workspace’s registered business name.
 
 <CodeGroup>
 ```json Request
@@ -74,7 +74,7 @@ If you provide an `name`, the same string is applied to the newly created dynami
   "amount": 150,
   "duration": 30,
   "reference": "TXN_REF_DYNAMIC_12345678",
-  "name": "Spar Ikorodu"
+  "accountName": "Spar Ikorodu"
 }
 ```
 ```json Response
@@ -120,7 +120,7 @@ curl --request POST '{{baseURL}}/v1/virtual-account/dynamic' \
     "amount": 5000,
     "duration": 30,
     "reference": "TXN_REF_DYNAMIC_12345678"
-    "name": "Spar Ikorodu"
+    "accountName": "Spar Ikorodu"
   }'
 ```
 ```bash Malawi (MWK)
@@ -211,7 +211,7 @@ Check [`webhooks-event`](/webhooks-event) for payload schemas and signature veri
 
 ## Best practices
 
-- Pass `name` when you need customer-facing labeling (campaigns, store fronts). Skip it to fall back to your registered business name automatically.
+- Pass `accountName` when you need customer-facing labeling (campaigns, store fronts). Skip it to fall back to your registered business name automatically.
 - Use a unique `reference` per transaction to keep your ledger idempotent.
 - Expire accounts as soon as the invoice is paid by deleting or ignoring them once you receive the webhook.
 - Display a countdown timer in your UI using the `expiryTime` so payers know when the account will close.
