@@ -1344,7 +1344,7 @@
           "amount",
           "duration",
           "reference",
-          "accountName"
+          "name"
         ],
         "properties": {
           "currency": {
@@ -1370,7 +1370,7 @@
             "type": "string",
             "description": "A unique reference for the transaction."
           },
-          "accountName": {
+          "name": {
             "type": "string",
             "description": "The name of the account."
           }
@@ -2609,7 +2609,7 @@
                     "amount": 5000,
                     "duration": 30,
                     "reference": "TXN_REF_DYNAMIC_12345678",
-                    "accountName": "Spar Ikorodu"
+                    "name": "Spar Ikorodu"
                   }
                 },
                 "MWK_Example": {

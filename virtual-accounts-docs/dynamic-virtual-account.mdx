@@ -183,10 +183,10 @@ curl --request POST '{{baseURL}}/v1/virtual-account/dynamic' \
 | data.account.bankName | string | Name of the bank |
 | data.account.sortCode | string | Bank sort code |
 | data.account.number | string | Virtual account number |
-| data.status | string | Virtual account status |
+| data.status | string | Value for virtual account type |
 | data.currency | string | Currency code (NGN) |
 | data.country | string | Country code (NG) |
-| data.isPermanent | boolean | Value for virtual account type. 'ACTIVE' for Dynamic Virtual Accounts , 'INACTIVE' for Static Virtual Accounts |
+| data.isPermanent | boolean | Either True or False depending on the account type |
 | data.expiryTime | number | Account expiry timestamp in milliseconds |
 | data.created | string | Account creation timestamp in ISO format |
 
