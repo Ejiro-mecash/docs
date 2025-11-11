@@ -1349,11 +1349,14 @@
         "properties": {
           "currency": {
             "type": "string",
-            "description": "Currency code (e.g., `NGN`)."
+            "description": "Currency code (e.g., `NGN` or `MWK`).",
+            "enum": ["NGN", "MWK"]
           },
           "country": {
             "type": "string",
-            "description": "Country code (e.g., `NG`)."
+            "description": "Country code (e.g., `NG` or `MW`).",
+            "enum": ["NG", "MW"]
+            
           },
           "amount": {
             "type": "number",
@@ -1366,6 +1369,10 @@
           "reference": {
             "type": "string",
             "description": "A unique reference for the transaction."
+          },
+          "accountName": {
+            "type": "string",
+            "description": "The name of the account."
           }
         }
       },
