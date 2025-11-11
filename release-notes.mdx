@@ -1,0 +1,219 @@
+---
+title: "Release Notes"
+description: "Track what changed across the meCash API, Web Dashboard, and Mobile SDKs."
+---
+
+Stay on top of changes that could impact your integration. Each section lists the latest production releases for the API, Web Dashboard, and Mobile SDKs along with rollout guidance.
+
+<Note>
+  Looking for something earlier? Reach out to <a href="mailto:support@me-cash.com">support@me-cash.com</a> and we can share archived notes.
+</Note>
+
+## How to read these notes
+
+- **Status** clarifies whether the update is fully live or rolling out.
+- **Action needed** highlights anything developers must do (schema updates, new scopes, SDK upgrades, etc.).
+- **Heads-up** calls out upcoming deprecations so you can plan ahead.
+
+<Tabs>
+  <Tab title="API">
+  
+  ## API Platform
+
+  ### October 2025 — Platform Release (Status: Live)
+
+  - Added new outbound payment routes so you can reach more corridors without custom onboarding—check the API Reference for the latest supported `destinationCountry` values.
+  - `accountName` is now supported on dynamic virtual account creation, letting you assign customer-friendly names; when omitted, we automatically fall back to your registered business name.
+  
+  **Action needed:** Pass `accountName` anywhere you need campaign- or store-specific labeling, and refresh your routing matrix to take advantage of the new payout corridors.
+  
+  ### July 12, 2024 — v1.18.0 (Status: Live)
+  
+  - Added `preferred_settlement_currency` to the Quote API so you can lock settlement currency per request.
+  - Introduced idempotency keys on `POST /payouts` to prevent accidental duplicate payouts during retries.
+  - Improved webhook retries with exponential backoff (up to 8 attempts) and clearer `x-mecash-signature` error messaging.
+  
+  **Action needed:** Update your API client to send the new `Idempotency-Key` header where automated retries exist.
+  
+  ### June 06, 2024 — v1.17.2 (Status: Live)
+  
+  - Expanded the Transaction API filter set with `status[]=reversed|failed`.
+  - `/wallets/{id}` now returns a `last_reconciled_at` timestamp for internal audit trails.
+  - Sandbox now mirrors production rate-limit headers for easier performance testing.
+  
+  ### Coming soon
+  
+  - Heads-up: Legacy webhook signing secrets (`HMAC-SHA1`) retire on **Aug 30, 2024**. Rotate to the SHA256-based secret under *Developers → Webhooks*.
+  
+  </Tab>
+  <Tab title="Web">
+  
+  ## Web Dashboard
+  
+  ### October 2025 — Web App Release (Status: Live)
+  
+  **New features**
+  
+  - Launched the rebuilt [meCash Developer Hub](https://developer.me-cash.com/) with guided quickstarts, an interactive API explorer, real-world use cases, and centralized support links so teams can ship integrations faster.
+  
+  ### September 2025 — Web App Release (Status: Live)
+  
+  **New features**
+  
+  - Added a persistent Halt Payout banner that disables **Send/Transfer** whenever payouts, on-ramps, or off-ramps are paused, including tooltips that explain the outage.
+  - Introduced scheduled maintenance banners so users know when services are temporarily suspended and when they will resume.
+  - Expanded Canadian payout flows with validated input fields for institution number, transit number, and SWIFT/BIC to reduce submission errors.
+  - Rolled out responsive in-app notification pop-ups for critical announcements such as payment provider changes.
+  
+  **Improvements**
+  
+  - Hardened deployment processes to keep all API endpoints online during releases.
+  - Removed gas fees from Off-Ramp and crypto-to-crypto flows and updated withdrawal/confirmation screens accordingly.
+  - Enhanced sign-up validation to mask whether an email already exists.
+  - Refreshed trust indicators to highlight meCash’s Circle Alliance certification.
+  
+  **Bug fixes**
+  
+  - Cleared stale “Reason for Payment” selections after logout.
+  - Fixed navigation on crypto withdrawals that previously redirected to the wrong quote page.
+  - Resolved KYB submission timeouts and incorrect country-code defaults.
+  - Corrected country/currency display issues on the public calculator.
+  - Fixed intermittent CORS errors observed during login.
+  
+  ### August 2025 — Web App Release (Status: Live)
+  
+  **What's new**
+  
+  - Added a dedicated OTC page for bespoke trades plus the ability to delete saved beneficiaries.
+  - Published a user-facing maintenance mode page that communicates downtime status in real time.
+  
+  **Enhancements**
+  
+  - Clarified Send Money fee breakdowns and optimized the mobile-web experience.
+  - Disabled the **Continue** button until a payment reason is selected to avoid accidental submissions.
+  
+  **Bug fixes**
+  
+  - Fixed crashes triggered by session timeouts.
+  - Resolved the “Something Went Wrong” server error on the Send Money screen.
+  
+  ### July 2025 — Web App Release (Status: Live)
+  
+  **What's new**
+  
+  - Enabled Malawi (MKW) payouts directly from the web app for faster cross-border transfers.
+  
+  **Enhancements**
+  
+  - Updated the FAQ experience for clearer answers.
+  
+  **Bug fixes**
+  
+  - Corrected currency symbols so each wallet shows the appropriate denomination.
+  
+  ### July 05, 2024 — v2.9.0 (Status: Rolling out)
+  
+  - New real-time payout monitor with filtering by corridor and banking partner.
+  - Added downloadable audit exports (CSV) for wallet funding events.
+  - Redesigned *Developers → API Keys* to show per-environment permissions and last-used timestamps.
+  
+  **Action needed:** If you embed dashboard links inside internal tools, refresh any saved URLs because navigation paths changed.
+  
+  ### May 22, 2024 — v2.8.1 (Status: Live)
+  
+  - Faster KYB document review screen with side-by-side previews.
+  - Team Management now surfaces pending invitations and lets admins resend invites in bulk.
+  - Improved dark-mode contrast for data tables.
+  
+  ### Coming soon
+  
+  - Heads-up: The legacy navigation path `/developers/webhooks` will redirect to `/settings/webhooks` in Q3—update internal documentation accordingly.
+  
+  </Tab>
+  <Tab title="Mobile">
+  
+  ## Mobile SDKs
+  
+  ### September 2025 — Mobile Release (iOS 1.7.3 / Android 1.7.3) (Status: Live)
+  
+  **New features & improvements**
+  
+  - Expanded international payouts so you can capture richer payment details and send directly to UK (GBP), US (USD), and EU (EUR) bank accounts.
+  - Redesigned the Canadian transfer flow for a faster, more intuitive experience.
+  - Added support for Tanzania (TZS) wallet payouts to bank accounts or mobile money numbers.
+  - Updated the quote calculator to show the total debit amount (including fees) and warn when wallet balances are insufficient.
+  - Migrated the mobile app to the V2 payout endpoint, improving overall speed and reliability.
+  
+  **Bug fixes**
+  
+  - Funding transaction history now renders correctly.
+  - Fixed navigation that routed crypto wallet users to the wrong quote page.
+  - Bank search results refresh properly after clearing filters.
+  - Resolved KYB submission timeouts where the submit button spun indefinitely.
+  - Corrected KYB phone number country code defaulting to Afghanistan.
+  - Addressed an issue where the transaction PIN button became unresponsive during crypto-to-crypto transfers.
+  
+  ### August 2025 — Mobile Release (iOS 1.7.3 / Android 1.7.3) (Status: Live)
+  
+  **What's new**
+  
+  - Manage beneficiaries directly in-app, including deleting stale recipients.
+  - Introduced dynamic transaction limits starting with MKW to better match spending patterns.
+  
+  **Enhancements**
+  
+  - Long account names now display in full without truncation.
+  - The Send Money summary clearly outlines fees plus the total amount.
+  - Gas fees appear inline on transaction details whenever applicable.
+  
+  **Bug fixes**
+  
+  - Stricter recipient validation prevents saving incomplete or invalid bank details.
+  
+  ### July 2025 — Mobile Release (iOS 1.7.3 / Android 1.7.3) (Status: Live)
+  
+  **What's new**
+  
+  - Added Malawi (MKW) payouts so you can send funds directly from the app.
+  - Users can view how much of their transaction limit remains in real time.
+  
+  **Enhancements**
+  
+  - Refreshed FAQ content for clearer answers.
+  - Login error modals now surface an actionable **Okay** button instead of an unhelpful retry.
+  - Pop-ups can be dismissed by tapping outside the modal area.
+  
+  **Bug fixes**
+  
+  - Corrected wallet currency symbols so each wallet reflects its proper denomination.
+  
+  ### iOS v0.8.0 — June 28, 2024 (Status: Live)
+  
+  - Added biometric re-authentication before approving payouts initiated from mobile.
+  - Enhanced crash reporting with symbolicated stack traces for faster support escalation.
+  - Bundled the Quote widget so users can request FX rates without leaving the app.
+  
+  ### Android v0.7.3 — June 20, 2024 (Status: Live)
+  
+  - Introduced encrypted shared-preferences storage for JWT tokens.
+  - Improved push notification reliability when devices are on Doze mode.
+  - Updated Kotlin coroutines to `1.8.x`, reducing ANRs triggered by network calls.
+  
+  **Action needed:** Update the `mecash-mobile` dependency:
+  
+  ```gradle
+  implementation("com.mecash:sdk:0.7.3")
+  ```
+  
+  ### Coming soon
+  
+  - Sample app updates with Jetpack Compose and SwiftUI reference screens will land mid-August to showcase the new Quote widget flows.
+  
+  </Tab>
+</Tabs>
+
+---
+
+## Need an RSS feed?
+
+We do not publish release notes over RSS yet, but we are tracking interest. Let us know if a feed would help your automation workflows.

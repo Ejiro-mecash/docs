@@ -2,44 +2,57 @@
 title: 'Dynamic Virtual Account'
 ---
 
-Dynamic accounts are short-lived bank account numbers designed for one-time payments. They ensure funds match a specific amount and expire automatically after the window you define.
+Dynamic accounts are short-lived, one-time-use bank account numbers. They are designed to streamline payments by ensuring the funds received match a specific, expected amount. They automatically expire after a time limit you define.
 
-## Endpoint
+This is ideal for invoicing, one-time checkouts, or any scenario where you need to tie a payment directly to a specific transaction.
 
-**POST** `{{baseURL}}/v1/virtual-account/dynamic`
+### **Supported Corridors**
+meCash Dynamic accounts currently support: 
+- **Nigeria (NGN)**
+- **Malawi (MKW)**
 
-## Request headers
+## How it Works: The Transaction Flow
 
-| Header | Description | Required | Example |
-|--------|-------------|----------|---------|
-| `x-api-key` | Workspace API key tied to your environment. | ✅ Yes | `YOUR_API_KEY` |
-| `Content-Type` | Media type of the request. | ✅ Yes | `application/json` |
+This diagram shows the complete lifecycle of a dynamic virtual account, from creation to successful payment.
 
-## Request body
+```mermaid
+sequenceDiagram
+    participant M as Merchant's Server
+    participant A as meCash API
+    participant C as Customer
+    participant B as Bank
 
-```json copy
-{
-  "currency": "NGN",
-  "country": "NG",
-  "amount": 5000,
-  "duration": 30,
-  "reference": "TXN_REF_DYNAMIC_12345678"
-}
+    M->>+A: 1. POST /v1/virtual-account/dynamic
+    A-->>-M: 2. 200 OK (Account Details, ExpiryTime)
+    M->>C: 3. Display Account Number & Amount
+    C->>+B: 4. Pays into Dynamic Account
+    B->>+A: 5. Bank Notifies meCash of Payment
+    A->>M: 6. Webhook: virtualaccount.completed
+    M->>C: 7. Confirm Order / Grant Service
+
+    par Account Expiry
+        A->>A: Timer: Wait for 'duration'
+        alt No Payment Received
+            A->>A: Mark Account as EXPIRED
+            A->>M: Webhook: virtualaccount.failed (optional)
+        end
+    end
 ```
 
-### Field reference
+## Common Use Cases
 
-| Field | Type | Description | Required | Example |
-|-------|------|-------------|----------|---------|
-| `currency` | String | ISO 4217 code for the account currency. | ✅ Yes | `NGN` |
-| `country` | String | ISO 3166-1 alpha-2 code for the corridor. | ✅ Yes | `NG` |
-| `amount` | Number | Amount you expect to collect; payments must match this value. | ✅ Yes | `5000` |
-| `duration` | Integer | Lifetime of the account in minutes (minimum 1). | ✅ Yes | `30` |
-| `reference` | String | Unique string you control for idempotency. | ✅ Yes | `TXN_REF_DYNAMIC_12345678` |
+Dynamic accounts are highly effective for managing one-to-one payments.
 
-<Callout type="info" emoji="ℹ️">
-  Dynamic accounts currently support NGN (Nigeria) and MWK (Malawi). Choose the combination that matches the customer you’re invoicing.
-</Callout>
+- **E-commerce Checkouts**: Generate a unique account for every customer's cart. This provides a secure, one-time payment channel and simplifies reconciliation, as each successful payment maps directly to an order.
+
+- **Invoice Payments**: When issuing an invoice to a client, attach a dynamic account for the exact invoice amount. You'll get an instant webhook when it's paid, automating your accounts receivable.
+
+- **Event Ticketing**: Create a unique account for each ticket reservation. The account can expire after 15 minutes, automatically releasing the ticket back into the pool if not paid.
+
+- **Top-ups & Credits**: Assign a dynamic account for a user's wallet top-up request. Once paid, you can be certain the funds are for that specific user and credit their wallet automatically.
+
+
+
 
 <CardGroup cols={1}>
   <Card title="API Reference: Create Dynamic Virtual Account" icon="code" href="/virtual-account/create-dynamic-virtual-account">
@@ -48,6 +61,45 @@ Dynamic accounts are short-lived bank account numbers designed for one-time paym
 </CardGroup>
 
 ## Request examples
+
+### Custom naming behavior
+
+If you provide an `accountName`, the same string is applied to the newly created dynamic account. When the field is not supplied, we automatically use the workspace’s registered business name.
+
+<CodeGroup>
+```json Request
+{
+  "currency": "NGN",
+  "country": "NG",
+  "amount": 150,
+  "duration": 30,
+  "reference": "errfjgrrhvke",
+  "accountName": "Spar Ikorodu"
+}
+```
+```json Response
+{
+  "status": "SUCCESS",
+  "data": {
+    "noOfSuccessfulVirtualAccountCreation": 1,
+    "successfulVirtualAccounts": [
+      {
+        "payload": {
+          "durationInMinutes": "30",
+          "transactionAmount": "150",
+          "transactionReference": "errfjgrrhvke"
+        },
+        "virtualAccountNumber": "9990106443",
+        "virtualAccountName": "Spar Ikorodu"
+      }
+    ]
+  },
+  "message": "success"
+}
+```
+</CodeGroup>
+
+### Standard currency-specific examples
 
 <CodeGroup>
 ```bash Nigeria (NGN)
@@ -60,6 +112,7 @@ curl --request POST '{{baseURL}}/v1/virtual-account/dynamic' \
     "amount": 5000,
     "duration": 30,
     "reference": "TXN_REF_DYNAMIC_12345678"
+    "accountName": "Ikoko VI"
   }'
 ```
 ```bash Malawi (MWK)
@@ -72,6 +125,7 @@ curl --request POST '{{baseURL}}/v1/virtual-account/dynamic' \
     "amount": 10000,
     "duration": 45,
     "reference": "TXN_REF_DYNAMIC_98765432"
+    "accountName": "Spar Malawi"
   }'
 ```
 </CodeGroup>
@@ -88,9 +142,10 @@ curl --request POST '{{baseURL}}/v1/virtual-account/dynamic' \
     "account": {
       "bankName": "Sterling Bank",
       "sortCode": null,
-      "number": "8817835350"
+      "number": "8817835350",
+      "name": "Spar Ikorodu"
     },
-    "expiryTime": 1751221691,
+    "expiryTime": 30,
     "status": "ACTIVE",
     "currency": "NGN",
     "country": "NG",
@@ -104,6 +159,7 @@ curl --request POST '{{baseURL}}/v1/virtual-account/dynamic' \
 | Field | Type | Description |
 |-------|------|-------------|
 | `data.account.number` | String | Virtual account number customers will fund. |
+| `data.account.name` | String | Echoes the `accountName` you supplied (or your registered business name when the field was omitted). |
 | `data.expiryTime` | Number | Unix timestamp (seconds) when the account expires. |
 | `data.status` | String | Account status; becomes `EXPIRED` after the duration elapses. |
 | `data.reference` | String | Echo of the idempotency reference you sent. |
@@ -129,6 +185,7 @@ Check [`webhooks-event`](/webhooks-event) for payload schemas and signature veri
 
 ## Best practices
 
+- Pass `accountName` when you need customer-facing labeling (campaigns, store fronts). Skip it to fall back to your registered business name automatically.
 - Use a unique `reference` per transaction to keep your ledger idempotent.
 - Expire accounts as soon as the invoice is paid by deleting or ignoring them once you receive the webhook.
 - Display a countdown timer in your UI using the `expiryTime` so payers know when the account will close.

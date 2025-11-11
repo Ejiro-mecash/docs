@@ -209,6 +209,12 @@
         "tab": "Resources",
         "groups": [
           {
+            "group": "Release Notes",
+            "pages": [
+              "release-notes"
+            ]
+          },
+          {
             "group": "Support",
               "pages": [
                 "faq",
