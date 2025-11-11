@@ -1343,7 +1343,8 @@
           "country",
           "amount",
           "duration",
-          "reference"
+          "reference",
+          "accountName"
         ],
         "properties": {
           "currency": {
@@ -2600,7 +2601,8 @@
                     "country": "NG",
                     "amount": 5000,
                     "duration": 30,
-                    "reference": "TXN_REF_DYNAMIC_12345678"
+                    "reference": "TXN_REF_DYNAMIC_12345678",
+                    "accountName": "Spar Ikorodu"
                   }
                 },
                 "MWK_Example": {
