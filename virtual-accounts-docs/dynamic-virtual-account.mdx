@@ -73,31 +73,39 @@ If you provide an `accountName`, the same string is applied to the newly created
   "country": "NG",
   "amount": 150,
   "duration": 30,
-  "reference": "errfjgrrhvke",
+  "reference": "TXN_REF_DYNAMIC_12345678",
   "accountName": "Spar Ikorodu"
 }
 ```
 ```json Response
 {
-  "status": "SUCCESS",
-  "data": {
-    "noOfSuccessfulVirtualAccountCreation": 1,
-    "successfulVirtualAccounts": [
-      {
-        "payload": {
-          "durationInMinutes": "30",
-          "transactionAmount": "150",
-          "transactionReference": "errfjgrrhvke"
+    "message": "virtual account created successfully",
+    "status": "success",
+    "data": {
+        "id": "96f466d3-13b0-4b7d-a0ea-bae189b31b15",
+        "firstName": "Spar Ikorodu",
+        "lastName": "Spar Ikorodu",
+        "email": "N/A",
+        "reference": "TXN_REF_DYNAMIC_12345678",
+        "account": {
+            "name": "Spar Ikorodu",
+            "bankName": "FCMB MFB",
+            "sortCode": "090409",
+            "number": "999012XXXX"
         },
-        "virtualAccountNumber": "9990106443",
-        "virtualAccountName": "Spar Ikorodu"
-      }
-    ]
-  },
-  "message": "success"
+        "status": "ACTIVE",
+        "currency": "NGN",
+        "country": "NG",
+        "isPermanent": false,
+        "expiryTime": 1762854326863,
+        "created": "2025-11-11T09:35:26.863769692Z"
+    }
 }
+
 ```
 </CodeGroup>
+
+<Note> When expiry time elapses, `data.status` changes to `INACTIVE` </Note>
 
 ### Standard currency-specific examples
 
@@ -112,7 +120,7 @@ curl --request POST '{{baseURL}}/v1/virtual-account/dynamic' \
     "amount": 5000,
     "duration": 30,
     "reference": "TXN_REF_DYNAMIC_12345678"
-    "accountName": "Ikoko VI"
+    "accountName": "Spar Ikorodu"
   }'
 ```
 ```bash Malawi (MWK)
@@ -125,7 +133,7 @@ curl --request POST '{{baseURL}}/v1/virtual-account/dynamic' \
     "amount": 10000,
     "duration": 45,
     "reference": "TXN_REF_DYNAMIC_98765432"
-    "accountName": "Spar Malawi"
+    
   }'
 ```
 </CodeGroup>
@@ -134,23 +142,27 @@ curl --request POST '{{baseURL}}/v1/virtual-account/dynamic' \
 
 ```json copy
 {
-  "message": "virtual account created successfully",
-  "status": "success",
-  "data": {
-    "id": "30fe4022-09da-46fb-bafa-xxxxxxxxxxxxx",
-    "reference": "TXN_REF_DYNAMIC_12345678",
-    "account": {
-      "bankName": "Sterling Bank",
-      "sortCode": null,
-      "number": "8817835350",
-      "name": "Spar Ikorodu"
-    },
-    "expiryTime": 30,
-    "status": "ACTIVE",
-    "currency": "NGN",
-    "country": "NG",
-    "created": "2025-06-26T17:46:11.636Z"
-  }
+    "message": "virtual account created successfully",
+    "status": "success",
+    "data": {
+        "id": "96f466d3-13b0-4b7d-a0ea-xxxxxxxxxxxxx",
+        "firstName": "Spar Ikorodu",
+        "lastName": "Spar Ikorodu",
+        "email": "N/A",
+        "reference": "TXN_REF_DYNAMIC_12345678",
+        "account": {
+            "name": "Spar Ikorodu",
+            "bankName": "FCMB MFB",
+            "sortCode": "090409",
+            "number": "999012XXXX"
+        },
+        "status": "ACTIVE",
+        "currency": "NGN",
+        "country": "NG",
+        "isPermanent": false,
+        "expiryTime": 1762854326863,
+        "created": "2025-11-11T09:35:26.863769692Z"
+    }
 }
 ```
 
@@ -158,11 +170,25 @@ curl --request POST '{{baseURL}}/v1/virtual-account/dynamic' \
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `data.account.number` | String | Virtual account number customers will fund. |
-| `data.account.name` | String | Echoes the `accountName` you supplied (or your registered business name when the field was omitted). |
-| `data.expiryTime` | Number | Unix timestamp (seconds) when the account expires. |
-| `data.status` | String | Account status; becomes `EXPIRED` after the duration elapses. |
-| `data.reference` | String | Echo of the idempotency reference you sent. |
+| message | string | Operation status message |
+| status | string | API request status |
+| data | object | Virtual account details container |
+| data.id | string | Unique identifier for the virtual account |
+| data.firstName | string | Name passed during creation |
+| data.lastName | string | Name passed during creation |
+| data.email | string | Account email address |
+| data.reference | string | Transaction reference number |
+| data.account | object | Bank account details object |
+| data.account.name | string | Name on the bank account |
+| data.account.bankName | string | Name of the bank |
+| data.account.sortCode | string | Bank sort code |
+| data.account.number | string | Virtual account number |
+| data.status | string | Virtual account status |
+| data.currency | string | Currency code (NGN) |
+| data.country | string | Country code (NG) |
+| data.isPermanent | boolean | Value for virtual account type. 'ACTIVE' for Dynamic Virtual Accounts , 'INACTIVE' for Static Virtual Accounts |
+| data.expiryTime | number | Account expiry timestamp in milliseconds |
+| data.created | string | Account creation timestamp in ISO format |
 
 ## Error responses
 
