@@ -37,25 +37,26 @@ Assign them to customers, collect payments via standard transfers, and reconcile
 - **Perfect for invoice payments and campaign collections**.
 
 ## ⚡ Settlement Options
-
-| Option | Description | Ideal Use Cases |
-|--------|-------------|-----------------|
-| **Instant** | Funds are credited to your wallet immediately after successful payment | • Real-time cash flow<br>• Just-in-time fulfillment<br>• Urgent payment processing |
-| **T+1** | Funds settle to your wallet on the next business day | • Batch accounting<br>• Easier reconciliation<br>• Scheduled financial operations |
+- **Instant** : Funds are credited to your wallet immediately after successful payment. It is useful for real-time cash flow, just-in-time fulfillment, and urgent payment processing.
+- **T+1** : Funds settle to your wallet on the next business day. It is easier reconciliation and Scheduled financial operations.
 
 
 ## How the flow works
 
-<Steps>
-### Generate a virtual account
-Call the static or dynamic endpoint (or use the dashboard) to issue a bank account number tied to your wallet.
-### Share details with your customer
-Provide the account name and number so they can pay you through their preferred banking channel.
-### Collect the transfer
-Incoming funds credit your wallet automatically; you receive a webhook for each deposit.
-### Reconcile and settle
-Monitor balances in your wallet, and optionally sweep funds to bank accounts according to your settlement schedule.
-</Steps>
+<AccordionGroup>
+  <Accordion icon="1-circle" title="Generate a virtual account">
+    Call the static or dynamic endpoint to issue a bank account number tied to your wallet.
+  </Accordion>
+  <Accordion icon="2-circle" title="Share payment details">
+    Provide the account name and number so customers can pay through their preferred banking channel.
+  </Accordion>
+  <Accordion icon="3-circle" title="Collect the transfer">
+    Incoming funds credit your wallet automatically. You also receive a webhook for each deposit.
+  </Accordion>
+  <Accordion icon="4-circle" title="Reconcile and settle">
+    Monitor wallet balances, then sweep funds to your bank per your instant or T+1 settlement schedule.
+  </Accordion>
+</AccordionGroup>
 
 ```mermaid
 sequenceDiagram
@@ -67,14 +68,14 @@ sequenceDiagram
 
     Customer->>Business: Request payment details
     Business->>MeCash: Create virtual account
-    MeCash-->>Business: Virtual account number
+    eCash-->>Business: Virtual account number
     Business-->>Customer: Share bank details
 
-    Customer->>MeCash: Transfer funds
+    Customer->>meCash: Transfer funds
     MeCash-->>Business: Wallet credited + webhook
     Business-->>Customer: Confirm payment
 
-    Note over MeCash: Settlement occurs per agreed schedule (Instant or T+1)
+    Note over meCash: Settlement occurs per agreed schedule (Instant or T+1)
 ```
 
 ## Next steps
