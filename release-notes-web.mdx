@@ -1,0 +1,91 @@
+---
+title: "Web Release Notes"
+description: "Recent updates to the meCash Web Dashboard experience."
+---
+
+Use these notes to keep your internal runbooks, training materials, and embedded dashboard links in sync with the latest dashboard releases.
+
+<Note>
+  Need older dashboard updates? Email <a href="mailto:support@me-cash.com">support@me-cash.com</a> and we can share archived notes.
+</Note>
+
+## Web Dashboard
+
+### October 2025 — Web App Release (Status: Live)
+
+**New features**
+
+- Launched the rebuilt [meCash Developer Hub](https://developer.me-cash.com/) with guided quickstarts, an interactive API explorer, real-world use cases, and centralized support links so teams can ship integrations faster.
+
+### September 2025 — Web App Release (Status: Live)
+
+**New features**
+
+- Added a persistent Halt Payout banner that disables **Send/Transfer** whenever payouts, on-ramps, or off-ramps are paused, including tooltips that explain the outage.
+- Introduced scheduled maintenance banners so users know when services are temporarily suspended and when they will resume.
+- Expanded Canadian payout flows with validated input fields for institution number, transit number, and SWIFT/BIC to reduce submission errors.
+- Rolled out responsive in-app notification pop-ups for critical announcements such as payment provider changes.
+
+**Improvements**
+
+- Hardened deployment processes to keep all API endpoints online during releases.
+- Removed gas fees from Off-Ramp and crypto-to-crypto flows and updated withdrawal/confirmation screens accordingly.
+- Enhanced sign-up validation to mask whether an email already exists.
+- Refreshed trust indicators to highlight meCash’s Circle Alliance certification.
+
+**Bug fixes**
+
+- Cleared stale “Reason for Payment” selections after logout.
+- Fixed navigation on crypto withdrawals that previously redirected to the wrong quote page.
+- Resolved KYB submission timeouts and incorrect country-code defaults.
+- Corrected country/currency display issues on the public calculator.
+- Fixed intermittent CORS errors observed during login.
+
+### August 2025 — Web App Release (Status: Live)
+
+**What's new**
+
+- Added a dedicated OTC page for bespoke trades plus the ability to delete saved beneficiaries.
+- Published a user-facing maintenance mode page that communicates downtime status in real time.
+
+**Enhancements**
+
+- Clarified Send Money fee breakdowns and optimized the mobile-web experience.
+- Disabled the **Continue** button until a payment reason is selected to avoid accidental submissions.
+
+**Bug fixes**
+
+- Fixed crashes triggered by session timeouts.
+- Resolved the “Something Went Wrong” server error on the Send Money screen.
+
+### July 2025 — Web App Release (Status: Live)
+
+**What's new**
+
+- Enabled Malawi (MKW) payouts directly from the web app for faster cross-border transfers.
+
+**Enhancements**
+
+- Updated the FAQ experience for clearer answers.
+
+**Bug fixes**
+
+- Corrected currency symbols so each wallet shows the appropriate denomination.
+
+### July 05, 2024 — v2.9.0 (Status: Rolling out)
+
+- New real-time payout monitor with filtering by corridor and banking partner.
+- Added downloadable audit exports (CSV) for wallet funding events.
+- Redesigned *Developers → API Keys* to show per-environment permissions and last-used timestamps.
+
+**Action needed:** If you embed dashboard links inside internal tools, refresh any saved URLs because navigation paths changed.
+
+### May 22, 2024 — v2.8.1 (Status: Live)
+
+- Faster KYB document review screen with side-by-side previews.
+- Team Management now surfaces pending invitations and lets admins resend invites in bulk.
+- Improved dark-mode contrast for data tables.
+
+### Coming soon
+
+- Heads-up: The legacy navigation path `/developers/webhooks` will redirect to `/settings/webhooks` in Q3—update internal documentation accordingly.

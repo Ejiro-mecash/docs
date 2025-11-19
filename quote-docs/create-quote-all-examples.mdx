@@ -229,13 +229,19 @@ curl --request POST '{{baseURL}}/v1/quote' \
 
 ## Error handling
 
-| Status | Meaning | Example message | Next steps |
-|--------|---------|-----------------|-----------|
-| 400 | Bad request. | `Required field missing or invalid request`. | Validate the payload and field formats. |
-| 401 | Authentication failed. | `Invalid authentication credentials`. | Confirm the API key matches the active environment. |
-| 403 | Forbidden. | `Access denied: IP address not whitelisted`. | Whitelist your server IP in the dashboard. |
-| 429 | Rate limit exceeded. | `API rate limit exceeded`. | Add retry logic with exponential backoff. |
-| 500 | Server error. | `Internal server error`. | Retry later; contact support if persistent. |
+| Status | Message | Cause | Next steps |
+|--------|---------|-------|-----------|
+| 400 | `Invalid country or currency ISO code` | Country/currency combination is not supported. | Align to the corridors enabled for your workspace. |
+| 400 | `Invalid Payment Channel, check docs or contact support` | `paymentChannel` isn’t supported for the corridor. | Switch to a supported channel before retrying. |
+| 400 | `Required field missing or invalid request` | Missing or malformed required fields. | Validate payload fields prior to calling the API. |
+| 400 | `Minimum target amount for transaction is {minimum_transaction_amount}` | Target amount is below the minimum allowed. | Increase the amount to meet the stated minimum. |
+| 400 | `Maximum target amount for transaction is {maximum_transaction_amount}` | Target amount exceeds the maximum allowed. | Reduce the amount to fall under the limit. |
+| 400 | `Transaction target amount {transaction_amount} requires invoice` | Amount crosses invoice documentation threshold. | Attach the required invoice before requesting the quote. |
+| 401 | `API key missing or incorrect` | Authentication header missing/invalid. | Include the proper API key for the environment. |
+| 403 | `Quote route not available, contact support` | Quote endpoint disabled for your workspace. | Contact support to enable the route. |
+| 403 | `Access denied: IP address not whitelisted` | Request comes from a non-whitelisted IP. | Add the IP inside the dashboard allowlist. |
+| 429 | `API rate limit exceeded` | Too many quote requests in a short period. | Implement retries with exponential backoff. |
+| 500 | `Service temporarily unavailable` | Temporary outage or maintenance. | Retry after a delay; escalate if it persists. |
 
 ## Best practices
 

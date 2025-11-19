@@ -148,14 +148,13 @@
           }
         ]
       },
-
       
       {
         "tab": "API Reference",
         "groups": [
           {
-            "group": "Overview",
-            "page": [
+            "group": "Introduction",
+              "pages": [
               "api-reference/introduction"
             ]
           },
@@ -205,13 +204,16 @@
           }
         ]
       },
+
       {
         "tab": "Resources",
         "groups": [
           {
             "group": "Release Notes",
             "pages": [
-              "release-notes"
+              "release-notes-api",
+              "release-notes-web",
+              "release-notes-mobile"
             ]
           },
           {
@@ -229,7 +231,7 @@
   "logo": {
     "light": "/logo/dark.png",
     "dark": "/logo/light.png",
-    "height": 42
+    "height": 60
   },
   "navbar": {
     "links": [

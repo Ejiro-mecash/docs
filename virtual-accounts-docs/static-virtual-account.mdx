@@ -130,13 +130,15 @@ curl --request POST '{{baseURL}}/v1/virtual-account' \
 
 ## Error responses
 
-| Status | Meaning | Example message | Next steps |
-|--------|---------|-----------------|-----------|
-| 400 | Invalid payload. | `Invalid request payload` | Validate required fields and data types. |
-| 401 | Authentication failed. | `Invalid API key` | Confirm the `x-api-key` header. |
-| 409 | Duplicate reference. | `reference already exists` | Reuse the previous response or send a new unique reference. |
-| 422 | BVN validation error. | `BVN must be exactly 11 digits` | Provide a valid BVN for Nigerian accounts. |
-| 500 | Server error. | `Server failed to process request` | Retry later or contact support if persistent. |
+| Status | Message | Cause | Next steps |
+|--------|---------|-------|-----------|
+| 400 | `Invalid country or currency ISO code` | Country or currency combination is not supported. | Pass a valid ISO 3166 country + ISO 4217 currency pair. |
+| 400 | `Phone number must include valid country code` | `phoneNumber` is not in international format. | Send E.164 numbers such as `+2348XXXXXXX`. |
+| 400 | `Request JSON malformed or missing required fields` | Payload is missing mandatory properties or contains invalid JSON. | Validate required keys (`currency`, `country`, `reference`, etc.) before sending. |
+| 400 | `BVN is required` | `bvn` was omitted for a corridor where it is mandatory (e.g., NGN). | Provide an 11-digit BVN when creating Nigerian virtual accounts. |
+| 401 | `API key missing or incorrect` | `x-api-key` header is absent, expired, or wrong environment. | Include the correct workspace API key for the target environment. |
+| 409 | `Reference must be unique` | The `reference` has already been used in a previous request. | Reuse the original response or send a fresh unique reference. |
+| 500 | `Service temporarily unavailable` | Temporary backend/database failure. | Retry with exponential backoff or contact support if it persists. |
 
 ## Best practices
 

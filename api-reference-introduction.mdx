@@ -1,36 +1,53 @@
 ---
-title: "API Reference Overview"
-description: "Prep your sandbox workspace and learn how to hit endpoints with Try it."
+title: "API Reference"
+description: "Test your meCash API integration with practical examples"
 ---
 
-Welcome to the meCash API Reference! Everything here runs against Sandbox, so line up the essentials below and you can be testing endpoints in minutes.
+Welcome to the meCash API Reference! 
+This guide provides everything you need to start integrating with our platform. All API endpoints are available for testing in our Sandbox environment, so make sure your sandbox workspace is fully configured before firing requests.
 
-## Before you start
+## Sandbox prerequisites
 
-1. Copy a **Sandbox API key** from **Developers → API Keys** (environment toggle set to Sandbox).
-2. Add every server/VPN IP to **Developers → IP Whitelisting → Sandbox**—unlisted IPs return `403`.
-3. Use the sandbox base URL `https://sandboxapi.me-cash.com` plus JSON headers (`Content-Type` / `Accept`).
+Before calling any endpoint, confirm the following items inside the Sandbox environment of your meCash Dashboard:
+
+1. Switch the dashboard environment toggle to **Sandbox** so you can manage sandbox-only resources (API keys, allowlists, webhook secrets).
+2. Generate a **Sandbox API key** under **Developers → API Keys** and store it securely—this is the credential you pass via the `Authorization: Bearer <SANDBOX_API_KEY>` header.
+3. Add every server, VPN, and CI/CD IP address to **Developers → IP Whitelisting (Sandbox tab)**; requests from non-whitelisted IPs fail immediately.
+4. Copy the sandbox base URL `https://sandboxapi.me-cash.com` into your API client and set default headers (`Content-Type: application/json`, `Accept: application/json`).
+5. (Optional) Create webhook signing secrets, idempotency keys, or environment variables you'll re-use during end-to-end testing.
 
 ---
 ## Getting Started
 
-Use the built-in **Try it** panel to send real Sandbox calls without leaving the docs:
+Follow these steps—in order—to configure your account and make your first API call in minutes.
 
 <Steps>
-  <Step title="1. Pick an endpoint">
-    Choose an endpoint in the sidebar (e.g., **Wallets → Get All Wallets**) and open the **Try it** drawer.
+  <Step title="1. Get Your Sandbox API Key">
+    You'll need a Sandbox API key to authenticate your requests. 
+    
+    Go to **Developers → API Keys**, confirm you're viewing Sandbox, and create or copy the key. Keep this credential secret and never expose it in client-side code.
   </Step>
 
-  <Step title="2. Authenticate once">
-    Select the **Sandbox** environment, paste your API key under **Authentication**, and Mintlify auto-adds the `Bearer` header for every request.
+  <Step title="2. Whitelist Your IP Addresses">
+    For security, all API requests must come from a whitelisted IP address.
+
+    Navigate to **Developers → IP Whitelisting → Sandbox**, add your outbound server/VPN IPs, and save. Requests from unlisted IPs return `403` errors.
   </Step>
 
-  <Step title="3. Send & inspect">
-    Edit path/query/body fields, click **Send**, then review the live response, headers, and generated cURL snippet you can reuse elsewhere.
+  <Step title="3. Configure Your Environment">
+    Set the sandbox base URL `https://sandboxapi.me-cash.com`, add the `Authorization: Bearer <SANDBOX_API_KEY>` header, and send JSON payloads.
+
+    Store these values as environment variables (Postman, cURL, Mintlify explorer, or your backend config) so all future calls use the correct credentials.
+  </Step>
+
+  <Step title="4. Make Your First Request">
+    The easiest way to start is with our interactive playground.
+
+    1.  Navigate to any endpoint in the sidebar (e.g., **Wallets > Get All Wallets**).
+    2.  In the "Authentication" section, paste your Sandbox API key.
+    3.  Click **Send** to make a live API call to our sandbox.
   </Step>
 </Steps>
-
-> **Heads-up:** `401` means the API key is missing or expired. `403` almost always indicates the calling IP still needs to be whitelisted in Sandbox.
 
 ---
 ## API Endpoints
@@ -107,8 +124,6 @@ All API responses follow a consistent JSON format for success and error states.
     }
   }
   ```
-  </Accordion>
-</AccordionGroup>
 
 
 ### Error Responses

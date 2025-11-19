@@ -1,3 +1,19 @@
 ---
 openapi: post /v1/quote
 ---
+
+## Error responses
+
+| Status | Message | What it means | How to fix |
+|--------|---------|---------------|-----------|
+| 400 | `Invalid country or currency ISO code` | Source/target country or currency combination is unsupported. | Send ISO pairs for corridors enabled on your workspace. |
+| 400 | `Invalid Payment Channel, check docs or contact support` | `paymentChannel` is not valid for the corridor. | Switch to a supported channel for the requested route. |
+| 400 | `Required field missing or invalid request` | Payload is missing mandatory attributes. | Validate `source`, `target`, `paymentChannel`, and metadata before calling. |
+| 400 | `Minimum target amount for transaction is {minimum_transaction_amount}` | Target amount is below the minimum allowed. | Increase the amount to at least the stated threshold. |
+| 400 | `Maximum target amount for transaction is {maximum_transaction_amount}` | Target amount exceeds the allowed limit. | Reduce the amount to stay under the maximum. |
+| 400 | `Transaction target amount {transaction_amount} requires invoice` | Amount requires invoice documentation. | Attach the relevant invoice and retry. |
+| 401 | `API key missing or incorrect` | `x-api-key` header missing/invalid. | Include the correct API key for sandbox/production. |
+| 403 | `Quote route not available, contact support` | Quote endpoint disabled in the current environment. | Reach out to support to enable the route. |
+| 403 | `Access denied: IP address not whitelisted` | IP address has not been whitelisted. | Add your server IP in the dashboard. |
+| 429 | `API rate limit exceeded` | Too many quote requests in a short window. | Implement exponential backoff before retrying. |
+| 500 | `Service temporarily unavailable` | Temporary backend outage or maintenance. | Retry shortly and escalate if it continues. |

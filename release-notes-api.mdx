@@ -1,0 +1,43 @@
+---
+title: "API Release Notes"
+description: "Latest production changes for the meCash API Platform."
+---
+
+Stay on top of API changes that could impact your integration. Each entry notes the rollout status plus any required follow-up.
+
+<Note>
+  Looking for something earlier? Reach out to <a href="mailto:support@me-cash.com">support@me-cash.com</a> and we can share archived notes.
+</Note>
+
+## How to read these notes
+
+- **Status** clarifies whether the update is fully live or rolling out.
+- **Action needed** highlights anything developers must do (schema updates, new scopes, SDK upgrades, etc.).
+- **Heads-up** calls out upcoming deprecations so you can plan ahead.
+
+## API Platform
+
+### October 2025 — Platform Release (Status: Live)
+
+- Added new outbound payment routes so you can reach more corridors without custom onboarding—check the API Reference for the latest supported `destinationCountry` values.
+- `accountName` is now supported on dynamic virtual account creation, letting you assign customer-friendly names; when omitted, we automatically fall back to your registered business name.
+
+**Action needed:** Pass `accountName` anywhere you need campaign- or store-specific labeling, and refresh your routing matrix to take advantage of the new payout corridors.
+
+### July 12, 2024 — v1.18.0 (Status: Live)
+
+- Added `preferred_settlement_currency` to the Quote API so you can lock settlement currency per request.
+- Introduced idempotency keys on `POST /payouts` to prevent accidental duplicate payouts during retries.
+- Improved webhook retries with exponential backoff (up to 8 attempts) and clearer `x-mecash-signature` error messaging.
+
+**Action needed:** Update your API client to send the new `Idempotency-Key` header where automated retries exist.
+
+### June 06, 2024 — v1.17.2 (Status: Live)
+
+- Expanded the Transaction API filter set with `status[]=reversed|failed`.
+- `/wallets/{id}` now returns a `last_reconciled_at` timestamp for internal audit trails.
+- Sandbox now mirrors production rate-limit headers for easier performance testing.
+
+### Coming soon
+
+- Heads-up: Legacy webhook signing secrets (`HMAC-SHA1`) retire on **Aug 30, 2024**. Rotate to the SHA256-based secret under *Developers → Webhooks*.

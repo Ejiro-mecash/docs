@@ -1,3 +1,19 @@
 ---
 openapi: post /v2/payout
 ---
+
+## Error responses
+
+| Status | Message | What it means | How to fix |
+|--------|---------|---------------|-----------|
+| 400 | `Insufficient wallet balance for transaction` | Wallet cannot cover the payout total. | Deposit more funds or reduce the amount before retrying. |
+| 400 | `Quotes only last for 10 minutes` | The referenced quote expired. | Fetch a new quote and submit the payout right away. |
+| 400 | `Invalid country or currency ISO code` | Payload contains an unsupported corridor combination. | Use valid ISO codes for corridors enabled on your workspace. |
+| 400 | `Account name mismatch, use account enquiry endpoint` | Account name conflicts with bank enquiry data. | Run the account enquiry endpoint and mirror its response. |
+| 400 | `Invalid Bank Sortcode` | Provided sort code is missing, malformed, or unsupported. | Retrieve the correct sort code from the bank list endpoint. |
+| 400 | `{field_name} cannot be empty` | Required recipient attribute missing from the payload. | Populate every mandatory field before sending the request. |
+| 401 | `API key missing or incorrect` | Authentication header missing/invalid. | Include the proper `x-api-key` for the environment. |
+| 403 | `IP not whitelisted` | Call originated from an unapproved IP address. | Add your server IP to the dashboard whitelist. |
+| 404 | `The requested endpoint does not exist` | Incorrect path or API version. | Ensure you are calling `POST /v2/payout` on the right base URL. |
+| 422 | `Invalid quote ID provided` | Quote ID missing, expired, or already consumed. | Create a new quote and reference its `id`. |
+| 500 | `Service temporarily unavailable` | Backend disruption prevented processing. | Retry later with exponential backoff; contact support if needed. |

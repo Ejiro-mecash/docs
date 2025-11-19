@@ -135,12 +135,11 @@ axios.get(`{{baseURL}}/v1/virtual-account/${virtualAccountId}`, {
 
 ## Error responses
 
-| Status | Meaning | Example message | Next steps |
-|--------|---------|-----------------|-----------|
-| 401 | Authentication failed. | `Invalid API key` | Verify the `x-api-key` header. |
-| 404 | Account not found. | `virtual account not found` | Confirm the ID belongs to your workspace and hasn’t been deleted. |
-| 429 | Rate limit exceeded. | `Too many requests` | Add exponential backoff before retrying. |
-| 500 | Server error. | `Server failed to process request.` | Retry later or contact support. |
+| Status | Message | Cause | Next steps |
+|--------|---------|-------|-----------|
+| 401 | `API key missing or incorrect` | Missing/invalid API key in the request header. | Include the correct `x-api-key` for the workspace/environment. |
+| 404 | `Virtual account ID not found` | The supplied `virtualAccountId` does not exist or belongs to another workspace. | Confirm you are using a valid ID from a created account. |
+| 500 | `Service temporarily unavailable` | Backend system downtime or unexpected server error. | Retry with exponential backoff or contact support if it continues. |
 
 ## Usage tips
 

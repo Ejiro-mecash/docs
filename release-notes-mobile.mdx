@@ -1,0 +1,77 @@
+---
+title: "Mobile Release Notes"
+description: "Track what changed across the meCash Mobile SDKs and apps."
+---
+
+Monitor mobile changes so you can plan app store releases, regression testing, and SDK upgrades with confidence.
+
+<Note>
+  Need a historical build note? Contact <a href="mailto:support@me-cash.com">support@me-cash.com</a> for archived mobile updates.
+</Note>
+
+## Mobile SDKs
+
+### September 2025 — Mobile Release (iOS 1.7.3 / Android 1.7.3) (Status: Live)
+
+**New features & improvements**
+
+- Expanded international payouts so you can capture richer payment details and send directly to UK (GBP), US (USD), and EU (EUR) bank accounts.
+- Redesigned the Canadian transfer flow for a faster, more intuitive experience.
+- Added support for Tanzania (TZS) wallet payouts to bank accounts or mobile money numbers.
+- Updated the quote calculator to show the total debit amount (including fees) and warn when wallet balances are insufficient.
+- Migrated the mobile app to the V2 payout endpoint, improving overall speed and reliability.
+
+**Bug fixes**
+
+- Funding transaction history now renders correctly.
+- Fixed navigation that routed crypto wallet users to the wrong quote page.
+- Bank search results refresh properly after clearing filters.
+- Resolved KYB submission timeouts where the submit button spun indefinitely.
+- Corrected KYB phone number country code defaulting to Afghanistan.
+- Addressed an issue where the transaction PIN button became unresponsive during crypto-to-crypto transfers.
+
+### August 2025 — Mobile Release (iOS 1.7.3 / Android 1.7.3) (Status: Live)
+
+**What's new**
+
+- Manage beneficiaries directly in-app, including deleting stale recipients.
+- Introduced dynamic transaction limits starting with MKW to better match spending patterns.
+
+**Enhancements**
+
+- Long account names now display in full without truncation.
+- The Send Money summary clearly outlines fees plus the total amount.
+- Gas fees appear inline on transaction details whenever applicable.
+
+**Bug fixes**
+
+- Stricter recipient validation prevents saving incomplete or invalid bank details.
+
+### July 2025 — Mobile Release (iOS 1.7.3 / Android 1.7.3) (Status: Live)
+
+**What's new**
+
+- Added Malawi (MKW) payouts so you can send funds directly from the app.
+- Users can view how much of their transaction limit remains in real time.
+
+**Enhancements**
+
+- Refreshed FAQ content for clearer answers.
+- Login error modals now surface an actionable **Okay** button instead of an unhelpful retry.
+- Pop-ups can be dismissed by tapping outside the modal area.
+
+**Bug fixes**
+
+- Corrected wallet currency symbols so each wallet reflects its proper denomination.
+
+### iOS v0.8.0 — June 28, 2024 (Status: Live)
+
+- Added biometric re-authentication before approving payouts initiated from mobile.
+- Enhanced crash reporting with symbolicated stack traces for faster support escalation.
+- Bundled the Quote widget so users can request FX rates without leaving the app.
+
+### Android v0.7.3 — June 20, 2024 (Status: Live)
+
+- Introduced encrypted shared-preferences storage for JWT tokens.
+- Improved push notification reliability when devices are on Doze mode.
+- Updated Kotlin coroutines to `1.8.x`, reducing ANRs triggered by network calls.

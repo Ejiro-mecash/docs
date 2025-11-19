@@ -192,13 +192,13 @@ curl --request POST '{{baseURL}}/v1/virtual-account/dynamic' \
 
 ## Error responses
 
-| Status | Meaning | Example message | How to fix |
-|--------|---------|-----------------|-----------|
-| 400 | Invalid request. | `Invalid request payload` | Confirm `amount`, `duration`, and required fields are present. |
-| 401 | Authentication failed. | `Invalid API key` | Verify the `x-api-key` and environment. |
-| 409 | Duplicate reference. | `reference already exists` | Reuse the previous response or provide a new reference. |
-| 422 | Amount mismatch. | `Amount must be greater than zero` | Provide a positive number. |
-| 500 | Server error. | `Server failed to process request.` | Retry later or contact support if persistent. |
+| Status | Message | Cause | How to fix |
+|--------|---------|-------|-----------|
+| 400 | `Invalid Payload` | Payload validation failed or fields are improperly formatted. | Double-check required keys (`amount`, `duration`, `reference`, etc.) and data types before sending. |
+| 400 | `Duration must be an integer` | `duration` is missing or not an integer. | Pass duration as an integer that represents minutes (e.g., `30`). |
+| 401 | `API key missing or incorrect` | `x-api-key` header is absent, invalid, or expired. | Supply a valid API key for the environment you are calling. |
+| 409 | `Reference must be unique` | The `reference` already exists from a previous request. | Reuse the previous response or generate a brand-new reference. |
+| 500 | `Service temporarily unavailable` | Internal server issue or downtime. | Retry later; open a ticket if the problem persists. |
 
 ## Webhooks
 

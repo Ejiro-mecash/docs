@@ -446,12 +446,19 @@ All successful payout responses follow this structure:
 
 ### Common Error Responses
 
-| Status Code | Error Type | Description | Solution |
-|-------------|------------|-------------|----------|
-| 400 | Bad Request | Invalid parameters | Check request payload |
-| 401 | Unauthorized | Invalid API key | Verify API key |
-| 403 | Forbidden | IP not whitelisted | Whitelist your IP |
-| 422 | Unprocessable Entity | Invalid quote ID | Generate new quote |
+| Status | Message | Cause | How to fix |
+|--------|---------|-------|------------|
+| 400 | `Insufficient wallet balance for transaction` | Your wallet lacks the funds required to cover the payout. | Fund the wallet or lower the payout amount before retrying. |
+| 400 | `Quotes only last for 10 minutes` | The quote expired before you attempted the payout. | Request a fresh quote and submit the payout immediately. |
+| 400 | `Invalid country or currency ISO code` | Unsupported country/currency combination in `recipient` or `quote`. | Pass valid ISO codes for corridors enabled on your workspace. |
+| 400 | `Account name mismatch, use account enquiry endpoint` | Provided account name differs from the latest bank enquiry response. | Re-run account enquiry and align your payload with the returned details. |
+| 400 | `Invalid Bank Sortcode` | Sort code is missing, malformed, or not supported for the corridor. | Retrieve the sort code from the bank list API and validate the format. |
+| 400 | `{field_name} cannot be empty` | Required recipient field (name, account number, etc.) missing in payload. | Populate every mandatory field before submitting the request. |
+| 401 | `API key missing or incorrect` | `x-api-key` header absent, invalid, or from the wrong environment. | Include the correct API key for sandbox or production. |
+| 403 | `IP not whitelisted` | Request originated from a non-whitelisted IP address. | Add your server IP in the dashboard allowlist. |
+| 404 | `The requested endpoint does not exist` | Incorrect URL path or API version. | Confirm you are calling `POST /v2/payout` on the right environment host. |
+| 422 | `Invalid quote ID provided` | Quote ID is missing, invalid, expired, or already consumed. | Create a new quote and reference its `id` when resubmitting. |
+| 500 | `Service temporarily unavailable` | Temporary backend/service disruption. | Retry with exponential backoff and contact support if persistent. |
 
 ### Error Response Format
 

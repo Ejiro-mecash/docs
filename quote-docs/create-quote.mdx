@@ -212,14 +212,19 @@ axios.post('{{baseURL}}/v1/quote', {
 
 ## Error responses
 
-| Status | Meaning | Example message | How to handle |
-|--------|---------|-----------------|---------------|
-| 400 | Missing or invalid parameters. | `source.currency is required` | Provide all required fields with valid ISO codes. |
-| 401 | Authentication failed. | `Invalid API key` | Check the `x-api-key` and ensure it belongs to the right environment. |
-| 403 | IP not whitelisted. | `Access denied: IP address not whitelisted` | Add your IP in the dashboard under Developers → IP Whitelisting. |
-| 422 | Corridor rules rejected the quote. | `Quote validation failed` | Adjust the amount/payment channel based on the returned rule hints. |
-| 429 | Rate limit exceeded. | `Too many requests` | Retry with exponential backoff. |
-| 500 | Unexpected server error. | `Internal server error` | Retry later or contact support if persistent. |
+| Status | Message | Cause | How to handle |
+|--------|---------|-------|---------------|
+| 400 | `Invalid country or currency ISO code` | The source/target country or currency combination is not supported. | Use valid ISO codes for corridors enabled on your workspace. |
+| 400 | `Invalid Payment Channel, check docs or contact support` | `paymentChannel` is not valid for the selected corridor. | Choose a supported channel for the corridor and amount. |
+| 400 | `Required field missing or invalid request` | Mandatory fields are missing or have invalid formats. | Validate `source`, `target`, `paymentChannel`, and metadata before sending. |
+| 400 | `Minimum target amount for transaction is {minimum_transaction_amount}` | Requested target amount is below the corridor's minimum. | Increase the target amount to at least the stated minimum. |
+| 400 | `Maximum target amount for transaction is {maximum_transaction_amount}` | Requested target amount exceeds the corridor's limit. | Reduce the target amount below the maximum threshold. |
+| 400 | `Transaction target amount {transaction_amount} requires invoice` | Amount surpasses invoice thresholds that require documentation. | Collect and attach the required invoice before retrying. |
+| 401 | `API key missing or incorrect` | `x-api-key` header missing, invalid, or expired. | Include the correct API key for sandbox/production. |
+| 403 | `Quote route not available, contact support` | Endpoint disabled for your workspace or environment. | Reach out to support to enable quotes for the corridor. |
+| 403 | `Access denied: IP address not whitelisted` | Request originated from an IP that isn’t on your allowlist. | Add your server IP in the dashboard. |
+| 429 | `API rate limit exceeded` | Too many quote requests in a short window. | Apply exponential backoff and distribute requests. |
+| 500 | `Service temporarily unavailable` | Temporary outage or maintenance event. | Retry after a delay; contact support if persistent. |
 
 ## Best practices
 

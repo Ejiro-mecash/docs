@@ -1,6 +1,5 @@
 ---
 title: "Release Notes"
-description: "Track what changed across the meCash API, Web Dashboard, and Mobile SDKs."
 ---
 
 Stay on top of changes that could impact your integration. Each section lists the latest production releases for the API, Web Dashboard, and Mobile SDKs along with rollout guidance.
@@ -19,31 +18,18 @@ Stay on top of changes that could impact your integration. Each section lists th
   <Tab title="API">
   
   ## API Platform
-
-  ### October 2025 — Platform Release (Status: Live)
-
-  - Added new outbound payment routes so you can reach more corridors without custom onboarding—check the API Reference for the latest supported `destinationCountry` values.
-  - `accountName` is now supported on dynamic virtual account creation, letting you assign customer-friendly names; when omitted, we automatically fall back to your registered business name.
   
-  **Action needed:** Pass `accountName` anywhere you need campaign- or store-specific labeling, and refresh your routing matrix to take advantage of the new payout corridors.
-  
-  ### July 12, 2024 — v1.18.0 (Status: Live)
+  ### October, 2025 — v1.18.0 (Status: Live)
   
   - Added `preferred_settlement_currency` to the Quote API so you can lock settlement currency per request.
   - Introduced idempotency keys on `POST /payouts` to prevent accidental duplicate payouts during retries.
   - Improved webhook retries with exponential backoff (up to 8 attempts) and clearer `x-mecash-signature` error messaging.
   
   **Action needed:** Update your API client to send the new `Idempotency-Key` header where automated retries exist.
-  
-  ### June 06, 2024 — v1.17.2 (Status: Live)
-  
-  - Expanded the Transaction API filter set with `status[]=reversed|failed`.
-  - `/wallets/{id}` now returns a `last_reconciled_at` timestamp for internal audit trails.
-  - Sandbox now mirrors production rate-limit headers for easier performance testing.
-  
+
   ### Coming soon
   
-  - Heads-up: Legacy webhook signing secrets (`HMAC-SHA1`) retire on **Aug 30, 2024**. Rotate to the SHA256-based secret under *Developers → Webhooks*.
+  - Heads-up: Legacy webhook signing secrets (`HMAC-SHA1`) retire on **Aug 30, 2025**. Rotate to the SHA256-based secret under *Developers → Webhooks*.
   
   </Tab>
   <Tab title="Web">

@@ -220,16 +220,19 @@ axios.post('{{baseURL}}/v2/payout', {
 
 ## Error responses
 
-| Status | Meaning | Example message | How to resolve |
-|--------|---------|-----------------|----------------|
-| 400 | Invalid payload. | `recipient.account.accountNumber is required` | Provide all mandatory fields and ensure formats are correct. |
-| 401 | Authentication failed. | `Invalid API key` | Reissue or verify the `x-api-key` header. |
-| 403 | IP not whitelisted. | `Access denied: IP address not whitelisted` | Add your server’s IP in the dashboard. |
-| 404 | Quote not found. | `Quote does not exist` | Regenerate the quote and retry. |
-| 409 | Quote already consumed. | `Quote has been used` | Create a new quote before resubmitting. |
-| 422 | Channel validation error. | `Unsupported payment channel for corridor` | Confirm the corridor supports the requested channel. |
-| 429 | Rate limit exceeded. | `Too many requests` | Implement retry logic with exponential backoff. |
-| 500 | Server error. | `Internal server error` | Retry later or contact support if persistent. |
+| Status | Message | Cause | How to resolve |
+|--------|---------|-------|----------------|
+| 400 | `Insufficient wallet balance for transaction` | Wallet balance cannot cover the payout amount. | Top up the wallet or lower the payout total before retrying. |
+| 400 | `Quotes only last for 10 minutes` | Quote expired before you attempted to consume it. | Generate a fresh quote and submit the payout immediately. |
+| 400 | `Invalid country or currency ISO code` | Unsupported country/currency combination supplied in the request. | Use corridor-supported ISO codes for both quote and recipient data. |
+| 400 | `Account name mismatch, use account enquiry endpoint` | Account name in payload differs from bank enquiry results. | Re-run account enquiry and match the returned account name. |
+| 400 | `Invalid Bank Sortcode` | Sort code missing, malformed, or unsupported. | Fetch the correct sort code from the bank list and verify formatting. |
+| 400 | `{field_name} cannot be empty` | Required recipient field omitted from the payload. | Fill in every mandatory field (name, account number, etc.) before submitting. |
+| 401 | `API key missing or incorrect` | `x-api-key` header absent, invalid, or expired. | Supply the correct API key for the environment you are targeting. |
+| 403 | `IP not whitelisted` | Request originated from an unapproved IP. | Add your server IP to the dashboard allowlist. |
+| 404 | `The requested endpoint does not exist` | Incorrect API path or version specified. | Confirm you are calling `POST /v2/payout` on the right base URL. |
+| 422 | `Invalid quote ID provided` | Quote ID missing, invalid, expired, or already consumed. | Create a new quote and reference it in the payout call. |
+| 500 | `Service temporarily unavailable` | Temporary backend/service disruption. | Retry with exponential backoff; contact support if it persists. |
 
 ## Best practices
 

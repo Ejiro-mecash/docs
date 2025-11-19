@@ -1,3 +1,13 @@
 ---
 openapi: get /v1/virtual-account/{VirtualAccountId}
 ---
+
+## Error responses
+
+These are the standard failures for `GET /v1/virtual-account/{virtualAccountId}`.
+
+| Status | Message | What it means | How to fix |
+|--------|---------|---------------|-----------|
+| 401 | `API key missing or incorrect` | Authentication header is missing, invalid, or expired. | Send the right `x-api-key` for your workspace/environment. |
+| 404 | `Virtual account ID not found` | The ID does not exist or is outside your workspace. | Double-check you are using an ID returned by the creation endpoints. |
+| 500 | `Service temporarily unavailable` | Backend system/dataset failure prevented the lookup. | Retry with backoff and contact support if it persists. |
