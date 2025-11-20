@@ -57,7 +57,7 @@ The top-level `event` field identifies the webhook type. All transaction details
 
 This is the main object containing all the information about the payout.
 
-| Field | Type | Description |
+| **Field** | **Type** | **Description** |
 | :--- | :--- | :--- |
 | `id` | `string` | The unique identifier for the payout transaction. |
 | `referenceNumber` | `string` | An internal reference code for tracking the payment. |
@@ -74,7 +74,7 @@ This is the main object containing all the information about the payout.
 
 This object details the financial aspects of the transaction.
 
-| Field | Type | Description |
+| **Field** | **Type** | **Description** |
 | :--- | :--- | :--- |
 | `quote.id` | `string` | The unique identifier for this specific financial quote. |
 | `quote.source` | `object` | An object detailing the funds being sent (`currency`, `country`, `amount`). |
@@ -89,7 +89,7 @@ This object details the financial aspects of the transaction.
 
 This object provides all necessary details about the receiver of the funds.
 
-| Field | Type | Description |
+| **Field** | **Type** | **Description** |
 | :--- | :--- | :--- |
 | `name` | `string` | The full name of the recipient. |
 | `account.bankName` | `string` | The name of the recipient's bank (e.g., "Guaranty Trust Bank"). |

@@ -1,10 +1,9 @@
 ---
+title: 'Simulate Virtual Account Funding'
 openapi: post /v1/virtual-account/simulate/transfer
 ---
 
 import { Callout } from 'nextra/components'
-
-## Simulate Virtual Account Funding
 
 This endpoint is a crucial tool for testing your integration in our **sandbox environment** 🧪. It allows you to simulate an incoming bank transfer to a specific virtual account, triggering any associated webhooks and updating the account's balance.
 
@@ -26,7 +25,7 @@ Use this endpoint to simulate a credit transaction to one of your virtual accoun
 
 The request body must include the amount and the unique reference of the virtual account you wish to fund.
 
-| Field       | Type   | Description                                                                 | Required |
+| **Field** | **Type** | **Description** | **Required** |
 | :---------- | :----- | :-------------------------------------------------------------------------- | :------- |
 | `amount`    | Number | The amount to be credited, specified in the lowest denomination (e.g., kobo, cents). | ✅ Yes   |
 | `reference` | String | The unique reference number for the virtual account you are funding.         | ✅ Yes   |
@@ -57,3 +56,4 @@ curl --location '{{baseurl}}/v1/virtual-account/simulate/transfer' \
     "reference": "{{refNumber}}"
 }'
 ```
+

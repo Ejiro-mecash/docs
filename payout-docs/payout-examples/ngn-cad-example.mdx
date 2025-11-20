@@ -1,5 +1,6 @@
 ---
 title: 'CAD Payout'
+icon: money-bill-transfer
 ---
 
 This endpoint allows you to process payouts in **Canadian Dollars (CAD)** to recipients with a bank account in Canada.
@@ -18,7 +19,7 @@ This endpoint allows you to process payouts in **Canadian Dollars (CAD)** to rec
 
 Include these headers in your request:
 
-| Header         | Value              | Required |
+| **Header** | **Value** | **Required** |
 | :------------- | :----------------- | :------- |
 | `Content-Type` | `application/json` | ✅ Yes   |
 | `x-api-key`    | `YOUR_API_KEY`     | ✅ Yes   |
@@ -326,7 +327,7 @@ axios.post(url, data, config)
 
 ### Request Body Breakdown
 
-| Field                               | Type    | Description                                                                                               | Required     |
+| **Field** | **Type** | **Description** | **Required** |
 | :---------------------------------- | :------ | :-------------------------------------------------------------------------------------------------------- | :----------- |
 | `quoteId`                           | String  | The unique ID of the quote for this payout.                                                                 | ✅ Yes       |
 | `reason`                            | String  | The purpose of the transfer (e.g., `Payment for services`).                                               | ✅ Yes       |
@@ -453,7 +454,7 @@ If the payout is successfully created, the API returns the following response:
 
 This table explains each field in the success response payload. Note that some fields in the `recipient` object are specific to the payment channel used.
 
-| Field                                  | Type   | Description                                                                                             |
+| **Field** | **Type** | **Description** |
 | :------------------------------------- | :----- | :------------------------------------------------------------------------------------------------------ |
 | `message`                              | String | A confirmation message indicating the result of the request.                                            |
 | `status`                               | String | The overall status of the request, e.g., `success`.                                                     |
@@ -480,7 +481,7 @@ This table explains each field in the success response payload. Note that some f
 
 The payout transaction can have one of the following states:
 
-| State     | Description                              |
+| **State** | **Description** |
 |:----------|:-----------------------------------------|
 | `COMPLETED` | The payout was successfully processed.   |
 | `PENDING`   | The payout is still being processed.     |
@@ -491,7 +492,7 @@ The payout transaction can have one of the following states:
 
 ## Error Handling
 
-| **Status Code** | **Meaning**                | **Example Response**                                |
+| **Status Code** | **Meaning** | **Example Response** |
 |:------------|:-----------------------|:------------------------------------------------|
 | `400`       | Insufficient Balance   | Insufficient Balance                            |
 | `401`       | Unauthorized           | Invalid API key provided.                       |

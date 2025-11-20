@@ -1,13 +1,15 @@
 ---
-title: "API Reference Overview"
-description: "Prep your sandbox workspace and learn how to hit endpoints with Try it."
+title: "API Reference"
+icon: book
 ---
 
-Welcome to the meCash API Reference! Everything here runs against Sandbox, so line up the essentials below and you can be testing endpoints in minutes.
+Welcome to the meCash API Reference! 
+
+Everything here runs against Sandbox, so line up the essentials below and you can be testing endpoints in minutes.
 
 ## Before you start
 
-1. Copy a **Sandbox API key** from **Developers → API Keys** (environment toggle set to Sandbox).
+1. Copy your **Sandbox API key** from **Developers → API Keys** (environment toggle set to Sandbox).
 2. Add every server/VPN IP to **Developers → IP Whitelisting → Sandbox**—unlisted IPs return `403`.
 3. Use the sandbox base URL `https://sandboxapi.me-cash.com` plus JSON headers (`Content-Type` / `Accept`).
 
@@ -17,15 +19,15 @@ Welcome to the meCash API Reference! Everything here runs against Sandbox, so li
 Use the built-in **Try it** panel to send real Sandbox calls without leaving the docs:
 
 <Steps>
-  <Step title="1. Pick an endpoint">
+  <Step title="Pick an endpoint">
     Choose an endpoint in the sidebar (e.g., **Wallets → Get All Wallets**) and open the **Try it** drawer.
   </Step>
 
-  <Step title="2. Authenticate once">
+  <Step title="Authenticate once">
     Select the **Sandbox** environment, paste your API key under **Authentication**, and Mintlify auto-adds the `Bearer` header for every request.
   </Step>
 
-  <Step title="3. Send & inspect">
+  <Step title="Send & inspect">
     Edit path/query/body fields, click **Send**, then review the live response, headers, and generated cURL snippet you can reuse elsewhere.
   </Step>
 </Steps>
@@ -33,6 +35,7 @@ Use the built-in **Try it** panel to send real Sandbox calls without leaving the
 > **Heads-up:** `401` means the API key is missing or expired. `403` almost always indicates the calling IP still needs to be whitelisted in Sandbox.
 
 ---
+
 ## API Endpoints
 
 Explore our API categories to find the endpoints you need.
@@ -157,7 +160,7 @@ Stay updated with real-time notifications using webhooks:
 ## Support
 
 <CardGroup cols={2}>
-  <Card title="Documentation" icon="book" href="https://docs.me-cash.com">
+  <Card title="Documentation" icon="book" href="https://developer.me-cash.com">
     Comprehensive guides and tutorials.
   </Card>
   <Card title="Community" icon="discord" href="https://discord.com/invite/CC5v6h52Wk">
@@ -166,10 +169,10 @@ Stay updated with real-time notifications using webhooks:
   <Card title="Support" icon="envelope" href="mailto:support@me-cash.com">
     Get direct support from our team
   </Card>
-  <Card title="Status Page" icon="chart-bar" href="https://status.me-cash.com">
-    Check API status and uptime
-  </Card>
 </CardGroup>
 
+---
 
-Ready to start building? Use the interactive playground above to test the API, or dive into the specific endpoint documentation for detailed implementation guides.
+**Ready to start building?**
+
+Use the interactive playground above to test the API, or dive into the specific endpoint documentation for detailed implementation guides.

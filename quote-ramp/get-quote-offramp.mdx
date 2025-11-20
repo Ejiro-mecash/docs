@@ -15,7 +15,7 @@ The data includes source crypto, target fiat, rates, fees, and transaction rules
 
 ## Headers
 
-| Header         | Value              | Required |
+| **Header** | **Value** | **Required** |
 |----------------|--------------------|----------|
 | `Content-Type` | `application/json` | Yes      |
 | `x-api-key`    | `YOUR_API_KEY`        | Yes      |
@@ -24,7 +24,7 @@ The data includes source crypto, target fiat, rates, fees, and transaction rules
 
 ### Path Parameter
 
-| Parameter    | Type   | Description                        |
+| **Parameter** | **Type** | **Description** |
 |--------------|--------|------------------------------------|
 | `quote_id`   | string | Unique identifier of the quote     |
 
@@ -141,7 +141,7 @@ axios.get(`{{appUrl}}/v1/ramp/quote/${quoteId}`, {
 
 ## Error Codes
 
-| Code | Message                                   |
+| **Code** | **Message** |
 |------|-------------------------------------------|
 | 400  | Bad request – invalid or missing fields   |
 | 401  | Unauthorized – invalid API key            |

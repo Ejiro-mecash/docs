@@ -13,7 +13,7 @@ The data generated includes calculated rates, fees, and applicable transaction l
 
 ## Header
 
-| Header         | Value             | Required |
+| **Header** | **Value** | **Required** |
 |----------------|-------------------|----------|
 | `Content-Type` | `application/json`| Yes      |
 | `x-api-key`    | YOUR_API_KEY       | Yes      |
@@ -190,14 +190,14 @@ import { Callout } from 'nextra/components'
 
 ### Response Fields Breakdown
 
-| **Field**                                       | **Type**     | **Description** |
+| **Field** | **Type** | **Description** |
 |--------------------------------------------|----------|-------------|
 | `message`                                  | string   | Result message. |
 | `status`                                   | string   | Status of the request (e.g., `success`). |
 | `data.id`                                  | string   | Unique identifier for the created quote. |
 
 #### Source Object
-| **Field**                                       | **Type**     | **Description** |
+| **Field** | **Type** | **Description** |
 |--------------------------------------------|----------|-------------|
 | `data.source.currency`                     | string   | Name of the source currency (e.g., `USDC`). |
 | `data.source.symbol`                       | string   | Symbol of the source currency (e.g., `USDC`). |
@@ -209,7 +209,7 @@ import { Callout } from 'nextra/components'
 | `data.source.network.blockchain`           | string   | Blockchain name (e.g., `MATIC`). |
 
 #### Target Object
-| **Field**                                       | **Type**     | **Description** |
+| **Field** | **Type** | **Description** |
 |--------------------------------------------|----------|-------------|
 | `data.target.currency`                     | string   | Target currency (e.g., `NGN`). |
 | `data.target.country`                      | string   | Country code of the target (e.g., `NG`). |
@@ -217,13 +217,13 @@ import { Callout } from 'nextra/components'
 | `data.target.type`                         | string   | Type of the target asset (`FIAT` or `CRYPTOCURRENCY`). |
 
 #### Rate and Fees
-| **Field**                                       | **Type**     | **Description** |
+| **Field** | **Type** | **Description** |
 |--------------------------------------------|----------|-------------|
 | `data.rate`                                | number   | Conversion rate from source to target. |
 | `data.fees.amount`                         | number   | Fee amount applied to the transaction. |
 
 #### Rules Array
-| **Field**                                       | **Type**     | **Description** |
+| **Field** | **Type** | **Description** |
 |--------------------------------------------|----------|-------------|
 | `data.rules[].category`                    | string   | Rule category (e.g., `LIMIT`). |
 | `data.rules[].appliedCurrency`             | string   | Currency to which the rule is applied. |
@@ -233,7 +233,7 @@ import { Callout } from 'nextra/components'
 | `data.rules[].invoice`                     | number   | Invoice amount limit. |
 
 #### Gas Fee Object
-| **Field**                                       | **Type**     | **Description** |
+| **Field** | **Type** | **Description** |
 |--------------------------------------------|----------|-------------|
 | `data.gasFee.feeLevel.type`                | string   | Selected gas fee level (e.g., `MEDIUM`). |
 | `data.gasFee.feeLevel.fee.name`            | string   | Name of the token used for gas fee (e.g., `USDC`). |
@@ -241,7 +241,7 @@ import { Callout } from 'nextra/components'
 | `data.gasFee.feeLevel.fee.amount`          | number   | Gas fee amount in the token. |
 
 #### Summary
-| **Field**                                       | **Type**     | **Description** |
+| **Field** | **Type** | **Description** |
 |--------------------------------------------|----------|-------------|
 | `data.summary.total`                       | number   | Total amount to be sent by the user. |
 
@@ -250,7 +250,7 @@ import { Callout } from 'nextra/components'
 
 ## Error Responses
 
-| **HTTP Status** | **Error Code**      | **Message**                              | **Description**                                            |
+| **HTTP Status** | **Error Code** | **Message** | **Description** |
 |-------------|------------------|--------------------------------------|--------------------------------------------------------|
 | 400         | `INVALID_INPUT`  | Invalid request payload              | One or more fields are missing or have invalid values. |
 | 401         | `UNAUTHORIZED`   | Missing or invalid API key           | The `x-api-key` header is missing or incorrect.        |

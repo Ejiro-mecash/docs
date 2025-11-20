@@ -1,5 +1,6 @@
 ---
 title: 'meCash Virtual Accounts'
+icon: building
 ---
 
 Virtual accounts give your business bank account numbers that map directly to your meCash wallet. 
@@ -8,7 +9,7 @@ Assign them to customers, collect payments via standard transfers, and reconcile
 ## Supported currencies
 
 
-| Currency | Code | Status |
+| **Currency** | **Code** | **Status** |
 |----------|------|---------|
 | Nigerian Naira | NGN 🇳🇬 | Available |
 | Malawian Kwacha | MWK 🇲🇼 | Available |
@@ -43,21 +44,6 @@ Assign them to customers, collect payments via standard transfers, and reconcile
 
 ## How the flow works
 
-<AccordionGroup>
-  <Accordion icon="1-circle" title="Generate a virtual account">
-    Call the static or dynamic endpoint to issue a bank account number tied to your wallet.
-  </Accordion>
-  <Accordion icon="2-circle" title="Share payment details">
-    Provide the account name and number so customers can pay through their preferred banking channel.
-  </Accordion>
-  <Accordion icon="3-circle" title="Collect the transfer">
-    Incoming funds credit your wallet automatically. You also receive a webhook for each deposit.
-  </Accordion>
-  <Accordion icon="4-circle" title="Reconcile and settle">
-    Monitor wallet balances, then sweep funds to your bank per your instant or T+1 settlement schedule.
-  </Accordion>
-</AccordionGroup>
-
 ```mermaid
 sequenceDiagram
     title: Virtual Account Collections Flow
@@ -77,6 +63,21 @@ sequenceDiagram
 
     Note over meCash: Settlement occurs per agreed schedule (Instant or T+1)
 ```
+
+<AccordionGroup>
+  <Accordion icon="1-circle" title="Generate a virtual account">
+    Call the static or dynamic endpoint to issue a bank account number tied to your wallet.
+  </Accordion>
+  <Accordion icon="2-circle" title="Share payment details">
+    Provide the account name and number so customers can pay through their preferred banking channel.
+  </Accordion>
+  <Accordion icon="3-circle" title="Collect the transfer">
+    Incoming funds credit your wallet automatically. You also receive a webhook for each deposit.
+  </Accordion>
+  <Accordion icon="4-circle" title="Reconcile and settle">
+    Monitor wallet balances, then sweep funds to your bank per your instant or T+1 settlement schedule.
+  </Accordion>
+</AccordionGroup>
 
 ## Next steps
 

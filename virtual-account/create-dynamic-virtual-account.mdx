@@ -1,4 +1,5 @@
 ---
+title: 'Create Dynamic Virtual Account'
 openapi: post /v1/virtual-account/dynamic
 ---
 
@@ -6,10 +7,11 @@ openapi: post /v1/virtual-account/dynamic
 
 Use this table as the source of truth for troubleshooting `POST /v1/virtual-account/dynamic`.
 
-| Status | Message | What it means | How to fix |
+| **Status** | **Message** | **What it means** | **How to fix** |
 |--------|---------|---------------|-----------|
 | 400 | `Invalid Payload` | Required fields are missing or the JSON body fails validation. | Rebuild the payload with the expected schema (`currency`, `country`, `amount`, `duration`, `reference`, etc.). |
 | 400 | `Duration must be an integer` | `duration` was provided as a string/float or omitted. | Supply duration as an integer number of minutes (e.g., `30`). |
 | 401 | `API key missing or incorrect` | Authentication header is missing, invalid, or expired. | Include the correct `x-api-key` for the environment. |
 | 409 | `Reference must be unique` | The `reference` value already exists from an earlier request. | Reuse the first response or generate a new reference. |
 | 500 | `Service temporarily unavailable` | Temporary backend outage. | Retry later with exponential backoff; contact support if it persists. |
+

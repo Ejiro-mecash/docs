@@ -1,6 +1,8 @@
 ---
 title: 'EUR Payout'
+icon: money-bill-transfer
 ---
+
 This endpoint allows you to send payouts in **EUR** to recipients in any **SEPA country** (e.g., Germany, France, Spain). The request must include the recipient's details, payment method, and a valid `quoteId`.
 
 ## Endpoint
@@ -11,7 +13,7 @@ This endpoint allows you to send payouts in **EUR** to recipients in any **SEPA 
 ### Headers
 Include these headers in your request:
 
-| Header | Value | Required |
+| **Header** | **Value** | **Required** |
 | :--- | :--- | :--- |
 | `Content-Type` | `application/json` | ✅ Yes |
 | `x-api-key` | `YOUR_API_KEY` | ✅ Yes |
@@ -176,7 +178,7 @@ axios.post(url, data, config)
 
 The following fields are required when making a **EUR payout request**.
 
-| Field | Type | Description | Required |
+| **Field** | **Type** | **Description** | **Required** |
 | :--- | :--- | :--- | :--- |
 | `quoteId` | String | The unique ID of the quote for this payout. | ✅ Yes |
 | `reason` | String | The purpose of the transfer (e.g., `Payment for services`). | ✅ Yes |
@@ -256,7 +258,7 @@ If the payout is successfully created, the API returns the following response:
 
 This section explains each field returned in a successful response.
 
-| **Field**                              | **Type**   | **Description**                                         |
+| **Field** | **Type** | **Description** |
 | :--------------------------------- | :----- | :-------------------------------------------------------------- |
 | `message`                          | String | A confirmation message indicating the result of the request.    |
 | `status`                           | String | The overall status of the request, e.g., `success`.             |
@@ -296,7 +298,7 @@ This section explains each field returned in a successful response.
 
 The payout transaction can have one of the following states:
 
-| State      | Description                               |
+| **State** | **Description** |
 |------------|-------------------------------------------|
 | `COMPLETED` | The payout was successfully processed.   |
 | `PENDING`   | The payout is still being processed.     |
@@ -309,7 +311,7 @@ The payout transaction can have one of the following states:
 
 ## Error Handling
 
-| **Status Code** | **Meaning**                | **Example Response**                                |
+| **Status Code** | **Meaning** | **Example Response** |
 |:------------|:-----------------------|:------------------------------------------------|
 | `400`       | Insufficient Balance   | Insufficient Balance                            |
 | `401`       | Unauthorized           | Invalid API key provided.                       |

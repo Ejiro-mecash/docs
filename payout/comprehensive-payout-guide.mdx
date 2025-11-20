@@ -1,9 +1,8 @@
 ---
 title: "Comprehensive Payout Guide"
 description: "Complete guide to creating payouts across all supported currencies and payment channels"
+icon: money-bill-transfer
 ---
-
-## Comprehensive Payout Guide
 
 This guide covers all payout scenarios supported by the meCash API, including different currencies, payment channels, and recipient types.
 
@@ -13,7 +12,7 @@ The Payout API allows you to send money to recipients worldwide using various pa
 
 ### Supported Currencies & Payment Channels
 
-| Currency | Country | Payment Channels | Recipient Types |
+| **Currency** | **Country** | **Payment Channels** | **Recipient Types** |
 |----------|---------|------------------|-----------------|
 | NGN | Nigeria 🇳🇬 | Bank Transfer | Individual, Business |
 | USD | United States 🇺🇸 | Bank Transfer | Individual, Business |
@@ -329,7 +328,7 @@ print(response.json())
 
 ### Transaction Object
 
-| Field | Type | Required | Description |
+| **Field** | **Type** | **Required** | **Description** |
 |-------|------|----------|-------------|
 | `recipient` | Object | ✅ | Recipient details (structure varies by currency) |
 | `quoteId` | String | ✅ | Valid quote ID from Quote API |
@@ -446,7 +445,7 @@ All successful payout responses follow this structure:
 
 ### Common Error Responses
 
-| Status | Message | Cause | How to fix |
+| **Status** | **Message** | **Cause** | **How to fix** |
 |--------|---------|-------|------------|
 | 400 | `Insufficient wallet balance for transaction` | Your wallet lacks the funds required to cover the payout. | Fund the wallet or lower the payout amount before retrying. |
 | 400 | `Quotes only last for 10 minutes` | The quote expired before you attempted the payout. | Request a fresh quote and submit the payout immediately. |

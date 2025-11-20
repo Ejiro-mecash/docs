@@ -1,5 +1,6 @@
 ---
 title: 'Create Payout API'
+icon: money-bill-transfer
 ---
 
 Use this endpoint to disburse funds to a beneficiary. The payout consumes an existing quote, validates the beneficiary, and queues the transfer for settlement.
@@ -16,7 +17,7 @@ The code examples below mirror the corridors covered in our payout guides. Selec
 
 ## Request headers
 
-| Header | Description | Required | Example |
+| **Header** | **Description** | **Required** | **Example** |
 |--------|-------------|----------|---------|
 | `x-api-key` | Workspace API key for authentication. | ✅ Yes | `YOUR_API_KEY` |
 | `Content-Type` | Media type of the request body. | ✅ Yes | `application/json` |
@@ -44,7 +45,7 @@ The code examples below mirror the corridors covered in our payout guides. Selec
 
 ### Body fields
 
-| Field | Type | Description | Required | Example |
+| **Field** | **Type** | **Description** | **Required** | **Example** |
 |-------|------|-------------|----------|---------|
 | `recipient.name` | String | Full name of the beneficiary. | ✅ Yes | `Chris Tiana` |
 | `recipient.paymentChannel` | String | Channel to deliver funds (`BANK_TRANSFER`, `MOBILE_MONEY`, etc.). | ✅ Yes | `BANK_TRANSFER` |
@@ -210,7 +211,7 @@ axios.post('{{baseURL}}/v2/payout', {
 
 ### Field reference
 
-| Field | Type | Description |
+| **Field** | **Type** | **Description** |
 |-------|------|-------------|
 | `data.id` | String | Unique payout identifier returned by meCash. |
 | `data.reference` | String | Your client-generated reference if supplied. |
@@ -220,7 +221,7 @@ axios.post('{{baseURL}}/v2/payout', {
 
 ## Error responses
 
-| Status | Message | Cause | How to resolve |
+| **Status** | **Message** | **Cause** | **How to resolve** |
 |--------|---------|-------|----------------|
 | 400 | `Insufficient wallet balance for transaction` | Wallet balance cannot cover the payout amount. | Top up the wallet or lower the payout total before retrying. |
 | 400 | `Quotes only last for 10 minutes` | Quote expired before you attempted to consume it. | Generate a fresh quote and submit the payout immediately. |

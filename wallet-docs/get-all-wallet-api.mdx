@@ -1,7 +1,7 @@
 ---
 title: 'Get Wallets API'
+icon: wallet
 ---
-
 
 Use this endpoint to fetch the wallet that corresponds to a currency and country pair. This is helpful when you need to select the right wallet before initiating payouts or checking balances.
 
@@ -11,14 +11,14 @@ Use this endpoint to fetch the wallet that corresponds to a currency and country
 
 ### Query parameters
 
-| Parameter | Type   | Description | Required | Example |
+| **Parameter** | **Type** | **Description** | **Required** | **Example** |
 |-----------|--------|-------------|----------|---------|
 | `currency` | String | Three-letter ISO 4217 currency code for the wallet you want to retrieve. | ✅ Yes | `NGN` |
 | `country` | String | Two-letter ISO 3166-1 alpha-2 country code tied to the wallet. | ✅ Yes | `NG` |
 
 ### Request headers
 
-| Header | Type | Description | Required | Example |
+| **Header** | **Type** | **Description** | **Required** | **Example** |
 |--------|------|-------------|----------|---------|
 | `x-api-key` | String | Your meCash API key used for authentication. | ✅ Yes | `YOUR_API_KEY` |
 | `Content-Type` | String | Indicates the media type of the request. | ✅ Yes | `application/json` |
@@ -108,7 +108,7 @@ axios.get('{{baseURL}}/v1/wallet', {
 
 ### Field reference
 
-| Field | Type | Description |
+| **Field** | **Type** | **Description** |
 |-------|------|-------------|
 | `message` | String | High-level description of the outcome. |
 | `status` | String | `success` if the request succeeded, otherwise `error`. |
@@ -116,7 +116,7 @@ axios.get('{{baseURL}}/v1/wallet', {
 
 **Wallet object**
 
-| Field | Type | Description |
+| **Field** | **Type** | **Description** |
 |-------|------|-------------|
 | `id` | String | Unique identifier for the wallet. |
 | `balance` | Number | Available balance in the wallet's base currency. |
@@ -125,7 +125,7 @@ axios.get('{{baseURL}}/v1/wallet', {
 
 ## Error responses
 
-| Status | Meaning | Example message | Next steps |
+| **Status** | **Meaning** | **Example message** | **Next steps** |
 |--------|---------|-----------------|------------|
 | 400 | Missing or invalid query parameters. | `currency and country are required` | Confirm that both query parameters are present and use valid ISO codes. |
 | 401 | Authentication failed. | `Invalid API key.` | Verify you are using the correct `x-api-key` and that it is still active. |

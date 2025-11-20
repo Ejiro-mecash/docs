@@ -14,7 +14,7 @@ This endpoint fetches the complete details of a previously created crypto-to-cry
 
 ## Headers
 
-| Header         | Value              | Required |
+| **Header** | **Value** | **Required** |
 |----------------|--------------------|----------|
 | `Content-Type` | `application/json` | Yes      |
 | `x-api-key`    | `YOUR_API_KEY`        | Yes      |
@@ -23,7 +23,7 @@ This endpoint fetches the complete details of a previously created crypto-to-cry
 
 ### Path Parameter
 
-| Parameter    | Type   | Description                        |
+| **Parameter** | **Type** | **Description** |
 |--------------|--------|------------------------------------|
 | `quote_id`   | string | Unique identifier of the quote     |
 
@@ -144,7 +144,7 @@ axios.get(`{{appUrl}}/v1/ramp/quote/${quoteId}`, {
 
 ### Response Breakdown
 
-| **Field**                              | **Type**    | **Description**                                                                              |
+| **Field** | **Type** | **Description** |
 |------------------------------------|---------|------------------------------------------------------------------------------------------|
 | `message`                          | string  | Status message (e.g., `"quote successfully created"`)                                    |
 | `status`                           | string  | Status of the request (e.g., `"success"`)                                                |
@@ -184,7 +184,7 @@ axios.get(`{{appUrl}}/v1/ramp/quote/${quoteId}`, {
 
 ## Error Codes
 
-| Code | Message                                   |
+| **Code** | **Message** |
 |------|-------------------------------------------|
 | 400  | Bad request – invalid or missing fields   |
 | 401  | Unauthorized – invalid API key            |

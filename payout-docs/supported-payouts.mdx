@@ -1,30 +1,55 @@
 ---
 title: 'Supported Payout Routes'
+icon: map
 ---
 
-| # | Source currency | Destination country | Country code | Destination currency | Payment channel |
-|---|-----------------|---------------------|--------------|----------------------|-----------------|
-| 1 | NGN 🇳🇬 | Ghana 🇬🇭 | GH | GHS | Mobile Money |
-| 2 | NGN 🇳🇬 | Ivory Coast 🇨🇮 | CI | XOF | Mobile Money |
-| 3 | NGN 🇳🇬 | Kenya 🇰🇪 | KE | KES | Mobile Money |
-| 4 | NGN 🇳🇬 | Malawi 🇲🇼 | MW | MWK | Bank Transfer |
-| 5 | NGN 🇳🇬 | Nigeria 🇳🇬 | NG | NGN | Bank Transfer |
-| 6 | NGN 🇳🇬 | Rwanda 🇷🇼 | RW | RWF | Bank Transfer |
-| 7 | NGN 🇳🇬 | Senegal 🇸🇳 | SN | XOF | Bank Transfer |
-| 8 | NGN 🇳🇬 | South Africa 🇿🇦 | ZA | ZAR | Bank Transfer |
-| 9 | NGN 🇳🇬 | Austria 🇦🇹 | AT | EUR | Bank Transfer |
-| 10 | NGN 🇳🇬 | Denmark 🇩🇰 | DK | DKK | Bank Transfer |
-| 11 | NGN 🇳🇬 | Germany 🇩🇪 | DE | EUR | Bank Transfer |
-| 12 | NGN 🇳🇬 | United Kingdom 🇬🇧 | GB | GBP | Bank Transfer |
-| 13 | NGN 🇳🇬 | United States 🇺🇸 | US | USD | Bank Transfer |
-| 14 | MWK 🇲🇼 | Malawi 🇲🇼 | MW | MWK | Bank Transfer |
-| 15 | MWK 🇲🇼 | United States 🇺🇸 | US | USD | Bank Transfer |
-| 16 | RWF 🇷🇼 | Nigeria 🇳🇬 | NG | NGN | Bank Transfer |
-| 17 | NGN 🇳🇬 | Canada 🇨🇦 | CA | CAD | Bank Transfer |
+Use this matrix to confirm whether your source currency maps to the corridor you need before attempting a payout.
+
+## Coverage overview
+
+- NGN senders can reach 14 corridors spanning West, East, and Southern Africa plus key European and North American destinations.
+- MWK senders retain local payouts as well as a USD off-ramp for cross-border needs.
+- RWF senders can route funds to Nigeria, creating a bi-directional corridor with our NGN -> Rwanda route.
+- Bank transfers dominate for cross-border activity, while mobile money remains the fastest option for Ghana, Ivory Coast, and Kenya.
+
+### NGN source payouts
+
+| **Destination country** | **Country code** | **Destination currency** | **Payment channel** |
+|---|---|---|---|
+| Ghana 🇬🇭 | GH | GHS | Mobile Money |
+| Ivory Coast 🇨🇮 | CI | XOF | Mobile Money |
+| Kenya 🇰🇪 | KE | KES | Mobile Money |
+| Malawi 🇲🇼 | MW | MWK | Bank Transfer |
+| Nigeria 🇳🇬 | NG | NGN | Bank Transfer |
+| Rwanda 🇷🇼 | RW | RWF | Bank Transfer |
+| Senegal 🇸🇳 | SN | XOF | Bank Transfer |
+| South Africa 🇿🇦 | ZA | ZAR | Bank Transfer |
+| Austria 🇦🇹 | AT | EUR | Bank Transfer |
+| Denmark 🇩🇰 | DK | DKK | Bank Transfer |
+| Germany 🇩🇪 | DE | EUR | Bank Transfer |
+| United Kingdom 🇬🇧 | GB | GBP | Bank Transfer |
+| United States 🇺🇸 | US | USD | Bank Transfer |
+| Canada 🇨🇦 | CA | CAD | Bank Transfer |
+
+### MWK source payouts
+
+| **Destination country** | **Country code** | **Destination currency** | **Payment channel** |
+|---|---|---|---|
+| Malawi 🇲🇼 | MW | MWK | Bank Transfer |
+| United States 🇺🇸 | US | USD | Bank Transfer |
+
+### RWF source payouts
+
+| **Destination country** | **Country code** | **Destination currency** | **Payment channel** |
+|---|---|---|---|
+| Nigeria 🇳🇬 | NG | NGN | Bank Transfer |
 
 ### Payment channels
 
-- **Bank transfer**: Credit a traditional bank account using local banking networks.
-- **Mobile money**: Deliver funds to a mobile wallet that recipients control via their phone.
+- **Bank transfer**: Credit a traditional bank account using local banking networks. Ensure beneficiaries can accept local inward transfers and have completed any required KYC.
+- **Mobile money**: Deliver funds to a mobile wallet that recipients control via their phone. Recipients should confirm their wallet is active and has sufficient limits to accept the payout.
 
-We continue to add new corridors. Monitor your dashboard or release notes for updates.
+### Stay informed and request coverage
+
+- Review the dashboard or release notes regularly―new corridors are shipped as soon as they clear compliance.
+- Need a corridor that is not listed yet? Contact support with your expected volumes, source currency, and payout instrument so we can evaluate and prioritize it.

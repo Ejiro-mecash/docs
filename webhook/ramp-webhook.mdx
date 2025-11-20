@@ -84,7 +84,7 @@ The source type is `CRYPTOCURRENCY` and the target type is `FIAT`.
 
 ### Top-Level Fields
 
-| Field | Type | Description |
+| **Field** | **Type** | **Description** |
 |-------|------|-------------|
 | event | string | Event type (`ramp.payout.completed`) |
 | data  | object | Contains all transaction details |
@@ -93,7 +93,7 @@ The source type is `CRYPTOCURRENCY` and the target type is `FIAT`.
 
 ### Transaction Data (`data` object)
 
-| Field | Type | Description |
+| **Field** | **Type** | **Description** |
 |-------|------|-------------|
 | id | string | Unique transaction identifier |
 | type | string | Transaction type (`SEND`) |
@@ -108,12 +108,12 @@ The source type is `CRYPTOCURRENCY` and the target type is `FIAT`.
 ### Quote Details (`data.quote` object)
 
 #### Quote Metadata
-| Field | Type | Description |
+| **Field** | **Type** | **Description** |
 |-------|------|-------------|
 | id | string | Unique quote ID |
 
 #### Source (Crypto)
-| Field | Type | Description |
+| **Field** | **Type** | **Description** |
 |-------|------|-------------|
 | source.currency | string | Source cryptocurrency code |
 | source.symbol | string | Cryptocurrency symbol |
@@ -122,7 +122,7 @@ The source type is `CRYPTOCURRENCY` and the target type is `FIAT`.
 | source.blockchain | string | Blockchain network |
 
 #### Target (Fiat)
-| Field | Type | Description |
+| **Field** | **Type** | **Description** |
 |-------|------|-------------|
 | target.currency | string | Target fiat currency |
 | target.country | string | Target country code |
@@ -131,7 +131,7 @@ The source type is `CRYPTOCURRENCY` and the target type is `FIAT`.
 | target.amount | number | Amount received in fiat |
 
 #### Fees & Summary
-| Field | Type | Description |
+| **Field** | **Type** | **Description** |
 |-------|------|-------------|
 | fees.amount | number | Total service fee |
 | fees.gas.type | string | Gas fee tier (`LOW`/`MEDIUM`/`HIGH`) |
@@ -142,7 +142,7 @@ The source type is `CRYPTOCURRENCY` and the target type is `FIAT`.
 
 ### Recipient Details (`data.recipient` object)
 
-| Field | Type | Description |
+| **Field** | **Type** | **Description** |
 |-------|------|-------------|
 | name | string | Recipient name |
 | type | string | Recipient type (`BUSINESS`/`INDIVIDUAL`) |
@@ -151,7 +151,7 @@ The source type is `CRYPTOCURRENCY` and the target type is `FIAT`.
 | country | string | Recipient country |
 
 #### Bank Account (Fiat-specific fields)
-| Field | Type | Description |
+| **Field** | **Type** | **Description** |
 |-------|------|-------------|
 | account.bankName | string | Recipient bank name |
 | account.sortCode | string | Bank sort code |
@@ -230,14 +230,14 @@ description: Detailed breakdown of the payload structure for crypto-related webh
 
 ## Top-Level Fields
 
-| Field | Type | Description |
+| **Field** | **Type** | **Description** |
 |-------|------|-------------|
 | `event` | string | Webhook event type |
 | `data` | object | Transaction details container |
 
 ## Transaction Metadata
 
-| Field | Type | Description |
+| **Field** | **Type** | **Description** |
 |-------|------|-------------|
 | `id` | string | Unique transaction ID |
 | `type` | string | Always `"SEND"` for transfers |
@@ -249,13 +249,13 @@ description: Detailed breakdown of the payload structure for crypto-related webh
 
 ## Quote Information
 
-| Field | Type | Description |
+| **Field** | **Type** | **Description** |
 |-------|------|-------------|
 | `id` | string | Unique quote reference |
 
 ## Source Assets
 
-| Field | Type | Description |
+| **Field** | **Type** | **Description** |
 |-------|------|-------------|
 | `source.currency` | string | Cryptocurrency ticker |
 | `source.symbol` | string | Asset symbol |
@@ -265,7 +265,7 @@ description: Detailed breakdown of the payload structure for crypto-related webh
 
 ## Destination Assets
 
-| Field | Type | Description |
+| **Field** | **Type** | **Description** |
 |-------|------|-------------|
 | `target.currency` | string | Destination asset ticker |
 | `target.symbol` | string | Destination symbol |
@@ -275,7 +275,7 @@ description: Detailed breakdown of the payload structure for crypto-related webh
 
 ## Fee Structure
 
-| Field | Type | Description |
+| **Field** | **Type** | **Description** |
 |-------|------|-------------|
 | `fees.amount` | number | Platform fees |
 | `fees.gas.type` | string | Network fee priority |
@@ -284,7 +284,7 @@ description: Detailed breakdown of the payload structure for crypto-related webh
 
 ## Recipient Information
 
-| Field | Type | Description |
+| **Field** | **Type** | **Description** |
 |-------|------|-------------|
 | `address` | string | Destination wallet address |
 | `alias` | string | Wallet identifier |

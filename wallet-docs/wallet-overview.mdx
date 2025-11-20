@@ -1,6 +1,9 @@
 ---
 title: 'How meCash Wallets Work'
+icon: wallet
 ---
+
+
 
 A meCash wallet is a multi-currency digital wallet that lets you manage your funds globally. It's linked to a real bank account to ensure every transaction is secure and reliable.
 
@@ -26,7 +29,7 @@ These currencies are currently available for creating and funding meCash wallets
 
 Each wallet is tied to a user and has the following core attributes:
 
-| Attribute | Type | Description |
+| **Attribute** | **Type** | **Description** |
 | :--- | :--- | :--- |
 | `walletId` | `UUID` | A unique identifier for the wallet. |
 | `currency` | `String` | The three-letter ISO currency code (e.g., `NGN`, `USD`). |
@@ -34,6 +37,5 @@ Each wallet is tied to a user and has the following core attributes:
 | `balance` | `Decimal` | The available funds in the wallet. We use a decimal type to ensure precision. |
 
 ---
-
 
 

@@ -1,12 +1,13 @@
 ---
 title: 'Dynamic Virtual Account'
+icon: bolt
 ---
 
 Dynamic accounts are short-lived, one-time-use bank account numbers. They are designed to streamline payments by ensuring the funds received match a specific, expected amount. They automatically expire after a time limit you define.
 
 This is ideal for invoicing, one-time checkouts, or any scenario where you need to tie a payment directly to a specific transaction.
 
-### **Supported Corridors**
+## **Supported Corridors**
 meCash Dynamic accounts currently support: 
 - **Nigeria (NGN)**
 - **Malawi (MKW)**
@@ -65,6 +66,7 @@ Dynamic accounts are highly effective for managing one-to-one payments.
 ### Custom naming behavior
 
 If you provide a `accountName`, the same string is applied to the newly created dynamic account. When the field is not supplied, we automatically use the workspace’s registered business name.
+The `accountName` must be alphabetical.
 
 <CodeGroup>
 ```json Request
@@ -179,7 +181,7 @@ curl --request POST '{{baseURL}}/v1/virtual-account/dynamic' \
 | data.email | string | Account email address |
 | data.reference | string | Transaction reference number |
 | data.account | object | Bank account details object |
-| data.account.name | string | Name on the bank account |
+| data.account.name | string | Name on the bank account, must be alphabetical |
 | data.account.bankName | string | Name of the bank |
 | data.account.sortCode | string | Bank sort code |
 | data.account.number | string | Virtual account number |

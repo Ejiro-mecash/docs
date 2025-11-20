@@ -1,9 +1,8 @@
 ---
 title: 'Get Quote API'
 description: 'Retrieve the details of a previously created quote using its quoteId.'
+icon: search
 ---
-
-## Get Quote API
 
 Use this endpoint to fetch the latest state of a quote before completing the payout. It returns the locked-in rate, fees, and the remaining validity window.
 
@@ -13,7 +12,7 @@ Use this endpoint to fetch the latest state of a quote before completing the pay
 
 ## Request headers
 
-| Header | Description | Required | Example |
+| **Header** | **Description** | **Required** | **Example** |
 |--------|-------------|----------|---------|
 | `x-api-key` | API key tied to your environment. | ✅ Yes | `YOUR_API_KEY` |
 | `Content-Type` | Media type of the request. | ✅ Yes | `application/json` |
@@ -131,7 +130,7 @@ axios.get(`{{baseURL}}/v1/quote/${quoteId}`, {
 
 ### Field reference
 
-| Field | Type | Description |
+| **Field** | **Type** | **Description** |
 |-------|------|-------------|
 | `message` | String | Overall result of the request. |
 | `status` | String | `success` if the quote was found; `error` otherwise. |
@@ -146,7 +145,7 @@ axios.get(`{{baseURL}}/v1/quote/${quoteId}`, {
 
 ## Error responses
 
-| Status | Meaning | Example message | How to fix |
+| **Status** | **Meaning** | **Example message** | **How to fix** |
 |--------|---------|-----------------|------------|
 | 400 | Quote not found or invalid ID. | `Quote does not exist` | Confirm the `quoteId` is correct and unexpired. |
 | 401 | Authentication failed. | `Invalid API key` | Verify the `x-api-key` header. |

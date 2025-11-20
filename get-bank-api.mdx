@@ -16,13 +16,13 @@ curl --location 'http://{baseurl}/v1/bank?currency=NGN&country=NG' \
 
 ### Headers
 
-| Header Name   | Value           | Required | Description                         |
+| **Header Name** | **Value** | **Required** | **Description** |
 | :------------ | :-------------- | :------- | :---------------------------------- |
 | `X-API-KEY`    | `x-api-key`  | Yes      | API key for authentication          |
 
 ### Query Parameters
 
-| Parameter | Value | Required | Description                            |
+| **Parameter** | **Value** | **Required** | **Description** |
 | :-------- | :---- | :------- | :------------------------------------- |
 | `currency` | `NGN` | Yes      | Currency code (Nigerian Naira)         |
 | `country`  | `NG`  | Yes      | Country code (Nigeria)                 |
@@ -56,7 +56,7 @@ curl --location 'http://{baseurl}/v1/bank?currency=NGN&country=NG' \
 ```
 ## Error Responses
 
-| Status Code | Description                                     | Response Body Example          |
+| **Status Code** | **Description** | **Response Body Example** |
 | :---------- | :---------------------------------------------- | :----------------------------- |
 | `401`       | Occurs if the API key is missing or invalid.    | "Invalid API key"              |
 | `400`       | Occurs if any required query parameter is missing or invalid. | "Missing required parameter: country" |

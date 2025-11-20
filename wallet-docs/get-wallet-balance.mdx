@@ -1,5 +1,6 @@
 ---
 title: 'Get Wallet Balance API'
+icon: coins
 ---
 
 Use this endpoint to retrieve the available balance for a wallet you previously created. It accepts the wallet identifier as a path parameter and returns the latest balance snapshot.
@@ -14,13 +15,13 @@ Use this endpoint to retrieve the available balance for a wallet you previously 
 
 ### Path parameters
 
-| Parameter | Type | Description | Required | Example |
+| **Parameter** | **Type** | **Description** | **Required** | **Example** |
 |-----------|------|-------------|----------|---------|
 | `walletId` | String | Unique identifier of the wallet whose balance you want to query. | ✅ Yes | `739d7131-d523-49ui-8524-xxxxxxxxxx` |
 
 ### Request headers
 
-| Header | Type | Description | Required | Example |
+| **Header** | **Type** | **Description** | **Required** | **Example** |
 |--------|------|-------------|----------|---------|
 | `x-api-key` | String | Your meCash API key for authentication. | ✅ Yes | `YOUR_API_KEY` |
 | `Content-Type` | String | Media type of the request. | ✅ Yes | `application/json` |
@@ -109,7 +110,7 @@ axios.get(`{{baseURL}}/v1/wallet/${walletId}/balance`, {
 
 ### Field reference
 
-| Field | Type | Description |
+| **Field** | **Type** | **Description** |
 |-------|------|-------------|
 | `message` | String | High-level description of the outcome. |
 | `status` | String | `success` if the request succeeded, otherwise `error`. |
@@ -121,7 +122,7 @@ axios.get(`{{baseURL}}/v1/wallet/${walletId}/balance`, {
 
 ## Error responses
 
-| Status | Meaning | Example message | Next steps |
+| **Status** | **Meaning** | **Example message** | **Next steps** |
 |--------|---------|-----------------|------------|
 | 400 | Missing or invalid `walletId`. | `walletId is required` | Confirm you are sending a valid UUID in the path. |
 | 401 | Authentication failed. | `Invalid API key.` | Verify your `x-api-key` header. |

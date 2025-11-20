@@ -1,5 +1,6 @@
 ---
 title: 'Create Quote API'
+icon: calculator
 ---
 
 Use this endpoint to generate a guaranteed exchange rate for a specific corridor. The quote response includes a `quoteId` that you must supply when you create the payout.
@@ -31,7 +32,7 @@ Use this endpoint to generate a guaranteed exchange rate for a specific corridor
 
 ### Body fields
 
-| Field | Type | Description | Required | Example |
+| **Field** | **Type** | **Description** | **Required** | **Example** |
 |-------|------|-------------|----------|---------|
 | `paymentChannel` | String | Payment channel used to settle the payout (e.g. `BANK_TRANSFER`, `MOBILE_MONEY`). | ✅ Yes | `BANK_TRANSFER` |
 | `source.amount` | Number | Amount you want to convert in the source currency. | ✅ Yes | `150000` |
@@ -42,7 +43,7 @@ Use this endpoint to generate a guaranteed exchange rate for a specific corridor
 
 ### Request headers
 
-| Header | Type | Description | Required | Example |
+| **Header** | **Type** | **Description** | **Required** | **Example** |
 |--------|------|-------------|----------|---------|
 | `x-api-key` | String | API key associated with your workspace. | ✅ Yes | `YOUR_API_KEY` |
 | `Content-Type` | String | Media type of the request body. | ✅ Yes | `application/json` |
@@ -201,7 +202,7 @@ axios.post('{{baseURL}}/v1/quote', {
 
 ### Field reference
 
-| Field | Type | Description |
+| **Field** | **Type** | **Description** |
 |-------|------|-------------|
 | `id` | String | Quote identifier to reuse in payout requests. |
 | `rate` | Number | Exchange rate applied to the conversion. |
@@ -212,7 +213,7 @@ axios.post('{{baseURL}}/v1/quote', {
 
 ## Error responses
 
-| Status | Message | Cause | How to handle |
+| **Status** | **Message** | **Cause** | **How to handle** |
 |--------|---------|-------|---------------|
 | 400 | `Invalid country or currency ISO code` | The source/target country or currency combination is not supported. | Use valid ISO codes for corridors enabled on your workspace. |
 | 400 | `Invalid Payment Channel, check docs or contact support` | `paymentChannel` is not valid for the selected corridor. | Choose a supported channel for the corridor and amount. |

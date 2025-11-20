@@ -8,7 +8,7 @@ The `Get Gas Fee` endpoint fetches the gas fee required for a cryptocurrency tra
 
 ## Headers
 
-| Header          | Value                         | Required | Description                                             |
+| **Header** | **Value** | **Required** | **Description** |
 |-----------------|-------------------------------|----------|---------------------------------------------------------|
 | `Content-Type`  | `application/json`            | Yes      | Specifies that the request body is JSON formatted.     |
 | `x-api-key` | `API_KEY_HERE`            | Yes    | Bearer token for authorization. See note below.         |
@@ -105,7 +105,7 @@ axios.post('{{baseURL}}/v1/ramp/gasFee', feeDetails, {
 
 ### Source Fields
 
-| Field     | Type     | Description                            |
+| **Field** | **Type** | **Description** |
 |-----------|----------|----------------------------------------|
 | amount    | number   | Amount of cryptocurrency to transfer.  |
 | symbol    | string   | Currency symbol (e.g., POL).           |
@@ -113,7 +113,7 @@ axios.post('{{baseURL}}/v1/ramp/gasFee', feeDetails, {
 
 ### Recipient Fields
 
-| Field          | Type   | Description                              |
+| **Field** | **Type** | **Description** |
 |----------------|--------|------------------------------------------|
 | recipient.address        | string | Wallet address of the recipient.         |
 
@@ -153,7 +153,7 @@ axios.post('{{baseURL}}/v1/ramp/gasFee', feeDetails, {
 ```
 ### Response Fields
 
-| Field                      | Type     | Description                                                                 |
+| **Field** | **Type** | **Description** |
 |----------------------------|----------|-----------------------------------------------------------------------------|
 | `message`                  | string   | Description of the request result.                                          |
 | `status`                   | string   | Status of the request (`success` or `error`).                               |
@@ -172,7 +172,7 @@ axios.post('{{baseURL}}/v1/ramp/gasFee', feeDetails, {
 
 ## Error  
 
-| HTTP Status Code | Error Code         | Message                                   | Description |
+| **HTTP Status Code** | **Error Code** | **Message** | **Description** |
 |------------------|--------------------|-------------------------------------------|-------------|
 | 400              | INVALID_REQUEST     | Invalid request payload.                  | The request body is malformed or missing required fields. |
 | 401              | UNAUTHORIZED        | Unauthorized access.                      | The `Authorization` or `x-api-key` header is missing or invalid. |

@@ -1,5 +1,6 @@
 ---
 title: 'NGN Payout'
+icon: money-bill-transfer
 ---
 
 This endpoint allows you to **send payouts in NGN** to recipients in **Nigeria**. The request must include the recipient's details, payment method, and a valid `quoteId`.
@@ -12,7 +13,7 @@ This endpoint allows you to **send payouts in NGN** to recipients in **Nigeria**
 ### Headers
 Include these headers in your request:
 
-| Header         | Value              | Required |
+| **Header** | **Value** | **Required** |
 | :------------- | :----------------- | :------- |
 | `Content-Type` | `application/json` | ✅ Yes    |
 | `x-api-key`    | `YOUR_API_KEY`     | ✅ Yes    |
@@ -164,7 +165,7 @@ axios.post(url, data, config)
 ### Request Body
 The following fields are required when making an **NGN payout request**:
 
-| Field                           | Type   | Description                                           |
+| **Field** | **Type** | **Description** |
 | :------------------------------ | :----- | :---------------------------------------------------- |
 | `remark`                        | String | Additional note about the transaction.                |
 | `reason`                        | String | Purpose of the transfer (e.g., `Gift`).               |
@@ -233,7 +234,7 @@ If the payout is successfully created, the API returns the following response:
 ```
 ## Response Breakdown
 
-| Field                              | Type    | Description                                                                 |
+| **Field** | **Type** | **Description** |
 | :--------------------------------- | :------ | :-------------------------------------------------------------------------- |
 | `message`                           | String  | Confirmation message indicating the result of the request.                  |
 | `status`                            | String  | Overall status of the request (`success`).                                   |
@@ -273,7 +274,7 @@ If the payout is successfully created, the API returns the following response:
 
 ## Error Handling
 
-| **Status Code** | **Meaning**                | **Example Response**                                |
+| **Status Code** | **Meaning** | **Example Response** |
 |:------------|:-----------------------|:------------------------------------------------|
 | `400`       | Insufficient Balance   | Insufficient Balance                            |
 | `401`       | Unauthorized           | Invalid API key provided.                       |
@@ -290,5 +291,4 @@ If the payout is successfully created, the API returns the following response:
 ✅ Confirm that the recipient’s **bank account number** and **bank code** are correct.  
 ✅ Use a valid API key in the headers.  
 ✅ Handle error responses correctly in your integration.  
-
 

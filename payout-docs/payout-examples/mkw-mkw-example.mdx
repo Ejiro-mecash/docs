@@ -1,5 +1,6 @@
 ---
 title: 'MKW Payout'
+icon: money-bill-transfer
 ---
 
 This endpoint allows users to **send payouts in MKW** to recipients in **Malawi**. 
@@ -12,7 +13,7 @@ The request must include recipient details, payment method, and payout amounts.
 
 ### Headers
 Include these headers in your request:
-| Header         | Value                | Required |
+| **Header** | **Value** | **Required** |
 |----------------|----------------------|----------|
 | `Content-Type` | `application/json`   | ✅ Yes   |
 | `x-api-key`    | `YOUR_API_KEY`       | ✅ Yes   |
@@ -45,7 +46,7 @@ curl --location --request POST '{{baseURL}}/v2/payout' \
 ### **Request Body**
 The following fields are required when making an **NGN payout request**:
 
-| **Field**                         | **Type**  | **Description**                                      | **Required** |
+| **Field** | **Type** | **Description** | **Required** |
 |-----------------------------------|---------|------------------------------------------------------|-------------|
 | `recipient.name`                  | String  | Full name of the recipient                          | ✅ Yes   |
 | `recipient.firstName`             | String  | First name of the recipient                         | ✅ Yes   |
@@ -115,7 +116,7 @@ If the payout is successfully created, the API returns the following response:
 
 ## Success Response Breakdown (200 OK)
 
-| Field                               | Type    | Description                                                                 |
+| **Field** | **Type** | **Description** |
 | :---------------------------------- | :------ | :-------------------------------------------------------------------------- |
 | `message`                            | String  | Confirmation message indicating the result of the request.                  |
 | `status`                             | String  | Overall status of the request (`success`).                                   |
@@ -150,7 +151,7 @@ If the payout is successfully created, the API returns the following response:
 
 The payout transaction can have one of the following states:
 
-| State      | Description                               |
+| **State** | **Description** |
 |------------|-------------------------------------------|
 | `COMPLETED` | The payout was successfully processed.   |
 | `PENDING`   | The payout is still being processed.     |
@@ -160,7 +161,7 @@ The payout transaction can have one of the following states:
 ---
 ## Error Handling
 
-| **Status Code** | **Meaning**                | **Example Response**                                |
+| **Status Code** | **Meaning** | **Example Response** |
 |:------------|:-----------------------|:------------------------------------------------|
 | `400`       | Insufficient Balance   | Insufficient Balance                            |
 | `401`       | Unauthorized           | Invalid API key provided.                       |

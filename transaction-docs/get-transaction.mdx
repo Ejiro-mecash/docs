@@ -11,7 +11,7 @@ This endpoint is used to inspect the current state of a payout or quote conversi
 
 ## Request headers
 
-| Header | Description | Required | Example |
+| **Header** | **Description** | **Required** | **Example** |
 |--------|-------------|----------|---------|
 | `x-api-key` | Workspace API key for authentication. | ✅ Yes | `YOUR_API_KEY` |
 | `Content-Type` | Media type of the request. | ✅ Yes | `application/json` |
@@ -137,7 +137,7 @@ axios.get(`{{baseURL}}/v1/transaction/${transactionId}`, {
 
 ### Field reference
 
-| Field | Type | Description |
+| **Field** | **Type** | **Description** |
 |-------|------|-------------|
 | `data.id` | String | Unique transaction identifier. |
 | `data.state` | String | Current processing state (e.g. `PENDING`, `COMPLETED`, `FAILED`). |
@@ -149,7 +149,7 @@ axios.get(`{{baseURL}}/v1/transaction/${transactionId}`, {
 
 ## Error responses
 
-| Status | Meaning | Example message | Next steps |
+| **Status** | **Meaning** | **Example message** | **Next steps** |
 |--------|---------|-----------------|-----------|
 | 400 | Transaction not found or invalid ID. | `Transaction does not exist` | Confirm the identifier and ensure the payout was created successfully. |
 | 401 | Authentication failed. | `Invalid API key` | Verify the `x-api-key` header. |

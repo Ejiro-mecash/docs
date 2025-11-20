@@ -1,10 +1,10 @@
 ---
 title: 'Get Virtual Account'
 description: 'Retrieve the details of a virtual account by its identifier.'
+icon: magnifying-glass
 ---
 
 import { Callout } from 'nextra/components'
-## Get Virtual Account
 
 Use this endpoint to look up the latest data for a static or dynamic virtual account. It returns the account number, status, expiry information, and the customer profile you attached during creation.
 
@@ -14,14 +14,14 @@ Use this endpoint to look up the latest data for a static or dynamic virtual acc
 
 ## Request headers
 
-| Header | Description | Required | Example |
+| **Header** | **Description** | **Required** | **Example** |
 |--------|-------------|----------|---------|
 | `x-api-key` | Workspace API key for authentication. | ✅ Yes | `YOUR_API_KEY` |
 | `Content-Type` | Media type of the request. | Optional | `application/json` |
 
 ## Path parameters
 
-| Parameter | Type | Description | Required | Example |
+| **Parameter** | **Type** | **Description** | **Required** | **Example** |
 |-----------|------|-------------|----------|---------|
 | `virtualAccountId` | String | Unique identifier returned when the account was created. | ✅ Yes | `30fe4022-09da-46fb-bafa-xxxxxxxxxxxxx` |
 
@@ -124,7 +124,7 @@ axios.get(`{{baseURL}}/v1/virtual-account/${virtualAccountId}`, {
 
 ### Response fields
 
-| Field | Type | Description |
+| **Field** | **Type** | **Description** |
 |-------|------|-------------|
 | `data.account.number` | String | Virtual bank account number customers use to pay you. |
 | `data.account.bankName` | String | Issuing bank for the account. |
@@ -135,7 +135,7 @@ axios.get(`{{baseURL}}/v1/virtual-account/${virtualAccountId}`, {
 
 ## Error responses
 
-| Status | Message | Cause | Next steps |
+| **Status** | **Message** | **Cause** | **Next steps** |
 |--------|---------|-------|-----------|
 | 401 | `API key missing or incorrect` | Missing/invalid API key in the request header. | Include the correct `x-api-key` for the workspace/environment. |
 | 404 | `Virtual account ID not found` | The supplied `virtualAccountId` does not exist or belongs to another workspace. | Confirm you are using a valid ID from a created account. |

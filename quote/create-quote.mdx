@@ -1,10 +1,11 @@
 ---
+title: 'Create Quote'
 openapi: post /v1/quote
 ---
 
 ## Error responses
 
-| Status | Message | What it means | How to fix |
+| **Status** | **Message** | **What it means** | **How to fix** |
 |--------|---------|---------------|-----------|
 | 400 | `Invalid country or currency ISO code` | Source/target country or currency combination is unsupported. | Send ISO pairs for corridors enabled on your workspace. |
 | 400 | `Invalid Payment Channel, check docs or contact support` | `paymentChannel` is not valid for the corridor. | Switch to a supported channel for the requested route. |
@@ -17,3 +18,4 @@ openapi: post /v1/quote
 | 403 | `Access denied: IP address not whitelisted` | IP address has not been whitelisted. | Add your server IP in the dashboard. |
 | 429 | `API rate limit exceeded` | Too many quote requests in a short window. | Implement exponential backoff before retrying. |
 | 500 | `Service temporarily unavailable` | Temporary backend outage or maintenance. | Retry shortly and escalate if it continues. |
+

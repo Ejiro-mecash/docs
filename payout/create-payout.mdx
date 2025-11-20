@@ -1,10 +1,11 @@
 ---
+title: 'Create Payout'
 openapi: post /v2/payout
 ---
 
 ## Error responses
 
-| Status | Message | What it means | How to fix |
+| **Status** | **Message** | **What it means** | **How to fix** |
 |--------|---------|---------------|-----------|
 | 400 | `Insufficient wallet balance for transaction` | Wallet cannot cover the payout total. | Deposit more funds or reduce the amount before retrying. |
 | 400 | `Quotes only last for 10 minutes` | The referenced quote expired. | Fetch a new quote and submit the payout right away. |
@@ -17,3 +18,4 @@ openapi: post /v2/payout
 | 404 | `The requested endpoint does not exist` | Incorrect path or API version. | Ensure you are calling `POST /v2/payout` on the right base URL. |
 | 422 | `Invalid quote ID provided` | Quote ID missing, expired, or already consumed. | Create a new quote and reference its `id`. |
 | 500 | `Service temporarily unavailable` | Backend disruption prevented processing. | Retry later with exponential backoff; contact support if needed. |
+

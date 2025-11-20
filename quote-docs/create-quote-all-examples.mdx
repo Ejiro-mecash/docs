@@ -1,5 +1,6 @@
 ---
 title: 'Quote Examples'
+icon: calculator
 ---
 
 Use the samples below to experiment with the [`POST /v1/quote`](/quote/create-quote) endpoint. Each tab shows the request payload and the success response for a different corridor.
@@ -10,7 +11,7 @@ Use the samples below to experiment with the [`POST /v1/quote`](/quote/create-qu
 
 ## Required headers
 
-| Header | Description | Required | Example |
+| **Header** | **Description** | **Required** | **Example** |
 |--------|-------------|----------|---------|
 | `x-api-key` | Workspace API key. | ✅ Yes | `YOUR_API_KEY` |
 | `Content-Type` | Media type of the request body. | ✅ Yes | `application/json` |
@@ -186,7 +187,7 @@ curl --request POST '{{baseURL}}/v1/quote' \
 
 ### General attributes
 
-| Field | Type | Description |
+| **Field** | **Type** | **Description** |
 |-------|------|-------------|
 | `message` | String | Overall result of the request. |
 | `status` | String | `success` or `error`. |
@@ -194,7 +195,7 @@ curl --request POST '{{baseURL}}/v1/quote' \
 
 ### Source (send) details
 
-| Field | Type | Description |
+| **Field** | **Type** | **Description** |
 |-------|------|-------------|
 | `source.currency` | String | Currency being debited. |
 | `source.country` | String | Country where funds originate. |
@@ -202,7 +203,7 @@ curl --request POST '{{baseURL}}/v1/quote' \
 
 ### Target (receive) details
 
-| Field | Type | Description |
+| **Field** | **Type** | **Description** |
 |-------|------|-------------|
 | `target.currency` | String | Currency being delivered. |
 | `target.country` | String | Destination country. |
@@ -210,7 +211,7 @@ curl --request POST '{{baseURL}}/v1/quote' \
 
 ### Rates, fees, and rules
 
-| Field | Type | Description |
+| **Field** | **Type** | **Description** |
 |-------|------|-------------|
 | `rate` | Number | Exchange rate applied. |
 | `fee.amount` | Number | Fees charged on this quote. |
@@ -220,7 +221,7 @@ curl --request POST '{{baseURL}}/v1/quote' \
 
 ### Expiry and settlement
 
-| Field | Type | Description |
+| **Field** | **Type** | **Description** |
 |-------|------|-------------|
 | `summary.total` | Number | Total debit amount including fees. |
 | `settlementTime` | String | Estimated delivery time for the payout. |
@@ -229,7 +230,7 @@ curl --request POST '{{baseURL}}/v1/quote' \
 
 ## Error handling
 
-| Status | Message | Cause | Next steps |
+| **Status** | **Message** | **Cause** | **Next steps** |
 |--------|---------|-------|-----------|
 | 400 | `Invalid country or currency ISO code` | Country/currency combination is not supported. | Align to the corridors enabled for your workspace. |
 | 400 | `Invalid Payment Channel, check docs or contact support` | `paymentChannel` isn’t supported for the corridor. | Switch to a supported channel before retrying. |
