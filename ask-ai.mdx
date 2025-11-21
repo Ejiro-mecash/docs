@@ -1,0 +1,59 @@
+---
+title: 'Ask our AI (self-hosted)'
+description: 'Lightweight AI helper without Mintlify add-on'
+---
+
+Use this page to open a lightweight docs copilot that talks to your own AI endpoint. Nothing here requires the Mintlify paid Ask AI feature.
+
+<Button
+  href="/ask-ai-widget.html"
+  target="_blank"
+  size="large"
+  icon="message"
+>
+  Launch Ask AI widget
+</Button>
+
+## How it works
+
+- We ship an embedded widget at `/public/ask-ai-widget.html` that runs fully in the browser.
+- The widget posts questions to an endpoint you control and renders the JSON response.
+- You can override the endpoint URL either by editing the file or by passing a query param.
+
+## Connect your endpoint
+
+1. Update the target URL in `public/ask-ai-widget.html`:
+
+```js
+// Option A: edit the default
+const API_URL = "https://your-ai-endpoint.example.com/ask";
+
+// Option B: pass it at runtime
+// /ask-ai-widget.html?endpoint=https://api.yourdomain.com/ask
+```
+
+2. Your endpoint should accept `POST` JSON:
+
+```json
+{
+  "question": "How do I create a payout?",
+  "history": [
+    { "role": "user", "content": "Previous question" },
+    { "role": "assistant", "content": "Previous answer" }
+  ]
+}
+```
+
+3. Respond with JSON like:
+
+```json
+{ "answer": "Use POST /payout/create-payout with a valid quoteId." }
+```
+
+## Recommended setup
+
+- Use the included Express + Groq endpoint in `ask-ai-endpoint` (run `npm install && npm run dev` and point the widget to `http://localhost:8787/ask`).
+- Or swap in any LLM gateway (Groq, Cloudflare Workers AI, OpenRouter) behind your endpoint.
+- Add CORS headers to allow this docs origin; see `ALLOWED_ORIGINS` in `ask-ai-endpoint/.env.example`.
+- Rate limit and log requests to keep costs predictable.
+- Keep secrets on the server side only; the widget stays client-side and never stores keys.

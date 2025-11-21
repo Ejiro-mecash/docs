@@ -219,6 +219,7 @@
           {
             "group": "Support",
               "pages": [
+                "ask-ai",
                 "faq",
                 "community"
               ]
