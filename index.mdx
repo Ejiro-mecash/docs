@@ -111,4 +111,25 @@ icon: compass
       </Card>
     </CardGroup>
   </section>
+
+  {/* Biel.ai widget (global on homepage) */}
+  <div aria-hidden="true" style={{ display: 'none' }}>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/biel-search/dist/biel-search/biel-search.css"
+    />
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/biel-search/dist/biel-search/biel-search.esm.js"
+    />
+  </div>
+  <biel-button
+    project="xvqjfh6ecf"
+    header-title="Biel.ai Chatbot"
+    button-position="bottom-right"
+    modal-position="sidebar-right"
+    button-style="dark"
+  >
+    Ask AI
+  </biel-button>
 </div>
