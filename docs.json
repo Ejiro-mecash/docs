@@ -185,6 +185,7 @@
             "pages": [
               "virtual-account/create-virtual-account",
               "virtual-account/create-dynamic-virtual-account",
+              "virtual-account/virtual-account-transaction-id",
               "virtual-account/fund-virtual-account",
               "virtual-account/get-virtual-account"
              
@@ -251,14 +252,23 @@
     ],
     "primary": {
       "type": "button",
-      "label": "meCash Business",
-      "href": "https://business.me-cash.com"
-    }
+      "label": "Sign Up",
+      "href": "https://business.me-cash.com/"
+    },
+    "secondary": [
+      {
+        "label": "Book a Demo",
+        "page": "request-demo"
+      }
+    ]
   },
   "footer": {
     "socials": {
       "x": "https://x.com/mecash14",
       "linkedin": "https://linkedin.com/company/me-cash"
     }
-  }
+  },
+  "scripts": [
+    "/ask-ai-floating-widget.js"
+  ]
 }

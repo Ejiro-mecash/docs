@@ -158,8 +158,7 @@ axios.get(`{{baseURL}}/v1/transaction/${transactionId}`, {
 | 429 | Too many requests. | `Too many requests` | Add exponential backoff before retrying. |
 | 500 | Server error. | `Internal server error` | Retry later or contact support if persistent. |
 
-## Usage tips
-
+## **Usage tips**
 - Call this endpoint after receiving payout webhooks to verify the final state and amounts.
 - Persist transaction responses for audit trails; they include the original quote snapshot.
 - If the transaction remains `PROCESSING` for longer than expected, reach out to support with the `referenceNumber` for investigation.

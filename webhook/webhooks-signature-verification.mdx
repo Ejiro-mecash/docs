@@ -1,11 +1,9 @@
 ---
 title: "Webhook Signature Verification"
-description: "Learn how to verify webhook signatures for security"
 ---
 
-## Webhook Signature Verification
-
-Webhooks are signed with HMAC-SHA256 to ensure authenticity and integrity. This guide shows you how to verify webhook signatures in different programming languages.
+Webhooks in meCash are signed with HMAC-SHA256 to ensure authenticity and integrity. 
+This guide shows you how to verify webhook signatures in different programming languages.
 
 ## Overview
 
@@ -443,8 +441,4 @@ app.post('/test-webhook', (req, res) => {
 });
 ```
 
-## Next Steps
 
-- [Webhook Events](/webhooks-event) - Learn about webhook events.
-- [Webhook Retry Logic](/webhooks-retry) - Implement webhook retry handling.
-- [Webhook Monitoring](/webhooks-monitoring) - Monitor webhook delivery.

@@ -2126,6 +2126,87 @@
       }
     }
   },
+  "VirtualAccountTransaction": {
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for the transaction"
+    },
+    "virtual_account_id": {
+      "type": "string",
+      "description": "ID of the virtual account receiving the funds"
+    },
+    "reference": {
+      "type": "string",
+      "description": "Transaction reference"
+    },
+    "amount": {
+      "type": "number",
+      "format": "float",
+      "description": "Amount funded"
+    },
+    "currency": {
+      "type": "string",
+      "description": "Currency code (e.g., USD)"
+    },
+    "type": {
+      "type": "string",
+      "example": "funding"
+    },
+    "status": {
+      "type": "string",
+      "example": "successful"
+    },
+    "sender_details": {
+      "type": "object",
+      "properties": {
+        "account_name": {
+          "type": "string"
+        },
+        "bank_name": {
+          "type": "string"
+        }
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+},
+"GetVATransactionSuccessData": {
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "boolean",
+      "example": true
+    },
+    "message": {
+      "type": "string",
+      "example": "Transaction retrieved successfully"
+    },
+    "data": {
+      "$ref": "#/components/schemas/VirtualAccountTransaction"
+    }
+  }
+},  
+"GetVirtualAccountTransactionSuccess": {
+  "description": "Transaction details retrieved successfully.",
+  "content": {
+    "application/json": {
+      "schema": {
+        "$ref": "#/components/schemas/GetVATransactionSuccessData"
+      }
+    }
+  }
+},
+
   "paths": {
     "/v1/wallet": {
       "get": {
@@ -2710,6 +2791,44 @@
         }
       }
     },
+
+  "/v1/virtual-account/transaction/{transactionId}": {
+  "get": {
+    "tags": [
+      "Virtual Account"
+    ],
+    "summary": "Get Virtual Account Funding Transaction",
+    "description": "Retrieves the specific details of a funding transaction associated with a virtual account.",
+    "operationId": "getVirtualAccountTransaction",
+    "parameters": [
+      {
+        "name": "transactionId",
+        "in": "path",
+        "required": true,
+        "description": "The unique identifier of the transaction.",
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "$ref": "#/components/responses/GetVirtualAccountTransactionSuccess"
+      },
+      "401": {
+        "$ref": "#/components/responses/PayoutUnauthorized"
+      },
+      "404": {
+        "$ref": "#/components/responses/TransactionNotFoundOrInvalid"
+      },
+      "500": {
+        "$ref": "#/components/responses/PayoutInternalServerError"
+      }
+    }
+  }
+},
+
     "/v1/bank": {
       "get": {
         "tags": [

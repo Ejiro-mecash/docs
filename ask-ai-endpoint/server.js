@@ -1,12 +1,12 @@
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
-import { Groq } from 'groq-sdk';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
 const app = express();
 const port = process.env.PORT || 8787;
-const groqApiKey = process.env.GROQ_API_KEY;
-const groqModel = process.env.GROQ_MODEL || 'mixtral-8x7b-32768';
+const geminiApiKey = process.env.GEMINI_API_KEY;
+const geminiModel = process.env.GEMINI_MODEL || 'gemini-1.5-flash';
 
 const allowedOrigins = (process.env.ALLOWED_ORIGINS || '')
   .split(',')
@@ -25,7 +25,8 @@ app.use(
   })
 );
 
-const groq = groqApiKey ? new Groq({ apiKey: groqApiKey }) : null;
+const genAI = geminiApiKey ? new GoogleGenerativeAI(geminiApiKey) : null;
+const model = genAI ? genAI.getGenerativeModel({ model: geminiModel }) : null;
 
 app.get('/health', (_, res) => {
   res.json({ ok: true });
@@ -37,32 +38,40 @@ app.post('/ask', async (req, res) => {
     return res.status(400).json({ error: 'Missing question' });
   }
 
-  if (!groq) {
-    return res.status(500).json({ error: 'GROQ_API_KEY not set on server' });
+  if (!model) {
+    return res.status(500).json({ error: 'GEMINI_API_KEY not set on server' });
   }
 
-  const messages = [
-    {
-      role: 'system',
-      content:
-        'You are the meCash API docs assistant. Cite the most relevant endpoints and parameters. Keep answers short. If unsure, say you are unsure.',
-    },
-    ...history.map(({ role, content }) => ({
-      role: role === 'assistant' ? 'assistant' : 'user',
-      content: String(content || '').slice(0, 2000),
-    })),
-    { role: 'user', content: question.slice(0, 2000) },
-  ];
+  // Construct history for Gemini
+  // Gemini expects history in the format: { role: 'user' | 'model', parts: [{ text: string }] }
+  const chatHistory = history.map(({ role, content }) => ({
+    role: role === 'assistant' ? 'model' : 'user',
+    parts: [{ text: String(content || '').slice(0, 2000) }],
+  }));
 
   try {
-    const completion = await groq.chat.completions.create({
-      model: groqModel,
-      messages,
-      temperature: 0.3,
-      max_tokens: 480,
+    const chat = model.startChat({
+      history: [
+        {
+          role: 'user',
+          parts: [{ text: 'You are the meCash API docs assistant. Cite the most relevant endpoints and parameters. Keep answers short. If unsure, say you are unsure.' }],
+        },
+        {
+          role: 'model',
+          parts: [{ text: 'Understood. I am ready to assist with the meCash API documentation.' }],
+        },
+        ...chatHistory
+      ],
+      generationConfig: {
+        maxOutputTokens: 480,
+        temperature: 0.3,
+      },
     });
 
-    const answer = completion.choices?.[0]?.message?.content?.trim();
+    const result = await chat.sendMessage(question.slice(0, 2000));
+    const response = await result.response;
+    const answer = response.text();
+
     if (!answer) {
       return res.status(502).json({ error: 'Empty answer from model' });
     }
