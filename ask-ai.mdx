@@ -65,7 +65,7 @@ const API_URL = "https://your-ai-endpoint.example.com/ask";
 
 ## Recommended setup
 
-- Use the included Express + Groq endpoint in `ask-ai-endpoint` (run `npm install && npm run dev` and point the widget to `http://localhost:8787/ask`).
+- Use the included Express + Gemini endpoint in `ask-ai-endpoint` (run `npm install && npm run dev` and point the widget to `http://localhost:8787/ask`).
 - Or swap in any LLM gateway (Groq, Cloudflare Workers AI, OpenRouter) behind your endpoint.
 - Add CORS headers to allow this docs origin; see `ALLOWED_ORIGINS` in `ask-ai-endpoint/.env.example`.
 - Rate limit and log requests to keep costs predictable.

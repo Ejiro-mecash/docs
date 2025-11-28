@@ -4,7 +4,7 @@
 
   // Configuration
   const CONFIG = {
-    endpoint: 'http://localhost:8787/ask', // Default endpoint
+    endpoint: 'https://ask-my-docs-black.vercel.app/ask', // Production endpoint
     primaryColor: '#240552',
     accentColor: '#7d3be2',
     textColor: '#ffffff',
