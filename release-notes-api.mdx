@@ -1,5 +1,5 @@
 ---
-title: "API Release Notes"
+title: "API"
 description: "Latest production changes for the meCash API Platform."
 icon: code
 ---
@@ -18,10 +18,30 @@ Stay on top of API changes that could impact your integration. Each entry notes 
 
 ## API Platform
 
-### October 2025 — Platform Release (Status: Live)
+<AccordionGroup>
+  <Accordion title="November 2025 — Version v1.x (Status: Live)">
+    **New Features**
 
-- Added new outbound payment routes so you can reach more corridors without custom onboarding—check the API Reference for the latest supported `destinationCountry` values.
-- `accountName` is now supported on dynamic virtual account creation, letting you assign customer-friendly names; when omitted, we automatically fall back to your registered business name.
+    - **Crypto On-Ramp Endpoints**: We have exposed new endpoints to support fiat-to-crypto transactions. You can now fetch real-time exchange rates, view fee breakdowns (network vs. transaction fees), and initiate crypto purchases (BTC, ETH, USDT) using NGN.
+    - **Credit Transaction Retrieval**: A dedicated endpoint has been added for retrieving and posting credit transactions, ensuring reliable querying for transaction history integrations.
+    - **Dynamic Pricing Configuration**: We introduced endpoints to fetch pricing configurations directly from our backend (integrated with Sanity). This allows for dynamic pricing updates without requiring client-side code changes.
 
-**Action needed:** Pass `accountName` anywhere you need campaign- or store-specific labeling, and refresh your routing matrix to take advantage of the new payout corridors.
+    **Improvements**
+
+    - **Payout Validation Enforcement**: To reduce failed transactions, we now enforce mandatory field validation at the API level for **USD**, **EUR**, and **GBP** payout instructions. Incomplete payloads will now return specific validation errors before processing.
+    - **Virtual Account Naming**: The `accountName` parameter for Dynamic Virtual Accounts is now optional. If omitted during creation, the system will automatically default to using the registered business name.
+    - **Optimized Payout Payloads**: We have removed the need to send redundant `country` and `currency` fields in the Payout API payload, as these are now inherited directly from the associated Quote object.
+
+    **Fixes**
+
+    - **Login Error Messages**: Standardized error responses for failed login attempts. The API now returns a specific "Invalid login credentials" message instead of a generic server error.
+  </Accordion>
+
+  <Accordion title="October 2025 — Platform Release (Status: Live)">
+    - Added new outbound payment routes so you can reach more corridors without custom onboarding—check the API Reference for the latest supported `destinationCountry` values.
+    - `accountName` is now supported on dynamic virtual account creation, letting you assign customer-friendly names; when omitted, we automatically fall back to your registered business name.
+
+    **Action needed:** Pass `accountName` anywhere you need campaign- or store-specific labeling, and refresh your routing matrix to take advantage of the new payout corridors.
+  </Accordion>
+</AccordionGroup>
 

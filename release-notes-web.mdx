@@ -1,5 +1,5 @@
 ---
-title: "Web Release Notes"
+title: "Web"
 description: "Recent updates to the meCash Web Dashboard experience."
 icon: display
 ---
@@ -12,81 +12,105 @@ Use these notes to keep your internal runbooks, training materials, and embedded
 
 ## Web Dashboard
 
-### October 2025 — Web App Release (Status: Live)
+<AccordionGroup>
+  <Accordion title="November 2025 — Web App Release (Status: Live)">
+    **New Features**
 
-**New features**
+    - **Manual International Wallet Requests**: Merchants can now request **USD**, **GBP**, and **EUR** wallets directly via the dashboard. This triggers a workflow for our Sales/Ops team to review and approve your request. You will receive an email notification upon approval.
+    - **Zelle Payment Channel**: Added **Zelle** as a selectable payment channel when sending money to USD recipients. The interface now supports validation for Zelle-registered email addresses and mobile numbers.
+    - **Transaction Fee Transparency**: The Transaction History table and export files (CSV/Excel) now include a granular breakdown of fees, separating **VAT**, **Transaction Fees**, and **Stamp Duty** for easier reconciliation.
+    - **Payment Links**: We introduced Payment Links, a new way to collect payments without needing a website or app integration. You can now generate unique payment URLs instantly and share them with customers via WhatsApp, email, or social media to receive payments.
 
-- Launched the rebuilt [meCash Developer Hub](https://developer.me-cash.com/) with guided quickstarts, an interactive API explorer, real-world use cases, and centralized support links so teams can ship integrations faster.
+    **Improvements**
 
-### September 2025 — Web App Release (Status: Live)
+    - **Payment Links for Malawi**: We updated collection rules for Malawi (MWK) Payment Links:
+        - **Mobile Money** is enabled for amounts under 750,000 MWK.
+        - **Bank Transfer** is required for amounts between 750,000 MWK and 500,000,000 MWK.
+    - **Global Onboarding Support**: The sign-up flow now supports address selection for multiple countries (e.g., USA, UK, Kenya, Canada), allowing non-Nigerian businesses to onboard seamlessly.
+    - **Wallet Funding Details**: A new "Fund USD Wallet" modal provides a clear view of your banking details, including Account Number, Bank Address, and SWIFT code, making it easier to receive international deposits.
 
-**New features**
+    **Fixes**
 
-- Added a persistent Halt Payout banner that disables **Send/Transfer** whenever payouts, on-ramps, or off-ramps are paused, including tooltips that explain the outage.
-- Introduced scheduled maintenance banners so users know when services are temporarily suspended and when they will resume.
-- Expanded Canadian payout flows with validated input fields for institution number, transit number, and SWIFT/BIC to reduce submission errors.
-- Rolled out responsive in-app notification pop-ups for critical announcements such as payment provider changes.
+    - **Currency Persistence**: Fixed an issue where the "Amount" field value would persist when switching between different currency tabs in the Payment Links creation form.
+    - **Sign-Up Validation**: Email validation on the sign-up form now triggers immediately when you click away from the field, rather than waiting for the "Continue" button press.
+  </Accordion>
 
-**Improvements**
+  <Accordion title="October 2025 — Web App Release (Status: Live)">
+    **New features**
 
-- Hardened deployment processes to keep all API endpoints online during releases.
-- Removed gas fees from Off-Ramp and crypto-to-crypto flows and updated withdrawal/confirmation screens accordingly.
-- Enhanced sign-up validation to mask whether an email already exists.
-- Refreshed trust indicators to highlight meCash’s Circle Alliance certification.
+    - Launched the rebuilt [meCash Developer Hub](https://developer.me-cash.com/) with guided quickstarts, an interactive API explorer, real-world use cases, and centralized support links so teams can ship integrations faster.
+  </Accordion>
 
-**Bug fixes**
+  <Accordion title="September 2025 — Web App Release (Status: Live)">
+    **New features**
 
-- Cleared stale “Reason for Payment” selections after logout.
-- Fixed navigation on crypto withdrawals that previously redirected to the wrong quote page.
-- Resolved KYB submission timeouts and incorrect country-code defaults.
-- Corrected country/currency display issues on the public calculator.
-- Fixed intermittent CORS errors observed during login.
+    - Added a persistent Halt Payout banner that disables **Send/Transfer** whenever payouts, on-ramps, or off-ramps are paused, including tooltips that explain the outage.
+    - Introduced scheduled maintenance banners so users know when services are temporarily suspended and when they will resume.
+    - Expanded Canadian payout flows with validated input fields for institution number, transit number, and SWIFT/BIC to reduce submission errors.
+    - Rolled out responsive in-app notification pop-ups for critical announcements such as payment provider changes.
 
-### August 2025 — Web App Release (Status: Live)
+    **Improvements**
 
-**What's new**
+    - Hardened deployment processes to keep all API endpoints online during releases.
+    - Removed gas fees from Off-Ramp and crypto-to-crypto flows and updated withdrawal/confirmation screens accordingly.
+    - Enhanced sign-up validation to mask whether an email already exists.
+    - Refreshed trust indicators to highlight meCash’s Circle Alliance certification.
 
-- Added a dedicated OTC page for bespoke trades plus the ability to delete saved beneficiaries.
-- Published a user-facing maintenance mode page that communicates downtime status in real time.
+    **Bug fixes**
 
-**Enhancements**
+    - Cleared stale “Reason for Payment” selections after logout.
+    - Fixed navigation on crypto withdrawals that previously redirected to the wrong quote page.
+    - Resolved KYB submission timeouts and incorrect country-code defaults.
+    - Corrected country/currency display issues on the public calculator.
+    - Fixed intermittent CORS errors observed during login.
+  </Accordion>
 
-- Clarified Send Money fee breakdowns and optimized the mobile-web experience.
-- Disabled the **Continue** button until a payment reason is selected to avoid accidental submissions.
+  <Accordion title="August 2025 — Web App Release (Status: Live)">
+    **What's new**
 
-**Bug fixes**
+    - Added a dedicated OTC page for bespoke trades plus the ability to delete saved beneficiaries.
+    - Published a user-facing maintenance mode page that communicates downtime status in real time.
 
-- Fixed crashes triggered by session timeouts.
-- Resolved the “Something Went Wrong” server error on the Send Money screen.
+    **Enhancements**
 
-### July 2025 — Web App Release (Status: Live)
+    - Clarified Send Money fee breakdowns and optimized the mobile-web experience.
+    - Disabled the **Continue** button until a payment reason is selected to avoid accidental submissions.
 
-**What's new**
+    **Bug fixes**
 
-- Enabled Malawi (MKW) payouts directly from the web app for faster cross-border transfers.
+    - Fixed crashes triggered by session timeouts.
+    - Resolved the “Something Went Wrong” server error on the Send Money screen.
+  </Accordion>
 
-**Enhancements**
+  <Accordion title="July 2025 — Web App Release (Status: Live)">
+    **What's new**
 
-- Updated the FAQ experience for clearer answers.
+    - Enabled Malawi (MKW) payouts directly from the web app for faster cross-border transfers.
 
-**Bug fixes**
+    **Enhancements**
 
-- Corrected currency symbols so each wallet shows the appropriate denomination.
+    - Updated the FAQ experience for clearer answers.
 
-### July 05, 2024 — v2.9.0 (Status: Rolling out)
+    **Bug fixes**
 
-- New real-time payout monitor with filtering by corridor and banking partner.
-- Added downloadable audit exports (CSV) for wallet funding events.
-- Redesigned *Developers → API Keys* to show per-environment permissions and last-used timestamps.
+    - Corrected currency symbols so each wallet shows the appropriate denomination.
+  </Accordion>
 
-**Action needed:** If you embed dashboard links inside internal tools, refresh any saved URLs because navigation paths changed.
+  <Accordion title="July 05, 2024 — v2.9.0 (Status: Rolling out)">
+    - New real-time payout monitor with filtering by corridor and banking partner.
+    - Added downloadable audit exports (CSV) for wallet funding events.
+    - Redesigned *Developers → API Keys* to show per-environment permissions and last-used timestamps.
 
-### May 22, 2024 — v2.8.1 (Status: Live)
+    **Action needed:** If you embed dashboard links inside internal tools, refresh any saved URLs because navigation paths changed.
+  </Accordion>
 
-- Faster KYB document review screen with side-by-side previews.
-- Team Management now surfaces pending invitations and lets admins resend invites in bulk.
-- Improved dark-mode contrast for data tables.
+  <Accordion title="May 22, 2024 — v2.8.1 (Status: Live)">
+    - Faster KYB document review screen with side-by-side previews.
+    - Team Management now surfaces pending invitations and lets admins resend invites in bulk.
+    - Improved dark-mode contrast for data tables.
+  </Accordion>
 
-### Coming soon
-
-- Heads-up: The legacy navigation path `/developers/webhooks` will redirect to `/settings/webhooks` in Q3—update internal documentation accordingly.
+  <Accordion title="Coming soon">
+    - Heads-up: The legacy navigation path `/developers/webhooks` will redirect to `/settings/webhooks` in Q3—update internal documentation accordingly.
+  </Accordion>
+</AccordionGroup>

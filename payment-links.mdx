@@ -1,66 +1,122 @@
-# Payment Links
+---
+title: "Payment Links" 
+icon: link
+---
+Payment Links are a simple and effective way to accept payments from customers without needing a dedicated website or complex integration. They allow you to generate a unique URL that you can share with customers via email, social media, or messaging apps.
 
-Payment Links allow you to collect one-time payments from your customers without needing a website or complex integration. You can simply create a link, share it with your customer, and get paid.
+
+## Payment Links Use Cases
+
+This feature is ideal for:
+
+- Collecting one-time payments.
+
+- Selling simple products or services.
+
+- Freelancers and businesses sending quick invoices.
 
 ## Creating a Payment Link
 
-To create a new payment link, follow these steps:
+Follow these steps to generate a new payment link for your customers.
 
-<details>
-<summary>1. Navigate to Payment Links</summary>
+<AccordionGroup>
+<Accordion icon="table-columns" title="1. Access the Dashboard">
+<Frame>
+<img
+src="public/images/payment-links-2.png"
+alt="Main dashboard sidebar showing Payment Links menu item"
+style={{ borderRadius: '0.75rem' }}
+/>
+</Frame>
 
-On the main menu, click on **Payment Links**.
-![Payment Links Menu](/images/payment-links-menu.png)
-</details>
+<Callout type="tip">
+From your main dashboard, locate the sidebar menu and click on **Payment Links**.
+</Callout>
 
-<details>
-<summary>2. Initiate Creation</summary>
 
-Click on the **+ New Payment Link** button in the top right corner.
-![Create Payment Link Form](/images/create-payment-link-form.png)
-</details>
+</Accordion>
 
-<details>
-<summary>3. Fill in the Details</summary>
+<Accordion icon="plus" title="2. Initiate New Link">
+On the Payment Links page, click the + New Payment Link button located in the top right corner.
+</Accordion>
 
-You will be presented with a form to enter the payment details:
-*   **Currency**: Select the currency for the payment (e.g., NGN).
-*   **Country**: Select the country (e.g., NG).
-*   **Description**: Enter a clear description for the payment (e.g., "Ejiro Fintech Course"). This helps your customers understand what they are paying for.
-*   **Amount**: Enter the amount to be collected (e.g., 50,000.00).
-![Filled Payment Link Form](/images/create-payment-link-filled.png)
-</details>
+<Accordion icon="pen-to-square" title="3. Fill in Payment Details">
+<Frame>
+<img
+src="public/images/payment-links-3.png"
+alt="New Payment Link creation form with details fields"
+style={{ borderRadius: '0.75rem' }}
+/>
+</Frame>
 
-<details>
-<summary>4. Create</summary>
+A form will appear requiring the details of the transaction. You will need to provide:
+* **Currency:** Select the currency (e.g., `NGN`).
+* **Country:** Select the country (e.g., `NG`).
+* **Description:** A brief description (e.g., "Ejiro Fintech Course").
+* **Amount:** Enter the specific amount to be charged.
 
-Once you have filled in all the fields, click the **Create Payment Link** button.
-</details>
+Once filled, click the **Create Payment Link** button.
 
-## Sharing Your Link
 
-After successfully creating the link, you will see a success confirmation.
+</Accordion>
 
-![Payment Link Success](/images/payment-link-success.png)
+<Accordion icon="check" title="4. Success and Sharing">
+<Frame>
+<img
+src="public/images/payment-links-5.png"
+alt="Payment link success confirmation screen"
+style={{ borderRadius: '0.75rem' }}
+/>
+</Frame>
 
-<details>
-<summary>1. Copy Link</summary>
+Your link will be generated instantly. You can copy the link immediately using the **Copy Link** button or navigate back to your list.
 
-Click the **Copy Link** button to copy the unique payment URL to your clipboard.
-</details>
 
-<details>
-<summary>2. Share</summary>
+</Accordion>
+</AccordionGroup>
 
-Paste this link in an email, WhatsApp message, or social media post to send it to your customer.
-</details>
+Managing and Deactivating Links
 
-## Managing Payment Links
+If a payment link is no longer needed (e.g., a limited-time offer has ended), you can deactivate it.
 
-You can view and manage all your created payment links from the **Payment Links** dashboard.
+<AccordionGroup>
+<Accordion icon="list" title="1. Select the link to manage">
+<Frame>
+<img
+src="public/images/payment-links-6.png"
+alt="List of active and inactive payment links"
+style={{ borderRadius: '0.75rem' }}
+/>
+</Frame>
 
-![Payment Links List](/images/payment-links-list.png)
+Navigate to the **Payment Links** page. Find the specific link in your list and click the **Manage** button on the right side.
 
-*   **View List**: The dashboard shows a list of all your payment links, including the Description, Payment Link URL, Date Created, Amount, and Status.
-*   **Status**: Check if a link is **Active** or inactive.
-*   **Actions**: Use the **Manage** button to view more details or perform actions on a specific link.
+
+</Accordion>
+
+<Accordion icon="ban" title="2. Deactivate the link">
+In the Payment Link Information view, look for the Deactivate Link button (usually located near the top right) and click it.
+</Accordion>
+
+<Accordion icon="triangle-exclamation" title="3. Confirm deactivation">
+<Frame>
+<img
+src="public/images/payment-links-9.png"
+alt="Deactivate link confirmation modal"
+style={{ borderRadius: '0.75rem' }}
+/>
+</Frame>
+
+A warning modal will appear asking you to confirm the action. Click **Deactivate** to proceed.
+
+
+</Accordion>
+
+<Accordion icon="eye" title="4. Verify Status">
+Once deactivated, the link status in your dashboard will change to Inactive. The link will no longer be able to receive payments.
+</Accordion>
+</AccordionGroup>
+
+<Tip>
+You can monitor the status of your links at any time in the dashboard. The status column indicates if a link is Active or Inactive.
+</Tip>

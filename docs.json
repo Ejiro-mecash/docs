@@ -218,9 +218,14 @@
             ]
           },
           {
+            "group": "Guides",
+            "pages": [
+              "payment-links"
+            ]
+          },
+          {
             "group": "Support",
               "pages": [
-                "ask-ai",
                 "faq",
                 "community"
               ]

@@ -69,8 +69,7 @@ app.post('/ask', async (req, res) => {
     });
 
     const result = await chat.sendMessage(question.slice(0, 2000));
-    const response = await result.response;
-    const answer = response.text();
+    const answer = result.response.text();
 
     if (!answer) {
       return res.status(502).json({ error: 'Empty answer from model' });

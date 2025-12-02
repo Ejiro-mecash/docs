@@ -1,5 +1,5 @@
 ---
-title: "Mobile Release Notes"
+title: "Mobile"
 description: "Track what changed across the meCash Mobile SDKs and apps."
 icon: mobile-screen
 ---
@@ -12,67 +12,87 @@ Monitor mobile changes so you can plan app store releases, regression testing, a
 
 ## Mobile SDKs
 
-### September 2025 — Mobile Release (iOS 1.7.3 / Android 1.7.3) (Status: Live)
+<AccordionGroup>
+  <Accordion title="November 2025 — Mobile Release (v2.5.0) (Status: Live)">
+    **New Features**
 
-**New features & improvements**
+    - **In-App Document Capture**: You can now take photos of your identity documents (Passport, ID) directly within the app during onboarding, removing the need to upload files from your gallery.
+    - **Simplified Onboarding (No BVN)**: To support our international users, the mandatory BVN requirement has been removed from the wallet creation flow. You can now complete sign-up using other valid forms of identification.
+    - **Push Notifications (iOS)**: We have enabled push notifications for iOS devices to keep you updated on transaction statuses and account activities.
 
-- Expanded international payouts so you can capture richer payment details and send directly to UK (GBP), US (USD), and EU (EUR) bank accounts.
-- Redesigned the Canadian transfer flow for a faster, more intuitive experience.
-- Added support for Tanzania (TZS) wallet payouts to bank accounts or mobile money numbers.
-- Updated the quote calculator to show the total debit amount (including fees) and warn when wallet balances are insufficient.
-- Migrated the mobile app to the V2 payout endpoint, improving overall speed and reliability.
+    **Improvements**
 
-**Bug fixes**
+    - **Security Lockout**: Implemented a security feature that automatically locks an account after **3 consecutive failed login attempts** to prevent unauthorized access.
+    - **Fee Awareness Modal**: When funding your wallet, a new modal will appear explicitly stating the processing fees (e.g., 1% capped at ₦1,500) before you proceed.
+    - **Performance Upgrade**: We upgraded the core app engine to **Expo SDK 52**. This improves overall app stability, performance, and ensures full compliance with the latest Google Play Store requirements.
 
-- Funding transaction history now renders correctly.
-- Fixed navigation that routed crypto wallet users to the wrong quote page.
-- Bank search results refresh properly after clearing filters.
-- Resolved KYB submission timeouts where the submit button spun indefinitely.
-- Corrected KYB phone number country code defaulting to Afghanistan.
-- Addressed an issue where the transaction PIN button became unresponsive during crypto-to-crypto transfers.
+    **Fixes**
 
-### August 2025 — Mobile Release (iOS 1.7.3 / Android 1.7.3) (Status: Live)
+    - **OTP Timer**: Fixed a bug where the OTP countdown timer was running faster than real-time.
+  </Accordion>
 
-**What's new**
+  <Accordion title="September 2025 — Mobile Release (iOS 1.7.3 / Android 1.7.3) (Status: Live)">
+    **New features & improvements**
 
-- Manage beneficiaries directly in-app, including deleting stale recipients.
-- Introduced dynamic transaction limits starting with MKW to better match spending patterns.
+    - Expanded international payouts so you can capture richer payment details and send directly to UK (GBP), US (USD), and EU (EUR) bank accounts.
+    - Redesigned the Canadian transfer flow for a faster, more intuitive experience.
+    - Added support for Tanzania (TZS) wallet payouts to bank accounts or mobile money numbers.
+    - Updated the quote calculator to show the total debit amount (including fees) and warn when wallet balances are insufficient.
+    - Migrated the mobile app to the V2 payout endpoint, improving overall speed and reliability.
 
-**Enhancements**
+    **Bug fixes**
 
-- Long account names now display in full without truncation.
-- The Send Money summary clearly outlines fees plus the total amount.
-- Gas fees appear inline on transaction details whenever applicable.
+    - Funding transaction history now renders correctly.
+    - Fixed navigation that routed crypto wallet users to the wrong quote page.
+    - Bank search results refresh properly after clearing filters.
+    - Resolved KYB submission timeouts where the submit button spun indefinitely.
+    - Corrected KYB phone number country code defaulting to Afghanistan.
+    - Addressed an issue where the transaction PIN button became unresponsive during crypto-to-crypto transfers.
+  </Accordion>
 
-**Bug fixes**
+  <Accordion title="August 2025 — Mobile Release (iOS 1.7.3 / Android 1.7.3) (Status: Live)">
+    **What's new**
 
-- Stricter recipient validation prevents saving incomplete or invalid bank details.
+    - Manage beneficiaries directly in-app, including deleting stale recipients.
+    - Introduced dynamic transaction limits starting with MKW to better match spending patterns.
 
-### July 2025 — Mobile Release (iOS 1.7.3 / Android 1.7.3) (Status: Live)
+    **Enhancements**
 
-**What's new**
+    - Long account names now display in full without truncation.
+    - The Send Money summary clearly outlines fees plus the total amount.
+    - Gas fees appear inline on transaction details whenever applicable.
 
-- Added Malawi (MKW) payouts so you can send funds directly from the app.
-- Users can view how much of their transaction limit remains in real time.
+    **Bug fixes**
 
-**Enhancements**
+    - Stricter recipient validation prevents saving incomplete or invalid bank details.
+  </Accordion>
 
-- Refreshed FAQ content for clearer answers.
-- Login error modals now surface an actionable **Okay** button instead of an unhelpful retry.
-- Pop-ups can be dismissed by tapping outside the modal area.
+  <Accordion title="July 2025 — Mobile Release (iOS 1.7.3 / Android 1.7.3) (Status: Live)">
+    **What's new**
 
-**Bug fixes**
+    - Added Malawi (MKW) payouts so you can send funds directly from the app.
+    - Users can view how much of their transaction limit remains in real time.
 
-- Corrected wallet currency symbols so each wallet reflects its proper denomination.
+    **Enhancements**
 
-### iOS v0.8.0 — June 28, 2024 (Status: Live)
+    - Refreshed FAQ content for clearer answers.
+    - Login error modals now surface an actionable **Okay** button instead of an unhelpful retry.
+    - Pop-ups can be dismissed by tapping outside the modal area.
 
-- Added biometric re-authentication before approving payouts initiated from mobile.
-- Enhanced crash reporting with symbolicated stack traces for faster support escalation.
-- Bundled the Quote widget so users can request FX rates without leaving the app.
+    **Bug fixes**
 
-### Android v0.7.3 — June 20, 2024 (Status: Live)
+    - Corrected wallet currency symbols so each wallet reflects its proper denomination.
+  </Accordion>
 
-- Introduced encrypted shared-preferences storage for JWT tokens.
-- Improved push notification reliability when devices are on Doze mode.
-- Updated Kotlin coroutines to `1.8.x`, reducing ANRs triggered by network calls.
+  <Accordion title="iOS v0.8.0 — June 28, 2024 (Status: Live)">
+    - Added biometric re-authentication before approving payouts initiated from mobile.
+    - Enhanced crash reporting with symbolicated stack traces for faster support escalation.
+    - Bundled the Quote widget so users can request FX rates without leaving the app.
+  </Accordion>
+
+  <Accordion title="Android v0.7.3 — June 20, 2024 (Status: Live)">
+    - Introduced encrypted shared-preferences storage for JWT tokens.
+    - Improved push notification reliability when devices are on Doze mode.
+    - Updated Kotlin coroutines to `1.8.x`, reducing ANRs triggered by network calls.
+  </Accordion>
+</AccordionGroup>
