@@ -1,0 +1,19 @@
+---
+title: 'Create USD Virtual Account'
+openapi: post /v1/virtual-account
+---
+
+This endpoint creates a USD virtual account. USD virtual accounts require additional KYC information including personal details, identification, and company information.
+
+## Error responses
+
+Use this table as the source of truth for troubleshooting `POST /v1/virtual-account` for USD accounts.
+
+| **Status** | **Message** | **What it means** | **How to fix** |
+|--------|---------|---------------|------------|
+| 400 | `Invalid country or currency ISO code` | The country/currency pair is not supported for virtual accounts. | Send valid ISO codes that match an enabled corridor (e.g., `USD` + `US`). |
+| 400 | `Phone number must include valid country code` | `phoneNumber` is missing a proper international prefix. | Format phone numbers with the full country code (for example `+234...`). |
+| 400 | `Request JSON malformed or missing required fields` | The payload is missing mandatory keys or is not valid JSON. | Validate that fields such as `currency`, `country`, `reference`, `accountName`, `gender`, `dateOfBirth`, `nationality`, `idType`, `idNumber`, `address`, `city`, `postalCode`, and `company` are present before calling the API. |
+| 401 | `API key missing or incorrect` | Authentication header is missing, invalid, or expired. | Ensure the `x-api-key` is included for the correct environment. |
+| 409 | `Reference must be unique` | The `reference` has already been used for another request. | Reuse the initial response or send a new, unique reference. |
+| 500 | `Service temporarily unavailable` | Temporary backend/database outage prevented the request from succeeding. | Retry with backoff or contact support if it persists. |

@@ -1,0 +1,85 @@
+---
+title: 'USD Virtual Account'
+icon: dollar-sign
+---
+
+USD Virtual Accounts allow you to receive US Dollar payments directly into your meCash wallet. These accounts are ideal for businesses and individuals who need to collect payments in USD.
+
+### **Supported Corridors**
+
+- **United States (USD)**
+
+## Request Example
+
+To create a USD virtual account, you need to provide the customer's details along with the company information.
+
+<CodeGroup>
+```json Request
+{
+  "currency": "USD",
+  "country": "US",
+  "firstName": "John",
+  "lastName": "Mary",
+  "email": "someone@gmail.com",
+  "phoneNumber": "+2348156936458",
+  "reference": "REF_8899562444KLLTTPL",
+  "accountName": "Test Ng Ltd",
+  "gender": "M",
+  "dateOfBirth": "1980-10-10",
+  "nationality": "NG",
+  "idType": "PASSPORT",
+  "idNumber": "C234567890",
+  "address": "Brown Way",
+  "city": "Lagos",
+  "postalCode": "100001",
+  "company": {
+    "registrationNumber": "NG1235687",
+    "licenseNumber": "10793",
+    "country": "NG",
+    "date": "2024-10-10"
+  }
+}
+```
+
+```json Response
+{
+    "message": "virtual account created successfully",
+    "status": "success",
+    "data": {
+        "id": "94ed8564-883c-493b-a135-420bbed63be0",
+        "firstName": "Jacey",
+        "lastName": "Kohler",
+        "email": "someone@gmail.com",
+        "phoneNumber": "+2348156936458",
+        "reference": "REF_SXDMSDA13J32",
+        "accountName": "Preston Berge",
+        "gender": "M",
+        "dateOfBirth": "1980-10-10",
+        "nationality": "NG",
+        "idType": "PASSPORT",
+        "idNumber": "C********0",
+        "address": "Brown Way",
+        "city": "Lagos",
+        "postalCode": "100001",
+        "account": {
+            "name": "Preston Berge",
+            "bankName": "DBS Bank Limited",
+            "sortCode": "MOOLAHGO",
+            "number": "656633887809",
+            "swiftCode": "DBSSSGSGXXX"
+        },
+        "status": "ACTIVE",
+        "currency": "USD",
+        "country": "US",
+        "isPermanent": true,
+        "created": "2025-12-02T12:18:20.140996776Z",
+        "company": {
+            "registrationNumber": "NG1235687",
+            "licenseNumber": "10793",
+            "country": "NG",
+            "date": "2024-10-10"
+        }
+    }
+}
+```
+</CodeGroup>

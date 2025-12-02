@@ -13,7 +13,6 @@
         "url": "https://sandboxapi.me-cash.com"
       }
     ],
-
     "examples": {
       "languages": [
         "javascript",
@@ -54,11 +53,9 @@
               "environments",
               "webhook/webhook"
             ]
-          }  
-          
+          }
         ]
       },
-
       {
         "tab": "Documentation",
         "groups": [
@@ -73,7 +70,6 @@
             "pages": [
               "wallet-docs/wallet-overview",
               "wallet-docs/funding-wallet"
-              
             ]
           },
           {
@@ -82,7 +78,6 @@
               "quote-docs/about-quote",
               "quote-docs/supported-curriencies",
               "quote-docs/create-quote-all-examples"
-
             ]
           },
           {
@@ -148,13 +143,12 @@
           }
         ]
       },
-      
       {
         "tab": "API Reference",
         "groups": [
           {
             "group": "Introduction",
-              "pages": [
+            "pages": [
               "api-reference/introduction"
             ]
           },
@@ -163,7 +157,6 @@
             "pages": [
               "wallet/get-all-wallets",
               "wallet/get-wallet-balance"
-             
             ]
           },
           {
@@ -188,14 +181,12 @@
               "virtual-account/virtual-account-transaction-id",
               "virtual-account/fund-virtual-account",
               "virtual-account/get-virtual-account"
-             
             ]
           },
           {
             "group": "RAMP API (Coming Soon)"
-
           },
-           {
+          {
             "group": "Miscellaneous",
             "pages": [
               "miscellaneous/perform-account-enquiry",
@@ -205,7 +196,6 @@
           }
         ]
       },
-
       {
         "tab": "Resources",
         "groups": [
@@ -225,12 +215,12 @@
           },
           {
             "group": "Support",
-              "pages": [
-                "faq",
-                "community"
-              ]
-            }
-          ]
+            "pages": [
+              "faq",
+              "community"
+            ]
+          }
+        ]
       }
     ],
     "global": {}

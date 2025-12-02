@@ -13,6 +13,7 @@ meCash static accounts currently support:
 
 - **Nigeria (NGN)**
 - **Malawi (MWK)**
+- **United States (USD)**
 
 ## How it Works: The Transaction Flow
 
@@ -52,55 +53,8 @@ sequenceDiagram
   </Card>
 </CardGroup>
 
-## Request examples
 
-### Persistent account details
-
-Include your workspace `x-api-key` and `Content-Type: application/json` headers. Provide customer identity (name, phone, email), currency/country pair, and a unique `reference` so you can safely retry requests.
-
-<CodeGroup>
-```json Request
-{
-  "currency": "NGN",
-  "country": "NG",
-  "firstName": "Jumoke",
-  "lastName": "Dumebi",
-  "email": "example@email.com",
-  "phoneNumber": "+23481345XXXX",
-  "bvn": "12345678901",
-  "reference": "000023456X",
-  "accountName": "Jumoke Dumebi"
-}
-```
-```json Response
-{
-  "message": "virtual account created successfully",
-  "status": "success",
-  "data": {
-    "id": "e21f7365-4fc9-4669-a9d9-xxxxxxxxxxxxx",
-    "firstName": "Jumoke",
-    "lastName": "Dumebi",
-    "email": "example@email.com",
-    "phoneNumber": "+23481345XXXXX",
-    "reference": "000023456X",
-    "account": {
-      "name": "Jumoke Dumebi",
-      "bankName": "Mock Bank",
-      "sortCode": null,
-      "number": "881725XXXXX"
-    },
-    "status": "ACTIVE",
-    "currency": "NGN",
-    "country": "NG",
-    "created": "2025-05-15T13:39:57.405Z"
-  }
-}
-```
-</CodeGroup>
-
-<Note> BVN is mandatory for Nigerian corridors. Omit the field for Malawi (MWK). </Note>
-
-### Standard currency-specific examples
+### Standard Currency-specific Request Examples
 
 <CodeGroup>
 ```bash Nigeria (NGN)
@@ -134,11 +88,37 @@ curl --request POST '{{baseURL}}/v1/virtual-account' \
     "accountName": "Kathleen Langosh"
   }'
 ```
+```bash USD (USD)
+curl --request POST '{{baseURL}}/v1/virtual-account' \
+  --header 'x-api-key: YOUR_API_KEY' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "currency": "USD",
+  "country": "US",
+  "firstName": "John",
+  "lastName": "Mary",
+  "email": "someone@gmail.com",
+  "phoneNumber": "+2348156936458",
+  "reference": "REF_8899562444KLLTTPL90",
+  "accountName": "Test Ng Ltd",
+  "gender": "M",
+  "dateOfBirth": "1980-10-10",
+  "nationality": "NG",
+  "idType": "PASSPORT",
+  "idNumber": "C234567890",
+  "address": "Brown Way",
+  "city": "Lagos",
+  "postalCode": "100001",
+  "companyRegistrationNumber": "NG1235687"
+}'
+```
 </CodeGroup>
 
-## Successful response
 
-```json copy
+## Standard currency-specific Response Examples
+
+<CodeGroup>
+```json Nigeria (NGN)
 {
   "message": "virtual account created successfully",
   "status": "success",
@@ -163,7 +143,72 @@ curl --request POST '{{baseURL}}/v1/virtual-account' \
 }
 ```
 
-### Response fields
+```json Malawi (MWK)
+{
+  "message": "virtual account created successfully",
+  "status": "success",
+  "data": {
+    "id": "e21f7365-4fc9-4669-a9d9-xxxxxxxxxxxxx",
+    "firstName": "Corrine",
+    "lastName": "Schinner",
+    "email": "kathl@example.com",
+    "phoneNumber": "+265813XXXXXX",
+    "reference": "000033556X",
+    "account": {
+      "name": "Corrine Schinner",
+      "bankName": "Mock Bank",
+      "sortCode": null,
+      "number": "881725XXXXX"
+    },
+    "status": "ACTIVE",
+    "currency": "MWK",
+    "country": "MW",
+    "created": "2025-05-15T13:39:57.405Z"
+  }
+}
+```
+
+```json USD (USD)
+{
+    "message": "virtual account created successfully",
+    "status": "success",
+    "data": {
+        "id": "d03dbb81-331b-4834-844c-35c91ff30ad6",
+        "firstName": "John",
+        "lastName": "Mary",
+        "email": "someone@gmail.com",
+        "phoneNumber": "+2348156936458",
+        "reference": "REF_8899562444KLLTTPL90",
+        "accountName": "Test Ng Ltd",
+        "gender": "M",
+        "dateOfBirth": "1980-10-10",
+        "nationality": "NG",
+        "idType": "PASSPORT",
+        "idNumber": "C********0",
+        "address": "Brown Way",
+        "city": "Lagos",
+        "postalCode": "100001",
+        "account": {
+            "name": "Test Ng Ltd",
+            "bankName": "DBS Bank Limited",
+            "sortCode": "MOOLAHGO",
+            "number": "584784577026",
+            "swiftCode": "DBSSSGSGXXX"
+        },
+        "status": "ACTIVE",
+        "currency": "USD",
+        "country": "US",
+        "isPermanent": true,
+        "created": "2025-12-02T14:01:22.417190608Z",
+        "companyRegistrationNumber": "NG1235687"
+    }
+}
+```
+</CodeGroup>
+
+
+<TabGroup>
+<Tab title="Nigeria (NGN)">
 
 | **Field** | **Type** | **Description** |
 |-------|------|-------------|
@@ -184,6 +229,70 @@ curl --request POST '{{baseURL}}/v1/virtual-account' \
 | `data.currency` | String | ISO 4217 currency code (`NGN`, `MWK`). |
 | `data.country` | String | ISO 3166-1 alpha-2 country code (`NG`, `MW`). |
 | `data.created` | String | ISO 8601 timestamp when the account was created. |
+
+</Tab>
+
+<Tab title="Malawi (MWK)">
+
+| **Field** | **Type** | **Description** |
+|-------|------|-------------|
+| `message` | String | Operation status message. |
+| `status` | String | API request status. |
+| `data` | Object | Container for the virtual account properties. |
+| `data.id` | String | Identifier for the virtual account resource. |
+| `data.firstName` | String | Customer first name supplied in the request. |
+| `data.lastName` | String | Customer last name supplied in the request. |
+| `data.email` | String | Contact email tied to the account. |
+| `data.phoneNumber` | String | Phone number stored for the customer. |
+| `data.reference` | String | Unique identifier you provided for idempotency. |
+| `data.account.name` | String | Display name on the bank account. |
+| `data.account.bankName` | String | Issuing bank for the virtual account. |
+| `data.account.sortCode` | String | Bank sort code when available; `null` otherwise. |
+| `data.account.number` | String | Account number customers will fund. |
+| `data.status` | String | Account status (`ACTIVE`, `SUSPENDED`, etc.). |
+| `data.currency` | String | ISO 4217 currency code (`NGN`, `MWK`). |
+| `data.country` | String | ISO 3166-1 alpha-2 country code (`NG`, `MW`). |
+| `data.created` | String | ISO 8601 timestamp when the account was created. |
+
+</Tab>
+
+<Tab title="USD (USD)">
+
+| **Field** | **Type** | **Description** |
+|-------|------|-------------|
+| `message` | String | Operation status message. |
+| `status` | String | API request status. |
+| `data` | Object | Container for the virtual account properties. |
+| `data.id` | String | Identifier for the virtual account resource. |
+| `data.firstName` | String | Authorized representative's first name. |
+| `data.lastName` | String | Authorized representative's last name. |
+| `data.email` | String | Contact email tied to the account. |
+| `data.phoneNumber` | String | Phone number stored for the customer. |
+| `data.reference` | String | Unique identifier you provided for idempotency. |
+| `data.accountName` | String | Display name for the account (Business Name). |
+| `data.gender` | String | Gender of the representative (`M` or `F`). |
+| `data.dateOfBirth` | String | Date of birth (YYYY-MM-DD). |
+| `data.nationality` | String | 2-letter ISO country code of nationality. |
+| `data.idType` | String | Type of identification provided (e.g., `PASSPORT`). |
+| `data.idNumber` | String | Unique ID number from the document (masked in response). |
+| `data.address` | String | Street address. |
+| `data.city` | String | City or Town. |
+| `data.postalCode` | String | Zip or Postal code. |
+| `data.account.name` | String | Display name on the bank account. |
+| `data.account.bankName` | String | Issuing bank for the virtual account. |
+| `data.account.sortCode` | String | Bank sort code. |
+| `data.account.number` | String | Account number customers will fund. |
+| `data.account.swiftCode` | String | SWIFT code for international transfers. |
+| `data.status` | String | Account status (`ACTIVE`, `SUSPENDED`, etc.). |
+| `data.currency` | String | ISO 4217 currency code (`USD`). |
+| `data.country` | String | ISO 3166-1 alpha-2 country code (`US`). |
+| `data.isPermanent` | Boolean | Whether the account is permanent (always `true` for static accounts). |
+| `data.created` | String | ISO 8601 timestamp when the account was created. |
+| `data.companyRegistrationNumber` | String | Business registration number provided during creation. |
+
+</Tab>
+
+</TabGroup>
 
 ## Error responses
 
