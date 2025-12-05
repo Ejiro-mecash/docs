@@ -93,7 +93,8 @@
                   "payout-docs/payout-examples/ngn-eur-example",
                   "payout-docs/payout-examples/ngn-gbp-example",
                   "payout-docs/payout-examples/ngn-cad-example",
-                  "payout-docs/payout-examples/mkw-mkw-example"
+                  "payout-docs/payout-examples/mkw-mkw-example",
+                  "payout-docs/payout-examples/ngn-usd-swift-example"
                 ]
               }
             ]

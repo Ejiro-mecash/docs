@@ -393,31 +393,18 @@
                 "type": "string",
                 "description": "Occupation or profession of the recipient.",
                 "enum": [
-                  "I01",
-                  "I02",
-                  "I03",
-                  "I04",
-                  "I05",
-                  "I06",
-                  "I07",
-                  "I08",
-                  "I09",
-                  "I10",
-                  "I11"
-                ],
-                "x-enum-descriptions": {
-                  "I01": "C-Suite executive / Board member",
-                  "I02": "Employee",
-                  "I03": "Entrepreneur / Business owner",
-                  "I04": "Foreign worker",
-                  "I05": "Foreign domestic worker",
-                  "I06": "Home-maker",
-                  "I07": "Middle management employee",
-                  "I08": "Pilot",
-                  "I09": "Professional",
-                  "I10": "Senior management employee",
-                  "I11": "Student"
-                }
+                  "I01 C-Suite executive / Board member",
+                  "I02 Employee",
+                  "I03 Entrepreneur / Business owner",
+                  "I04 Foreign worker",
+                  "I05 Foreign domestic worker",
+                  "I06 Home-maker",
+                  "I07 Middle management employee",
+                  "I08 Pilot",
+                  "I09 Professional",
+                  "I10 Senior management employee",
+                  "I11 Student"
+                ]
               },
               "type": {
                 "$ref": "#/components/schemas/RecipientType",
