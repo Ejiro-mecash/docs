@@ -1584,32 +1584,16 @@
           }
         }
       },
-      "CreateDynamicVirtualAccountRequest": {
+      "BaseDynamicVirtualAccountRequest": {
         "type": "object",
-        "required": [
-          "currency",
-          "country",
-          "amount",
-          "duration",
-          "reference",
-          "accountName"
-        ],
         "properties": {
           "currency": {
             "type": "string",
-            "description": "Currency code (e.g., `NGN` or `MWK`).",
-            "enum": [
-              "NGN",
-              "MWK"
-            ]
+            "description": "Currency code."
           },
           "country": {
             "type": "string",
-            "description": "Country code (e.g., `NG` or `MW`).",
-            "enum": [
-              "NG",
-              "MW"
-            ]
+            "description": "Country code."
           },
           "amount": {
             "type": "number",
@@ -1626,6 +1610,89 @@
           "accountName": {
             "type": "string",
             "description": "The name of the account."
+          }
+        },
+        "required": [
+          "currency",
+          "country",
+          "amount",
+          "duration",
+          "reference",
+          "accountName"
+        ]
+      },
+      "NgnDynamicVirtualAccountRequest": {
+        "title": "NGN Dynamic Virtual Account",
+        "description": "Dynamic virtual account details for Nigeria (NGN).",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseDynamicVirtualAccountRequest"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "currency": {
+                "type": "string",
+                "description": "Currency code (NGN).",
+                "enum": [
+                  "NGN"
+                ]
+              },
+              "country": {
+                "type": "string",
+                "description": "Country code (NG).",
+                "enum": [
+                  "NG"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "MwkDynamicVirtualAccountRequest": {
+        "title": "MWK Dynamic Virtual Account",
+        "description": "Dynamic virtual account details for Malawi (MWK).",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseDynamicVirtualAccountRequest"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "currency": {
+                "type": "string",
+                "description": "Currency code (MWK).",
+                "enum": [
+                  "MWK"
+                ]
+              },
+              "country": {
+                "type": "string",
+                "description": "Country code (MW).",
+                "enum": [
+                  "MW"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "CreateDynamicVirtualAccountRequest": {
+        "type": "object",
+        "description": "Request to create a dynamic virtual account. The required fields depend on the selected currency.",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/NgnDynamicVirtualAccountRequest"
+          },
+          {
+            "$ref": "#/components/schemas/MwkDynamicVirtualAccountRequest"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "currency",
+          "mapping": {
+            "NGN": "#/components/schemas/NgnDynamicVirtualAccountRequest",
+            "MWK": "#/components/schemas/MwkDynamicVirtualAccountRequest"
           }
         }
       },
@@ -3001,7 +3068,8 @@
                     "country": "MW",
                     "amount": 10000,
                     "duration": 30,
-                    "reference": "TXN_REF_DYNAMIC_98765432"
+                    "reference": "TXN_REF_DYNAMIC_98765432",
+                    "accountName": "Malawi Store"
                   }
                 }
               }
