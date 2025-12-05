@@ -206,7 +206,8 @@
         "example": "BANK_TRANSFER",
         "enum": [
           "BANK_TRANSFER",
-          "INTERAC"
+          "INTERAC",
+          "SWIFT"
         ]
       },
       "RecipientType": {
@@ -351,6 +352,83 @@
                   "address": {
                     "type": "string",
                     "description": "The bank's physical address."
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "UsdSwiftRecipient": {
+        "title": "USD SWIFT Payout",
+        "description": "Recipient details for USD to USD SWIFT payout to the USA (USD).",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseRecipient"
+          },
+          {
+            "type": "object",
+            "required": [
+              "name",
+              "type"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Full name of the recipient."
+              },
+              "nickName": {
+                "type": "string",
+                "description": "Nickname or alias for the recipient."
+              },
+              "gender": {
+                "type": "string",
+                "description": "Gender of the recipient.",
+                "enum": [
+                  "M",
+                  "F"
+                ]
+              },
+              "occupation": {
+                "type": "string",
+                "description": "Occupation or profession of the recipient."
+              },
+              "type": {
+                "$ref": "#/components/schemas/RecipientType",
+                "description": "Recipient type; use `BUSINESS` for company payouts or `INDIVIDUAL` for personal payouts."
+              },
+              "account": {
+                "type": "object",
+                "required": [
+                  "accountNumber",
+                  "swiftCode",
+                  "bankName"
+                ],
+                "properties": {
+                  "bankName": {
+                    "type": "string",
+                    "description": "The name of the bank.",
+                    "example": "DBS Bank Limited"
+                  },
+                  "accountNumber": {
+                    "type": "string",
+                    "description": "The recipient's bank account number.",
+                    "example": "885406477269"
+                  },
+                  "swiftCode": {
+                    "type": "string",
+                    "description": "SWIFT/BIC code for international wire transfers.",
+                    "example": "GTBINGLA"
+                  },
+                  "sortCode": {
+                    "type": "string",
+                    "description": "Bank sort code.",
+                    "example": "02090"
+                  },
+                  "bankCity": {
+                    "type": "string",
+                    "description": "City where the bank is located.",
+                    "example": "Atlanta"
                   }
                 }
               }
@@ -590,13 +668,16 @@
             "description": "A standardized remark for the transaction."
           },
           "recipient": {
-            "description": "Details of the recipient. The structure depends on the recipient's currency.",
+            "description": "Details of the recipient. The structure depends on the recipient's currency and payment channel.",
             "oneOf": [
               {
                 "$ref": "#/components/schemas/NgnRecipient"
               },
               {
                 "$ref": "#/components/schemas/UsdRecipient"
+              },
+              {
+                "$ref": "#/components/schemas/UsdSwiftRecipient"
               },
               {
                 "$ref": "#/components/schemas/EurRecipient"
@@ -607,17 +688,7 @@
               {
                 "$ref": "#/components/schemas/CadRecipient"
               }
-            ],
-            "discriminator": {
-              "propertyName": "currency",
-              "mapping": {
-                "NGN": "#/components/schemas/NgnRecipient",
-                "USD": "#/components/schemas/UsdRecipient",
-                "EUR": "#/components/schemas/EurRecipient",
-                "GBP": "#/components/schemas/GbpRecipient",
-                "CAD": "#/components/schemas/CadRecipient"
-              }
-            }
+            ]
           }
         }
       },
@@ -661,6 +732,9 @@
                 "$ref": "#/components/schemas/UsdRecipient"
               },
               {
+                "$ref": "#/components/schemas/UsdSwiftRecipient"
+              },
+              {
                 "$ref": "#/components/schemas/EurRecipient"
               },
               {
@@ -669,17 +743,7 @@
               {
                 "$ref": "#/components/schemas/CadRecipient"
               }
-            ],
-            "discriminator": {
-              "propertyName": "currency",
-              "mapping": {
-                "NGN": "#/components/schemas/NgnRecipient",
-                "USD": "#/components/schemas/UsdRecipient",
-                "EUR": "#/components/schemas/EurRecipient",
-                "GBP": "#/components/schemas/GbpRecipient",
-                "CAD": "#/components/schemas/CadRecipient"
-              }
-            }
+            ]
           },
           "created": {
             "type": "string",
@@ -1089,10 +1153,14 @@
         }
       },
       "CreateStaticVirtualAccountRequest": {
-        "description": "Request to create a static virtual account. The structure varies strictly by currency.",
+        "type": "object",
+        "description": "Request to create a static virtual account. The required fields depend on the selected currency.",
         "oneOf": [
           {
             "$ref": "#/components/schemas/NgnVirtualAccountRequest"
+          },
+          {
+            "$ref": "#/components/schemas/MwkVirtualAccountRequest"
           },
           {
             "$ref": "#/components/schemas/UsdVirtualAccountRequest"
@@ -1102,38 +1170,21 @@
           "propertyName": "currency",
           "mapping": {
             "NGN": "#/components/schemas/NgnVirtualAccountRequest",
+            "MWK": "#/components/schemas/MwkVirtualAccountRequest",
             "USD": "#/components/schemas/UsdVirtualAccountRequest"
           }
         }
       },
-      "NgnVirtualAccountRequest": {
+      "BaseVirtualAccountRequest": {
         "type": "object",
-        "title": "NGN Virtual Account Request",
-        "required": [
-          "currency",
-          "country",
-          "firstName",
-          "lastName",
-          "email",
-          "phoneNumber",
-          "bvn",
-          "reference",
-          "accountName"
-        ],
         "properties": {
           "currency": {
             "type": "string",
-            "description": "Currency code (e.g., `NGN`).",
-            "enum": [
-              "NGN"
-            ]
+            "description": "Currency code."
           },
           "country": {
             "type": "string",
-            "description": "Country code (e.g., `NG`).",
-            "enum": [
-              "NG"
-            ]
+            "description": "Country code."
           },
           "firstName": {
             "type": "string",
@@ -1152,10 +1203,6 @@
             "type": "string",
             "description": "The customer's phone number. This must include the country code."
           },
-          "bvn": {
-            "type": "string",
-            "description": "The customer's 11-digit Bank Verification Number."
-          },
           "reference": {
             "type": "string",
             "description": "A unique reference for the request (max 30 characters)."
@@ -1164,11 +1211,7 @@
             "type": "string",
             "description": "The desired name for the virtual account."
           }
-        }
-      },
-      "UsdVirtualAccountRequest": {
-        "type": "object",
-        "title": "USD Virtual Account Request",
+        },
         "required": [
           "currency",
           "country",
@@ -1176,125 +1219,153 @@
           "lastName",
           "email",
           "phoneNumber",
-          "gender",
-          "dateOfBirth",
-          "nationality",
-          "idType",
-          "idNumber",
-          "address",
-          "city",
-          "postalCode",
           "reference",
-          "accountName",
-          "company"
-        ],
-        "properties": {
-          "currency": {
-            "type": "string",
-            "description": "Currency code.",
-            "enum": [
-              "USD"
-            ]
+          "accountName"
+        ]
+      },
+      "NgnVirtualAccountRequest": {
+        "title": "NGN Virtual Account",
+        "description": "Virtual account details for Nigeria (NGN).",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseVirtualAccountRequest"
           },
-          "country": {
-            "type": "string",
-            "description": "Country code.",
-            "enum": [
-              "US"
-            ]
-          },
-          "firstName": {
-            "type": "string",
-            "description": "Authorized representative's first name."
-          },
-          "lastName": {
-            "type": "string",
-            "description": "Authorized representative's last name."
-          },
-          "email": {
-            "type": "string",
-            "format": "email",
-            "description": "Contact email address."
-          },
-          "phoneNumber": {
-            "type": "string",
-            "description": "Mobile number in international format."
-          },
-          "gender": {
-            "type": "string",
-            "description": "Gender of the representative.",
-            "enum": [
-              "M",
-              "F"
-            ]
-          },
-          "dateOfBirth": {
-            "type": "string",
-            "format": "date",
-            "description": "Date of birth (YYYY-MM-DD)."
-          },
-          "nationality": {
-            "type": "string",
-            "description": "2-letter ISO country code of nationality."
-          },
-          "idType": {
-            "type": "string",
-            "description": "Type of identification provided.",
-            "example": "PASSPORT"
-          },
-          "idNumber": {
-            "type": "string",
-            "description": "Unique ID number from the document."
-          },
-          "address": {
-            "type": "string",
-            "description": "Street address."
-          },
-          "city": {
-            "type": "string",
-            "description": "City or Town."
-          },
-          "postalCode": {
-            "type": "string",
-            "description": "Zip or Postal code."
-          },
-          "reference": {
-            "type": "string",
-            "description": "Unique merchant reference."
-          },
-          "accountName": {
-            "type": "string",
-            "description": "Display name for the account (Business Name)."
-          },
-          "company": {
+          {
             "type": "object",
-            "description": "Business entity details (KYB).",
             "required": [
-              "registrationNumber",
-              "country",
-              "date"
+              "bvn"
             ],
             "properties": {
-              "registrationNumber": {
+              "currency": {
                 "type": "string",
-                "description": "Business registration number."
-              },
-              "licenseNumber": {
-                "type": "string",
-                "description": "License number (if applicable)."
+                "description": "Currency code (e.g., NGN).",
+                "enum": [
+                  "NGN"
+                ]
               },
               "country": {
                 "type": "string",
-                "description": "Country of incorporation."
+                "description": "Country code (e.g., NG).",
+                "enum": [
+                  "NG"
+                ]
               },
-              "date": {
+              "bvn": {
                 "type": "string",
-                "format": "date",
-                "description": "Date of incorporation (YYYY-MM-DD)."
+                "description": "The customer's 11-digit Bank Verification Number."
               }
             }
           }
-        }
+        ]
+      },
+      "MwkVirtualAccountRequest": {
+        "title": "MWK Virtual Account",
+        "description": "Virtual account details for Malawi (MWK).",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseVirtualAccountRequest"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "currency": {
+                "type": "string",
+                "description": "Currency code (e.g., MWK).",
+                "enum": [
+                  "MWK"
+                ]
+              },
+              "country": {
+                "type": "string",
+                "description": "Country code (e.g., MW).",
+                "enum": [
+                  "MW"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "UsdVirtualAccountRequest": {
+        "title": "USD Virtual Account",
+        "description": "Virtual account details for the United States (USD).",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseVirtualAccountRequest"
+          },
+          {
+            "type": "object",
+            "required": [
+              "gender",
+              "dateOfBirth",
+              "nationality",
+              "idType",
+              "idNumber",
+              "address",
+              "city",
+              "postalCode",
+              "companyRegistrationNumber"
+            ],
+            "properties": {
+              "currency": {
+                "type": "string",
+                "description": "Currency code.",
+                "enum": [
+                  "USD"
+                ]
+              },
+              "country": {
+                "type": "string",
+                "description": "Country code.",
+                "enum": [
+                  "US"
+                ]
+              },
+              "gender": {
+                "type": "string",
+                "description": "Gender of the representative.",
+                "enum": [
+                  "M",
+                  "F"
+                ]
+              },
+              "dateOfBirth": {
+                "type": "string",
+                "format": "date",
+                "description": "Date of birth (YYYY-MM-DD)."
+              },
+              "nationality": {
+                "type": "string",
+                "description": "2-letter ISO country code of nationality."
+              },
+              "idType": {
+                "type": "string",
+                "description": "Type of identification provided.",
+                "example": "PASSPORT"
+              },
+              "idNumber": {
+                "type": "string",
+                "description": "Unique ID number from the document."
+              },
+              "address": {
+                "type": "string",
+                "description": "Street address."
+              },
+              "city": {
+                "type": "string",
+                "description": "City or Town."
+              },
+              "postalCode": {
+                "type": "string",
+                "description": "Zip or Postal code."
+              },
+              "companyRegistrationNumber": {
+                "type": "string",
+                "description": "Business registration number."
+              }
+            }
+          }
+        ]
       },
       "VirtualAccountDetails": {
         "type": "object",
@@ -1844,13 +1915,13 @@
                   "message": "virtual account created successfully",
                   "status": "success",
                   "data": {
-                    "id": "94ed8564-883c-493b-a135-420bbed63be0",
-                    "firstName": "Jacey",
-                    "lastName": "Kohler",
+                    "id": "d03dbb81-331b-4834-844c-35c91ff30ad6",
+                    "firstName": "John",
+                    "lastName": "Mary",
                     "email": "someone@gmail.com",
                     "phoneNumber": "+2348156936458",
-                    "reference": "REF_SXDMSDA13J32",
-                    "accountName": "Preston Berge",
+                    "reference": "REF_8899562444KLLTTPL90",
+                    "accountName": "Test Ng Ltd",
                     "gender": "M",
                     "dateOfBirth": "1980-10-10",
                     "nationality": "NG",
@@ -1860,23 +1931,18 @@
                     "city": "Lagos",
                     "postalCode": "100001",
                     "account": {
-                      "name": "Preston Berge",
+                      "name": "Test Ng Ltd",
                       "bankName": "DBS Bank Limited",
                       "sortCode": "MOOLAHGO",
-                      "number": "656633887809",
+                      "number": "584784577026",
                       "swiftCode": "DBSSSGSGXXX"
                     },
                     "status": "ACTIVE",
                     "currency": "USD",
                     "country": "US",
                     "isPermanent": true,
-                    "created": "2025-12-02T12:18:20.140996776Z",
-                    "company": {
-                      "registrationNumber": "NG1235687",
-                      "licenseNumber": "10793",
-                      "country": "NG",
-                      "date": "2024-10-10"
-                    }
+                    "created": "2025-12-02T14:01:22.417190608Z",
+                    "companyRegistrationNumber": "NG1235687"
                   }
                 }
               }
@@ -2680,6 +2746,31 @@
                       }
                     }
                   }
+                },
+                "USD_Payout_SWIFT": {
+                  "summary": "Example Payout to USA (USD) via SWIFT",
+                  "value": {
+                    "quoteId": "d3267c84-2b3c-4d6e-9f8g-xxxxxxxxxxxx",
+                    "reason": "Gift",
+                    "remark": "Testing",
+                    "recipient": {
+                      "name": "James Wilson",
+                      "nickName": "Blue",
+                      "gender": "M",
+                      "occupation": "business entrepreneur",
+                      "type": "BUSINESS",
+                      "paymentChannel": "SWIFT",
+                      "country": "US",
+                      "currency": "USD",
+                      "account": {
+                        "sortCode": "02090",
+                        "swiftCode": "GTBINGLA",
+                        "bankCity": "Atlanta",
+                        "accountNumber": "885406477269",
+                        "bankName": "DBS Bank Limited"
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -2745,7 +2836,7 @@
           "Virtual Account"
         ],
         "summary": "Create Static Virtual Account",
-        "description": "Creates a permanent virtual account for a user, tied to their identity.",
+        "description": "Creates a permanent virtual account for a user, tied to their identity. We support the following currencies: NGN, MWK, USD.",
         "operationId": "createStaticVirtualAccount",
         "requestBody": {
           "required": true,
@@ -2769,31 +2860,39 @@
                     "accountName": "Jumoke Dumebi"
                   }
                 },
+                "MWK_Example": {
+                  "summary": "Malawi (MWK) Example",
+                  "value": {
+                    "currency": "MWK",
+                    "country": "MW",
+                    "firstName": "Corrine",
+                    "lastName": "Schinner",
+                    "email": "kathl@example.com",
+                    "phoneNumber": "+265813XXXXXX",
+                    "reference": "000033556X",
+                    "accountName": "Corrine Schinner"
+                  }
+                },
                 "USD_Example": {
                   "summary": "United States (USD) Example",
                   "value": {
                     "currency": "USD",
                     "country": "US",
-                    "firstName": "John",
-                    "lastName": "Mary",
-                    "email": "someone@gmail.com",
-                    "phoneNumber": "+2348156936458",
-                    "reference": "REF_8899562444KLLTTPL",
-                    "accountName": "Test Ng Ltd",
+                    "firstName": "Jolie",
+                    "lastName": "Beahan",
+                    "email": "Sim42@yahoo.com",
+                    "phoneNumber": "711-442-7768",
+                    "reference": "REF_XNUQ4GXT0DMB",
+                    "accountName": "Mrs. Alison Berge",
                     "gender": "M",
                     "dateOfBirth": "1980-10-10",
                     "nationality": "NG",
                     "idType": "PASSPORT",
-                    "idNumber": "C234567890",
-                    "address": "Brown Way",
-                    "city": "Lagos",
+                    "idNumber": "ARZATFP1",
+                    "address": "37469 Stokes Path",
+                    "city": "Deshaunstad",
                     "postalCode": "100001",
-                    "company": {
-                      "registrationNumber": "NG1235687",
-                      "licenseNumber": "10793",
-                      "country": "NG",
-                      "date": "2024-10-10"
-                    }
+                    "companyRegistrationNumber": "NOOELBN1089"
                   }
                 }
               }

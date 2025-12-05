@@ -129,6 +129,7 @@
                   "webhook/payout-webhook",
                   "webhook/collection-webhook",
                   "webhook/virtualaccount-webhook",
+                  "webhook/usd-virtualaccount-webhook",
                   "webhook/ramp-webhook"
                 ]
               },

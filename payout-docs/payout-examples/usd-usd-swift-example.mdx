@@ -1,9 +1,9 @@
 ---
-title: 'NGN → USD Payout'
+title: 'USD → USD via Swift'
 icon: money-bill-transfer
 ---
 
-This endpoint allows you to process payouts in **US Dollars (USD)** to recipients with a bank account in the United States.
+This endpoint allows you to process USD payouts to recipients in the United States using the **SWIFT** payment channel for international wire transfers.
 
 ---
 
@@ -13,14 +13,11 @@ This endpoint allows you to process payouts in **US Dollars (USD)** to recipient
 
 ---
 
-## Supported Payment Channels
-
-USD payouts support two payment channels:
+## Payment Channel Overview
 
 | **Channel** | **Description** | **Use Case** |
 | :---------- | :-------------- | :----------- |
-| `BANK_TRANSFER` | Standard domestic bank transfer using routing number | ACH/Domestic US transfers |
-| `SWIFT` | International wire transfer using SWIFT code | International/Cross-border transfers |
+| `SWIFT` | International wire transfer using SWIFT code | Cross-border USD wire transfers |
 
 ---
 
@@ -38,129 +35,6 @@ Include these headers in your request:
 ---
 
 ## Sample Requests
-
-<Tabs>
-<Tab title="BANK_TRANSFER">
-
-Use `BANK_TRANSFER` for standard domestic US bank transfers via routing number.
-
-<CodeGroup>
-```bash cURL
-curl --location --request POST '{{baseURL}}/v2/payout' \
---header 'x-api-key: YOUR_API_KEY' \
---header 'Content-Type: application/json' \
---data '{
-  "recipient": {
-    "name": "Linda Collins",
-    "type": "BUSINESS",
-    "address": "200 Koch Vista, New York, NY 10001",
-    "account": {
-      "accountNumber": "8573629XX",
-      "swiftCode": "12345",
-      "bankName": "Chase Bank",
-      "address": "1948 Kemmer Ville, New York, NY 10002",
-      "routingNumber": "0210000XX"
-    },
-    "paymentChannel": "BANK_TRANSFER",
-    "currency": "USD",
-    "country": "US",
-    "stored": false
-  },
-  "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
-  "reason": "Gift",
-  "remark": "Testing"
-}'
-```
-```javascript JavaScript (Fetch)
-const url = '{{baseURL}}/v2/payout';
-
-const options = {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-    'x-api-key': 'YOUR_API_KEY'
-  },
-  body: JSON.stringify({
-    recipient: {
-      name: "Linda Collins",
-      type: "BUSINESS",
-      address: "200 Koch Vista, New York, NY 10001",
-      account: {
-        accountNumber: "8573629XX",
-        swiftCode: "1234",
-        bankName: "Chase Bank",
-        address: "1948 Kemmer Ville, New York, NY 10002",
-        routingNumber: "0210000XX"
-      },
-      paymentChannel: "BANK_TRANSFER",
-      currency: "USD",
-      country: "US",
-      stored: false
-    },
-    quoteId: "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
-    reason: "Gift",
-    remark: "Testing"
-  })
-};
-
-fetch(url, options)
-  .then(res => {
-    if (!res.ok) {
-      throw new Error(`HTTP error! status: ${res.status}`);
-    }
-    return res.json();
-  })
-  .then(data => console.log(data))
-  .catch(error => console.error('Error:', error));
-```
-
-```python Python (Requests)
-import requests
-import json
-
-url = "{{baseURL}}/v2/payout"
-
-payload = {
-    "recipient": {
-        "name": "Linda Collins",
-        "type": "BUSINESS",
-        "address": "200 Koch Vista, New York, NY 10001",
-        "account": {
-            "accountNumber": "8573629XX",
-            "swiftCode": "1234",
-            "bankName": "Chase Bank",
-            "address": "1948 Kemmer Ville, New York, NY 10002",
-            "routingNumber": "0210000XX"
-        },
-        "paymentChannel": "BANK_TRANSFER",
-        "currency": "USD",
-        "country": "US",
-        "stored": False
-    },
-    "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
-    "reason": "Gift",
-    "remark": "Testing"
-}
-
-headers = {
-    "x-api-key": "YOUR_API_KEY",
-    "Content-Type": "application/json"
-}
-
-try:
-    response = requests.post(url, headers=headers, data=json.dumps(payload))
-    response.raise_for_status()
-    print(response.json())
-except requests.exceptions.HTTPError as err:
-    print(f"HTTP Error: {err}")
-```
-</CodeGroup>
-
-</Tab>
-
-<Tab title="SWIFT">
-
-Use `SWIFT` for international wire transfers using SWIFT/BIC codes.
 
 <CodeGroup>
 ```bash cURL
@@ -185,7 +59,7 @@ curl --location --request POST '{{baseURL}}/v2/payout' \
     "country": "US",
     "currency": "USD"
   },
-  "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
+  "quoteId": "d3267c84-2b3c-4d6e-9f8g-xxxxxxxxxxxx",
   "reason": "Gift",
   "remark": "Testing"
 }'
@@ -217,7 +91,7 @@ const options = {
       country: "US",
       currency: "USD"
     },
-    quoteId: "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
+    quoteId: "d3267c84-2b3c-4d6e-9f8g-xxxxxxxxxxxx",
     reason: "Gift",
     remark: "Testing"
   })
@@ -258,7 +132,7 @@ payload = {
         "country": "US",
         "currency": "USD"
     },
-    "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
+    "quoteId": "d3267c84-2b3c-4d6e-9f8g-xxxxxxxxxxxx",
     "reason": "Gift",
     "remark": "Testing"
 }
@@ -277,39 +151,9 @@ except requests.exceptions.HTTPError as err:
 ```
 </CodeGroup>
 
-</Tab>
-</Tabs>
-
 ---
 
 ### Request Body Breakdown
-
-<Tabs>
-<Tab title="BANK_TRANSFER Fields">
-
-| **Field** | **Type** | **Description** | **Required** |
-| :---------------------------------- | :------ | :-------------------------------------------------------------------------- | :------- |
-| `quoteId`                           | String  | The unique ID of the quote for this payout.                                 | ✅ Yes   |
-| `reason`                            | String  | The purpose of the transfer (e.g., `Gift`, `Payment for services`).         | ✅ Yes   |
-| `remark`                            | String  | An optional, additional note about the transaction.                         | ❔ No    |
-| `recipient`                         | Object  | An object containing all details about the person receiving the funds.      | ✅ Yes   |
-| `recipient.name`                    | String  | The full name of the recipient or business.                                 | ✅ Yes   |
-| `recipient.type`                    | String  | The type of recipient. Enum: `INDIVIDUAL`, `BUSINESS`.                      | ✅ Yes   |
-| `recipient.address`                 | String  | The recipient's full residential or business address.                       | ✅ Yes   |
-| `recipient.paymentChannel`          | String  | The payment method. Use `BANK_TRANSFER` for domestic transfers.             | ✅ Yes   |
-| `recipient.currency`                | String  | The ISO currency code. Must be `USD`.                                       | ✅ Yes   |
-| `recipient.country`                 | String  | The recipient's two-letter ISO country code. Must be `US`.                  | ✅ Yes   |
-| `recipient.stored`                  | Boolean | A flag indicating whether to save the recipient for future use.             | ❔ No    |
-| `recipient.account`                 | Object  | An object containing the recipient's bank account details.                  | ✅ Yes   |
-| `recipient.account.accountNumber`   | String  | The recipient's bank account number.                                        | ✅ Yes   |
-| `recipient.account.routingNumber`   | String  | The 9-digit ABA routing transit number for the recipient's bank.            | ✅ Yes   |
-| `recipient.account.swiftCode`       | String  | The recipient bank SWIFT code.                                              | ❔ No    |
-| `recipient.account.bankName`        | String  | The name of the recipient's bank.                                           | ✅ Yes   |
-| `recipient.account.address`         | String  | The address of the recipient's bank branch.                                 | ❔ No    |
-
-</Tab>
-
-<Tab title="SWIFT Fields">
 
 | **Field** | **Type** | **Description** | **Required** |
 | :---------------------------------- | :------ | :-------------------------------------------------------------------------- | :------- |
@@ -332,9 +176,6 @@ except requests.exceptions.HTTPError as err:
 | `recipient.account.bankName`        | String  | The name of the recipient's bank.                                           | ✅ Yes   |
 | `recipient.account.bankCity`        | String  | The city where the bank is located.                                         | ❔ No    |
 
-</Tab>
-</Tabs>
-
 ---
 
 ## Success Response (200 OK)
@@ -352,36 +193,38 @@ If the payout is successfully created, the API returns the following response:
     "type": "SEND",
     "state": "COMPLETED",
     "quote": {
-      "id": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
+      "id": "d3267c84-2b3c-4d6e-9f8g-xxxxxxxxxxxx",
       "source": {
-        "currency": "NGN",
-        "country": "NG",
-        "amount": 160000
+        "currency": "USD",
+        "country": "US",
+        "amount": 1000
       },
       "target": {
         "currency": "USD",
         "country": "US",
-        "amount": 100
+        "amount": 1000
       },
-      "rate": 1600,
+      "rate": 1,
       "fee": {
-        "amount": 500
+        "amount": 25
       }
     },
     "recipient": {
-      "name": "Linda Collins",
+      "name": "James Wilson",
+      "nickName": "Blue",
+      "gender": "M",
+      "occupation": "business entrepreneur",
       "type": "BUSINESS",
-      "address": "200 Koch Vista, New York, NY 10001",
       "account": {
-          "accountNumber": "8573629XX",
-          "swiftCode": "1234",
-          "bankName": "Chase Bank",
-          "address": "1948 Kemmer Ville, New York, NY 10002",
-          "routingNumber": "0210000XX"
+        "sortCode": "02090",
+        "swiftCode": "GTBINGLA",
+        "bankCity": "Atlanta",
+        "accountNumber": "885406477269",
+        "bankName": "DBS Bank Limited"
       },
-      "paymentChannel": "BANK_TRANSFER",
-      "currency": "USD",
-      "country": "US"
+      "paymentChannel": "SWIFT",
+      "country": "US",
+      "currency": "USD"
     },
     "created": "2025-02-27T14:17:48.038044Z",
     "processed": "2025-02-27T14:20:49.712685Z"
@@ -404,10 +247,10 @@ If the payout is successfully created, the API returns the following response:
 | `data.quote.source.currency`       | String | The three-letter currency code of the source funds.             |
 | `data.quote.target.amount`         | Number | The converted amount that the recipient received.               |
 | `data.recipient.name`              | String | The full name of the recipient.                                 |
-| `data.recipient.type`              | String | The type of recipient entity, e.g., `BUSINESS`.                     |
-| `data.recipient.account.accountNumber` | String | The recipient's bank account number.                            |
+| `data.recipient.type`              | String | The type of recipient entity, e.g., `BUSINESS`.                 |
+| `data.recipient.account.accountNumber` | String | The recipient's bank account number.                        |
 | `data.recipient.account.bankName`  | String | The name of the recipient's bank.                               |
-| `data.recipient.account.swiftCode`  | String | The swift code of the recipient's bank.                     |
+| `data.recipient.account.swiftCode` | String | The SWIFT/BIC code of the recipient's bank.                     |
 | `data.created`                     | String | ISO 8601 timestamp of when the transaction was created.         |
 | `data.processed`                   | String | ISO 8601 timestamp of when the transaction was processed.       |
 ---
@@ -439,8 +282,7 @@ The payout transaction can have one of the following states:
 
 ## **Best Practices**
 ✅ Ensure `quoteId` is valid and linked to an existing quote.  
-✅ Confirm that the recipient's **bank account number** and **bank code** are correct.  
-✅ Use `BANK_TRANSFER` for domestic US transfers with routing numbers.  
-✅ Use `SWIFT` for international wire transfers requiring SWIFT/BIC codes.  
+✅ Confirm that the recipient's **bank account number** and **SWIFT code** are correct.  
+✅ Use `SWIFT` payment channel for international wire transfers requiring SWIFT/BIC codes.  
 ✅ Use a valid API key in the headers.  
 ✅ Handle error responses correctly in your integration.  

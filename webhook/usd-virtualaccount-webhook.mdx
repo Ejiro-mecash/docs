@@ -1,0 +1,139 @@
+---
+title: Webhook Event - USD Virtual Account Funding
+---
+
+### Webhook Event: `virtualaccount.completed` (USD)
+
+This webhook is sent when a USD virtual account has been successfully credited. This webhook provides details about the funding transaction, including fee breakdown and settlement information.
+
+## Payload Example
+
+```json
+{
+  "event": "virtualaccount.completed",
+  "data": {
+    "id": "8947fe83-3374-4bbd-a7f6-465481cb4baa",
+    "referenceNumber": "AJE318KMPAAJB",
+    "amount": "1000",
+    "type": "FUNDING",
+    "state": "COMPLETED",
+    "destination": "USD wallet",
+    "narration": "narration",
+    "country": "US",
+    "currency": "USD",
+    "fee": {
+      "vat": "10.00",
+      "stampDuty": "100.00",
+      "base": "10.00"
+    },
+    "settlementAmount": "880.00",
+    "source": {
+      "bankName": "Best bank",
+      "accountName": "John Sam",
+      "accountNumber": "3124458172"
+    },
+    "customer": {
+      "email": "someone@gmail.com",
+      "reference": "REF_SXDMSDA13J32",
+      "account": {
+        "name": "Preston Berge",
+        "bankName": "DBS Bank Limited",
+        "number": "656633887809",
+        "sortCode": "MOOLAHGO"
+      }
+    },
+    "created": "2025-12-02T12:34:46.755211501Z",
+    "processed": "2025-12-02T12:34:46.755211501Z"
+  }
+}
+```
+
+<Callout type="info" emoji="ℹ️">
+**NOTE:** For `virtualaccount.failed`, the `state` will be `"FAILED"`.
+</Callout>
+
+---
+
+## Response Breakdown
+
+### Core Transaction Fields
+
+| **Field** | **Type** | **Description** |
+| :--- | :--- | :--- |
+| `event` | string | The name of the event that occurred (`virtualaccount.completed`). |
+| `data.id` | string | Unique identifier for the funding transaction. |
+| `data.referenceNumber` | string | Unique reference number assigned to the transaction. |
+| `data.amount` | string | The total gross amount of the transaction in USD. |
+| `data.type` | string | The type of transaction (`FUNDING`). |
+| `data.state` | string | The final state of the transaction (`COMPLETED` or `FAILED`). |
+| `data.destination` | string | The destination wallet where funds are settled (e.g., `USD wallet`). |
+| `data.narration` | string | Additional narration or description for the transaction. |
+| `data.country` | string | The country code for the transaction (`US`). |
+| `data.currency` | string | The currency of the transaction (`USD`). |
+
+### Fee Breakdown
+
+| **Field** | **Type** | **Description** |
+| :--- | :--- | :--- |
+| `data.fee.vat` | string | The Value Added Tax portion of the fee. |
+| `data.fee.stampDuty` | string | The stamp duty portion of the fee. |
+| `data.fee.base` | string | The base processing fee for the transaction. |
+| `data.settlementAmount` | string | The final amount settled after all fees are deducted. |
+
+<Callout type="warning" emoji="⚠️">
+The `fee` object and `settlementAmount` are included for transactions with instant settlement enabled.
+</Callout>
+
+### Source Account (Sender)
+
+| **Field** | **Type** | **Description** |
+| :--- | :--- | :--- |
+| `data.source.bankName` | string | The name of the bank that sent the funds. |
+| `data.source.accountName` | string | The name on the source bank account. |
+| `data.source.accountNumber` | string | The account number of the source. |
+
+### Customer (Virtual Account Holder)
+
+| **Field** | **Type** | **Description** |
+| :--- | :--- | :--- |
+| `data.customer.email` | string | The customer's email address. |
+| `data.customer.reference` | string | The unique reference for the customer's virtual account. |
+| `data.customer.account.name` | string | The name on the virtual account. |
+| `data.customer.account.bankName` | string | The partner bank issuing the virtual account. |
+| `data.customer.account.number` | string | The virtual account number that was funded. |
+| `data.customer.account.sortCode` | string | The routing code or SWIFT/BIC code for the virtual account. |
+
+### Timestamps
+
+| **Field** | **Type** | **Description** |
+| :--- | :--- | :--- |
+| `data.created` | string | ISO 8601 timestamp of when the transaction was created. |
+| `data.processed` | string | ISO 8601 timestamp of when the transaction was processed. |
+
+---
+
+## Key Differences from NGN Webhook
+
+The USD virtual account webhook includes additional fields:
+
+| **Field** | **Description** |
+| :--- | :--- |
+| `destination` | Specifies which wallet receives the settled funds. |
+| `narration` | Contains the payment narration or memo from the sender. |
+| `customer.account.sortCode` | For USD accounts, this contains the routing code (e.g., `MOOLAHGO`). |
+
+---
+
+## Handling the Webhook
+
+When you receive this webhook, you should:
+
+1. **Verify the signature** – Ensure the webhook is authentic using your webhook secret.
+2. **Check the state** – Confirm `data.state` is `COMPLETED` before crediting the customer.
+3. **Match the reference** – Use `data.customer.reference` to identify the virtual account in your system.
+4. **Record the transaction** – Store the `data.id` and `data.referenceNumber` for reconciliation.
+5. **Update your records** – Credit the expected balance based on `data.settlementAmount` (net of fees).
+
+<Callout type="tip">
+For webhook signature verification, see the [Webhook Signature Verification](/webhook/webhooks-signature-verification) guide.
+</Callout>

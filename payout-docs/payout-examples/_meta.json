@@ -4,5 +4,6 @@
     "ngn-gbp-example": "NGN → GBP",
     "ngn-usd-example": "NGN → USD",
     "ngn-cad-example": "NGN → CAD",
-    "mkw-mkw-example": "MKW → MKW"
+    "mkw-mkw-example": "MKW → MKW",
+    "usd-usd-swift-example": "USD → USD via Swift"
 }

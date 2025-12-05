@@ -11,33 +11,28 @@ USD Virtual Accounts allow you to receive US Dollar payments directly into your 
 
 ## Request Example
 
-To create a USD virtual account, you need to provide the customer's details along with the company information.
+To create a USD virtual account, you need to provide the customer's details along with the company registration number.
 
 <CodeGroup>
 ```json Request
 {
   "currency": "USD",
   "country": "US",
-  "firstName": "John",
-  "lastName": "Mary",
-  "email": "someone@gmail.com",
-  "phoneNumber": "+2348156936458",
-  "reference": "REF_8899562444KLLTTPL",
-  "accountName": "Test Ng Ltd",
+  "firstName": "Jolie",
+  "lastName": "Beahan",
+  "email": "Sim42@yahoo.com",
+  "phoneNumber": "711-442-7768",
+  "reference": "REF_XNUQ4GXT0DMB",
+  "accountName": "Mrs. Alison Berge",
   "gender": "M",
   "dateOfBirth": "1980-10-10",
   "nationality": "NG",
   "idType": "PASSPORT",
-  "idNumber": "C234567890",
-  "address": "Brown Way",
-  "city": "Lagos",
+  "idNumber": "ARZATFP1",
+  "address": "37469 Stokes Path",
+  "city": "Deshaunstad",
   "postalCode": "100001",
-  "company": {
-    "registrationNumber": "NG1235687",
-    "licenseNumber": "10793",
-    "country": "NG",
-    "date": "2024-10-10"
-  }
+  "companyRegistrationNumber": "NOOELBN1089"
 }
 ```
 
@@ -46,13 +41,13 @@ To create a USD virtual account, you need to provide the customer's details alon
     "message": "virtual account created successfully",
     "status": "success",
     "data": {
-        "id": "94ed8564-883c-493b-a135-420bbed63be0",
-        "firstName": "Jacey",
-        "lastName": "Kohler",
+        "id": "d03dbb81-331b-4834-844c-35c91ff30ad6",
+        "firstName": "John",
+        "lastName": "Mary",
         "email": "someone@gmail.com",
         "phoneNumber": "+2348156936458",
-        "reference": "REF_SXDMSDA13J32",
-        "accountName": "Preston Berge",
+        "reference": "REF_8899562444KLLTTPL90",
+        "accountName": "Test Ng Ltd",
         "gender": "M",
         "dateOfBirth": "1980-10-10",
         "nationality": "NG",
@@ -62,23 +57,18 @@ To create a USD virtual account, you need to provide the customer's details alon
         "city": "Lagos",
         "postalCode": "100001",
         "account": {
-            "name": "Preston Berge",
+            "name": "Test Ng Ltd",
             "bankName": "DBS Bank Limited",
             "sortCode": "MOOLAHGO",
-            "number": "656633887809",
+            "number": "584784577026",
             "swiftCode": "DBSSSGSGXXX"
         },
         "status": "ACTIVE",
         "currency": "USD",
         "country": "US",
         "isPermanent": true,
-        "created": "2025-12-02T12:18:20.140996776Z",
-        "company": {
-            "registrationNumber": "NG1235687",
-            "licenseNumber": "10793",
-            "country": "NG",
-            "date": "2024-10-10"
-        }
+        "created": "2025-12-02T14:01:22.417190608Z",
+        "companyRegistrationNumber": "NG1235687"
     }
 }
 ```
