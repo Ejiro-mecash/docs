@@ -233,10 +233,6 @@
           "type": {
             "$ref": "#/components/schemas/RecipientType"
           },
-          "stored": {
-            "type": "boolean",
-            "description": "Indicates if the recipient details should be stored for future use."
-          },
           "address": {
             "type": "string",
             "description": "Full address of the recipient."
@@ -362,92 +358,98 @@
       "UsdSwiftRecipient": {
         "title": "USD SWIFT Payout",
         "description": "Recipient details for USD to USD SWIFT payout to the USA (USD).",
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/BaseRecipient"
+        "type": "object",
+        "required": [
+          "paymentChannel",
+          "currency",
+          "country",
+          "name",
+          "type",
+          "account"
+        ],
+        "properties": {
+          "paymentChannel": {
+            "$ref": "#/components/schemas/PaymentChannel"
           },
-          {
+          "currency": {
+            "$ref": "#/components/schemas/CurrencyCode"
+          },
+          "country": {
+            "$ref": "#/components/schemas/CountryCode"
+          },
+          "name": {
+            "type": "string",
+            "description": "Full name of the recipient."
+          },
+          "nickName": {
+            "type": "string",
+            "description": "Nickname or alias for the recipient."
+          },
+          "gender": {
+            "type": "string",
+            "description": "Gender of the recipient.",
+            "enum": [
+              "M",
+              "F"
+            ]
+          },
+          "occupation": {
+            "type": "string",
+            "description": "Occupation or profession of the recipient.",
+            "enum": [
+              "C-Suite executive / Board member",
+              "Employee",
+              "Entrepreneur / Business owner",
+              "Foreign worker",
+              "Foreign domestic worker",
+              "Home-maker",
+              "Middle management employee",
+              "Pilot",
+              "Professional",
+              "Senior management employee",
+              "Student"
+            ]
+          },
+          "type": {
+            "$ref": "#/components/schemas/RecipientType",
+            "description": "Recipient type; use `BUSINESS` for company payouts or `INDIVIDUAL` for personal payouts."
+          },
+          "account": {
             "type": "object",
             "required": [
-              "name",
-              "type"
+              "accountNumber",
+              "swiftCode",
+              "bankName"
             ],
             "properties": {
-              "name": {
+              "bankName": {
                 "type": "string",
-                "description": "Full name of the recipient."
+                "description": "The name of the bank.",
+                "example": "DBS Bank Limited"
               },
-              "nickName": {
+              "accountNumber": {
                 "type": "string",
-                "description": "Nickname or alias for the recipient."
+                "description": "The recipient's bank account number.",
+                "example": "885406477269"
               },
-              "gender": {
+              "swiftCode": {
                 "type": "string",
-                "description": "Gender of the recipient.",
-                "enum": [
-                  "M",
-                  "F"
-                ]
+                "description": "SWIFT/BIC code for international wire transfers.",
+                "example": "GTBINGLA"
               },
-              "occupation": {
+              "sortCode": {
                 "type": "string",
-                "description": "Occupation or profession of the recipient.",
-                "enum": [
-                  "I01 C-Suite executive / Board member",
-                  "I02 Employee",
-                  "I03 Entrepreneur / Business owner",
-                  "I04 Foreign worker",
-                  "I05 Foreign domestic worker",
-                  "I06 Home-maker",
-                  "I07 Middle management employee",
-                  "I08 Pilot",
-                  "I09 Professional",
-                  "I10 Senior management employee",
-                  "I11 Student"
-                ]
+                "description": "Bank sort code.",
+                "example": "02090"
               },
-              "type": {
-                "$ref": "#/components/schemas/RecipientType",
-                "description": "Recipient type; use `BUSINESS` for company payouts or `INDIVIDUAL` for personal payouts."
-              },
-              "account": {
-                "type": "object",
-                "required": [
-                  "accountNumber",
-                  "swiftCode",
-                  "bankName"
-                ],
-                "properties": {
-                  "bankName": {
-                    "type": "string",
-                    "description": "The name of the bank.",
-                    "example": "DBS Bank Limited"
-                  },
-                  "accountNumber": {
-                    "type": "string",
-                    "description": "The recipient's bank account number.",
-                    "example": "885406477269"
-                  },
-                  "swiftCode": {
-                    "type": "string",
-                    "description": "SWIFT/BIC code for international wire transfers.",
-                    "example": "GTBINGLA"
-                  },
-                  "sortCode": {
-                    "type": "string",
-                    "description": "Bank sort code.",
-                    "example": "02090"
-                  },
-                  "bankCity": {
-                    "type": "string",
-                    "description": "City where the bank is located.",
-                    "example": "Atlanta"
-                  }
-                }
+              "bankCity": {
+                "type": "string",
+                "description": "City where the bank is located.",
+                "example": "Atlanta"
               }
             }
           }
-        ]
+        }
       },
       "EurRecipient": {
         "title": "EUR Payout",
@@ -896,7 +898,8 @@
             "description": "The source country code (ISO 3166-1 alpha-2).",
             "enum": [
               "NG",
-              "MW"
+              "MW",
+              "US"
             ]
           },
           "currency": {
@@ -904,7 +907,8 @@
             "description": "The source currency code (ISO 4217).",
             "enum": [
               "NGN",
-              "MWK"
+              "MWK",
+              "USD"
             ]
           }
         }
@@ -1317,7 +1321,7 @@
               "address",
               "city",
               "postalCode",
-              "companyRegistrationNumber"
+              "company"
             ],
             "properties": {
               "currency": {
@@ -1372,9 +1376,29 @@
                 "type": "string",
                 "description": "Zip or Postal code."
               },
-              "companyRegistrationNumber": {
-                "type": "string",
-                "description": "Business registration number."
+              "company": {
+                "type": "object",
+                "description": "Company registration details.",
+                "required": [
+                  "registrationNumber",
+                  "registrationCountry",
+                  "registrationDate"
+                ],
+                "properties": {
+                  "registrationNumber": {
+                    "type": "string",
+                    "description": "Business registration number."
+                  },
+                  "registrationCountry": {
+                    "type": "string",
+                    "description": "2-letter ISO country code where the company is registered."
+                  },
+                  "registrationDate": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "Date of company registration (YYYY-MM-DD)."
+                  }
+                }
               }
             }
           }
@@ -2022,7 +2046,11 @@
                     "country": "US",
                     "isPermanent": true,
                     "created": "2025-12-02T14:01:22.417190608Z",
-                    "companyRegistrationNumber": "NG1235687"
+                    "company": {
+                      "registrationNumber": "NG1235687",
+                      "registrationCountry": "NG",
+                      "registrationDate": "2024-10-10"
+                    }
                   }
                 }
               }
@@ -2972,7 +3000,11 @@
                     "address": "37469 Stokes Path",
                     "city": "Deshaunstad",
                     "postalCode": "100001",
-                    "companyRegistrationNumber": "NOOELBN1089"
+                    "company": {
+                      "registrationNumber": "NOOELBN1089",
+                      "registrationCountry": "NG",
+                      "registrationDate": "2024-10-10"
+                    }
                   }
                 }
               }

@@ -11,9 +11,9 @@ Unlike dynamic accounts, static accounts never expire. Once issued, the same acc
 
 meCash static accounts currently support:
 
-- **Nigeria (NGN)**
-- **Malawi (MWK)**
-- **United States (USD)**
+- **Nigeria (NGN)** 🇳🇬
+- **Malawi (MWK)** 🇲🇼
+- **United States (USD)** 🇺🇸 
 
 ## How it Works: The Transaction Flow
 
@@ -109,7 +109,11 @@ curl --request POST '{{baseURL}}/v1/virtual-account' \
   "address": "Brown Way",
   "city": "Lagos",
   "postalCode": "100001",
-  "companyRegistrationNumber": "NG1235687"
+  "company": {
+    "registrationNumber": "NG1235687",
+    "registrationCountry": "NG",
+    "registrationDate": "2024-10-10"
+  }
 }'
 ```
 </CodeGroup>
@@ -200,7 +204,11 @@ curl --request POST '{{baseURL}}/v1/virtual-account' \
         "country": "US",
         "isPermanent": true,
         "created": "2025-12-02T14:01:22.417190608Z",
-        "companyRegistrationNumber": "NG1235687"
+        "company": {
+            "registrationNumber": "NG1235687",
+            "registrationCountry": "NG",
+            "registrationDate": "2024-10-10"
+        }
     }
 }
 ```
@@ -288,7 +296,10 @@ curl --request POST '{{baseURL}}/v1/virtual-account' \
 | `data.country` | String | ISO 3166-1 alpha-2 country code (`US`). |
 | `data.isPermanent` | Boolean | Whether the account is permanent (always `true` for static accounts). |
 | `data.created` | String | ISO 8601 timestamp when the account was created. |
-| `data.companyRegistrationNumber` | String | Business registration number provided during creation. |
+| `data.company` | Object | Company registration details. |
+| `data.company.registrationNumber` | String | Business registration number provided during creation. |
+| `data.company.registrationCountry` | String | 2-letter ISO country code where the company is registered. |
+| `data.company.registrationDate` | String | Date of company registration (YYYY-MM-DD). |
 
 </Tab>
 
