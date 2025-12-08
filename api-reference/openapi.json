@@ -360,12 +360,12 @@
         "description": "Recipient details for USD to USD SWIFT payout to the USA (USD).",
         "type": "object",
         "required": [
-          "paymentChannel",
-          "currency",
-          "country",
           "name",
           "type",
-          "account"
+          "account",
+          "nickName",
+          "gender",
+          "occupation"
         ],
         "properties": {
           "paymentChannel": {
@@ -411,8 +411,11 @@
             ]
           },
           "type": {
-            "$ref": "#/components/schemas/RecipientType",
-            "description": "Recipient type; use `BUSINESS` for company payouts or `INDIVIDUAL` for personal payouts."
+            "type": "string",
+            "description": "Recipient type; use `BUSINESS`",
+            "enum": [
+              "BUSINESS"
+            ]
           },
           "account": {
             "type": "object",
@@ -2732,9 +2735,6 @@
                     "quoteId": "91e58c2d-ef14-4777-906b-xxxxxxxxxxxxx",
                     "recipient": {
                       "name": "Adeolu Adebayo",
-                      "paymentChannel": "BANK_TRANSFER",
-                      "currency": "NGN",
-                      "country": "NG",
                       "account": {
                         "bankName": "GT Bank",
                         "accountNumber": "0010401234",
@@ -2753,9 +2753,6 @@
                       "name": "Linda Collins",
                       "type": "BUSINESS",
                       "address": "200 Koch Vista, New York, NY 10001",
-                      "paymentChannel": "BANK_TRANSFER",
-                      "currency": "USD",
-                      "country": "US",
                       "account": {
                         "accountNumber": "857362910",
                         "routingNumber": "021000021"
@@ -2773,9 +2770,6 @@
                       "name": "Sam James",
                       "type": "BUSINESS",
                       "address": "12 street",
-                      "paymentChannel": "BANK_TRANSFER",
-                      "currency": "EUR",
-                      "country": "DE",
                       "stored": true,
                       "account": {
                         "iban": "DE89XXXXXXXX3000",
@@ -2797,9 +2791,6 @@
                       "firstName": "Derick",
                       "lastName": "Heaney",
                       "type": "BUSINESS",
-                      "paymentChannel": "BANK_TRANSFER",
-                      "currency": "GBP",
-                      "country": "GB",
                       "stored": true,
                       "account": {
                         "bankName": "Investment Account",
@@ -2819,9 +2810,6 @@
                     "recipient": {
                       "name": "John Chuks",
                       "address": "12 blue street",
-                      "paymentChannel": "BANK_TRANSFER",
-                      "currency": "CAD",
-                      "country": "CA",
                       "account": {
                         "bankName": "Bank of Test",
                         "accountNumber": "23099XXXXX",
@@ -2842,9 +2830,6 @@
                     "recipient": {
                       "name": "Marie Tremblay",
                       "address": "55 Rue Saint-Paul, Quebec City, QC G1K 3V8",
-                      "paymentChannel": "INTERAC",
-                      "currency": "CAD",
-                      "country": "CA",
                       "account": {
                         "bankName": "Canadian Credit Union",
                         "accountNumber": "99887766",
@@ -2867,9 +2852,6 @@
                       "gender": "M",
                       "occupation": "business entrepreneur",
                       "type": "BUSINESS",
-                      "paymentChannel": "SWIFT",
-                      "country": "US",
-                      "currency": "USD",
                       "account": {
                         "sortCode": "02090",
                         "swiftCode": "GTBINGLA",
