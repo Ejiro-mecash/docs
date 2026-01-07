@@ -286,3 +286,7 @@ The payout transaction can have one of the following states:
 ✅ Use `SWIFT` payment channel for international wire transfers requiring SWIFT/BIC codes.  
 ✅ Use a valid API key in the headers.  
 ✅ Handle error responses correctly in your integration.  
+
+<Tip>
+**Testing Failed Payouts:** In the sandbox environment, you can simulate a failed payout by setting `"remark": "failed"` in your request. This triggers a `payout.failed` webhook, allowing you to test your error handling.
+</Tip>

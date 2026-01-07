@@ -13,7 +13,7 @@ meCash static accounts currently support:
 
 - **Nigeria (NGN)** 🇳🇬
 - **Malawi (MWK)** 🇲🇼
-- **United States (USD)** 🇺🇸 
+- **United States (USD)** 🇺🇸 — [View USD Virtual Account documentation](/virtual-accounts-docs/usd-virtual-account)
 
 ## How it Works: The Transaction Flow
 
@@ -88,35 +88,11 @@ curl --request POST '{{baseURL}}/v1/virtual-account' \
     "accountName": "Kathleen Langosh"
   }'
 ```
-```bash USD (USD)
-curl --request POST '{{baseURL}}/v1/virtual-account' \
-  --header 'x-api-key: YOUR_API_KEY' \
-  --header 'Content-Type: application/json' \
-  --data '{
-  "currency": "USD",
-  "country": "US",
-  "firstName": "John",
-  "lastName": "Mary",
-  "email": "someone@gmail.com",
-  "phoneNumber": "+2348156936458",
-  "reference": "REF_8899562444KLLTTPL90",
-  "accountName": "Test Ng Ltd",
-  "gender": "M",
-  "dateOfBirth": "1980-10-10",
-  "nationality": "NG",
-  "idType": "PASSPORT",
-  "idNumber": "C234567890",
-  "address": "Brown Way",
-  "city": "Lagos",
-  "postalCode": "100001",
-  "company": {
-    "registrationNumber": "NG1235687",
-    "registrationCountry": "NG",
-    "registrationDate": "2024-10-10"
-  }
-}'
-```
 </CodeGroup>
+
+<Info>
+For USD Virtual Accounts, see the dedicated [USD Virtual Account documentation](/virtual-accounts-docs/usd-virtual-account).
+</Info>
 
 
 ## Standard currency-specific Response Examples
@@ -169,47 +145,6 @@ curl --request POST '{{baseURL}}/v1/virtual-account' \
     "country": "MW",
     "created": "2025-05-15T13:39:57.405Z"
   }
-}
-```
-
-```json USD (USD)
-{
-    "message": "virtual account created successfully",
-    "status": "success",
-    "data": {
-        "id": "d03dbb81-331b-4834-844c-35c91ff30ad6",
-        "firstName": "John",
-        "lastName": "Mary",
-        "email": "someone@gmail.com",
-        "phoneNumber": "+2348156936458",
-        "reference": "REF_8899562444KLLTTPL90",
-        "accountName": "Test Ng Ltd",
-        "gender": "M",
-        "dateOfBirth": "1980-10-10",
-        "nationality": "NG",
-        "idType": "PASSPORT",
-        "idNumber": "C********0",
-        "address": "Brown Way",
-        "city": "Lagos",
-        "postalCode": "100001",
-        "account": {
-            "name": "Test Ng Ltd",
-            "bankName": "DBS Bank Limited",
-            "sortCode": "MOOLAHGO",
-            "number": "584784577026",
-            "swiftCode": "DBSSSGSGXXX"
-        },
-        "status": "ACTIVE",
-        "currency": "USD",
-        "country": "US",
-        "isPermanent": true,
-        "created": "2025-12-02T14:01:22.417190608Z",
-        "company": {
-            "registrationNumber": "NG1235687",
-            "registrationCountry": "NG",
-            "registrationDate": "2024-10-10"
-        }
-    }
 }
 ```
 </CodeGroup>

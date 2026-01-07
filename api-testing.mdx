@@ -80,6 +80,69 @@ curl -X POST "https://sandboxapi.me-cash.com/v2/payouts" \
   }'
 ```
 
+## Simulating Payout States
+
+In the sandbox environment, you can simulate different payout outcomes to test your webhook handling. This is particularly useful for testing error scenarios and ensuring your integration handles failed payouts correctly.
+
+### Simulating a Failed Payout
+
+To simulate a payout failure and trigger the `payout.failed` webhook, simply include **"failed"** as the `remark` field in your payout request:
+
+```bash
+curl -X POST "https://sandboxapi.me-cash.com/v2/payouts" \
+  -H "x-api-key: YOUR_SANDBOX_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "amount": "100.00",
+    "currency": "NGN",
+    "recipient_name": "John Doe",
+    "bank_code": "058",
+    "account_number": "1234567890",
+    "remark": "failed"
+  }'
+```
+
+<Info>
+When you include `"remark": "failed"` in your payout request, the system will process the payout as a failure and send a `payout.failed` webhook to your configured webhook URL. This allows you to test your failure handling logic without real transactions.
+</Info>
+
+### Expected Webhook Response
+
+After submitting a payout with `"remark": "failed"`, you will receive a `payout.failed` webhook event:
+
+```json
+{
+  "event": "payout.failed",
+  "data": {
+    "id": "8b99b9d8-998a-48db-9102-xxxxxxxxxxxxx",
+    "referenceNumber": "RRT6CBX1NMGUJ",
+    "type": "SEND",
+    "state": "FAILED",
+    "quote": {
+      "id": "68d2bae4-7365-42fc-bbc2-xxxxxxxxxxxxx",
+      "source": { "currency": "NGN", "amount": 100 },
+      "target": { "currency": "NGN", "amount": 100 },
+      "rate": 1,
+      "fee": { "amount": 5 },
+      "summary": { "total": 105 }
+    },
+    "recipient": {
+      "name": "John Doe",
+      "account": { "sortCode": "058", "accountNumber": "1234567890" },
+      "currency": "NGN",
+      "country": "NG",
+      "stored": false
+    },
+    "created": "2025-03-13T15:28:37.258Z",
+    "processed": "2025-03-13T15:28:37.258Z"
+  }
+}
+```
+
+<Tip>
+Use this feature alongside [webhook.site](https://webhook.site) to inspect and debug your webhook payloads in real-time.
+</Tip>
+
 ## Postman Collection
 
 Import this collection into Postman for easy testing:

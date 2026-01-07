@@ -104,7 +104,8 @@
             "pages": [
               "virtual-accounts-docs/about-virtual-account",
               "virtual-accounts-docs/static-virtual-account",
-              "virtual-accounts-docs/dynamic-virtual-account"
+              "virtual-accounts-docs/dynamic-virtual-account",
+              "virtual-accounts-docs/usd-virtual-account"
             ]
           },
           {
