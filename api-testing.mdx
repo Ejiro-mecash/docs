@@ -98,17 +98,17 @@ curl -X POST "https://sandboxapi.me-cash.com/v2/payouts" \
     "recipient_name": "John Doe",
     "bank_code": "058",
     "account_number": "1234567890",
-    "remark": "failed"
+    "remark": "fail"
   }'
 ```
 
 <Info>
-When you include `"remark": "failed"` in your payout request, the system will process the payout as a failure and send a `payout.failed` webhook to your configured webhook URL. This allows you to test your failure handling logic without real transactions.
+When you include `"remark": "fail"` in your payout request, the system will process the payout as a failure and send a `payout.failed` webhook to your configured webhook URL. This allows you to test your failure handling logic without real transactions.
 </Info>
 
 ### Expected Webhook Response
 
-After submitting a payout with `"remark": "failed"`, you will receive a `payout.failed` webhook event:
+After submitting a payout with `"remark": "fail"`, you will receive a `payout.failed` webhook event:
 
 ```json
 {

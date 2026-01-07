@@ -104,7 +104,7 @@ This object provides all necessary details about the receiver of the funds.
 This payload is sent when a payout request is created but still in progress (not yet completed or failed).
 
 <Tip>
-**Sandbox Testing:** To simulate a `payout.failed` webhook in the sandbox environment, include `"remark": "failed"` in your payout request. This will trigger the `payout.failed` webhook event, allowing you to test your failure handling logic.
+**Sandbox Testing:** To simulate a `payout.failed` webhook in the sandbox environment, include `"remark": "fail"` in your payout request. This will trigger the `payout.failed` webhook event, allowing you to test your failure handling logic.
 </Tip>
 
 ```json
