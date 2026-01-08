@@ -8,7 +8,7 @@ icon: wallet
 A meCash wallet is a multi-currency digital wallet that lets you manage your funds globally. It's linked to a real bank account to ensure every transaction is secure and reliable.
 
 **With a meCash wallet, you can:**
-- 🏦 **Manage Multiple Currencies:** Handle transactions in various currencies (e.g., USD to NGN, NGN to CNY) from a single dashboard.
+- 🏦 **Manage Multiple Currencies:** Handle transactions in various currencies (e.g., USD to NGN, NGN to EUR) from a single dashboard.
 - 💸 **Transact Globally:** Hold, send, and receive money across borders.
 - 🌍 **Extensive Currency Support:** Access over 12 currencies, including USD, EUR, XOF, and GBP.
 - ⚡ **Instant Transfers:** Move funds instantly to bank accounts, mobile money wallets, or other meCash users.
@@ -33,7 +33,7 @@ Each wallet is tied to a user and has the following core attributes:
 | :--- | :--- | :--- |
 | `walletId` | `UUID` | A unique identifier for the wallet. |
 | `currency` | `String` | The three-letter ISO currency code (e.g., `NGN`, `USD`). |
-| `country` | `String` | The two-letter ISO country code (e.g., `NG`, `CN`). |
+| `country` | `String` | The two-letter ISO country code (e.g., `NG`, `US`). |
 | `balance` | `Decimal` | The available funds in the wallet. We use a decimal type to ensure precision. |
 
 ---

@@ -19,7 +19,7 @@ The Payout API allows you to send money to recipients worldwide using various pa
 | EUR | Europe 🇪🇺 | Bank Transfer | Individual, Business |
 | GBP | United Kingdom 🇬🇧 | Bank Transfer | Individual, Business |
 | CAD | Canada 🇨🇦 | Bank Transfer | Individual, Business |
-| CNY | China 🇨🇳 | Bank Transfer, Alipay, WeChat | Individual, Business |
+| MWK | Malawi 🇲🇼 | Mobile Money | Individual, Business |
 
 ## Endpoint
 
@@ -230,7 +230,7 @@ print(response.json())
 ```
 </CodeGroup>
 
-### 3. Chinese Yuan (CNY) - Alipay Payout
+### 3. Malawian Kwacha (MWK) - Mobile Money Payout
 
 <CodeGroup>
 ```bash cURL
@@ -238,16 +238,15 @@ curl --location '{{baseURL}}/v2/payout' \
 --header 'x-api-key: YOUR_API_KEY' \
 --form 'transaction={
   "recipient": {
-    "name": "Li Wei",
-    "firstName": "Li",
-    "lastName": "Wei",
-    "email": "liwei@example.com",
-    "type": "EMAIL",
-    "paymentChannel": "ALI_PAY",
-    "currency": "CNY",
-    "country": "CN",
+    "name": "Chisomo Banda",
+    "firstName": "Chisomo",
+    "lastName": "Banda",
+    "type": "INDIVIDUAL",
+    "paymentChannel": "MOBILE_MONEY",
+    "currency": "MWK",
+    "country": "MW",
     "account": {
-      "accountNumber": "861"
+      "accountNumber": "265999123456"
     }
   },
   "quoteId": "your-quote-id-here",
@@ -259,16 +258,15 @@ curl --location '{{baseURL}}/v2/payout' \
 const formData = new FormData();
 const transaction = {
   recipient: {
-    name: "Li Wei",
-    firstName: "Li",
-    lastName: "Wei",
-    email: "liwei@example.com",
-    type: "EMAIL",
-    paymentChannel: "ALI_PAY",
-    currency: "CNY",
-    country: "CN",
+    name: "Chisomo Banda",
+    firstName: "Chisomo",
+    lastName: "Banda",
+    type: "INDIVIDUAL",
+    paymentChannel: "MOBILE_MONEY",
+    currency: "MWK",
+    country: "MW",
     account: {
-      accountNumber: "861"
+      accountNumber: "265999123456"
     }
   },
   quoteId: "your-quote-id-here",
@@ -299,16 +297,15 @@ headers = {
 
 transaction = {
     "recipient": {
-        "name": "Li Wei",
-        "firstName": "Li",
-        "lastName": "Wei",
-        "email": "liwei@example.com",
-        "type": "EMAIL",
-        "paymentChannel": "ALI_PAY",
-        "currency": "CNY",
-        "country": "CN",
+        "name": "Chisomo Banda",
+        "firstName": "Chisomo",
+        "lastName": "Banda",
+        "type": "INDIVIDUAL",
+        "paymentChannel": "MOBILE_MONEY",
+        "currency": "MWK",
+        "country": "MW",
         "account": {
-            "accountNumber": "861"
+            "accountNumber": "265999123456"
         }
     },
     "quoteId": "your-quote-id-here",
@@ -380,17 +377,16 @@ print(response.json())
 }
 ```
 
-#### CNY Recipient (Alipay)
+#### MWK Recipient (Mobile Money)
 ```json
 {
   "name": "string",
   "firstName": "string",
   "lastName": "string",
-  "email": "string",
-  "type": "EMAIL",
-  "paymentChannel": "ALI_PAY",
-  "currency": "CNY",
-  "country": "CN",
+  "type": "INDIVIDUAL",
+  "paymentChannel": "MOBILE_MONEY",
+  "currency": "MWK",
+  "country": "MW",
   "account": {
     "accountNumber": "string"
   }
