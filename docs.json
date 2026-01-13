@@ -187,9 +187,6 @@
             ]
           },
           {
-            "group": "RAMP API (Coming Soon)"
-          },
-          {
             "group": "Miscellaneous",
             "pages": [
               "miscellaneous/perform-account-enquiry",
@@ -213,7 +210,16 @@
           {
             "group": "Guides",
             "pages": [
-              "payment-links"
+              "payment-links",
+              {
+                "group": "Ramp",
+                "pages": [
+                  "ramp-docs/ramp-overview",
+                  "ramp-docs/deposit-crypto",
+                  "ramp-docs/withdraw-crypto",
+                  "ramp-docs/offramp"
+                ]
+              }
             ]
           },
           {

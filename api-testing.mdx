@@ -143,6 +143,32 @@ After submitting a payout with `"remark": "fail"`, you will receive a `payout.fa
 Use this feature alongside [webhook.site](https://webhook.site) to inspect and debug your webhook payloads in real-time.
 </Tip>
 
+## Simulating Virtual Account Funding
+
+Testing your collection flow is critical. In sandbox, you can simulate an incoming bank transfer to any of your virtual accounts.
+
+### How to Simulate Funding
+
+To credit a virtual account, use the simulation endpoint:
+
+```bash
+curl -X POST "https://sandboxapi.me-cash.com/v1/virtual-account/simulate/transfer" \
+  -H "x-api-key: YOUR_SANDBOX_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "amount": 500000,
+    "reference": "VA_REFERENCE_HERE"
+  }'
+```
+
+<Info>
+  **Note**: The `amount` should be in the lowest denomination (e.g., 500000 = 5,000 NGN). This will trigger a `virtualaccount.completed` webhook.
+</Info>
+
+For full details, see the [Simulate Funding API Reference](/virtual-account/fund-virtual-account).
+
+---
+
 ## Postman Collection
 
 Import this collection into Postman for easy testing:

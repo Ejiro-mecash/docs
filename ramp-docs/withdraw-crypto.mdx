@@ -1,0 +1,203 @@
+---
+title: "Withdraw Crypto"
+description: "Send cryptocurrency from your meCash wallet to any external wallet address"
+icon: "arrow-up-from-line"
+---
+
+The **Withdraw Crypto** feature allows you to send cryptocurrency from your meCash wallet to any external wallet address on supported blockchain networks.
+
+## Overview
+
+Withdrawing from meCash enables you to transfer your crypto assets (like USDC, USDT, or Ether) to:
+- Your personal hardware wallet
+- Another exchange
+- A DeFi protocol
+- Any compatible external wallet address
+
+<Callout type="info" emoji="ℹ️">
+  Withdrawals are processed on-chain and require network (gas) fees. The fee amount varies based on network congestion.
+</Callout>
+
+---
+
+## How to Withdraw Crypto
+
+<Steps>
+  <Step title="Navigate to Ramp">
+    Log in to your [meCash Business Dashboard](https://business.me-cash.com) and navigate to **Ramp** → **Balances** in the left sidebar.
+  </Step>
+  <Step title="Select Network and Asset">
+    Choose your network (e.g., **Ethereum**) from the dropdown and select the asset (e.g., **USDC**, **USDT**, or **Ether**) from the asset tabs.
+  </Step>
+  <Step title="Click Withdraw">
+    Click the **Withdraw** button to start the withdrawal process.
+  </Step>
+  <Step title="Enter Withdrawal Details">
+    Complete the withdrawal form:
+    - **Amount**: Enter the amount of crypto to withdraw
+    - **Address**: Paste the destination wallet address
+    - **Destination Tag** (Optional): Required for some exchanges
+    - **Alias** (Optional): A friendly name for the address
+  </Step>
+  <Step title="Confirm Details">
+    Review your withdrawal details including the amount, recipient address, and estimated gas fees.
+  </Step>
+  <Step title="Add Payment Remark">
+    Optionally add a payment remark or memo for your records.
+  </Step>
+  <Step title="Complete Indemnity Check">
+    Acknowledge the withdrawal terms and confirm you're sending to the correct address.
+  </Step>
+  <Step title="Submit Withdrawal">
+    Click **Continue** to submit your withdrawal. The transaction will be broadcast to the blockchain.
+  </Step>
+</Steps>
+
+---
+
+## Withdrawal Form Fields
+
+| **Field** | **Required** | **Description** |
+|-----------|--------------|-----------------|
+| Send Amount | Yes | The amount of crypto you want to withdraw |
+| Address | Yes | The destination wallet address (must be valid for the selected network) |
+| Destination Tag | No | Required by some exchanges (e.g., for certain exchange deposits) |
+| Alias | No | A friendly name to identify this address for future use |
+
+---
+
+## Withdrawal Process Steps
+
+### Step 1: Withdraw Crypto
+Enter the amount and destination address for your withdrawal.
+
+**Important reminders displayed:**
+- ⚠️ Please ensure your wallet address is correct
+- ⚠️ Verify that the address is on the correct network (e.g., Ethereum ERC20)
+- ⚠️ You will lose your funds if the wrong address is entered
+
+### Step 2: Confirm Details
+Review all withdrawal information:
+- Amount to be sent
+- Destination address
+- Network fees (gas)
+- Total amount to be deducted
+
+### Step 3: Payment Remark
+Add an optional note or reference for the transaction.
+
+### Step 4: Indemnity Check
+Confirm that:
+- You have verified the destination address
+- You understand the transaction is irreversible
+- You accept responsibility for the transfer
+
+---
+
+## Gas Fees
+
+Withdrawals require gas fees to be processed on the blockchain. The gas fee is automatically calculated and displayed during the withdrawal process.
+
+| **Fee Level** | **Speed** | **Description** |
+|---------------|-----------|-----------------|
+| Low | Slower | Lower cost, longer confirmation time |
+| Medium | Standard | Balanced cost and speed (default) |
+| High | Faster | Higher cost, faster confirmation |
+
+<Callout type="info" emoji="ℹ️">
+  Gas fees are paid in the native token of the network (e.g., ETH for Ethereum). The fee is typically deducted from your transaction summary.
+</Callout>
+
+---
+
+## Address Validation
+
+Before processing a withdrawal, meCash validates the destination address to ensure it's compatible with the selected network.
+
+### Valid Address Format
+
+For Ethereum-based networks (ERC20), addresses must:
+- Start with `0x`
+- Be 42 characters long
+- Contain only hexadecimal characters (0-9, a-f, A-F)
+
+---
+
+## Withdrawal Limits
+
+| **Limit Type** | **Amount (USDT/USDC)** | **Description** |
+|----------------|------------|-----------------|
+| Minimum | 0.01 | Minimum amount per withdrawal |
+| Maximum | 50,000 | Maximum per single transaction |
+| Daily | 100,000 | Maximum total withdrawals per day |
+
+---
+
+## Tracking Your Withdrawal
+
+### In the Dashboard
+
+After submitting a withdrawal:
+
+1. Go to **Ramp** → **Transactions**
+2. Find your withdrawal in the transaction list
+3. Monitor the status as it progresses
+
+### Transaction Statuses
+
+| **Status** | **Description** |
+|------------|-----------------|
+| `PENDING` | Withdrawal is being processed |
+| `PROCESSING` | Transaction has been broadcast to the blockchain |
+| `COMPLETED` | Funds have been successfully sent |
+| `FAILED` | Withdrawal failed - check details for reason |
+
+---
+
+## Common Issues
+
+<AccordionGroup>
+  <Accordion title="Invalid Address Error">
+    **Cause:** The destination address format doesn't match the selected network.
+    
+    **Solution:** 
+    - Verify you're using an address compatible with the selected network
+    - Ensure the address starts with `0x` for Ethereum-based networks
+  </Accordion>
+  
+  <Accordion title="Insufficient Balance">
+    **Cause:** Your available balance is less than the withdrawal amount plus gas fees.
+    
+    **Solution:** Reduce the withdrawal amount to account for gas fees, or deposit additional funds.
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Security Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Verify Address" icon="check-double">
+    Triple-check the destination address before confirming
+  </Card>
+  <Card title="Test First" icon="flask">
+    Send a small test amount before large withdrawals
+  </Card>
+  <Card title="Use Aliases" icon="tag">
+    Save frequently used addresses with aliases to avoid errors
+  </Card>
+  <Card title="Check Network" icon="network-wired">
+    Ensure the destination wallet supports the selected network
+  </Card>
+</CardGroup>
+
+---
+
+## Need Help?
+
+If you encounter any issues with your withdrawal:
+
+- **Email**: [support@me-cash.com](mailto:support@me-cash.com)
+- **Discord**: Join our [community](https://discord.gg/CC5v6h52Wk)
+
+Please include your transaction reference number when contacting support.

@@ -36,6 +36,21 @@ Use the built-in **Try it** panel to send real Sandbox calls without leaving the
 
 ---
 
+## Testing & Simulation
+
+Before going live, use our sandbox simulation tools to verify your integration's behavior.
+
+<CardGroup cols={2}>
+  <Card title="Fund Virtual Account" icon="money-bill-transfer" href="/virtual-account/fund-virtual-account">
+    Simulate incoming transfers to test your collection flow and webhooks.
+  </Card>
+  <Card title="Simulate Payout Failure" icon="circle-exclamation" href="/api-testing#simulating-payout-states">
+    Trigger `payout.failed` webhooks by using "fail" in the transaction remark.
+  </Card>
+</CardGroup>
+
+---
+
 ## API Endpoints
 
 Explore our API categories to find the endpoints you need.
@@ -74,17 +89,6 @@ Explore our API categories to find the endpoints you need.
   </Card>
 </CardGroup>
 
-### RAMP API (Coming Soon)
-<CardGroup cols={2}>
-  <Card title="Crypto (Coming Soon)" icon="coins" >
-    Manage cryptocurrency operations.
-    
-    - Check crypto balances
-    - Generate wallet addresses
-  </Card>
-</CardGroup>
-
----
 ## Core Concepts
 
 ### Base URL
@@ -147,7 +151,6 @@ Stay updated with real-time notifications using webhooks:
 - **Payout Events**: Payment status updates, completion notifications.
 - **Collection Events**: Incoming payment notifications.
 - **Virtual Account Events**: Account creation and payment received.
-- **Ramp Events**: Crypto transaction updates.
 </Accordion>
 
 <Accordion title="Webhook Security">
