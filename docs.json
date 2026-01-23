@@ -180,6 +180,7 @@
             "group": "Virtual Account",
             "pages": [
               "virtual-account/create-virtual-account",
+              "virtual-account/usd-virtual-account",
               "virtual-account/create-dynamic-virtual-account",
               "virtual-account/virtual-account-transaction-id",
               "virtual-account/fund-virtual-account",

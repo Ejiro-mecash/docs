@@ -1505,7 +1505,7 @@
           },
           "status": {
             "type": "string",
-            "description": "Lifecycle state of the virtual account (e.g. `ACTIVE`)."
+            "description": "Lifecycle state of the virtual account. Initial state is `PROCESSING`; once provisioned, it becomes `ACTIVE`."
           },
           "created": {
             "type": "string",
@@ -1571,12 +1571,10 @@
           }
         },
         "required": [
-          "id",
           "reference",
           "currency",
           "country",
-          "status",
-          "account"
+          "status"
         ]
       },
       "GetVirtualAccountSuccessResponse": {
@@ -2003,15 +2001,28 @@
                     "email": "example@email.com",
                     "phoneNumber": "+23481345XXXXX",
                     "reference": "00006597506292872311029472",
-                    "account": {
-                      "name": "Jumoke Dumebi",
-                      "bankName": "Mock Bank",
-                      "sortCode": null,
-                      "number": "881725XXXXX"
-                    },
-                    "status": "ACTIVE",
+                    "status": "PROCESSING",
                     "currency": "NGN",
                     "country": "NG",
+                    "created": "2025-05-15T13:39:57.405Z"
+                  }
+                }
+              },
+              "MWK_Response": {
+                "summary": "Malawi (MWK) Response",
+                "value": {
+                  "message": "virtual account created successfully",
+                  "status": "success",
+                  "data": {
+                    "id": "f51f7365-4fc9-4669-a9d9-xxxxxxxxxxxxx",
+                    "firstName": "Corrine",
+                    "lastName": "Schinner",
+                    "email": "kathl@example.com",
+                    "phoneNumber": "+265813XXXXXX",
+                    "reference": "000033556X",
+                    "status": "PROCESSING",
+                    "currency": "MWK",
+                    "country": "MW",
                     "created": "2025-05-15T13:39:57.405Z"
                   }
                 }
@@ -2037,14 +2048,7 @@
                     "address": "Brown Way",
                     "city": "Lagos",
                     "postalCode": "100001",
-                    "account": {
-                      "name": "Test Ng Ltd",
-                      "bankName": "DBS Bank Limited",
-                      "sortCode": "MOOLAHGO",
-                      "number": "584784577026",
-                      "swiftCode": "DBSSSGSGXXX"
-                    },
-                    "status": "ACTIVE",
+                    "status": "PROCESSING",
                     "currency": "USD",
                     "country": "US",
                     "isPermanent": true,
@@ -2968,22 +2972,22 @@
                   "value": {
                     "currency": "USD",
                     "country": "US",
-                    "firstName": "Jolie",
-                    "lastName": "Beahan",
-                    "email": "Sim42@yahoo.com",
-                    "phoneNumber": "711-442-7768",
-                    "reference": "REF_XNUQ4GXT0DMB",
-                    "accountName": "Mrs. Alison Berge",
+                    "firstName": "John",
+                    "lastName": "Mary",
+                    "email": "someothis@gmail.com",
+                    "phoneNumber": "+2348156936458",
+                    "reference": "REF_8899562444KLLOPLTTPKNMTYLP900POLOPI",
+                    "accountName": "CHECK Ng Ltd",
                     "gender": "M",
                     "dateOfBirth": "1980-10-10",
                     "nationality": "NG",
                     "idType": "PASSPORT",
-                    "idNumber": "ARZATFP1",
-                    "address": "37469 Stokes Path",
-                    "city": "Deshaunstad",
+                    "idNumber": "C234567890",
+                    "address": "Brown Way",
+                    "city": "Lagos",
                     "postalCode": "100001",
                     "company": {
-                      "registrationNumber": "NOOELBN1089",
+                      "registrationNumber": "NG1235687",
                       "registrationCountry": "NG",
                       "registrationDate": "2024-10-10"
                     }

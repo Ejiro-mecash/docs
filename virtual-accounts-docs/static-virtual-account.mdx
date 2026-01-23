@@ -27,13 +27,15 @@ sequenceDiagram
     participant B as Bank
 
     M->>+A: 1. POST /v1/virtual-account
-    A-->>-M: 2. 200 OK (Permanent Account Details)
-    M->>C: 3. Share Account Number
+    A-->>-M: 2. 200 OK (Status: PROCESSING)
+    Note over A,M: Account details sent via Webhook
+    A->>M: 3. Webhook: virtualaccount.creation.completed
+    M->>C: 4. Share Account Number
     loop Future Deposits
-        C->>+B: 4. Sends funds to static account
-        B->>+A: 5. Bank notifies meCash
-        A->>M: 6. Webhook: virtualaccount.completed
-        M->>C: 7. Confirm service or credit wallet
+        C->>+B: 5. Sends funds to static account
+        B->>+A: 6. Bank notifies meCash
+        A->>M: 7. Webhook: virtualaccount.completed
+        M->>C: 8. Confirm service or credit wallet
     end
 ```
 
@@ -103,22 +105,14 @@ For USD Virtual Accounts, see the dedicated [USD Virtual Account documentation](
   "message": "virtual account created successfully",
   "status": "success",
   "data": {
-    "id": "e21f7365-4fc9-4669-a9d9-xxxxxxxxxxxxx",
     "firstName": "Jumoke",
     "lastName": "Dumebi",
     "email": "example@email.com",
     "phoneNumber": "+234813456XXXXX",
     "reference": "000033556X",
-    "account": {
-      "name": "Jumoke Dumebi",
-      "bankName": "Mock Bank",
-      "sortCode": null,
-      "number": "881725XXXXX"
-    },
-    "status": "ACTIVE",
+    "status": "PROCESSING",
     "currency": "NGN",
-    "country": "NG",
-    "created": "2025-05-15T13:39:57.405Z"
+    "country": "NG"
   }
 }
 ```
@@ -128,22 +122,14 @@ For USD Virtual Accounts, see the dedicated [USD Virtual Account documentation](
   "message": "virtual account created successfully",
   "status": "success",
   "data": {
-    "id": "e21f7365-4fc9-4669-a9d9-xxxxxxxxxxxxx",
     "firstName": "Corrine",
     "lastName": "Schinner",
     "email": "kathl@example.com",
     "phoneNumber": "+265813XXXXXX",
     "reference": "000033556X",
-    "account": {
-      "name": "Corrine Schinner",
-      "bankName": "Mock Bank",
-      "sortCode": null,
-      "number": "881725XXXXX"
-    },
-    "status": "ACTIVE",
+    "status": "PROCESSING",
     "currency": "MWK",
-    "country": "MW",
-    "created": "2025-05-15T13:39:57.405Z"
+    "country": "MW"
   }
 }
 ```
@@ -167,8 +153,8 @@ For USD Virtual Accounts, see the dedicated [USD Virtual Account documentation](
 | `data.account.name` | String | Display name on the bank account. |
 | `data.account.bankName` | String | Issuing bank for the virtual account. |
 | `data.account.sortCode` | String | Bank sort code when available; `null` otherwise. |
-| `data.account.number` | String | Account number customers will fund. |
-| `data.status` | String | Account status (`ACTIVE`, `SUSPENDED`, etc.). |
+| `data.account.number` | String | Account number customers will fund (received via webhook). |
+| `data.status` | String | Account status (e.g., `PROCESSING`, `ACTIVE`). |
 | `data.currency` | String | ISO 4217 currency code (`NGN`, `MWK`). |
 | `data.country` | String | ISO 3166-1 alpha-2 country code (`NG`, `MW`). |
 | `data.created` | String | ISO 8601 timestamp when the account was created. |
@@ -191,10 +177,10 @@ For USD Virtual Accounts, see the dedicated [USD Virtual Account documentation](
 | `data.account.name` | String | Display name on the bank account. |
 | `data.account.bankName` | String | Issuing bank for the virtual account. |
 | `data.account.sortCode` | String | Bank sort code when available; `null` otherwise. |
-| `data.account.number` | String | Account number customers will fund. |
-| `data.status` | String | Account status (`ACTIVE`, `SUSPENDED`, etc.). |
-| `data.currency` | String | ISO 4217 currency code (`NGN`, `MWK`). |
-| `data.country` | String | ISO 3166-1 alpha-2 country code (`NG`, `MW`). |
+| `data.account.number` | String | Account number customers will fund (received via webhook). |
+| `data.status` | String | Account status (e.g., `PROCESSING`, `ACTIVE`). |
+| `data.currency` | String | ISO 4217 currency code (`MWK`). |
+| `data.country` | String | ISO 3166-1 alpha-2 country code (`MW`). |
 | `data.created` | String | ISO 8601 timestamp when the account was created. |
 
 </Tab>
@@ -224,9 +210,9 @@ For USD Virtual Accounts, see the dedicated [USD Virtual Account documentation](
 | `data.account.name` | String | Display name on the bank account. |
 | `data.account.bankName` | String | Issuing bank for the virtual account. |
 | `data.account.sortCode` | String | Bank sort code. |
-| `data.account.number` | String | Account number customers will fund. |
-| `data.account.swiftCode` | String | SWIFT code for international transfers. |
-| `data.status` | String | Account status (`ACTIVE`, `SUSPENDED`, etc.). |
+| `data.account.number` | String | Account number customers will fund (received via webhook). |
+| `data.account.swiftCode` | String | SWIFT code for international transfers (received via webhook). |
+| `data.status` | String | Account status (e.g., `PROCESSING`, `ACTIVE`). |
 | `data.currency` | String | ISO 4217 currency code (`USD`). |
 | `data.country` | String | ISO 3166-1 alpha-2 country code (`US`). |
 | `data.isPermanent` | Boolean | Whether the account is permanent (always `true` for static accounts). |
@@ -254,7 +240,8 @@ For USD Virtual Accounts, see the dedicated [USD Virtual Account documentation](
 
 ## Best practices
 
-- Store the `reference` and response payload so you can reuse the virtual account without additional API calls.
-- Mask the BVN and other PII when logging requests to comply with data-protection policies.
-- Pair this endpoint with [`Get Virtual Account`](/virtual-accounts-docs/get-virtual-account) to confirm account details before displaying them to a customer.
-- Subscribe to `virtualaccount.completed` webhooks so you reconcile deposits the moment they land.
+- **Monitor Creation Webhook**: Subscribe to `virtualaccount.creation.completed` to receive account details (Account Number, Bank Name, etc.) automatically.
+- **Store the reference** and response payload so you can reconcile the virtual account with your internal records.
+- **Mask the BVN** and other PII when logging requests to comply with data-protection policies.
+- **Pair this endpoint** with [`Get Virtual Account`](/virtual-accounts-docs/get-virtual-account) to confirm account details if you need them before the webhook arrives.
+- **Monitor Deposits**: Subscribe to `virtualaccount.completed` webhooks to reconcile deposits the moment they land.
