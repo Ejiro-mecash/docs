@@ -1,79 +1,34 @@
 ---
-title: "Static Virtual Account Webhooks"
-description: Reference for virtual account lifecycle webhooks, including creation completion and funding events.
+title: Webhook Event - virtualaccount.completed
+description: Reference for the `virtualaccount.completed` webhook event, triggered when a virtual account is successfully credited.
 ---
 
-Static virtual account operations trigger webhooks at different stages of the account lifecycle. Subscribe to these events to automate your internal workflows.
+# Webhook Event:`virtualaccount.completed`
 
-## 1. `virtualaccount.creation.completed`
-
-Sent when a static virtual account has been successfully provisioned after an initial `PROCESSING` state. This applies to all currencies (NGN, MWK, USD).
-
-### Payload Example
+Sent when a virtual account has been successfully credited.
 
 ```json
-{
-  "event": "virtualaccount.creation.completed",
-  "data": {
-    "id": "8baf5a4a-b1b9-48fb-a492-b5041db9cfe1",
-    "reference": "REF_8899562444KLLOPLTTPKNMTYLP900POLOPI",
-    "accountName": "CHECK Ng Ltd",
-    "account": {
-      "name": "CHECK Ng Ltd",
-      "bankName": "DBS Bank Limited",
-      "number": "372385345434",
-      "sortCode": "MOOLAHGO",
-      "swiftCode": "DBSSSGSGXXX"
-    },
-    "currency": "USD",
-    "country": "US",
-    "status": "ACTIVE",
-    "isPermanent": true,
-    "created": "2025-12-18T09:57:44.127397385Z"
-  }
-}
-```
-
-### Response Breakdown
-
-| **Field** | **Type** | **Description** |
-| :--- | :--- | :--- |
-| `event` | string | The name of the event (`virtualaccount.creation.completed`). |
-| `data.id` | string | Unique identifier for the virtual account. |
-| `data.reference` | string | The unique reference supplied during account creation. |
-| `data.account.bankName` | string | The name of the issuing bank. |
-| `data.account.number` | string | The virtual account number. |
-| `data.status` | string | The current status of the account (`ACTIVE`). |
-
----
-
-## 2. `virtualaccount.completed` (Funding)
-
-Sent when a virtual account (NGN, MWK, or USD) has been successfully credited with funds.
-
-### Payload Example
-
-```json
-{
+  {
     "event": "virtualaccount.completed",
     "data": {
         "id": "866be9f6-1e3c-4083-87a5-xxxxxxxxxxxxx",
         "referenceNumber": "V6FUNZNGIV8BY",
         "amount": 200,
-        "fee": {
+        "fee": { //sent only for instant settlement 
             "vat": 2,
             "stampDuty": 2,
             "base": 2
         },
-        "settlementAmount": 94.00,
+        "settlementAmount": 94.00, //sent only for instant settlement 
         "type": "FUNDING",
         "state": "COMPLETED",
         "customer": {
             "email": "arnaldo.trent@example.com",
             "reference": "00002601019915929890797xxxxxxx",
             "account": {
-                "name": "Jane Doe",
-                "bankName": "Mock Bank",
+                "name": "",
+                "bankName": "Virtual Mock Bank",
+                "sortCode": null,
                 "number": "0067100155"
             }
         },
@@ -90,33 +45,34 @@ Sent when a virtual account (NGN, MWK, or USD) has been successfully credited wi
 }
 ```
 
-<info>
-  **NOTE:** For `virtualaccount.failed`, the `state` will be `"FAILED"`.
-</info>
+<Callout type="info" emoji="ℹ️">
+**NOTE:** For `virtualaccount.failed`, the `state` will be "FAILED".
+</Callout>
 
-### Response Breakdown (Funding)
+    ### Response Breakdown
 
 | **Field** | **Type** | **Description** |
 | :--- | :--- | :--- |
-| `event` | string | The name of the event (`virtualaccount.completed`). |
+| `event` | string | The name of the event that occurred (e.g., "virtualaccount.completed"). |
 | `data.id` | string | Unique identifier for the transaction. |
 | `data.referenceNumber` | string | Unique reference number assigned to the transaction. |
 | `data.amount` | number | The total gross amount of the transaction. |
-| `data.state` | string | The final state of the transaction (`COMPLETED`). |
-| `data.customer.reference` | string | The unique reference for the customer's virtual account. |
-| `data.customer.account.number` | string | The virtual account number that was funded. |
-
----
-
-## Handling These Webhooks
-
-When you receive these webhooks, you should:
-
-1. **Verify the signature** – Ensure the webhook is authentic.
-2. **Check the state/status** – Confirm it is `ACTIVE` or `COMPLETED`.
-3. **Match the reference** – Use the `reference` or `customer.reference` field.
-4. **Respond with 200 OK** – Acknowledge receipt.
-
-<tip>
-  For signature verification, see the [Webhook Signature Verification](/webhook/webhooks-signature-verification) guide.
-</tip>
+| `data.fee.vat` | number | The Value Added Tax portion of the fee (sent for instant settlement). |
+| `data.fee.stampDuty` | number | The stamp duty portion of the fee (sent for instant settlement). |
+| `data.fee.base` | number | The base fee for the transaction (sent for instant settlement). |
+| `data.settlementAmount` | number | The final amount settled after fees (sent for instant settlement). |
+| `data.type` | string | The type of transaction (e.g., "FUNDING"). |
+| `data.state` | string | The final state of the transaction (e.g., "COMPLETED"). |
+| `data.customer.email` | string | The customer's email address. |
+| `data.customer.reference` | string | The unique reference for the customer. |
+| `data.customer.account.name` | string | The name on the customer's bank account. |
+| `data.customer.account.bankName` | string | The name of the customer's bank. |
+| `data.customer.account.sortCode` | null | The sort code of the customer's bank. |
+| `data.customer.account.number` | string | The customer's virtual account number that was funded. |
+| `data.currency` | string | The currency of the transaction (e.g., "NGN"). |
+| `data.country` | string | The country where the transaction occurred (e.g., "NG"). |
+| `data.source.bankName` | string | The name of the source institution that sent the funds. |
+| `data.source.accountName` | string | The name on the source account. |
+| `data.source.accountNumber` | string | The account number or identifier of the source. |
+| `data.created` | string | ISO 8601 timestamp of when the transaction was created. |
+| `data.processed` | string | ISO 8601 timestamp of when the transaction was processed. |

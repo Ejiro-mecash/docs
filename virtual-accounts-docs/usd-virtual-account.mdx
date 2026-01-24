@@ -34,15 +34,13 @@ sequenceDiagram
     participant B as Bank (SWIFT)
 
     M->>+A: 1. POST /v1/virtual-account
-    A-->>-M: 2. 200 OK (Status: PROCESSING)
-    Note over A,M: Account details sent via Webhook
-    A->>M: 3. Webhook: virtualaccount.creation.completed
-    M->>C: 4. Share Account Number & SWIFT Code
+    A-->>-M: 2. 200 OK (USD Account Details + SWIFT Code)
+    M->>C: 3. Share Account Number & SWIFT Code
     loop International Deposits
-        C->>+B: 5. Sends USD via SWIFT
-        B->>+A: 6. SWIFT network notifies meCash
-        A->>M: 7. Webhook: virtualaccount.completed
-        M->>C: 8. Confirm receipt
+        C->>+B: 4. Sends USD via SWIFT
+        B->>+A: 5. SWIFT network notifies meCash
+        A->>M: 6. Webhook: virtualaccount.completed
+        M->>C: 7. Confirm receipt
     end
 ```
 
@@ -109,6 +107,7 @@ curl --request POST '{{baseURL}}/v1/virtual-account' \
     "message": "virtual account created successfully",
     "status": "success",
     "data": {
+        "id": "d03dbb81-331b-4834-844c-35c91ff30ad6",
         "firstName": "John",
         "lastName": "Mary",
         "email": "someone@gmail.com",
@@ -119,14 +118,22 @@ curl --request POST '{{baseURL}}/v1/virtual-account' \
         "dateOfBirth": "1980-10-10",
         "nationality": "NG",
         "idType": "PASSPORT",
-        "idNumber": "********",
+        "idNumber": "C********0",
         "address": "Brown Way",
         "city": "Lagos",
         "postalCode": "100001",
-        "status": "PROCESSING",
+        "account": {
+            "name": "Test Ng Ltd",
+            "bankName": "DBS Bank Limited",
+            "sortCode": "MOOLAHGO",
+            "number": "584784577026",
+            "swiftCode": "DBSSSGSGXXX"
+        },
+        "status": "ACTIVE",
         "currency": "USD",
         "country": "US",
         "isPermanent": true,
+        "created": "2025-12-02T14:01:22.417190608Z",
         "company": {
             "registrationNumber": "NG1235687",
             "registrationCountry": "NG",
@@ -160,20 +167,17 @@ curl --request POST '{{baseURL}}/v1/virtual-account' \
 | `data.account.name` | String | Display name on the bank account |
 | `data.account.bankName` | String | Issuing bank for the virtual account |
 | `data.account.sortCode` | String | Bank sort code |
-| `data.account.number` | String | Account number for receiving funds (received via webhook) |
-| `data.account.swiftCode` | String | SWIFT/BIC code for international transfers (received via webhook) |
-| `data.status` | String | Account status (e.g., `PROCESSING`, `ACTIVE`) |
+| `data.account.number` | String | Account number for receiving funds |
+| `data.account.swiftCode` | String | SWIFT/BIC code for international transfers |
+| `data.status` | String | Account status (`ACTIVE`, `SUSPENDED`, etc.) |
 | `data.currency` | String | ISO 4217 currency code (`USD`) |
 | `data.country` | String | ISO 3166-1 alpha-2 country code (`US`) |
 | `data.isPermanent` | Boolean | Always `true` for USD virtual accounts |
+| `data.created` | String | ISO 8601 timestamp when the account was created |
 | `data.company` | Object | Company registration details |
 | `data.company.registrationNumber` | String | Business registration number |
 | `data.company.registrationCountry` | String | Country where company is registered |
 | `data.company.registrationDate` | String | Date of company registration |
-
-<Note>
-**Asynchronous Details**: For USD virtual accounts, the bank account details (`account.number`, `account.swiftCode`, etc.) are not available immediately. You will receive them via the `virtualaccount.creation.completed` webhook once processing is complete.
-</Note>
 
 ## Sharing Account Details
 
@@ -201,18 +205,14 @@ Always include the SWIFT code when sharing account details for international tra
 
 ## Webhooks
 
-The USD virtual account lifecycle involves two primary webhook events:
-
-1. **`virtualaccount.creation.completed`**: Sent when the USD account has been successfully provisioned. This contains the account number and SWIFT details.
-2. **`virtualaccount.completed`**: Sent when funds are deposited into your USD virtual account.
-
-See [USD Virtual Account Webhook](/webhook/usd-virtualaccount-webhook) for payload details.
+When funds are deposited into your USD virtual account, you'll receive a `virtualaccount.completed` webhook. See [USD Virtual Account Webhook](/webhook/usd-virtualaccount-webhook) for payload details.
 
 ## Best Practices
 
-- **Monitor Creation Webhook**: Subscribe to `virtualaccount.creation.completed` to receive account details automatically
-- **Verify Company Details**: Ensure company registration details are accurate to avoid processing delays
-- **Monitor Deposits**: Subscribe to `virtualaccount.completed` events to track incoming deposits in real-time
+- **Store Account Details**: Save the response so you can share the account number and SWIFT code without additional API calls
+- **Use Unique References**: Always provide a unique `reference` for each virtual account creation request
+- **Verify Company Details**: Ensure company registration details are accurate to avoid delays
+- **Monitor Webhooks**: Subscribe to `virtualaccount.completed` events to track incoming deposits in real-time
 
 <CardGroup cols={2}>
   <Card title="API Reference" icon="code" href="/virtual-account/create-virtual-account">
