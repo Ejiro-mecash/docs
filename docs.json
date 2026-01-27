@@ -174,8 +174,8 @@
             "group": "Payout",
             "pages": [
               "payout/create-payout",
-              "transaction-docs/get-transaction",
-              "transaction-docs/file-upload"
+              "transaction/get-transaction",
+              "transaction/file-upload"
             ]
           },
           {
