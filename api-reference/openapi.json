@@ -2885,6 +2885,76 @@
         }
       }
     },
+    "/v1/file/upload": {
+      "post": {
+        "tags": [
+          "Transaction"
+        ],
+        "summary": "Upload File",
+        "description": "Uploads a file (e.g., invoice, receipt) for use with other meCash API operations. Files are typically used for compliance or documentation purposes in Payouts.",
+        "operationId": "uploadFile",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "The file to be uploaded."
+                  }
+                },
+                "required": [
+                  "file"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "File uploaded successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/Success"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "data": {
+                          "type": "object",
+                          "properties": {
+                            "fileId": {
+                              "type": "string",
+                              "description": "Unique identifier for the uploaded file.",
+                              "example": "1ef54c8c-47b6-4bf0-9c2e-7d410b864fc6"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/PayoutUnauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/PayoutForbidden"
+          },
+          "500": {
+            "$ref": "#/components/responses/PayoutInternalServerError"
+          }
+        }
+      }
+    },
     "/v1/transaction/{transactionId}": {
       "get": {
         "tags": [

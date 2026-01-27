@@ -111,7 +111,8 @@
           {
             "group": "Transactions",
             "pages": [
-              "transaction-docs/get-transaction"
+              "transaction-docs/get-transaction",
+              "transaction-docs/file-upload"
             ]
           },
           {
@@ -173,7 +174,8 @@
             "group": "Payout",
             "pages": [
               "payout/create-payout",
-              "transaction/get-transaction"
+              "transaction-docs/get-transaction",
+              "transaction-docs/file-upload"
             ]
           },
           {
