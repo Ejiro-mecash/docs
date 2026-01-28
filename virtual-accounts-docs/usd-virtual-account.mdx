@@ -30,17 +30,22 @@ Before creating a USD Virtual Account, ensure you have:
 sequenceDiagram
     participant M as Merchant's Server
     participant A as meCash API
+    participant W as Webhook Endpoint
     participant C as Customer
     participant B as Bank (SWIFT)
 
     M->>+A: 1. POST /v1/virtual-account
-    A-->>-M: 2. 200 OK (USD Account Details + SWIFT Code)
-    M->>C: 3. Share Account Number & SWIFT Code
+    A-->>-M: 2. 200 OK (Status: PROCESSING)
+    
+    A-->>+W: 3. Webhook: virtualaccount.creation.completed
+    W-->>-A: 
+    
+    M->>C: 4. Share Account Details & SWIFT Code
     loop International Deposits
-        C->>+B: 4. Sends USD via SWIFT
-        B->>+A: 5. SWIFT network notifies meCash
-        A->>M: 6. Webhook: virtualaccount.completed
-        M->>C: 7. Confirm receipt
+        C->>+B: 5. Sends USD via SWIFT
+        B->>+A: 6. SWIFT network notifies meCash
+        A->>M: 7. Webhook: virtualaccount.completed
+        M->>C: 8. Confirm receipt
     end
 ```
 
@@ -80,10 +85,10 @@ curl --request POST '{{baseURL}}/v1/virtual-account' \
   "country": "US",
   "firstName": "John",
   "lastName": "Mary",
-  "email": "someone@gmail.com",
+  "email": "someothis@gmail.com",
   "phoneNumber": "+2348156936458",
-  "reference": "REF_8899562444KLLTTPL90",
-  "accountName": "Test Ng Ltd",
+  "reference": "REF_8899562444KLLOPLTTPKNMTYLP900POLOPI",
+  "accountName": "CHECK Ng Ltd",
   "gender": "M",
   "dateOfBirth": "1980-10-10",
   "nationality": "NG",
@@ -107,33 +112,24 @@ curl --request POST '{{baseURL}}/v1/virtual-account' \
     "message": "virtual account created successfully",
     "status": "success",
     "data": {
-        "id": "d03dbb81-331b-4834-844c-35c91ff30ad6",
         "firstName": "John",
         "lastName": "Mary",
-        "email": "someone@gmail.com",
+        "email": "someothis@gmail.com",
         "phoneNumber": "+2348156936458",
-        "reference": "REF_8899562444KLLTTPL90",
-        "accountName": "Test Ng Ltd",
+        "reference": "REF_8899562444KLLOPLTTPKNMTYLP900POLOPI",
+        "accountName": "CHECK Ng Ltd",
         "gender": "M",
         "dateOfBirth": "1980-10-10",
         "nationality": "NG",
         "idType": "PASSPORT",
-        "idNumber": "C********0",
+        "idNumber": "********",
         "address": "Brown Way",
         "city": "Lagos",
         "postalCode": "100001",
-        "account": {
-            "name": "Test Ng Ltd",
-            "bankName": "DBS Bank Limited",
-            "sortCode": "MOOLAHGO",
-            "number": "584784577026",
-            "swiftCode": "DBSSSGSGXXX"
-        },
-        "status": "ACTIVE",
+        "status": "PROCESSING",
         "currency": "USD",
         "country": "US",
         "isPermanent": true,
-        "created": "2025-12-02T14:01:22.417190608Z",
         "company": {
             "registrationNumber": "NG1235687",
             "registrationCountry": "NG",
@@ -142,6 +138,12 @@ curl --request POST '{{baseURL}}/v1/virtual-account' \
     }
 }
 ```
+
+<Note>
+**Account Details via Webhook**: For USD virtual accounts, the actual account number, bank name, and SWIFT details are delivered asynchronously. Once the account is ready, meCash will send a `virtualaccount.creation.completed` webhook to your configured endpoint.
+
+For more details on the payload, see the [Virtual Account Creation Webhook](/webhook/virtualaccount-creation-webhook) documentation.
+</Note>
 
 ## Response Fields
 

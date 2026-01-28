@@ -131,6 +131,7 @@
                   "webhook/webhook-event",
                   "webhook/payout-webhook",
                   "webhook/collection-webhook",
+                  "webhook/virtualaccount-creation-webhook",
                   "webhook/virtualaccount-webhook",
                   "webhook/usd-virtualaccount-webhook",
                   "webhook/ramp-webhook"

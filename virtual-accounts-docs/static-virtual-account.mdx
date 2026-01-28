@@ -23,19 +23,30 @@ This flow shows how a static account is created once and reused for every subseq
 sequenceDiagram
     participant M as Merchant's Server
     participant A as meCash API
+    participant W as Webhook Endpoint
     participant C as Customer
     participant B as Bank
 
     M->>+A: 1. POST /v1/virtual-account
-    A-->>-M: 2. 200 OK (Permanent Account Details)
-    M->>C: 3. Share Account Number
+    A-->>-M: 2. 202 Accepted / 200 OK (Status)
+    
+    par Asynchronous Creation (Required for USD)
+        A-->>+W: 3. Webhook: virtualaccount.creation.completed
+        W-->>-A: 
+    end
+
+    M->>C: 4. Share Account Details
     loop Future Deposits
-        C->>+B: 4. Sends funds to static account
-        B->>+A: 5. Bank notifies meCash
-        A->>M: 6. Webhook: virtualaccount.completed
-        M->>C: 7. Confirm service or credit wallet
+        C->>+B: 5. Sends funds to static account
+        B->>+A: 6. Bank notifies meCash
+        A->>M: 7. Webhook: virtualaccount.completed
+        M->>C: 8. Confirm service or credit wallet
     end
 ```
+
+<Note>
+**Asynchronous Processing**: For certain currencies like USD, the virtual account creation is asynchronous. The API will initially return a `PROCESSING` status, and the final account details (Account Number, SWIFT Code) will be sent to your webhook URL via the `virtualaccount.creation.completed` event.
+</Note>
 
 ## Common Use Cases
 

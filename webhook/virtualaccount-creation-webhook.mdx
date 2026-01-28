@@ -1,0 +1,61 @@
+---
+title: Virtual Account Creation Webhook Event
+description: Reference for the `virtualaccount.creation.completed` webhook event, triggered when a virtual account has been successfully created and account details are ready.
+---
+
+This webhook is sent when a virtual account has been successfully created. For asynchronous corridors like **USD**, this webhook is the primary way to receive the permanent account number and SWIFT/routing details. For other corridors like **NGN** or **MWK**, this webhook is sent in addition to the API response.
+
+## Payload Example (USD)
+
+```json
+{
+  "event": "virtualaccount.creation.completed",
+  "data": {
+    "id": "8baf5a4a-b1b9-48fb-a492-b5041db9cfe1",
+    "reference": "REF_8899562444KLLOPLTTPKNMTYLP900POLOPI",
+    "accountName": "CHECK Ng Ltd",
+    "account": {
+      "name": "CHECK Ng Ltd",
+      "bankName": "DBS Bank Limited",
+      "number": "372385345434",
+      "sortCode": "MOOLAHGO",
+      "swiftCode": "DBSSSGSGXXX",
+      "bankAddress": "12 Marina Boulevard, DBS Asia Central Marina Bay Financial Tower"
+    },
+    "currency": "USD",
+    "country": "US",
+    "status": "ACTIVE",
+    "isPermanent": true,
+    "created": "2025-12-18T09:57:44.127397385Z"
+  }
+}
+```
+
+## Payload Breakdown
+
+| **Field** | **Type** | **Description** |
+| :--- | :--- | :--- |
+| `event` | string | The name of the event (`virtualaccount.creation.completed`). |
+| `data.id` | string | Unique identifier for the virtual account resource. |
+| `data.reference` | string | The unique reference you provided during creation. |
+| `data.account.name` | string | The name on the bank account. |
+| `data.account.bankName` | string | The name of the issuing bank. |
+| `data.account.number` | string | The permanent bank account number. |
+| `data.account.sortCode` | string | The bank sort code or routing number. |
+| `data.account.swiftCode` | string | The SWIFT/BIC code (primarily for USD accounts). |
+| `data.account.bankAddress` | string | The physical address of the issuing bank branch. |
+| `data.status` | string | The current status of the account (e.g., `ACTIVE`). |
+| `data.currency` | string | The currency of the account (e.g., `USD`, `NGN`, `MWK`). |
+| `data.created` | string | ISO 8601 timestamp of when the account was created. |
+
+## Handling the Webhook
+
+When you receive this webhook:
+
+1. **Verify the signature** – Ensure the webhook is authentic using your webhook secret.
+2. **Match the reference** – Use `data.reference` to link these account details to the specific request in your system.
+3. **Notify the user** – Share the `data.account.number` and other relevant details with your customer so they can begin funding their account.
+
+<Callout type="info" emoji="ℹ️">
+**NOTE:** For `virtualaccount.failed`, the `state` will be "FAILED".
+</Callout>

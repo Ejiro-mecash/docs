@@ -2022,33 +2022,24 @@
                   "message": "virtual account created successfully",
                   "status": "success",
                   "data": {
-                    "id": "d03dbb81-331b-4834-844c-35c91ff30ad6",
                     "firstName": "John",
                     "lastName": "Mary",
-                    "email": "someone@gmail.com",
+                    "email": "someothis@gmail.com",
                     "phoneNumber": "+2348156936458",
-                    "reference": "REF_8899562444KLLTTPL90",
-                    "accountName": "Test Ng Ltd",
+                    "reference": "REF_8899562444KLLOPLTTPKNMTYLP900POLOPI",
+                    "accountName": "CHECK Ng Ltd",
                     "gender": "M",
                     "dateOfBirth": "1980-10-10",
                     "nationality": "NG",
                     "idType": "PASSPORT",
-                    "idNumber": "C********0",
+                    "idNumber": "********",
                     "address": "Brown Way",
                     "city": "Lagos",
                     "postalCode": "100001",
-                    "account": {
-                      "name": "Test Ng Ltd",
-                      "bankName": "DBS Bank Limited",
-                      "sortCode": "MOOLAHGO",
-                      "number": "584784577026",
-                      "swiftCode": "DBSSSGSGXXX"
-                    },
-                    "status": "ACTIVE",
+                    "status": "PROCESSING",
                     "currency": "USD",
                     "country": "US",
                     "isPermanent": true,
-                    "created": "2025-12-02T14:01:22.417190608Z",
                     "company": {
                       "registrationNumber": "NG1235687",
                       "registrationCountry": "NG",
@@ -2885,14 +2876,14 @@
         }
       }
     },
-    "/transaction/v1/file/upload": {
+    "/v1/file/invoice": {
       "post": {
         "tags": [
           "Transaction"
         ],
-        "summary": "Upload File",
-        "description": "Uploads a file (e.g., invoice, receipt) for use with other meCash API operations. Files are typically used for compliance or documentation purposes in Payouts.",
-        "operationId": "uploadFile",
+        "summary": "Upload Invoice",
+        "description": "Uploads an invoice file for use with payout operations. The returned ID is used as the invoice identifier in subsequent payout requests.",
+        "operationId": "uploadInvoice",
         "requestBody": {
           "required": true,
           "content": {
@@ -2903,7 +2894,7 @@
                   "file": {
                     "type": "string",
                     "format": "binary",
-                    "description": "The file to be uploaded."
+                    "description": "The invoice file to be uploaded."
                   }
                 },
                 "required": [
@@ -2929,10 +2920,16 @@
                         "data": {
                           "type": "object",
                           "properties": {
-                            "fileId": {
+                            "id": {
                               "type": "string",
-                              "description": "Unique identifier for the uploaded file.",
-                              "example": "1ef54c8c-47b6-4bf0-9c2e-7d410b864fc6"
+                              "format": "uuid",
+                              "description": "Unique identifier for the uploaded invoice.",
+                              "example": "059c23af-eb87-4dc1-8518-8e335c98af30"
+                            },
+                            "name": {
+                              "type": "string",
+                              "description": "The name of the uploaded file.",
+                              "example": "Bar Deco.jpeg"
                             }
                           }
                         }

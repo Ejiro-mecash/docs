@@ -16,7 +16,7 @@ The `Get Gas Fee` endpoint fetches the gas fee required for a cryptocurrency tra
 | **Header** | **Value** | **Required** | **Description** |
 |-----------------|-------------------------------|----------|---------------------------------------------------------|
 | `Content-Type`  | `application/json`            | Yes      | Specifies that the request body is JSON formatted.     |
-| `x-api-key` | `API_KEY_HERE`            | Yes    | Bearer token for authorization. See note below.         |
+| `x-api-key` | `API_KEY_HERE`            | Yes    | API key for authorization. See note below.             |
 
 ---
 
@@ -25,7 +25,7 @@ The `Get Gas Fee` endpoint fetches the gas fee required for a cryptocurrency tra
 <CodeGroup>
 ```bash cURL
 curl --location --request POST '{{baseURL}}/v1/ramp/gasFee' \
---header 'x-api-key: YOUR_API_KEY' \
+--header 'x-api-key: API_KEY_HERE' \
 --header 'Content-Type: application/json' \
 --data '{
     "amount": 5000,
@@ -50,7 +50,7 @@ fetch('{{baseURL}}/v1/ramp/gasFee', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
-    'x-api-key': 'YOUR_API_KEY'
+    'x-api-key': 'API_KEY_HERE'
   },
   body: JSON.stringify(feeDetails)
 })
@@ -74,7 +74,7 @@ payload = {
 }
 
 headers = {
-    "x-api-key": "YOUR_API_KEY",
+    "x-api-key": "API_KEY_HERE",
     "Content-Type": "application/json"
 }
 
@@ -95,7 +95,7 @@ const feeDetails = {
 
 axios.post('{{baseURL}}/v1/ramp/gasFee', feeDetails, {
   headers: {
-    'x-api-key': 'YOUR_API_KEY',
+    'x-api-key': 'API_KEY_HERE',
     'Content-Type': 'application/json'
   }
 }).then(response => {

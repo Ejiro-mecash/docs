@@ -3,6 +3,10 @@ title: 'Create Static Virtual Account'
 openapi: post /v1/virtual-account
 ---
 
+<Note>
+**Virtual accounts creation details are now sent via webhook**.The initial response will have a `PROCESSING` status. You must listen for the `virtualaccount.creation.completed` webhook to receive the full account details (Account Number, Bank Name, etc.). This applies to all currencies (NGN, MWK, USD).
+</Note>
+
 ## Error responses
 
 Use this table as the source of truth for troubleshooting `POST /v1/virtual-account`.
