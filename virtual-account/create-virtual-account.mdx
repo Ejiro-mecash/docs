@@ -4,7 +4,9 @@ openapi: post /v1/virtual-account
 ---
 
 <Note>
-**Virtual accounts creation details are now sent via webhook**.The initial response will have a `PROCESSING` status. You must listen for the `virtualaccount.creation.completed` webhook to receive the full account details (Account Number, Bank Name, etc.). This applies to all currencies (NGN, MWK, USD).
+**The Virtual accounts creation details are also sent via webhook**.
+For USD Virtual Accounts, the API response will have a `PROCESSING` status. You must listen for the `virtualaccount.creation.completed` webhook to receive the full account details (Account Number, Bank Name, etc.).
+FOR NGN AND MWK Virtual Accounts, the API response and Webhook will have the account creation details.
 </Note>
 
 ## Error responses
