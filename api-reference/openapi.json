@@ -681,6 +681,10 @@
               "OTHER"
             ]
           },
+          "invoice": {
+            "type": "string",
+            "description": "The unique identifier for the invoice (returned from file upload endpoint)."
+          },
           "remark": {
             "type": "string",
             "description": "A standardized remark for the transaction."
@@ -720,6 +724,11 @@
           "remark": {
             "type": "string",
             "example": "Testing"
+          },
+          "invoice": {
+            "type": "string",
+            "description": "The unique identifier for the invoice.",
+            "example": "4b9b6d30-a2ed-421a-bd69-11536344f071"
           },
           "reason": {
             "type": "string",
@@ -2722,6 +2731,7 @@
                   "value": {
                     "remark": "TESTING",
                     "reason": "GIFT",
+                    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
                     "quoteId": "91e58c2d-ef14-4777-906b-xxxxxxxxxxxxx",
                     "recipient": {
                       "name": "Adeolu Adebayo",
@@ -2738,6 +2748,7 @@
                   "value": {
                     "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
                     "reason": "GIFT",
+                    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
                     "remark": "TESTING",
                     "recipient": {
                       "name": "Linda Collins",
@@ -2755,6 +2766,7 @@
                   "value": {
                     "quoteId": "a4f7b2c1-ef14-4999-906b-xxxxxxxxxxxxx",
                     "reason": "GIFT",
+                    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
                     "remark": "TESTING",
                     "recipient": {
                       "name": "Sam James",
@@ -2776,6 +2788,7 @@
                   "value": {
                     "quoteId": "a4f7b2c1-ef14-4999-906b-xxxxxxxxxxxxx",
                     "reason": "GIFT",
+                    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
                     "remark": "TESTING",
                     "recipient": {
                       "firstName": "Derick",
@@ -2796,6 +2809,7 @@
                   "value": {
                     "quoteId": "f1474828-6a2e-4ee8-8598-xxxxxxxxxxxx",
                     "reason": "GIFT",
+                    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
                     "remark": "test",
                     "recipient": {
                       "name": "John Chuks",
@@ -2816,6 +2830,7 @@
                   "value": {
                     "quoteId": "c2156b73-1a2b-4c5d-9e7f-xxxxxxxxxxxx",
                     "reason": "OTHER",
+                    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
                     "remark": "INTERAC transfer",
                     "recipient": {
                       "name": "Marie Tremblay",
@@ -2835,6 +2850,7 @@
                   "value": {
                     "quoteId": "d3267c84-2b3c-4d6e-9f8g-xxxxxxxxxxxx",
                     "reason": "Gift",
+                    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
                     "remark": "Testing",
                     "recipient": {
                       "name": "James Wilson",

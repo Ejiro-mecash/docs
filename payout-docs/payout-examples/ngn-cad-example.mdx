@@ -56,6 +56,7 @@ curl --location --request POST '{{baseURL}}/v2/payout' \
   },
   "quoteId": "f1474828-6a2e-4ee8-8598-xxxxxxxxxxxx",
   "reason": "Gift",
+  "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
   "remark": "test"
 }'
 ```
@@ -86,6 +87,7 @@ const options = {
     },
     quoteId: "f1474828-6a2e-4ee8-8598-xxxxxxxxxxx",
     reason: "Gift",
+    invoice: "4b9b6d30-a2ed-421a-bd69-11536344f071",
     remark: "test"
   })
 };
@@ -125,6 +127,7 @@ payload = {
     },
     "quoteId": "f1474828-6a2e-4ee8-8598-xxxxxxxxxx",
     "reason": "Gift",
+    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
     "remark": "test"
 }
 
@@ -163,6 +166,7 @@ const data = {
   },
   quoteId: "f1474828-6a2e-4ee8-8598-xxxxxxxxxx",
   reason: "Gift",
+  invoice: "4b9b6d30-a2ed-421a-bd69-11536344f071",
   remark: "test"
 };
 
@@ -208,6 +212,7 @@ curl --location --request POST '{{baseURL}}/v2/payout' \
     },
     "quoteId": "5392890f-cab6-40ee-8db2-xxxxxxxxxx",
     "reason": "Gift",
+    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
     "remark": "Testing"
 }'
 ```
@@ -234,6 +239,7 @@ const options = {
     },
     quoteId: "5392890f-cab6-40ee-8db2-9de2532b2de0",
     reason: "Gift",
+    invoice: "4b9b6d30-a2ed-421a-bd69-11536344f071",
     remark: "Testing"
   })
 };
@@ -269,6 +275,7 @@ payload = {
     },
     "quoteId": "5392890f-cab6-40ee-8db2-xxxxxxxxxx",
     "reason": "Gift",
+    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
     "remark": "Testing"
 }
 
@@ -303,6 +310,7 @@ const data = {
   },
   quoteId: "5392890f-cab6-40ee-8db2-xxxxxxxxxx",
   reason: "Gift",
+  invoice: "4b9b6d30-a2ed-421a-bd69-11536344f071",
   remark: "Testing"
 };
 
@@ -331,6 +339,7 @@ axios.post(url, data, config)
 | :---------------------------------- | :------ | :-------------------------------------------------------------------------------------------------------- | :----------- |
 | `quoteId`                           | String  | The unique ID of the quote for this payout.                                                                 | ✅ Yes       |
 | `reason`                            | String  | The purpose of the transfer (e.g., `Payment for services`).                                               | ✅ Yes       |
+| `invoice`                           | String  | Optional identifier for the invoice (returned from file upload).                                          | ❌ No        |
 | `remark`                            | String  | An optional, additional note about the transaction.                                                       | ❔ No        |
 | `recipient`                         | Object  | An object containing all details about the person receiving the funds.                                    | ✅ Yes       |
 | `recipient.name`                    | String  | The full name of the recipient or business.                                                               | ✅ Yes       |
@@ -362,6 +371,7 @@ If the payout is successfully created, the API returns the following response:
   "status": "success",
   "data": {
     "id": "d4e5f6a7-b8c9-1234-abcd-xxxxxxxxxxxxx",
+    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
     "reason": "Gift",
     "referenceNumber": "CADXFER5ABCFG",
     "type": "SEND",
@@ -415,6 +425,7 @@ If the payout is successfully created, the API returns the following response:
   "status": "success",
   "data": {
     "id": "a1b2c3d4-e5f6-7890-abcd-xxxxxxxxxx",
+    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
     "reason": "Gift",
     "referenceNumber": "CADINT5ZYXWV",
     "type": "SEND",
@@ -461,6 +472,7 @@ This table explains each field in the success response payload. Note that some f
 | `data`                                 | Object | A container for all the transaction data.                                                               |
 | `data.id`                              | String | The unique identifier for this payout transaction.                                                      |
 | `data.reason`                          | String | The reason for the payout that was provided in the request.                                             |
+| `data.invoice`                         | String | Optional identifier for the invoice provided in the request.                                            |
 | `data.referenceNumber`                 | String | A unique reference number generated for the payout.                                                     |
 | `data.state`                           | String | The current state of the payout (`COMPLETED`, `PENDING`, etc.).                                         |
 | `data.quote`                           | Object | An object containing the details of the quote used for this transaction.                                |

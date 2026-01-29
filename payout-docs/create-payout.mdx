@@ -38,6 +38,7 @@ The code examples below mirror the corridors covered in our payout guides. Selec
   },
   "quoteId": "453eeu-567j-6tr3d-xxxxxxxxxxxxx",
   "reason": "Bills",
+  "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
   "remark": ""
 }
 ```
@@ -55,6 +56,7 @@ The code examples below mirror the corridors covered in our payout guides. Selec
 | `recipient.account.accountNumber` | String | Destination account number. | ✅ Yes | `0712617XXX` |
 | `quoteId` | String | Quote identifier returned from the Quote API. | ✅ Yes | `453eeu-567j-6tr3d-xxxxxxxxxxxxx` |
 | `reason` | String | High-level purpose of the transfer. | ✅ Yes | `Bills` |
+| `invoice` | String | Optional identifier for the invoice (returned from file upload endpoint). | ❌ No | `4b9b6d30-a2ed-421a-bd69-11536344f071` |
 | `remark` | String | Additional comments or reference. | Optional | `September utilities` |
 
 Depending on the corridor and channel, additional fields (such as mobile wallet metadata or address information) may be required. Refer to the route-specific examples in [`payout docs examples`](/payout-docs/payout-examples/ngn-usd-example).
@@ -80,6 +82,7 @@ curl --request POST '{{baseURL}}/v2/payout' \
     },
     "quoteId": "453eeu-567j-6tr3d-xxxxxxxxxxxxx",
     "reason": "Bills",
+    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
     "remark": ""
   }'
 ```
@@ -98,6 +101,7 @@ const payload = {
   },
   quoteId: '453eeu-567j-6tr3d-xxxxxxxxxxxxx',
   reason: 'Bills',
+  invoice: '4b9b6d30-a2ed-421a-bd69-11536344f071',
   remark: ''
 };
 
@@ -141,6 +145,7 @@ payload = {
     },
     "quoteId": "453eeu-567j-6tr3d-xxxxxxxxxxxxx",
     "reason": "Bills",
+    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
     "remark": "",
 }
 
@@ -165,6 +170,7 @@ axios.post('{{baseURL}}/v2/payout', {
   },
   quoteId: '453eeu-567j-6tr3d-xxxxxxxxxxxxx',
   reason: 'Bills',
+  invoice: '4b9b6d30-a2ed-421a-bd69-11536344f071',
   remark: ''
 }, {
   headers: {
@@ -194,6 +200,7 @@ axios.post('{{baseURL}}/v2/payout', {
   "status": "success",
   "data": {
     "id": "f4e597cc-18fa-4c23-b9c1-xxxxxxxxxxxxx",
+    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
     "reference": "BILLS-20240915",
     "quoteId": "453eeu-567j-6tr3d-xxxxxxxxxxxxx",
     "state": "PROCESSING",
@@ -213,6 +220,7 @@ axios.post('{{baseURL}}/v2/payout', {
 | Field | Type | Description |
 |-------|------|-------------|
 | `data.id` | String | Unique payout identifier returned by meCash. |
+| `data.invoice` | String | Optional identifier for the invoice provided in the request. |
 | `data.reference` | String | Your client-generated reference if supplied. |
 | `data.state` | String | Initial processing state (`PROCESSING`, `QUEUED`, etc.). |
 | `data.recipient` | Object | Echoes key beneficiary attributes. |

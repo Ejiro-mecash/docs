@@ -53,6 +53,7 @@ curl --location --request POST '{{baseURL}}/v2/payout' \
   },
   "quoteId": "a4f7b2c1-ef14-4999-906b-xxxxxxxxxxxxx",
   "reason": "Gift",
+  "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
   "remark": "Testing"
 }'
 ```
@@ -83,6 +84,7 @@ const options = {
     },
     quoteId: "a4f7b2c1-ef14-4999-906b-xxxxxxxxxxxxx",
     reason: "Gift",
+    invoice: "4b9b6d30-a2ed-421a-bd69-11536344f071",
     remark: "Testing"
   })
 };
@@ -117,6 +119,7 @@ payload = {
     },
     "quoteId": "a4f7b2c1-ef14-4999-906b-xxxxxxxxxxxxx",
     "reason": "Gift",
+    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
     "remark": "Testing"
 }
 
@@ -151,6 +154,7 @@ const data = {
   },
   quoteId: "a4f7b2c1-ef14-4999-906b-xxxxxxxxxxxxx",
   reason: "Gift",
+  invoice: "4b9b6d30-a2ed-421a-bd69-11536344f071",
   remark: "Testing"
 };
 
@@ -179,6 +183,7 @@ axios.post(url, data, config)
 | :--------------------------------- | :------ | :-------------------------------------------------------------------------- | :------- |
 | `quoteId`                          | String  | The unique ID of the quote for this payout.                                 | ✅ Yes   |
 | `reason`                           | String  | The purpose of the transfer (e.g., `Payment for services`).                 | ✅ Yes   |
+| `invoice`                          | String  | Optional identifier for the invoice (returned from file upload).            | ❌ No    |
 | `remark`                           | String  | An optional, additional note about the transaction.                         | ✅ Yes   |
 | `recipient`                        | Object  | An object containing all details about the person receiving the funds.      | ✅ Yes   |
 | `recipient.firstName`              | String  | The first name of the recipient.                                            | ✅ Yes   |
@@ -207,6 +212,7 @@ If the payout is successfully created, the API returns the following response:
   "data": {
     "id": "b8c7d6e5-f4a3-210f-fedc-xxxxxxxxxxxxx",
     "reason": "Gift",
+    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
     "remark": "Testing",
     "referenceNumber": "GBPPAYOUT12345",
     "type": "SEND",
@@ -263,6 +269,7 @@ If the payout is successfully created, the API returns the following response:
 | `data`                             | Object | A container for all the transaction data.                       |
 | `data.id`                          | String | The unique identifier for this payout transaction.              |
 | `data.remark`                      | String | The remark or note that was provided in the request.            |
+| `data.invoice`                     | String | Optional identifier for the invoice provided in the request.    |
 | `data.reason`                      | String | The reason for the payout provided in the request.              |
 | `data.referenceNumber`             | String | A unique reference number generated for the payout.             |
 | `data.type`                        | String | The type of transaction, e.g., `SEND`.                          |

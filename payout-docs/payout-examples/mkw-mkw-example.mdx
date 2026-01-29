@@ -39,6 +39,7 @@ curl --location --request POST '{{baseURL}}/v2/payout' \
             "country": "MW"
         },
   "quoteId": "d19a64f9-5a47-4bda-b7c2-xxxxxxxxxx",
+  "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
   "reason": "Invoice Payment"
 }'
 ```
@@ -58,6 +59,7 @@ The following fields are required when making an **NGN payout request**:
 | `recipient.currency`              | String  | `MKW` (Malawian kwacha)                             | ✅ Yes   |
 | `recipient.country`               | String  | `MK` (Malamwi)                                     | ✅ Yes   |
 | `quoteId`                         | String  | Unique Quote ID for the payout                     | ✅ Yes   |
+| `invoice`                         | String  | Unique identifier for the invoice (optional)       | ❌ No    |
 | `reason`                          | String  | Reason for the payout (e.g., `Gift`, `Invoice Payment`) | ✅ Yes   |
 
 
@@ -74,6 +76,7 @@ If the payout is successfully created, the API returns the following response:
     "data": {
         "id": "a1b2c3d4-e5f6-7890-abcd-xxxxxxxxxxxxx",
         "remark": "Gift",
+        "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
         "reason": "Gift",
         "referenceNumber": "TXYZD6RWSQMKF",
         "type": "SEND",
@@ -123,6 +126,7 @@ If the payout is successfully created, the API returns the following response:
 | `data`                               | Object  | Container for the payout transaction details.                                 |
 | `data.id`                            | String  | Unique identifier for the payout transaction.                                 |
 | `data.remark`                        | String  | Optional note about the transaction (e.g., `Gift`).                           |
+| `data.invoice`                       | String  | Optional identifier for the invoice.                                          |
 | `data.reason`                        | String  | Reason for the payout (e.g., `Gift`).                                        |
 | `data.referenceNumber`               | String  | Unique reference number generated for the payout.                             |
 | `data.type`                          | String  | Type of transaction (e.g., `SEND`).                                          |

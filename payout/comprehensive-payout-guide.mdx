@@ -60,6 +60,7 @@ curl --location '{{baseURL}}/v2/payout' \
   },
   "quoteId": "your-quote-id-here",
   "reason": "FAMILY_SUPPORT",
+  "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
   "remark": "Monthly support"
 }'
 ```
@@ -81,6 +82,7 @@ const transaction = {
   },
   quoteId: "your-quote-id-here",
   reason: "FAMILY_SUPPORT",
+  invoice: "4b9b6d30-a2ed-421a-bd69-11536344f071",
   remark: "Monthly support"
 };
 
@@ -121,6 +123,7 @@ transaction = {
     },
     "quoteId": "your-quote-id-here",
     "reason": "FAMILY_SUPPORT",
+    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
     "remark": "Monthly support"
 }
 
@@ -155,6 +158,7 @@ curl --location '{{baseURL}}/v2/payout' \
     }
   },
   "quoteId": "your-quote-id-here",
+  "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
   "reason": "BUSINESS_INVOICE"
 }'
 ```
@@ -177,6 +181,7 @@ const transaction = {
     }
   },
   quoteId: "your-quote-id-here",
+  invoice: "4b9b6d30-a2ed-421a-bd69-11536344f071",
   reason: "BUSINESS_INVOICE"
 };
 
@@ -218,6 +223,7 @@ transaction = {
         }
     },
     "quoteId": "your-quote-id-here",
+    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
     "reason": "BUSINESS_INVOICE"
 }
 
@@ -250,6 +256,7 @@ curl --location '{{baseURL}}/v2/payout' \
     }
   },
   "quoteId": "your-quote-id-here",
+  "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
   "reason": "GIFT"
 }'
 ```
@@ -270,6 +277,7 @@ const transaction = {
     }
   },
   quoteId: "your-quote-id-here",
+  invoice: "4b9b6d30-a2ed-421a-bd69-11536344f071",
   reason: "GIFT"
 };
 
@@ -309,6 +317,7 @@ transaction = {
         }
     },
     "quoteId": "your-quote-id-here",
+    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
     "reason": "GIFT"
 }
 
@@ -330,6 +339,7 @@ print(response.json())
 | `recipient` | Object | ✅ | Recipient details (structure varies by currency) |
 | `quoteId` | String | ✅ | Valid quote ID from Quote API |
 | `reason` | String | ✅ | Transaction reason (see enum values below) |
+| `invoice` | String | ❌ | Optional identifier for the invoice (from file upload endpoint) |
 | `remark` | String | ❌ | Optional transaction note |
 
 ### Reason Enum Values
@@ -403,6 +413,7 @@ All successful payout responses follow this structure:
   "message": "Transaction created successfully",
   "data": {
     "id": "transaction-uuid",
+    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
     "remark": "string",
     "reason": "string",
     "referenceNumber": "string",

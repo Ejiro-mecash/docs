@@ -68,6 +68,7 @@ curl --location --request POST '{{baseURL}}/v2/payout' \
   },
   "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
   "reason": "Gift",
+  "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
   "remark": "Testing"
 }'
 ```
@@ -99,6 +100,7 @@ const options = {
     },
     quoteId: "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
     reason: "Gift",
+    invoice: "4b9b6d30-a2ed-421a-bd69-11536344f071",
     remark: "Testing"
   })
 };
@@ -139,6 +141,7 @@ payload = {
     },
     "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
     "reason": "Gift",
+    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
     "remark": "Testing"
 }
 
@@ -187,6 +190,7 @@ curl --location --request POST '{{baseURL}}/v2/payout' \
   },
   "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
   "reason": "Gift",
+  "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
   "remark": "Testing"
 }'
 ```
@@ -219,6 +223,7 @@ const options = {
     },
     quoteId: "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
     reason: "Gift",
+    invoice: "4b9b6d30-a2ed-421a-bd69-11536344f071",
     remark: "Testing"
   })
 };
@@ -260,6 +265,7 @@ payload = {
     },
     "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
     "reason": "Gift",
+    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
     "remark": "Testing"
 }
 
@@ -291,6 +297,7 @@ except requests.exceptions.HTTPError as err:
 | :---------------------------------- | :------ | :-------------------------------------------------------------------------- | :------- |
 | `quoteId`                           | String  | The unique ID of the quote for this payout.                                 | ✅ Yes   |
 | `reason`                            | String  | The purpose of the transfer (e.g., `Gift`, `Payment for services`).         | ✅ Yes   |
+| `invoice`                           | String  | Optional identifier for the invoice (returned from file upload).            | ❔ No    |
 | `remark`                            | String  | An optional, additional note about the transaction.                         | ❔ No    |
 | `recipient`                         | Object  | An object containing all details about the person receiving the funds.      | ✅ Yes   |
 | `recipient.name`                    | String  | The full name of the recipient or business.                                 | ✅ Yes   |
@@ -315,6 +322,7 @@ except requests.exceptions.HTTPError as err:
 | :---------------------------------- | :------ | :-------------------------------------------------------------------------- | :------- |
 | `quoteId`                           | String  | The unique ID of the quote for this payout.                                 | ✅ Yes   |
 | `reason`                            | String  | The purpose of the transfer (e.g., `Gift`, `Payment for services`).         | ✅ Yes   |
+| `invoice`                           | String  | Optional identifier for the invoice (returned from file upload).            | ❔ No    |
 | `remark`                            | String  | An optional, additional note about the transaction.                         | ❔ No    |
 | `recipient`                         | Object  | An object containing all details about the person receiving the funds.      | ✅ Yes   |
 | `recipient.name`                    | String  | The full name of the recipient or business.                                 | ✅ Yes   |
@@ -347,6 +355,7 @@ If the payout is successfully created, the API returns the following response:
   "status": "success",
   "data": {
     "id": "a1b2c3d4-e5f6-7890-abcd-xxxxxxxxxxxxx",
+    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
     "reason": "Gift",
     "referenceNumber": "TXYZD6RWSQMKF",
     "type": "SEND",
@@ -397,6 +406,7 @@ If the payout is successfully created, the API returns the following response:
 | `data`                             | Object | A container for all the transaction data.                       |
 | `data.id`                          | String | The unique identifier for this payout transaction.              |
 | `data.reason`                      | String | The reason for the payout provided in the request.              |
+| `data.invoice`                     | String | Optional identifier for the invoice provided in the request.    |
 | `data.referenceNumber`             | String | A unique reference number generated for the payout.             |
 | `data.type`                        | String | The type of transaction, e.g., `SEND`.                          |
 | `data.state`                       | String | The current state of the payout (`COMPLETED`, `PENDING`, etc.). |

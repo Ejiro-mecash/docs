@@ -30,6 +30,7 @@ curl --location --request POST '{{baseURL}}/v2/payout' \
 --data-raw '{
   "remark": "Testing",
   "reason": "Gift",
+  "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
   "quoteId": "91e58c2d-ef14-4777-906b-xxxxxxxxxxxxx",
   "recipient": {
     "name": "Adeolu Adebayo",
@@ -56,6 +57,7 @@ const options = {
   body: JSON.stringify({
     remark: 'Testing',
     reason: 'Gift',
+    invoice: '4b9b6d30-a2ed-421a-bd69-11536344f071',
     quoteId: '91e58c2d-ef14-4777-906b-xxxxxxxxxxxxx',
     recipient: {
       name: 'Adeolu Adebayo',
@@ -90,6 +92,7 @@ url = "{{baseURL}}/v2/payout"
 payload = {
     "remark": "Testing",
     "reason": "Gift",
+    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
     "quoteId": "91e58c2d-ef14-4777-906b-xxxxxxxxxxxxx",
     "recipient": {
         "name": "Adeolu Adebayo",
@@ -125,6 +128,7 @@ const url = '{{baseURL}}/v2/payout';
 const data = {
   remark: 'Testing',
   reason: 'Gift',
+  invoice: '4b9b6d30-a2ed-421a-bd69-11536344f071',
   quoteId: '91e58c2d-ef14-4777-906b-xxxxxxxxxxxxx',
   recipient: {
     name: 'Adeolu Adebayo',
@@ -169,6 +173,7 @@ The following fields are required when making an **NGN payout request**:
 | :------------------------------ | :----- | :---------------------------------------------------- |
 | `remark`                        | String | Additional note about the transaction.                |
 | `reason`                        | String | Purpose of the transfer (e.g., `Gift`).               |
+| `invoice`                       | String | Optional identifier for the invoice (returned from file upload endpoint). |
 | `quoteId`                       | String | Unique Quote ID for the payout.                       |
 | `recipient.name`                | String | Full name of the recipient.                           |
 | `recipient.paymentChannel`      | String | Payment method (`BANK_TRANSFER`).                     |
@@ -191,6 +196,7 @@ If the payout is successfully created, the API returns the following response:
   "data": {
     "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
     "remark": "Testing",
+    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
     "reason": "Gift",
     "referenceNumber": "TXYZD6RWSQMKF",
     "type": "SEND",
@@ -241,6 +247,7 @@ If the payout is successfully created, the API returns the following response:
 | `data`                              | Object  | Container for the payout transaction details.                                 |
 | `data.id`                           | String  | Unique identifier for the payout transaction.                                 |
 | `data.remark`                       | String  | Optional note about the transaction, as provided in the request.             |
+| `data.invoice`                      | String  | Optional identifier for the invoice, as provided in the request.             |
 | `data.reason`                       | String  | Reason for the payout, as provided in the request.                           |
 | `data.referenceNumber`              | String  | Unique reference number generated for the payout.                             |
 | `data.type`                         | String  | Type of transaction (e.g., `SEND`).                                          |
