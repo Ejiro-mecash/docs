@@ -8,7 +8,7 @@ The File Upload API allows you to upload documents such as invoices or receipts 
 
 ### Use Case
 
-When creating a payout, some corridors or transaction types might require supporting documentation (e.g., a business invoice). You can use this endpoint to upload the invoice first, and then reference the returned `id` as the `invoiceId` in your payout request.
+When creating a payout, some corridors or transaction types might require supporting documentation (e.g., a business invoice). You can use this endpoint to upload the invoice first, and then reference the returned `id` as the optional `invoice` field in your payout request.
 
 ### Request Example
 
@@ -26,7 +26,7 @@ The endpoint expects a `multipart/form-data` request with the file attached to t
 
 ### Response
 
-A successful upload returns an `id` which is used as the `invoiceId` in subsequent payout requests.
+A successful upload returns an `id` which is used as the optional `invoice` field in subsequent payout requests.
 
 ```json
 {
