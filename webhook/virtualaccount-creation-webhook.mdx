@@ -11,22 +11,39 @@ This webhook is sent when a virtual account has been successfully created. For a
 {
   "event": "virtualaccount.creation.completed",
   "data": {
-    "id": "8baf5a4a-b1b9-48fb-a492-b5041db9cfe1",
-    "reference": "REF_8899562444KLLOPLTTPKNMTYLP900POLOPI",
-    "accountName": "CHECK Ng Ltd",
+    "id": "0bfc9062-40a6-4810-8b05-bac860711257",
+    "firstName": "Zola",
+    "lastName": "Keebler",
+    "email": "Amelia_Kuhn97@yahoo.com",
+    "phoneNumber": "433-545-9366",
+    "reference": "REF_NVDBFB5HEGSA",
+    "accountName": "Breitenberg Becker",
+    "gender": "M",
+    "dateOfBirth": "1980-10-10",
+    "nationality": "NG",
+    "idType": "PASSPORT",
+    "idNumber": "U******1",
+    "address": "0887 Nicolas Locks",
+    "city": "Fort Collins",
+    "postalCode": "100001",
     "account": {
-      "name": "CHECK Ng Ltd",
+      "name": "Breitenberg Becker",
       "bankName": "DBS Bank Limited",
-      "number": "372385345434",
       "sortCode": "MOOLAHGO",
+      "number": "820219574504",
       "swiftCode": "DBSSSGSGXXX",
       "bankAddress": "12 Marina Boulevard, DBS Asia Central Marina Bay Financial Tower"
     },
+    "status": "ACTIVE",
     "currency": "USD",
     "country": "US",
-    "status": "ACTIVE",
     "isPermanent": true,
-    "created": "2025-12-18T09:57:44.127397385Z"
+    "company": {
+      "registrationNumber": "NDBUVAP1",
+      "registrationCountry": "NG",
+      "registrationDate": "2024-10-10"
+    },
+    "created": "2026-01-28T05:08:15.649835300Z"
   }
 }
 ```
@@ -37,7 +54,20 @@ This webhook is sent when a virtual account has been successfully created. For a
 | :--- | :--- | :--- |
 | `event` | string | The name of the event (`virtualaccount.creation.completed`). |
 | `data.id` | string | Unique identifier for the virtual account resource. |
+| `data.firstName` | string | Authorized representative's first name. |
+| `data.lastName` | string | Authorized representative's last name. |
+| `data.email` | string | Contact email tied to the account. |
+| `data.phoneNumber` | string | Phone number stored for the customer. |
 | `data.reference` | string | The unique reference you provided during creation. |
+| `data.accountName` | string | Display name for the account (Business Name). |
+| `data.gender` | string | Gender of the representative (`M` or `F`). |
+| `data.dateOfBirth` | string | Date of birth (YYYY-MM-DD). |
+| `data.nationality` | string | 2-letter ISO country code of nationality. |
+| `data.idType` | string | Type of identification provided. |
+| `data.idNumber` | string | Masked identification number. |
+| `data.address` | string | Street address. |
+| `data.city` | string | City or Town. |
+| `data.postalCode` | string | Postal/ZIP code. |
 | `data.account.name` | string | The name on the bank account. |
 | `data.account.bankName` | string | The name of the issuing bank. |
 | `data.account.number` | string | The permanent bank account number. |
@@ -46,6 +76,12 @@ This webhook is sent when a virtual account has been successfully created. For a
 | `data.account.bankAddress` | string | The physical address of the issuing bank branch. |
 | `data.status` | string | The current status of the account (e.g., `ACTIVE`). |
 | `data.currency` | string | The currency of the account (e.g., `USD`, `NGN`, `MWK`). |
+| `data.country` | string | 2-letter ISO country code of the account. |
+| `data.isPermanent` | boolean | Indicates if the account is permanent. |
+| `data.company` | object | Company registration details. |
+| `data.company.registrationNumber` | string | Business registration number. |
+| `data.company.registrationCountry` | string | Country where company is registered. |
+| `data.company.registrationDate` | string | Date of company registration. |
 | `data.created` | string | ISO 8601 timestamp of when the account was created. |
 
 ## Handling the Webhook
