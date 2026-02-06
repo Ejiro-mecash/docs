@@ -459,6 +459,11 @@
                 "type": "string",
                 "description": "City where the bank is located.",
                 "example": "Atlanta"
+              },
+              "intermediaryBankSwiftCode": {
+                "type": "string",
+                "description": "The SWIFT/BIC code of the intermediary bank, required for some international USD transfers.",
+                "example": "CHASUS33XXX"
               }
             }
           }

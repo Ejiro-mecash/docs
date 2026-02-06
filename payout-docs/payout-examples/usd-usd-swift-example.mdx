@@ -53,7 +53,8 @@ curl --location --request POST '{{baseURL}}/v2/payout' \
       "swiftCode": "GTBINGLA",
       "bankCity": "Atlanta",
       "accountNumber": "885406477269",
-      "bankName": "DBS Bank Limited"
+      "bankName": "DBS Bank Limited",
+      "intermediaryBankSwiftCode": "CHASUS33XXX"
     },
     "paymentChannel": "SWIFT",
     "country": "US",
@@ -86,7 +87,8 @@ const options = {
         swiftCode: "GTBINGLA",
         bankCity: "Atlanta",
         accountNumber: "885406477269",
-        bankName: "DBS Bank Limited"
+        bankName: "DBS Bank Limited",
+        intermediaryBankSwiftCode: "CHASUS33XXX"
       },
       paymentChannel: "SWIFT",
       country: "US",
@@ -128,7 +130,8 @@ payload = {
             "swiftCode": "GTBINGLA",
             "bankCity": "Atlanta",
             "accountNumber": "885406477269",
-            "bankName": "DBS Bank Limited"
+            "bankName": "DBS Bank Limited",
+            "intermediaryBankSwiftCode": "CHASUS33XXX"
         },
         "paymentChannel": "SWIFT",
         "country": "US",
@@ -179,6 +182,8 @@ except requests.exceptions.HTTPError as err:
 | `recipient.account.sortCode`        | String  | The bank sort code.                                                         | ❔ No    |
 | `recipient.account.bankName`        | String  | The name of the recipient's bank.                                           | ✅ Yes   |
 | `recipient.account.bankCity`        | String  | The city where the bank is located.                                         | ❔ No    |
+| `recipient.account.intermediaryBankSwiftCode` | String | The SWIFT/BIC code of the intermediary bank. | ❔ No (Conditional) |
+
 
 ---
 
@@ -225,7 +230,8 @@ If the payout is successfully created, the API returns the following response:
         "swiftCode": "GTBINGLA",
         "bankCity": "Atlanta",
         "accountNumber": "885406477269",
-        "bankName": "DBS Bank Limited"
+        "bankName": "DBS Bank Limited",
+        "intermediaryBankSwiftCode": "CHASUS33XXX"
       },
       "paymentChannel": "SWIFT",
       "country": "US",
@@ -285,6 +291,49 @@ The payout transaction can have one of the following states:
 | `500`       | Internal Server Error  | An internal error occurred.                     |
 ---
 
+---
+
+## **Understanding Intermediary Banks**
+
+An **Intermediary Bank** (also known as a correspondent bank) is a third-party bank that acts as a middleman between the sending bank and the beneficiary bank to facilitate international wire transfers.
+
+### Why is an Intermediary SWIFT Code Needed?
+When the sending bank and the beneficiary bank do not have a direct financial relationship, they use an intermediary bank to move the funds across borders. This is extremely common for USD transfers outside the United States.
+
+### When is the field required?
+- **Required:** If your beneficiary bank requires funds to be routed through a specific intermediary bank to receive USD. This information is typically provided in the beneficiary's wire instructions.
+- **Optional:** If the beneficiary bank has a direct relationship with major US clearing banks, this field can be left blank.
+
+### How to get the Intermediary SWIFT Code?
+The recipient must obtain these details directly from their bank. It is usually found in the "International Wire Instructions" or "Transfer Details" section of their bank's documentation.
+
+---
+
+## **UI Reference**
+
+In the meCash dashboard, the **Intermediary Bank SWIFT Code** field is located within the Add Beneficiary form under the Bank Account section.
+
+![Intermediary Bank Field Reference](/public/images/intermediary-bank-ui.png)
+
+---
+
+## **Frequently Asked Questions (FAQ)**
+
+<AccordionGroup>
+  <Accordion title="What happens if the intermediary SWIFT code is missing?">
+    If an intermediary bank is required for the route but not provided, the transfer may be delayed as banks attempt to find a valid route, or it may be rejected and returned (minus processing fees).
+  </Accordion>
+
+  <Accordion title="What happens if the wrong code is provided?">
+    Providing an incorrect SWIFT code will result in a failed transaction. The funds will eventually be returned to your wallet, but this can take several business days and may incur rejection fees from the involved banks.
+  </Accordion>
+
+  <Accordion title="Does every USD SWIFT transfer require an intermediary bank?">
+    No. Many large international banks have direct "correspondent" relationships. However, for smaller regional banks or specific corridors, an intermediary is essential for successful delivery.
+  </Accordion>
+</AccordionGroup>
+
+---
 
 ## **Best Practices**
 ✅ Ensure `quoteId` is valid and linked to an existing quote.  
