@@ -88,6 +88,7 @@
               {
                 "group": "Payout Examples",
                 "pages": [
+                  "payout-docs/payout-examples/index",
                   "payout-docs/payout-examples/ngn-ngn-example",
                   "payout-docs/payout-examples/ngn-usd-example",
                   "payout-docs/payout-examples/ngn-eur-example",
@@ -284,5 +285,9 @@
   },
   "scripts": [
     "/ask-ai-floating-widget.js"
-  ]
+  ],
+  "banner": {
+    "content": "🚀 **New Payout Routes Added!** Now supporting 🇸🇬, 🇰🇷, 🇹🇭, 🇲🇾, and 🇻🇳. [View Payout Examples](/payout-docs/payout-examples/usd-thb-example)",
+    "dismissible": true
+  }
 }

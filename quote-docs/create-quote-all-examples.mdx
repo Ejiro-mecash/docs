@@ -18,7 +18,26 @@ Use the samples below to experiment with the [`POST /v1/quote`](/quote/create-qu
 
 ## Requests and responses
 
-### Convert 100,000 NGN to EUR
+### Table of Contents
+
+- [Convert 100,000 NGN to EUR](#ngn-eur) ([Payout Example](/payout-docs/payout-examples/ngn-eur-example))
+- [Convert 100,000 NGN to GBP](#ngn-gbp) ([Payout Example](/payout-docs/payout-examples/ngn-gbp-example))
+- [Convert 500,000 NGN to USD](#ngn-usd) ([Payout Example](/payout-docs/payout-examples/ngn-usd-example))
+- [Convert 5,000 NGN domestically](#ngn-domestic) ([Payout Example](/payout-docs/payout-examples/ngn-ngn-example))
+- [Convert 2,000 NGN to SGD](#ngn-sgd) ([Payout Example](/payout-docs/payout-examples/ngn-sgd-example))
+- [Convert 10,000 NGN to KRW](#ngn-krw) ([Payout Example](/payout-docs/payout-examples/ngn-krw-example))
+- [Convert 100 USD to KRW](#usd-krw) ([Payout Example](/payout-docs/payout-examples/usd-krw-example))
+- [Convert 100 USD to THB](#usd-thb) ([Payout Example](/payout-docs/payout-examples/usd-thb-example))
+- [Convert 100 USD to MYR](#usd-myr) ([Payout Example](/payout-docs/payout-examples/usd-myr-example))
+- [Convert 100 USD to SGD](#usd-sgd) ([Payout Example](/payout-docs/payout-examples/usd-sgd-example))
+- [Convert 100 USD to VND](#usd-vnd) ([Payout Example](/payout-docs/payout-examples/usd-vnd-example))
+- [Convert 1,000 USD via Global SWIFT](#usd-swift) ([Payout Example](/payout-docs/payout-examples/usd-usd-swift-example))
+- [Convert 125,000 NGN to CAD (Bank Transfer)](#ngn-cad-bank) ([Payout Example](/payout-docs/payout-examples/ngn-cad-example))
+- [Convert 150,000 NGN to CAD (Interac)](#ngn-cad-interac) ([Payout Example](/payout-docs/payout-examples/ngn-cad-example))
+
+---
+
+### Convert 100,000 NGN to EUR {#ngn-eur}
 
 <CodeGroup>
 ```bash Request
@@ -66,7 +85,7 @@ curl --request POST '{{baseURL}}/v1/quote' \
 ```
 </CodeGroup>
 
-### Convert 100,000 NGN to GBP
+### Convert 100,000 NGN to GBP {#ngn-gbp}
 
 <CodeGroup>
 ```bash Request
@@ -107,7 +126,7 @@ curl --request POST '{{baseURL}}/v1/quote' \
 ```
 </CodeGroup>
 
-### Convert 500,000 NGN to USD
+### Convert 500,000 NGN to USD {#ngn-usd}
 
 <CodeGroup>
 ```bash Request
@@ -148,7 +167,7 @@ curl --request POST '{{baseURL}}/v1/quote' \
 ```
 </CodeGroup>
 
-### Convert 5,000 NGN domestically
+### Convert 5,000 NGN domestically {#ngn-domestic}
 
 <CodeGroup>
 ```bash Request
@@ -181,7 +200,7 @@ curl --request POST '{{baseURL}}/v1/quote' \
 ```
 </CodeGroup>
 
-### Convert 2,000 NGN to SGD
+### Convert 2,000 NGN to SGD {#ngn-sgd}
 
 <CodeGroup>
 ```bash Request
@@ -214,7 +233,7 @@ curl --request POST '{{baseURL}}/v1/quote' \
 ```
 </CodeGroup>
 
-### Convert 10,000 NGN to KRW
+### Convert 10,000 NGN to KRW {#ngn-krw}
 
 <CodeGroup>
 ```bash Request
@@ -247,7 +266,7 @@ curl --request POST '{{baseURL}}/v1/quote' \
 ```
 </CodeGroup>
 
-### Convert 100 USD to KRW
+### Convert 100 USD to KRW {#usd-krw}
 
 <CodeGroup>
 ```bash Request
@@ -280,7 +299,7 @@ curl --request POST '{{baseURL}}/v1/quote' \
 ```
 </CodeGroup>
 
-### Convert 100 USD to THB
+### Convert 100 USD to THB {#usd-thb}
 
 <CodeGroup>
 ```bash Request
@@ -313,7 +332,7 @@ curl --request POST '{{baseURL}}/v1/quote' \
 ```
 </CodeGroup>
 
-### Convert 100 USD to MYR
+### Convert 100 USD to MYR {#usd-myr}
 
 <CodeGroup>
 ```bash Request
@@ -340,6 +359,171 @@ curl --request POST '{{baseURL}}/v1/quote' \
     "summary": { "total": 100.77 },
     "settlementTime": "15 minutes",
     "quoteCurrency": "MYR",
+    "expiresInSeconds": 600
+  }
+}
+```
+</CodeGroup>
+
+### Convert 100 USD to SGD {#usd-sgd}
+
+<CodeGroup>
+```bash Request
+curl --request POST '{{baseURL}}/v1/quote' \
+  --header 'x-api-key: YOUR_API_KEY' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "paymentChannel": "BANK_TRANSFER",
+    "source": { "amount": 100, "country": "US", "currency": "USD" },
+    "target": { "country": "SG", "currency": "SGD" }
+  }'
+```
+```json Response
+{
+  "message": "quote successfully created",
+  "status": "success",
+  "data": {
+    "id": "usd-sgd-quote-id-sample",
+    "source": { "currency": "USD", "country": "US", "amount": 100 },
+    "target": { "currency": "SGD", "country": "SG", "amount": 135.50 },
+    "rate": 1.355,
+    "fee": { "amount": 1.00 },
+    "rules": [],
+    "summary": { "total": 101.00 },
+    "settlementTime": "15 minutes",
+    "quoteCurrency": "SGD",
+    "expiresInSeconds": 600
+  }
+}
+```
+</CodeGroup>
+
+### Convert 100 USD to VND {#usd-vnd}
+
+<CodeGroup>
+```bash Request
+curl --request POST '{{baseURL}}/v1/quote' \
+  --header 'x-api-key: YOUR_API_KEY' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "paymentChannel": "BANK_TRANSFER",
+    "source": { "amount": 100, "country": "US", "currency": "USD" },
+    "target": { "country": "VN", "currency": "VND" }
+  }'
+```
+```json Response
+{
+  "message": "quote successfully created",
+  "status": "success",
+  "data": {
+    "id": "vn-usd-quote-id-sample",
+    "source": { "currency": "USD", "country": "US", "amount": 100 },
+    "target": { "currency": "VND", "country": "VN", "amount": 2500000 },
+    "rate": 25000,
+    "fee": { "amount": 1.00 },
+    "rules": [],
+    "summary": { "total": 101.00 },
+    "settlementTime": "15 minutes",
+    "quoteCurrency": "VND",
+    "expiresInSeconds": 600
+  }
+}
+```
+</CodeGroup>
+
+### Convert 1,000 USD via Global SWIFT {#usd-swift}
+
+<CodeGroup>
+```bash Request
+curl --request POST '{{baseURL}}/v1/quote' \
+  --header 'x-api-key: YOUR_API_KEY' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "paymentChannel": "SWIFT",
+    "source": { "amount": 1000, "country": "US", "currency": "USD" },
+    "target": { "country": "US", "currency": "USD" }
+  }'
+```
+```json Response
+{
+  "message": "quote successfully created",
+  "status": "success",
+  "data": {
+    "id": "d3267c84-2b3c-4d6e-9f8g-xxxxxxxxxxxx",
+    "source": { "currency": "USD", "country": "US", "amount": 1000 },
+    "target": { "currency": "USD", "country": "US", "amount": 1000 },
+    "rate": 1,
+    "fee": { "amount": 25 },
+    "rules": [],
+    "summary": { "total": 1025 },
+    "settlementTime": "1 hour",
+    "quoteCurrency": "USD",
+    "expiresInSeconds": 600
+  }
+}
+```
+</CodeGroup>
+
+### Convert 125,000 NGN to CAD (Bank Transfer) {#ngn-cad-bank}
+
+<CodeGroup>
+```bash Request
+curl --request POST '{{baseURL}}/v1/quote' \
+  --header 'x-api-key: YOUR_API_KEY' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "paymentChannel": "BANK_TRANSFER",
+    "source": { "amount": 125000, "country": "NG", "currency": "NGN" },
+    "target": { "country": "CA", "currency": "CAD" }
+  }'
+```
+```json Response
+{
+  "message": "quote successfully created",
+  "status": "success",
+  "data": {
+    "id": "f1474828-6a2e-4ee8-xxxxxxxxxxxx",
+    "source": { "currency": "NGN", "country": "NG", "amount": 125000 },
+    "target": { "currency": "CAD", "country": "CA", "amount": 100 },
+    "rate": 1250,
+    "fee": { "amount": 500 },
+    "rules": [],
+    "summary": { "total": 125500 },
+    "settlementTime": "15 minutes",
+    "quoteCurrency": "CAD",
+    "expiresInSeconds": 600
+  }
+}
+```
+</CodeGroup>
+
+### Convert 150,000 NGN to CAD (Interac) {#ngn-cad-interac}
+
+<CodeGroup>
+```bash Request
+curl --request POST '{{baseURL}}/v1/quote' \
+  --header 'x-api-key: YOUR_API_KEY' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "paymentChannel": "INTERAC",
+    "source": { "amount": 150000, "country": "NG", "currency": "NGN" },
+    "target": { "country": "CA", "currency": "CAD" }
+  }'
+```
+```json Response
+{
+  "message": "quote successfully created",
+  "status": "success",
+  "data": {
+    "id": "5392890f-cab6-40ee-8db2-xxxxxxxxxx",
+    "source": { "currency": "NGN", "country": "NG", "amount": 150000 },
+    "target": { "currency": "CAD", "country": "CA", "amount": 120 },
+    "rate": 1250,
+    "fee": { "amount": 500 },
+    "rules": [],
+    "summary": { "total": 150500 },
+    "settlementTime": "15 minutes",
+    "quoteCurrency": "CAD",
     "expiresInSeconds": 600
   }
 }
