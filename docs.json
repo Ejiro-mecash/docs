@@ -93,8 +93,15 @@
                   "payout-docs/payout-examples/ngn-eur-example",
                   "payout-docs/payout-examples/ngn-gbp-example",
                   "payout-docs/payout-examples/ngn-cad-example",
+                  "payout-docs/payout-examples/ngn-sgd-example",
+                  "payout-docs/payout-examples/ngn-krw-example",
                   "payout-docs/payout-examples/mkw-mkw-example",
-                  "payout-docs/payout-examples/usd-usd-swift-example"
+                  "payout-docs/payout-examples/usd-usd-swift-example",
+                  "payout-docs/payout-examples/usd-sgd-example",
+                  "payout-docs/payout-examples/usd-thb-example",
+                  "payout-docs/payout-examples/usd-myr-example",
+                  "payout-docs/payout-examples/usd-vnd-example",
+                  "payout-docs/payout-examples/usd-krw-example"
                 ]
               }
             ]

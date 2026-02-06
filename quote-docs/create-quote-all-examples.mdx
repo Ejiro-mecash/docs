@@ -181,6 +181,171 @@ curl --request POST '{{baseURL}}/v1/quote' \
 ```
 </CodeGroup>
 
+### Convert 2,000 NGN to SGD
+
+<CodeGroup>
+```bash Request
+curl --request POST '{{baseURL}}/v1/quote' \
+  --header 'x-api-key: YOUR_API_KEY' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "paymentChannel": "BANK_TRANSFER",
+    "source": { "amount": 2000, "country": "NG", "currency": "NGN" },
+    "target": { "country": "SG", "currency": "SGD" }
+  }'
+```
+```json Response
+{
+  "message": "quote successfully created",
+  "status": "success",
+  "data": {
+    "id": "sgd-quote-id-123456",
+    "source": { "currency": "NGN", "country": "NG", "amount": 2000 },
+    "target": { "currency": "SGD", "country": "SG", "amount": 3.50 },
+    "rate": 571.42,
+    "fee": { "amount": 50 },
+    "rules": [],
+    "summary": { "total": 2050 },
+    "settlementTime": "15 minutes",
+    "quoteCurrency": "SGD",
+    "expiresInSeconds": 600
+  }
+}
+```
+</CodeGroup>
+
+### Convert 10,000 NGN to KRW
+
+<CodeGroup>
+```bash Request
+curl --request POST '{{baseURL}}/v1/quote' \
+  --header 'x-api-key: YOUR_API_KEY' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "paymentChannel": "BANK_TRANSFER",
+    "source": { "amount": 10000, "country": "NG", "currency": "NGN" },
+    "target": { "country": "KR", "currency": "KRW" }
+  }'
+```
+```json Response
+{
+  "message": "quote successfully created",
+  "status": "success",
+  "data": {
+    "id": "krw-quote-id-123456",
+    "source": { "currency": "NGN", "country": "NG", "amount": 10000 },
+    "target": { "currency": "KRW", "country": "KR", "amount": 14000 },
+    "rate": 1.4,
+    "fee": { "amount": 100 },
+    "rules": [],
+    "summary": { "total": 10100 },
+    "settlementTime": "15 minutes",
+    "quoteCurrency": "KRW",
+    "expiresInSeconds": 600
+  }
+}
+```
+</CodeGroup>
+
+### Convert 100 USD to KRW
+
+<CodeGroup>
+```bash Request
+curl --request POST '{{baseURL}}/v1/quote' \
+  --header 'x-api-key: YOUR_API_KEY' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "paymentChannel": "BANK_TRANSFER",
+    "source": { "amount": 100, "country": "US", "currency": "USD" },
+    "target": { "country": "KR", "currency": "KRW" }
+  }'
+```
+```json Response
+{
+  "message": "quote successfully created",
+  "status": "success",
+  "data": {
+    "id": "kr-usd-quote-id-sample",
+    "source": { "currency": "USD", "country": "US", "amount": 100 },
+    "target": { "currency": "KRW", "country": "KR", "amount": 143267.38 },
+    "rate": 1432.67,
+    "fee": { "amount": 0.77 },
+    "rules": [],
+    "summary": { "total": 100.77 },
+    "settlementTime": "15 minutes",
+    "quoteCurrency": "KRW",
+    "expiresInSeconds": 600
+  }
+}
+```
+</CodeGroup>
+
+### Convert 100 USD to THB
+
+<CodeGroup>
+```bash Request
+curl --request POST '{{baseURL}}/v1/quote' \
+  --header 'x-api-key: YOUR_API_KEY' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "paymentChannel": "BANK_TRANSFER",
+    "source": { "amount": 100, "country": "US", "currency": "USD" },
+    "target": { "country": "TH", "currency": "THB" }
+  }'
+```
+```json Response
+{
+  "message": "quote successfully created",
+  "status": "success",
+  "data": {
+    "id": "779997685019",
+    "source": { "currency": "USD", "country": "US", "amount": 100 },
+    "target": { "currency": "THB", "country": "TH", "amount": 3304.41 },
+    "rate": 33.04,
+    "fee": { "amount": 0.77 },
+    "rules": [],
+    "summary": { "total": 100.77 },
+    "settlementTime": "15 minutes",
+    "quoteCurrency": "THB",
+    "expiresInSeconds": 600
+  }
+}
+```
+</CodeGroup>
+
+### Convert 100 USD to MYR
+
+<CodeGroup>
+```bash Request
+curl --request POST '{{baseURL}}/v1/quote' \
+  --header 'x-api-key: YOUR_API_KEY' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "paymentChannel": "BANK_TRANSFER",
+    "source": { "amount": 100, "country": "US", "currency": "USD" },
+    "target": { "country": "MY", "currency": "MYR" }
+  }'
+```
+```json Response
+{
+  "message": "quote successfully created",
+  "status": "success",
+  "data": {
+    "id": "779997685832",
+    "source": { "currency": "USD", "country": "US", "amount": 100 },
+    "target": { "currency": "MYR", "country": "MY", "amount": 426.72 },
+    "rate": 4.26,
+    "fee": { "amount": 0.77 },
+    "rules": [],
+    "summary": { "total": 100.77 },
+    "settlementTime": "15 minutes",
+    "quoteCurrency": "MYR",
+    "expiresInSeconds": 600
+  }
+}
+```
+</CodeGroup>
+
 ## Response field reference
 
 <Note>Quotes expire 10 minutes after creation unless otherwise stated. If `expiresInSeconds` hits zero, request a new quote.</Note>

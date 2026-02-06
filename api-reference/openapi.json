@@ -184,7 +184,12 @@
           "GB",
           "DE",
           "MW",
-          "CA"
+          "CA",
+          "SG",
+          "KR",
+          "TH",
+          "MY",
+          "VN"
         ]
       },
       "CurrencyCode": {
@@ -197,7 +202,12 @@
           "GBP",
           "EUR",
           "MWK",
-          "CAD"
+          "CAD",
+          "SGD",
+          "KRW",
+          "THB",
+          "MYR",
+          "VND"
         ]
       },
       "PaymentChannel": {
@@ -658,6 +668,296 @@
           }
         ]
       },
+      "SgdRecipient": {
+        "title": "SGD Payout",
+        "description": "Recipient details for a payout to Singapore (SGD).",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseRecipient"
+          },
+          {
+            "type": "object",
+            "required": [
+              "name",
+              "type"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Full name of the recipient."
+              },
+              "type": {
+                "$ref": "#/components/schemas/RecipientType",
+                "description": "Recipient type (INDIVIDUAL or BUSINESS)."
+              },
+              "account": {
+                "type": "object",
+                "required": [
+                  "bankName",
+                  "accountNumber",
+                  "swiftCode",
+                  "sortCode"
+                ],
+                "properties": {
+                  "bankName": {
+                    "type": "string",
+                    "description": "Name of bank"
+                  },
+                  "accountNumber": {
+                    "type": "string",
+                    "description": "Recipient account number"
+                  },
+                  "sortCode": {
+                    "type": "string",
+                    "description": "Bank code / Sort code."
+                  },
+                  "swiftCode": {
+                    "type": "string",
+                    "description": "SWIFT/BIC code."
+                  },
+                  "branchCode": {
+                    "type": "string",
+                    "description": "Branch code."
+                  },
+                  "bankCity": {
+                    "type": "string",
+                    "description": "City of the bank."
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "KrwRecipient": {
+        "title": "KRW Payout",
+        "description": "Recipient details for a payout to South Korea (KRW).",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseRecipient"
+          },
+          {
+            "type": "object",
+            "required": [
+              "name",
+              "type",
+              "mobileNumber"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Full name of the recipient."
+              },
+              "type": {
+                "$ref": "#/components/schemas/RecipientType"
+              },
+              "mobileNumber": {
+                "type": "string",
+                "description": "Recipient mobile number."
+              },
+              "account": {
+                "type": "object",
+                "required": [
+                  "bankName",
+                  "accountNumber",
+                  "sortCode"
+                ],
+                "properties": {
+                  "bankName": {
+                    "type": "string",
+                    "description": "Name of bank"
+                  },
+                  "accountNumber": {
+                    "type": "string",
+                    "description": "Recipient account number"
+                  },
+                  "sortCode": {
+                    "type": "string",
+                    "description": "Bank code (e.g. 01462)."
+                  },
+                  "bankCity": {
+                    "type": "string",
+                    "description": "City of the bank."
+                  },
+                  "branchCode": {
+                    "type": "string",
+                    "description": "Branch code."
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "ThbRecipient": {
+        "title": "THB Payout",
+        "description": "Recipient details for a payout to Thailand (THB).",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseRecipient"
+          },
+          {
+            "type": "object",
+            "required": [
+              "name",
+              "type"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Full name of the recipient."
+              },
+              "type": {
+                "$ref": "#/components/schemas/RecipientType"
+              },
+              "nickName": {
+                "type": "string",
+                "description": "Recipient nickname."
+              },
+              "account": {
+                "type": "object",
+                "required": [
+                  "bankName",
+                  "accountNumber",
+                  "sortCode"
+                ],
+                "properties": {
+                  "bankName": {
+                    "type": "string",
+                    "description": "Name of bank"
+                  },
+                  "accountNumber": {
+                    "type": "string",
+                    "description": "Recipient account number"
+                  },
+                  "sortCode": {
+                    "type": "string",
+                    "description": "Bank code (e.g. 00301)."
+                  },
+                  "bankCity": {
+                    "type": "string",
+                    "description": "City of the bank."
+                  },
+                  "branchCode": {
+                    "type": "string",
+                    "description": "Branch code."
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "MyrRecipient": {
+        "title": "MYR Payout",
+        "description": "Recipient details for a payout to Malaysia (MYR).",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseRecipient"
+          },
+          {
+            "type": "object",
+            "required": [
+              "name",
+              "type"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Full name of the recipient."
+              },
+              "type": {
+                "$ref": "#/components/schemas/RecipientType"
+              },
+              "nickName": {
+                "type": "string",
+                "description": "Recipient nickname."
+              },
+              "account": {
+                "type": "object",
+                "required": [
+                  "bankName",
+                  "accountNumber",
+                  "sortCode"
+                ],
+                "properties": {
+                  "bankName": {
+                    "type": "string",
+                    "description": "Name of bank"
+                  },
+                  "accountNumber": {
+                    "type": "string",
+                    "description": "Recipient account number"
+                  },
+                  "sortCode": {
+                    "type": "string",
+                    "description": "Bank code (e.g. 00163)."
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "VndRecipient": {
+        "title": "VND Payout",
+        "description": "Recipient details for a payout to Vietnam (VND).",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseRecipient"
+          },
+          {
+            "type": "object",
+            "required": [
+              "name",
+              "type"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Full name of the recipient."
+              },
+              "type": {
+                "$ref": "#/components/schemas/RecipientType"
+              },
+              "nickName": {
+                "type": "string",
+                "description": "Recipient nickname."
+              },
+              "account": {
+                "type": "object",
+                "required": [
+                  "bankName",
+                  "accountNumber",
+                  "sortCode"
+                ],
+                "properties": {
+                  "bankName": {
+                    "type": "string",
+                    "description": "Name of bank"
+                  },
+                  "accountNumber": {
+                    "type": "string",
+                    "description": "Recipient account number"
+                  },
+                  "sortCode": {
+                    "type": "string",
+                    "description": "Bank code (e.g. 00205)."
+                  },
+                  "bankCity": {
+                    "type": "string",
+                    "description": "City of the bank."
+                  },
+                  "branchCode": {
+                    "type": "string",
+                    "description": "Branch code."
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
       "CreatePayoutRequest": {
         "type": "object",
         "required": [
@@ -709,6 +1009,21 @@
               },
               {
                 "$ref": "#/components/schemas/CadRecipient"
+              },
+              {
+                "$ref": "#/components/schemas/SgdRecipient"
+              },
+              {
+                "$ref": "#/components/schemas/KrwRecipient"
+              },
+              {
+                "$ref": "#/components/schemas/ThbRecipient"
+              },
+              {
+                "$ref": "#/components/schemas/MyrRecipient"
+              },
+              {
+                "$ref": "#/components/schemas/VndRecipient"
               }
             ]
           }
@@ -769,6 +1084,21 @@
               },
               {
                 "$ref": "#/components/schemas/CadRecipient"
+              },
+              {
+                "$ref": "#/components/schemas/SgdRecipient"
+              },
+              {
+                "$ref": "#/components/schemas/KrwRecipient"
+              },
+              {
+                "$ref": "#/components/schemas/ThbRecipient"
+              },
+              {
+                "$ref": "#/components/schemas/MyrRecipient"
+              },
+              {
+                "$ref": "#/components/schemas/VndRecipient"
               }
             ]
           },

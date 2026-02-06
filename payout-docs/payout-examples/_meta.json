@@ -4,6 +4,13 @@
     "ngn-gbp-example": "NGN → GBP",
     "ngn-usd-example": "NGN → USD",
     "ngn-cad-example": "NGN → CAD",
+    "ngn-sgd-example": "NGN → SGD",
+    "ngn-krw-example": "NGN → KRW",
+    "usd-sgd-example": "USD → SGD",
+    "usd-thb-example": "USD → THB",
+    "usd-myr-example": "USD → MYR",
+    "usd-vnd-example": "USD → VND",
+    "usd-krw-example": "USD → KRW",
     "mkw-mkw-example": "MKW → MKW",
     "usd-usd-swift-example": "USD → USD via Swift"
 }

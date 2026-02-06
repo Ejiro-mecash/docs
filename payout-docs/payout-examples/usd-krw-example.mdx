@@ -1,0 +1,281 @@
+---
+title: 'USD → KRW Payout'
+icon: money-bill-transfer
+---
+
+This endpoint allows you to process payouts in **South Korean Won (KRW)** to recipients with a bank account in South Korea, funded from a **US Dollar (USD)** balance.
+
+---
+
+## Endpoint
+
+**POST:** `{{baseURL}}/v2/payout`
+
+---
+
+## Supported Payment Channels
+
+KRW payouts support the following payment channel:
+
+| **Channel** | **Description** | **Use Case** |
+| :---------- | :-------------- | :----------- |
+| `BANK_TRANSFER` | Standard bank transfer to South Korean banks | Domestic transfers within South Korea |
+
+---
+
+## Request Details
+
+### Headers
+
+Include these headers in your request:
+
+| **Header** | **Value** | **Required** |
+| :------------- | :----------------- | :------- |
+| `Content-Type` | `application/json` | ✅ Yes   |
+| `x-api-key`    | `YOUR_API_KEY`     | ✅ Yes   |
+
+---
+
+## Sample Requests
+
+<Tabs>
+<Tab title="BANK_TRANSFER">
+
+Use `BANK_TRANSFER` for standard domestic KRW bank transfers.
+
+<CodeGroup>
+```bash cURL
+curl --location --request POST '{{baseURL}}/v2/payout' \
+--header 'x-api-key: YOUR_API_KEY' \
+--header 'Content-Type: application/json' \
+--data '{
+  "recipient": {
+    "name": "Min-jun Kim",
+    "nickName": "DemoNickname",
+    "mobileNumber": "08012345678",
+    "type": "INDIVIDUAL",
+    "stored": false,
+    "account": {
+        "bankName": "Korea Development Bank",
+        "sortCode": "01462",
+        "bankCity": "Seoul",
+        "accountNumber": "0012345678",
+        "branchCode": "Seoul"
+    },
+    "sourceOfFunds": "income",
+    "paymentChannel": "BANK_TRANSFER",
+    "currency": "KRW",
+    "country": "KR"
+  },
+  "quoteId": "kr-usd-quote-id-sample",
+  "reason": "Gift",
+  "remark": "TestKRW"
+}'
+```
+```javascript JavaScript (Fetch)
+const url = '{{baseURL}}/v2/payout';
+
+const options = {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'x-api-key': 'YOUR_API_KEY'
+  },
+  body: JSON.stringify({
+    recipient: {
+      name: "Min-jun Kim",
+      nickName: "DemoNickname",
+      mobileNumber: "08012345678",
+      type: "INDIVIDUAL",
+      stored: false,
+      account: {
+        bankName: "Korea Development Bank",
+        sortCode: "01462",
+        bankCity: "Seoul",
+        accountNumber: "0012345678",
+        branchCode": "Seoul"
+      },
+      sourceOfFunds: "income",
+      paymentChannel: "BANK_TRANSFER",
+      currency: "KRW",
+      country: "KR"
+    },
+    quoteId: "kr-usd-quote-id-sample",
+    reason: "Gift",
+    remark: "TestKRW"
+  })
+};
+
+fetch(url, options)
+  .then(res => {
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+    return res.json();
+  })
+  .then(data => console.log(data))
+  .catch(error => console.error('Error:', error));
+```
+
+```python Python (Requests)
+import requests
+import json
+
+url = "{{baseURL}}/v2/payout"
+
+payload = {
+    "recipient": {
+        "name": "Min-jun Kim",
+        "nickName": "DemoNickname",
+        "mobileNumber": "08012345678",
+        "type": "INDIVIDUAL",
+        "stored": False,
+        "account": {
+            "bankName": "Korea Development Bank",
+            "sortCode": "01462",
+            "bankCity": "Seoul",
+            "accountNumber": "0012345678",
+            "branchCode": "Seoul"
+        },
+        "sourceOfFunds": "income",
+        "paymentChannel": "BANK_TRANSFER",
+        "currency": "KRW",
+        "country": "KR"
+    },
+    "quoteId": "kr-usd-quote-id-sample",
+    "reason": "Gift",
+    "remark": "TestKRW"
+}
+
+headers = {
+    "x-api-key": "YOUR_API_KEY",
+    "Content-Type": "application/json"
+}
+
+try:
+    response = requests.post(url, headers=headers, data=json.dumps(payload))
+    response.raise_for_status()
+    print(response.json())
+except requests.exceptions.HTTPError as err:
+    print(f"HTTP Error: {err}")
+```
+</CodeGroup>
+
+</Tab>
+</Tabs>
+
+---
+
+### Request Body Breakdown
+
+<Tabs>
+<Tab title="BANK_TRANSFER Fields">
+
+| **Field** | **Type** | **Description** | **Required** |
+| :---------------------------------- | :------ | :-------------------------------------------------------------------------- | :------- |
+| `quoteId` | String | The unique ID of the quote for this payout. | ✅ Yes |
+| `reason` | String | The purpose of the transfer. | ✅ Yes |
+| `remark` | String | An optional, additional note about the transaction. | ❔ No |
+| `recipient` | Object | An object containing all details about the beneficiary. | ✅ Yes |
+| `recipient.name` | String | The full name of the recipient. | ✅ Yes |
+| `recipient.nickName` | String | The recipient's nickname. | ❔ No |
+| `recipient.mobileNumber` | String | The recipient's mobile number. | ✅ Yes |
+| `recipient.type` | String | The type of recipient. Enum: `INDIVIDUAL`, `BUSINESS`. | ✅ Yes |
+| `recipient.account` | Object | An object containing the recipient's bank account details. | ✅ Yes |
+| `recipient.account.bankName` | String | The name of the recipient's bank. | ✅ Yes |
+| `recipient.account.accountNumber` | String | The recipient's bank account number. | ✅ Yes |
+| `recipient.account.sortCode` | String | The bank code/sort code (e.g., `01462`). | ✅ Yes |
+| `recipient.paymentChannel` | String | The payment method. Must be `BANK_TRANSFER`. | ✅ Yes |
+| `recipient.sourceOfFunds` | String | Code indicating the source of funds. | ✅ Yes |
+
+</Tab>
+</Tabs>
+
+---
+
+## Success Response (200 OK)
+
+If the payout is successfully created, the API returns the following response:
+
+```json copy
+{
+  "message": "Transaction created successfully",
+  "status": "success",
+  "data": {
+    "id": "KRW-PAYOUT-ID-67890",
+    "reason": "Gift",
+    "referenceNumber": "KRWPAYOUTREF456",
+    "type": "SEND",
+    "state": "COMPLETED",
+    "quote": {
+      "id": "kr-usd-quote-id-sample",
+      "source": {
+        "currency": "USD",
+        "country": "US",
+        "amount": 100
+      },
+      "target": {
+        "currency": "KRW",
+        "country": "KR",
+        "amount": 143267.38
+      },
+      "rate": 1432.67,
+      "fee": {
+        "amount": 0.77
+      }
+    },
+    "recipient": {
+      "name": "Min-jun Kim",
+      "type": "INDIVIDUAL",
+      "account": {
+          "name": "Min-jun Kim",
+          "bankName": "Korea Development Bank",
+          "accountNumber": "0012345678"
+      },
+      "paymentChannel": "BANK_TRANSFER",
+      "currency": "KRW",
+      "country": "KR"
+    },
+    "created": "2026-02-04T09:41:02.000Z",
+    "processed": "2026-02-04T09:42:02.000Z"
+  }
+}
+```
+
+---
+
+## **Payout Transaction States**
+
+The payout transaction can have one of the following states:
+
+| **State** | **Description** |
+|------------|-------------------------------------------|
+| `COMPLETED` | The payout was successfully processed.   |
+| `PENDING`   | The payout is still being processed.     |
+| `FAILED`    | The payout failed to process.           |
+| `REFUNDED`  | The payout has been sent back to sender. |
+
+---
+
+## Error Handling
+
+| **Status Code** | **Meaning** | **Example Response** |
+|:------------|:-----------------------|:------------------------------------------------|
+| `400`       | Insufficient Balance   | Insufficient Balance                            |
+| `401`       | Unauthorized           | Invalid API key provided.                       |
+| `403`       | Forbidden              | IP not whitelisted                              |
+| `404`       | Not Found              | The requested endpoint does not exist.          |
+| `422`       | Unprocessable Entity   | Invalid quote ID provided.                      |
+| `500`       | Internal Server Error  | An internal error occurred.                     |
+
+---
+
+## **Best Practices**
+✅ Ensure `quoteId` is valid and linked to an existing quote.
+✅ Confirm that the recipient's **bank account number** and **bank code** are correct.
+✅ Use a valid API key in the headers.
+✅ Handle error responses correctly in your integration.
+
+<Tip>
+**Testing Failed Payouts:** In the sandbox environment, you can simulate a failed payout by setting `"remark": "fail"` in your request. This triggers a `payout.failed` webhook, allowing you to test your error handling.
+</Tip>
