@@ -19,6 +19,18 @@ Stay on top of API changes that could impact your integration. Each entry notes 
 ## API Platform
 
 <AccordionGroup>
+  <Accordion title="January 2026 — Version v1.x (Status: Live)">
+    **New Features & Enhancements**
+
+    - **Standardized Error Responses**: Unified the structure of error responses across all backend services to provide consistent and predictable feedback for frontend and mobile integrations.
+    - **Partner Integration Comms**: Established standardized communication protocols for managing USD virtual account data with Modena.
+
+    **Infrastructure & Performance**
+
+    - **Optimized Account Retrieval**: Updated the virtual account flow to fetch existing account numbers from the database rather than repeatedly calling partner APIs, reducing latency and avoiding downtime.
+    - **Deployment Versioning**: Upgraded the infrastructure (Terraform) to ensure services only deploy specific image versions rather than defaulting to "latest," preventing accidental overrides.
+  </Accordion>
+
   <Accordion title="November 2025 — Version v1.x (Status: Live)">
     **New Features**
 
