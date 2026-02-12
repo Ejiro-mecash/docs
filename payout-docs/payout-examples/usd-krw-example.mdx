@@ -63,6 +63,7 @@ curl --location --request POST '{{baseURL}}/v2/payout' \
         "branchCode": "Seoul"
     },
     "sourceOfFunds": "income",
+    "sourceOfIncome": "Agriculture & Food",
     "paymentChannel": "BANK_TRANSFER",
     "currency": "KRW",
     "country": "KR"
@@ -138,6 +139,7 @@ payload = {
             "branchCode": "Seoul"
         },
         "sourceOfFunds": "income",
+        "sourceOfIncome": "Agriculture & Food",
         "paymentChannel": "BANK_TRANSFER",
         "currency": "KRW",
         "country": "KR"
@@ -187,6 +189,7 @@ except requests.exceptions.HTTPError as err:
 | `recipient.account.sortCode` | String | The bank code/sort code (e.g., `01462`). | ✅ Yes |
 | `recipient.paymentChannel` | String | The payment method. Must be `BANK_TRANSFER`. | ✅ Yes |
 | `recipient.sourceOfFunds` | String | Code indicating the source of funds. | ✅ Yes |
+| `recipient.sourceOfIncome` | String | The recipient's source of income (Enum). | ✅ Yes |
 
 </Tab>
 </Tabs>

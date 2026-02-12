@@ -228,6 +228,38 @@
           "BUSINESS"
         ]
       },
+      "SourceOfIncome": {
+        "type": "string",
+        "description": "The source of income for the payout.",
+        "enum": [
+          "Agriculture & Food",
+          "Apparel, Textiles & Accessories",
+          "Auto, Motorcycle Parts & Transportation",
+          "Bags, Cases & Boxes",
+          "Chemicals & Plastics",
+          "Construction & Building Materials",
+          "Consumer Electronics & Appliances",
+          "Electrical Equipment & Supplies",
+          "Energy & Resources",
+          "Furniture & Home Products",
+          "Gifts, Toys & Crafts",
+          "Hardware & Tools",
+          "Health & Medical",
+          "Industrial Equipment & Components",
+          "Instruments & Meters",
+          "Jewelry & Accessories",
+          "Lights & Lighting Products",
+          "Machinery & Manufacturing Equipment",
+          "Metallurgy, Minerals & Materials",
+          "Office Supplies & Stationery",
+          "Packaging & Printing",
+          "Security & Protection Products",
+          "Service Equipment",
+          "Sports & Recreation",
+          "Telecom Products",
+          "Transportation"
+        ]
+      },
       "BaseRecipient": {
         "type": "object",
         "properties": {
@@ -695,6 +727,13 @@
                 "$ref": "#/components/schemas/RecipientType",
                 "description": "Recipient type (INDIVIDUAL or BUSINESS)."
               },
+              "sourceOfFunds": {
+                "type": "string",
+                "description": "Code indicating the source of funds (e.g., `I1`)."
+              },
+              "sourceOfIncome": {
+                "$ref": "#/components/schemas/SourceOfIncome"
+              },
               "account": {
                 "type": "object",
                 "required": [
@@ -760,6 +799,13 @@
                 "type": "string",
                 "description": "Recipient mobile number."
               },
+              "sourceOfFunds": {
+                "type": "string",
+                "description": "Code indicating the source of funds."
+              },
+              "sourceOfIncome": {
+                "$ref": "#/components/schemas/SourceOfIncome"
+              },
               "account": {
                 "type": "object",
                 "required": [
@@ -783,10 +829,6 @@
                   "bankCity": {
                     "type": "string",
                     "description": "City of the bank."
-                  },
-                  "branchCode": {
-                    "type": "string",
-                    "description": "Branch code."
                   }
                 }
               }
@@ -819,6 +861,13 @@
                 "type": "string",
                 "description": "Recipient nickname."
               },
+              "sourceOfFunds": {
+                "type": "string",
+                "description": "Code indicating the source of funds."
+              },
+              "sourceOfIncome": {
+                "$ref": "#/components/schemas/SourceOfIncome"
+              },
               "account": {
                 "type": "object",
                 "required": [
@@ -842,10 +891,6 @@
                   "bankCity": {
                     "type": "string",
                     "description": "City of the bank."
-                  },
-                  "branchCode": {
-                    "type": "string",
-                    "description": "Branch code."
                   }
                 }
               }
@@ -877,6 +922,13 @@
               "nickName": {
                 "type": "string",
                 "description": "Recipient nickname."
+              },
+              "sourceOfFunds": {
+                "type": "string",
+                "description": "Code indicating the source of funds."
+              },
+              "sourceOfIncome": {
+                "$ref": "#/components/schemas/SourceOfIncome"
               },
               "account": {
                 "type": "object",
@@ -929,6 +981,13 @@
                 "type": "string",
                 "description": "Recipient nickname."
               },
+              "sourceOfFunds": {
+                "type": "string",
+                "description": "Code indicating the source of funds."
+              },
+              "sourceOfIncome": {
+                "$ref": "#/components/schemas/SourceOfIncome"
+              },
               "account": {
                 "type": "object",
                 "required": [
@@ -952,10 +1011,6 @@
                   "bankCity": {
                     "type": "string",
                     "description": "City of the bank."
-                  },
-                  "branchCode": {
-                    "type": "string",
-                    "description": "Branch code."
                   }
                 }
               }
@@ -3064,16 +3119,19 @@
                 "NGN_Payout": {
                   "summary": "Example Payout to Nigeria (NGN)",
                   "value": {
-                    "remark": "TESTING",
-                    "reason": "GIFT",
+                    "remark": "Testing",
+                    "reason": "Gift",
                     "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
                     "quoteId": "91e58c2d-ef14-4777-906b-xxxxxxxxxxxxx",
                     "recipient": {
                       "name": "Adeolu Adebayo",
+                      "paymentChannel": "BANK_TRANSFER",
+                      "currency": "NGN",
+                      "country": "NG",
                       "account": {
                         "bankName": "GT Bank",
-                        "accountNumber": "0010401234",
-                        "bankCode": "058"
+                        "accountNumber": "001040XXXXX",
+                        "sortCode": "058"
                       }
                     }
                   }
@@ -3082,17 +3140,24 @@
                   "summary": "Example Payout to the USA (USD)",
                   "value": {
                     "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
-                    "reason": "GIFT",
+                    "reason": "Gift",
                     "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
-                    "remark": "TESTING",
+                    "remark": "Testing",
                     "recipient": {
                       "name": "Linda Collins",
                       "type": "BUSINESS",
                       "address": "200 Koch Vista, New York, NY 10001",
                       "account": {
-                        "accountNumber": "857362910",
-                        "routingNumber": "021000021"
-                      }
+                        "accountNumber": "8573629XX",
+                        "swiftCode": "12345",
+                        "bankName": "Chase Bank",
+                        "address": "1948 Kemmer Ville, New York, NY 10002",
+                        "routingNumber": "0210000XX"
+                      },
+                      "paymentChannel": "BANK_TRANSFER",
+                      "currency": "USD",
+                      "country": "US",
+                      "stored": false
                     }
                   }
                 },
@@ -3100,21 +3165,22 @@
                   "summary": "Example Payout to Europe (EUR)",
                   "value": {
                     "quoteId": "a4f7b2c1-ef14-4999-906b-xxxxxxxxxxxxx",
-                    "reason": "GIFT",
+                    "reason": "Gift",
                     "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
-                    "remark": "TESTING",
-                    "recipient": {
-                      "name": "Sam James",
-                      "type": "BUSINESS",
-                      "address": "12 street",
-                      "stored": true,
-                      "account": {
-                        "iban": "DE89XXXXXXXX3000",
-                        "swiftCode": "SWIFT2346",
-                        "accountNumber": "566432345678765",
-                        "bankName": "Best Bank",
-                        "address": "12 brown"
-                      }
+                    "remark": "Testing",
+                    "name": "Sam James",
+                    "address": "12 street",
+                    "type": "BUSINESS",
+                    "country": "DE",
+                    "currency": "EUR",
+                    "paymentChannel": "BANK_TRANSFER",
+                    "stored": true,
+                    "account": {
+                      "iban": "DE89XXXXXXXX3000",
+                      "swiftCode": "SWIFT2346",
+                      "accountNumber": "566432345678765",
+                      "bankName": "Best Bank",
+                      "address": "12 brown"
                     }
                   }
                 },
@@ -3122,20 +3188,23 @@
                   "summary": "Example Payout to the United Kingdom (GBP)",
                   "value": {
                     "quoteId": "a4f7b2c1-ef14-4999-906b-xxxxxxxxxxxxx",
-                    "reason": "GIFT",
+                    "reason": "Gift",
                     "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
-                    "remark": "TESTING",
+                    "remark": "Testing",
                     "recipient": {
                       "firstName": "Derick",
                       "lastName": "Heaney",
                       "type": "BUSINESS",
-                      "stored": true,
                       "account": {
                         "bankName": "Investment Account",
                         "sortCode": "040004",
                         "address": "8190 Amely Freeway",
                         "accountNumber": "78355047"
-                      }
+                      },
+                      "paymentChannel": "BANK_TRANSFER",
+                      "currency": "GBP",
+                      "country": "GB",
+                      "stored": true
                     }
                   }
                 },
@@ -3143,7 +3212,7 @@
                   "summary": "Example Payout to Canada (CAD)",
                   "value": {
                     "quoteId": "f1474828-6a2e-4ee8-8598-xxxxxxxxxxxx",
-                    "reason": "GIFT",
+                    "reason": "Gift",
                     "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
                     "remark": "test",
                     "recipient": {
@@ -3156,27 +3225,30 @@
                         "sortCode": "890",
                         "swiftCode": "SWIFT1234",
                         "transitNumber": "12345"
-                      }
+                      },
+                      "paymentChannel": "BANK_TRANSFER",
+                      "currency": "CAD",
+                      "country": "CA"
                     }
                   }
                 },
                 "CAD_Payout_INTERAC": {
                   "summary": "Example Payout to Canada (CAD) via INTERAC",
                   "value": {
-                    "quoteId": "c2156b73-1a2b-4c5d-9e7f-xxxxxxxxxxxx",
-                    "reason": "OTHER",
+                    "quoteId": "5392890f-cab6-40ee-8db2-xxxxxxxxxx",
+                    "reason": "Gift",
                     "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
-                    "remark": "INTERAC transfer",
+                    "remark": "Testing",
                     "recipient": {
-                      "name": "Marie Tremblay",
-                      "address": "55 Rue Saint-Paul, Quebec City, QC G1K 3V8",
-                      "account": {
-                        "bankName": "Canadian Credit Union",
-                        "accountNumber": "99887766",
-                        "transitNumber": "54321",
-                        "institutionNumber": "839",
-                        "address": "123 Credit Union Blvd, Quebec City, QC"
-                      }
+                      "name": "Nettie Wuckert",
+                      "mobileNumber": "6137007875",
+                      "email": "Guiseppe_Wisoky77@example.net",
+                      "type": "BUSINESS",
+                      "account": {},
+                      "paymentChannel": "INTERAC",
+                      "currency": "CAD",
+                      "country": "CA",
+                      "stored": true
                     }
                   }
                 },
@@ -3198,8 +3270,250 @@
                         "swiftCode": "GTBINGLA",
                         "bankCity": "Atlanta",
                         "accountNumber": "885406477269",
-                        "bankName": "DBS Bank Limited"
-                      }
+                        "bankName": "DBS Bank Limited",
+                        "intermediaryBankSwiftCode": "CHASUS33XXX"
+                      },
+                      "paymentChannel": "SWIFT",
+                      "country": "US",
+                      "currency": "USD"
+                    }
+                  }
+                },
+                "NGN_CNY_Payout": {
+                  "summary": "NGN to CNY (Bank Transfer)",
+                  "value": {
+                    "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
+                    "reason": "Payment for goods",
+                    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
+                    "remark": "Import Payment",
+                    "recipient": {
+                      "name": "Zhang Wei",
+                      "type": "INDIVIDUAL",
+                      "address": "123 Beijing Road, Shanghai, China",
+                      "account": {
+                        "accountNumber": "6222021001122334455",
+                        "bankName": "Bank of China"
+                      },
+                      "paymentChannel": "BANK_TRANSFER",
+                      "currency": "CNY",
+                      "country": "CN",
+                      "stored": false
+                    }
+                  }
+                },
+                "NGN_KRW_Payout": {
+                  "summary": "NGN to KRW (Bank Transfer)",
+                  "value": {
+                    "quoteId": "b51741c8-05c5-41af-9bbf-582fef04dcb8",
+                    "reason": "Gift",
+                    "remark": "Testing",
+                    "recipient": {
+                      "name": "Min-jun Kim",
+                      "nickName": "TestLRQ",
+                      "gender": "M",
+                      "mobileNumber": "08012345678",
+                      "occupation": "business entrepreneur",
+                      "countryName": "KR",
+                      "type": "BUSINESS",
+                      "stored": false,
+                      "account": {
+                        "bankName": "KDB산업:Korea Development Bank",
+                        "sortCode": "01462",
+                        "swiftCode": "DBSSSGSGXXX",
+                        "bankCity": "Seoul",
+                        "accountNumber": "001299123456"
+                      },
+                      "sourceOfFunds": "I1",
+                      "sourceOfIncome": "Agriculture & Food",
+                      "paymentChannel": "BANK_TRANSFER",
+                      "currency": "KRW",
+                      "country": "KR"
+                    }
+                  }
+                },
+                "NGN_SGD_Payout": {
+                  "summary": "NGN to SGD (Bank Transfer)",
+                  "value": {
+                    "quoteId": "d3b47ced-ff79-436f-a926-2d19b03e9fa6",
+                    "reason": "Gift",
+                    "remark": "Testing",
+                    "recipient": {
+                      "name": "Jayden Tan",
+                      "nickName": "TestLRQ",
+                      "gender": "M",
+                      "occupation": "business entrepreneur",
+                      "countryName": "SG",
+                      "type": "BUSINESS",
+                      "stored": false,
+                      "account": {
+                        "bankName": "DBS Bank",
+                        "sortCode": "00120",
+                        "swiftCode": "DBSSSGSGXXX",
+                        "bankCity": "Suntec City",
+                        "accountNumber": "0012345678"
+                      },
+                      "sourceOfFunds": "I1",
+                      "sourceOfIncome": "Agriculture & Food",
+                      "paymentChannel": "BANK_TRANSFER",
+                      "currency": "SGD",
+                      "country": "SG"
+                    }
+                  }
+                },
+                "USD_SGD_Payout": {
+                  "summary": "USD to SGD (Bank Transfer)",
+                  "value": {
+                    "quoteId": "usd-sgd-quote-id-sample",
+                    "reason": "Gift",
+                    "remark": "Testing",
+                    "recipient": {
+                      "name": "Jayden Tan",
+                      "nickName": "TestLRQ",
+                      "gender": "M",
+                      "occupation": "business entrepreneur",
+                      "countryName": "SG",
+                      "type": "BUSINESS",
+                      "stored": false,
+                      "account": {
+                        "bankName": "DBS Bank",
+                        "sortCode": "00120",
+                        "swiftCode": "DBSSSGSGXXX",
+                        "bankCity": "Suntec City",
+                        "accountNumber": "0012345678"
+                      },
+                      "sourceOfFunds": "I1",
+                      "sourceOfIncome": "Agriculture & Food",
+                      "paymentChannel": "BANK_TRANSFER",
+                      "currency": "SGD",
+                      "country": "SG"
+                    }
+                  }
+                },
+                "USD_KRW_Payout": {
+                  "summary": "USD to KRW (Bank Transfer)",
+                  "value": {
+                    "quoteId": "kr-usd-quote-id-sample",
+                    "reason": "Gift",
+                    "remark": "TestKRW",
+                    "recipient": {
+                      "name": "Min-jun Kim",
+                      "nickName": "DemoNickname",
+                      "mobileNumber": "08012345678",
+                      "type": "INDIVIDUAL",
+                      "stored": false,
+                      "account": {
+                        "bankName": "Korea Development Bank",
+                        "sortCode": "01462",
+                        "bankCity": "Seoul",
+                        "accountNumber": "0012345678"
+                      },
+                      "sourceOfFunds": "income",
+                      "sourceOfIncome": "Agriculture & Food",
+                      "paymentChannel": "BANK_TRANSFER",
+                      "currency": "KRW",
+                      "country": "KR"
+                    }
+                  }
+                },
+                "USD_THB_Payout": {
+                  "summary": "USD to THB (Bank Transfer)",
+                  "value": {
+                    "quoteId": "779997685019",
+                    "reason": "Gift",
+                    "remark": "TestTHB",
+                    "recipient": {
+                      "name": "Nguyễn Văn Nam",
+                      "nickName": "DemoVNNickname",
+                      "gender": "M",
+                      "type": "INDIVIDUAL",
+                      "stored": false,
+                      "account": {
+                        "bankName": "AGRICULTURE & AGRICULTL COOP",
+                        "sortCode": "00301",
+                        "bankCity": "Bangkok",
+                        "accountNumber": "0012345678"
+                      },
+                      "sourceOfFunds": "income",
+                      "sourceOfIncome": "Agriculture & Food",
+                      "paymentChannel": "BANK_TRANSFER",
+                      "currency": "THB",
+                      "country": "TH"
+                    }
+                  }
+                },
+                "USD_MYR_Payout": {
+                  "summary": "USD to MYR (Bank Transfer)",
+                  "value": {
+                    "quoteId": "779997685832",
+                    "reason": "Gift",
+                    "remark": "TestMYR",
+                    "recipient": {
+                      "name": "Jayden Tan",
+                      "nickName": "TestMY",
+                      "type": "INDIVIDUAL",
+                      "stored": false,
+                      "account": {
+                        "bankName": "Affin Bank Berhad",
+                        "sortCode": "00163",
+                        "accountNumber": "0012345678"
+                      },
+                      "sourceOfFunds": "income",
+                      "sourceOfIncome": "Agriculture & Food",
+                      "paymentChannel": "BANK_TRANSFER",
+                      "currency": "MYR",
+                      "country": "MY"
+                    }
+                  }
+                },
+                "USD_VND_Payout": {
+                  "summary": "USD to VND (Bank Transfer)",
+                  "value": {
+                    "quoteId": "vn-usd-quote-id-sample",
+                    "reason": "Gift",
+                    "remark": "TestVND",
+                    "recipient": {
+                      "name": "Nguyễn Văn Nam",
+                      "nickName": "DemoVNNickname",
+                      "type": "INDIVIDUAL",
+                      "stored": false,
+                      "account": {
+                        "bankName": "Vietnam Bank",
+                        "sortCode": "00205",
+                        "bankCity": "Hanoi",
+                        "accountNumber": "0012345678"
+                      },
+                      "sourceOfFunds": "income",
+                      "sourceOfIncome": "Agriculture & Food",
+                      "paymentChannel": "BANK_TRANSFER",
+                      "currency": "VND",
+                      "country": "VN"
+                    }
+                  }
+                },
+                "USD_Custom_SWIFT_Payout": {
+                  "summary": "USD to USD (Global SWIFT)",
+                  "value": {
+                    "quoteId": "d3267c84-2b3c-4d6e-9f8g-xxxxxxxxxxxx",
+                    "reason": "Gift",
+                    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
+                    "remark": "Testing",
+                    "recipient": {
+                      "name": "James Wilson",
+                      "nickName": "Blue",
+                      "gender": "M",
+                      "occupation": "business entrepreneur",
+                      "type": "BUSINESS",
+                      "account": {
+                        "sortCode": "02090",
+                        "swiftCode": "GTBINGLA",
+                        "bankCity": "Atlanta",
+                        "accountNumber": "885406477269",
+                        "bankName": "DBS Bank Limited",
+                        "intermediaryBankSwiftCode": "CHASUS33XXX"
+                      },
+                      "paymentChannel": "SWIFT",
+                      "country": "US",
+                      "currency": "USD"
                     }
                   }
                 }

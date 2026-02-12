@@ -1,0 +1,247 @@
+---
+title: 'NGN → CNY'
+icon: money-bill-transfer
+---
+
+This endpoint allows you to process payouts in **Chinese Yuan (CNY)** to recipients with a bank account in China.
+
+---
+
+## Endpoint
+
+**POST:** `{{baseURL}}/v2/payout`
+
+---
+
+## Supported Payment Channels
+
+CNY payouts support the following payment channel:
+
+| **Channel** | **Description** | **Use Case** |
+| :---------- | :-------------- | :----------- |
+| `BANK_TRANSFER` | Standard bank transfer to a Chinese bank account | Business/Personal transfers |
+
+---
+
+## Request Details
+
+### Headers
+
+Include these headers in your request:
+
+| **Header** | **Value** | **Required** |
+| :------------- | :----------------- | :------- |
+| `Content-Type` | `application/json` | ✅ Yes   |
+| `x-api-key`    | `YOUR_API_KEY`     | ✅ Yes   |
+
+---
+
+## Sample Requests
+
+<Tabs>
+<Tab title="BANK_TRANSFER">
+
+Use `BANK_TRANSFER` for payouts to Chinese bank accounts.
+
+<CodeGroup>
+```bash cURL
+curl --location --request POST '{{baseURL}}/v2/payout' \
+--header 'x-api-key: YOUR_API_KEY' \
+--header 'Content-Type: application/json' \
+--data '{
+  "recipient": {
+    "name": "Zhang Wei",
+    "type": "INDIVIDUAL",
+    "address": "123 Beijing Road, Shanghai, China",
+    "account": {
+      "accountNumber": "6222021001122334455",
+      "bankName": "Bank of China"
+    },
+    "paymentChannel": "BANK_TRANSFER",
+    "currency": "CNY",
+    "country": "CN",
+    "stored": false
+  },
+  "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
+  "reason": "Payment for goods",
+  "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
+  "remark": "Import Payment"
+}'
+```
+```javascript JavaScript (Fetch)
+const url = '{{baseURL}}/v2/payout';
+
+const options = {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'x-api-key': 'YOUR_API_KEY'
+  },
+  body: JSON.stringify({
+    recipient: {
+      name: "Zhang Wei",
+      type: "INDIVIDUAL",
+      address: "123 Beijing Road, Shanghai, China",
+      account: {
+        accountNumber: "6222021001122334455",
+        bankName: "Bank of China"
+      },
+      paymentChannel: "BANK_TRANSFER",
+      currency: "CNY",
+      country: "CN",
+      stored: false
+    },
+    quoteId: "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
+    reason: "Payment for goods",
+    invoice: "4b9b6d30-a2ed-421a-bd69-11536344f071",
+    remark: "Import Payment"
+  })
+};
+
+fetch(url, options)
+  .then(res => {
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+    return res.json();
+  })
+  .then(data => console.log(data))
+  .catch(error => console.error('Error:', error));
+```
+
+```python Python (Requests)
+import requests
+import json
+
+url = "{{baseURL}}/v2/payout"
+
+payload = {
+    "recipient": {
+        "name": "Zhang Wei",
+        "type": "INDIVIDUAL",
+        "address": "123 Beijing Road, Shanghai, China",
+        "account": {
+            "accountNumber": "6222021001122334455",
+            "bankName": "Bank of China"
+        },
+        "paymentChannel": "BANK_TRANSFER",
+        "currency": "CNY",
+        "country": "CN",
+        "stored": False
+    },
+    "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
+    "reason": "Payment for goods",
+    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
+    "remark": "Import Payment"
+}
+
+headers = {
+    "x-api-key": "YOUR_API_KEY",
+    "Content-Type": "application/json"
+}
+
+try:
+    response = requests.post(url, headers=headers, data=json.dumps(payload))
+    response.raise_for_status()
+    print(response.json())
+except requests.exceptions.HTTPError as err:
+    print(f"HTTP Error: {err}")
+```
+</CodeGroup>
+
+</Tab>
+</Tabs>
+
+---
+
+### Request Body Breakdown
+
+<Tabs>
+<Tab title="BANK_TRANSFER Fields">
+
+| **Field** | **Type** | **Description** | **Required** |
+| :---------------------------------- | :------ | :-------------------------------------------------------------------------- | :------- |
+| `quoteId`                           | String  | The unique ID of the quote for this payout.                                 | ✅ Yes   |
+| `reason`                            | String  | The purpose of the transfer.                                                | ✅ Yes   |
+| `recipient`                         | Object  | An object containing all details about the person receiving the funds.      | ✅ Yes   |
+| `recipient.name`                    | String  | The full name of the recipient or business.                                 | ✅ Yes   |
+| `recipient.type`                    | String  | The type of recipient. Enum: `INDIVIDUAL`, `BUSINESS`.                      | ✅ Yes   |
+| `recipient.paymentChannel`          | String  | The payment method. Use `BANK_TRANSFER`.                                    | ✅ Yes   |
+| `recipient.currency`                | String  | The ISO currency code. Must be `CNY`.                                       | ✅ Yes   |
+| `recipient.country`                 | String  | The recipient's two-letter ISO country code. Must be `CN`.                  | ✅ Yes   |
+| `recipient.account`                 | Object  | An object containing the recipient's bank account details.                  | ✅ Yes   |
+| `recipient.account.accountNumber`   | String  | The recipient's bank account number.                                        | ✅ Yes   |
+| `recipient.account.bankName`        | String  | The name of the recipient's bank.                                           | ✅ Yes   |
+
+</Tab>
+</Tabs>
+
+---
+
+## Success Response (200 OK)
+
+If the payout is successfully created, the API returns the following response:
+
+```json copy
+{
+  "message": "Transaction created successfully",
+  "status": "success",
+  "data": {
+    "id": "a1b2c3d4-e5f6-7890-abcd-xxxxxxxxxxxxx",
+    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
+    "reason": "Payment for goods",
+    "referenceNumber": "TXYZD6RWSQMKF",
+    "type": "SEND",
+    "state": "COMPLETED",
+    "quote": {
+      "id": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
+      "source": {
+        "currency": "NGN",
+        "country": "NG",
+        "amount": 230000
+      },
+      "target": {
+        "currency": "CNY",
+        "country": "CN",
+        "amount": 1000
+      },
+      "rate": 230,
+      "fee": {
+        "amount": 100
+      }
+    },
+    "recipient": {
+      "name": "Zhang Wei",
+      "type": "INDIVIDUAL",
+      "address": "123 Beijing Road, Shanghai, China",
+      "account": {
+          "accountNumber": "6222021001122334455",
+          "bankName": "Bank of China"
+      },
+      "paymentChannel": "BANK_TRANSFER",
+      "currency": "CNY",
+      "country": "CN"
+    },
+    "created": "2025-02-27T14:17:48.038044Z",
+    "processed": "2025-02-27T14:20:49.712685Z"
+  }
+}
+```
+---
+## **Response Breakdown**
+| **Field** | **Type** | **Description** |
+| :--------------------------------- | :----- | :-------------------------------------------------------------- |
+| `message`                          | String | A confirmation message indicating the result of the request.    |
+| `status`                           | String | The overall status of the request.                              |
+| `data`                             | Object | A container for all the transaction data.                       |
+| `data.id`                          | String | The unique identifier for this payout transaction.              |
+| `data.state`                       | String | The current state of the payout (`COMPLETED`, `PENDING`, etc.). |
+| `data.quote.source.currency`       | String | The three-letter currency code of the source funds.             |
+| `data.quote.target.amount`         | Number | The converted amount that the recipient received.               |
+
+---
+
+## **Best Practices**
+✅ Ensure `quoteId` is valid and linked to an existing quote.  
+✅ Confirm that the recipient's **account number** is correct for the destination bank.  
+✅ Use `recipient.country: "CN"` and `recipient.currency: "CNY"`.

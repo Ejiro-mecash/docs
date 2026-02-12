@@ -58,15 +58,14 @@ curl --location --request POST '{{baseURL}}/v2/payout' \
     "type": "BUSINESS",
     "stored": false,
     "account": {
-        "name": "Jayden Tan",
         "bankName": "DBS Bank",
         "sortCode": "00120",
         "swiftCode": "DBSSSGSGXXX",
         "bankCity": "Suntec City",
         "accountNumber": "0012345678",
-        "branchCode": "DBS Bank Limited"
     },
     "sourceOfFunds": "I1",
+    "sourceOfIncome": "Agriculture & Food",
     "paymentChannel": "BANK_TRANSFER",
     "currency": "SGD",
     "country": "SG"
@@ -95,13 +94,11 @@ const options = {
       type: "BUSINESS",
       stored: false,
       account: {
-        name: "Jayden Tan",
         bankName: "DBS Bank",
         sortCode: "00120",
         swiftCode: "DBSSSGSGXXX",
         bankCity: "Suntec City",
         accountNumber: "0012345678",
-        branchCode: "DBS Bank Limited"
       },
       sourceOfFunds: "I1",
       paymentChannel: "BANK_TRANSFER",
@@ -141,15 +138,14 @@ payload = {
         "type": "BUSINESS",
         "stored": False,
         "account": {
-            "name": "Jayden Tan",
             "bankName": "DBS Bank",
             "sortCode": "00120",
             "swiftCode": "DBSSSGSGXXX",
             "bankCity": "Suntec City",
             "accountNumber": "0012345678",
-            "branchCode": "DBS Bank Limited"
         },
         "sourceOfFunds": "I1",
+        "sourceOfIncome": "Agriculture & Food",
         "paymentChannel": "BANK_TRANSFER",
         "currency": "SGD",
         "country": "SG"
@@ -198,6 +194,7 @@ except requests.exceptions.HTTPError as err:
 | `recipient.account.swiftCode` | String | The SWIFT code of the recipient's bank. | ✅ Yes |
 | `recipient.paymentChannel` | String | The payment method. Must be `BANK_TRANSFER`. | ✅ Yes |
 | `recipient.sourceOfFunds` | String | Code indicating the source of funds (e.g., `I1`). | ✅ Yes |
+| `recipient.sourceOfIncome` | String | The recipient's source of income (Enum). | ✅ Yes |
 
 </Tab>
 </Tabs>

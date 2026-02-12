@@ -26,6 +26,7 @@ Use the samples below to experiment with the [`POST /v1/quote`](/quote/create-qu
 - [Convert 5,000 NGN domestically](#ngn-domestic) ([Payout Example](/payout-docs/payout-examples/ngn-ngn-example))
 - [Convert 2,000 NGN to SGD](#ngn-sgd) ([Payout Example](/payout-docs/payout-examples/ngn-sgd-example))
 - [Convert 10,000 NGN to KRW](#ngn-krw) ([Payout Example](/payout-docs/payout-examples/ngn-krw-example))
+- [Convert 100,000 NGN to CNY](#ngn-cny) ([Payout Example](/payout-docs/payout-examples/ngn-cny-example))
 - [Convert 100 USD to KRW](#usd-krw) ([Payout Example](/payout-docs/payout-examples/usd-krw-example))
 - [Convert 100 USD to THB](#usd-thb) ([Payout Example](/payout-docs/payout-examples/usd-thb-example))
 - [Convert 100 USD to MYR](#usd-myr) ([Payout Example](/payout-docs/payout-examples/usd-myr-example))
@@ -187,7 +188,7 @@ curl --request POST '{{baseURL}}/v1/quote' \
   "data": {
     "id": "02fjf834-665g-77h8-ade9-xxxxxxxxxxxxx",
     "source": { "currency": "NGN", "country": "NG", "amount": 5000 },
-    "target": { "currency": "NGN", "country": "NG", "amount": 4850 },
+    "target": { "currency": "NGN", "country": "NG", "amount": 5000 },
     "rate": 1,
     "fee": { "amount": 150 },
     "rules": [],
@@ -260,6 +261,39 @@ curl --request POST '{{baseURL}}/v1/quote' \
     "summary": { "total": 10100 },
     "settlementTime": "15 minutes",
     "quoteCurrency": "KRW",
+    "expiresInSeconds": 600
+  }
+}
+```
+</CodeGroup>
+
+### Convert 100,000 NGN to CNY {#ngn-cny}
+
+<CodeGroup>
+```bash Request
+curl --request POST '{{baseURL}}/v1/quote' \
+  --header 'x-api-key: YOUR_API_KEY' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "paymentChannel": "BANK_TRANSFER",
+    "source": { "amount": 100000, "country": "NG", "currency": "NGN" },
+    "target": { "country": "CN", "currency": "CNY" }
+  }'
+```
+```json Response
+{
+  "message": "quote successfully created",
+  "status": "success",
+  "data": {
+    "id": "cny-quote-id-123456",
+    "source": { "currency": "NGN", "country": "NG", "amount": 100000 },
+    "target": { "currency": "CNY", "country": "CN", "amount": 434.78 },
+    "rate": 230.00,
+    "fee": { "amount": 500 },
+    "rules": [],
+    "summary": { "total": 100500 },
+    "settlementTime": "15 minutes",
+    "quoteCurrency": "CNY",
     "expiresInSeconds": 600
   }
 }

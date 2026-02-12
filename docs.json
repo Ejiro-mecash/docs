@@ -96,6 +96,7 @@
                   "payout-docs/payout-examples/ngn-cad-example",
                   "payout-docs/payout-examples/ngn-sgd-example",
                   "payout-docs/payout-examples/ngn-krw-example",
+                  "payout-docs/payout-examples/ngn-cny-example",
                   "payout-docs/payout-examples/mkw-mkw-example",
                   "payout-docs/payout-examples/usd-usd-swift-example",
                   "payout-docs/payout-examples/usd-sgd-example",
@@ -248,7 +249,7 @@
   "logo": {
     "light": "/logo/dark.png",
     "dark": "/logo/light.png",
-    "height": 60
+    "height": 100
   },
   "navbar": {
     "links": [
@@ -284,7 +285,8 @@
     }
   },
   "scripts": [
-    "/ask-ai-floating-widget.js"
+    "/ask-ai-floating-widget.js",
+    "/love-in-motion-popup.js"
   ],
   "banner": {
     "content": "🚀 **New Payout Routes Added!** Now supporting 🇸🇬, 🇰🇷, 🇹🇭, 🇲🇾, and 🇻🇳. [View Payout Examples](/payout-docs/payout-examples/usd-thb-example)",
