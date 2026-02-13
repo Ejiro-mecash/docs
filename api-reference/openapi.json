@@ -296,6 +296,11 @@
           "type": {
             "$ref": "#/components/schemas/RecipientType"
           },
+          "stored": {
+            "type": "boolean",
+            "description": "Whether the recipient details should be saved in the address book.",
+            "default": false
+          },
           "address": {
             "type": "string",
             "description": "Full address of the recipient."
@@ -947,10 +952,6 @@
               "quantity": {
                 "type": "integer",
                 "description": "Quantity of items."
-              },
-              "stored": {
-                "type": "boolean",
-                "description": "Whether the recipient details should be saved."
               }
             }
           }

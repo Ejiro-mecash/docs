@@ -231,6 +231,7 @@
             "group": "Guides",
             "pages": [
               "payment-links",
+              "virtual-cards",
               {
                 "group": "Ramp",
                 "pages": [
@@ -297,7 +298,7 @@
     "/love-in-motion-popup.js"
   ],
   "banner": {
-    "content": "🚀 **New Payout Routes Added!** Now supporting 🇸🇬, 🇰🇷, 🇹🇭, 🇲🇾, and 🇻🇳. [View Payout Examples](/payout-docs/payout-examples/usd-thb-example)",
+    "content": "🚀 **New Feature:** API Logs! View all your API requests and responses in the **Developers** tab of your dashboard.",
     "dismissible": true
   }
 }
