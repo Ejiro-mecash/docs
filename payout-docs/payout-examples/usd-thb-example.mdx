@@ -94,7 +94,7 @@ const options = {
         bankCity: "Bangkok",
         accountNumber: "0012345678",
       },
-      sourceOfFunds: "income",
+      sourceOfFunds: "I1 Income - Business Income",
       paymentChannel: "BANK_TRANSFER",
       currency: "THB",
       country: "TH"
@@ -184,7 +184,7 @@ except requests.exceptions.HTTPError as err:
 | `recipient.account.accountNumber` | String | The recipient's bank account number. | ✅ Yes |
 | `recipient.account.sortCode` | String | The bank code/sort code (e.g., `00301`). | ✅ Yes |
 | `recipient.paymentChannel` | String | The payment method. Must be `BANK_TRANSFER`. | ✅ Yes |
-| `recipient.sourceOfFunds` | String | Code indicating the source of funds. | ✅ Yes |
+| `recipient.sourceOfFunds` | String | Code indicating the source of funds (e.g., `I1 Income - Business Income`). | ✅ Yes |
 | `recipient.sourceOfIncome` | String | The recipient's source of income (Enum). | ✅ Yes |
 
 </Tab>

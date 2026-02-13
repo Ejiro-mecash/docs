@@ -69,7 +69,8 @@
             "group": "Wallets",
             "pages": [
               "wallet-docs/wallet-overview",
-              "wallet-docs/funding-wallet"
+              "wallet-docs/funding-wallet",
+              "wallet-docs/mobile-money-collections"
             ]
           },
           {
@@ -171,6 +172,13 @@
             "pages": [
               "wallet/get-all-wallets",
               "wallet/get-wallet-balance"
+            ]
+          },
+          {
+            "group": "Collection",
+            "pages": [
+              "collection/get-mobile-money-operators",
+              "collection/initiate-funding"
             ]
           },
           {

@@ -49,23 +49,35 @@ curl --location --request POST '{{baseURL}}/v2/payout' \
 --header 'x-api-key: YOUR_API_KEY' \
 --header 'Content-Type: application/json' \
 --data '{
-  "recipient": {
-    "name": "Zhang Wei",
-    "type": "INDIVIDUAL",
-    "address": "123 Beijing Road, Shanghai, China",
-    "account": {
-      "accountNumber": "6222021001122334455",
-      "bankName": "Bank of China"
+    "recipient": {
+        "name": "张少杰",
+        "nickName": "{{$randomColor}}",
+        "occupation": "HEALTHCARE",
+        "icNumber": "130132198812201310",
+        "relationship": "SELF",
+        "type": "BUSINESS",
+        "account": {
+            "accountNumber": "6217000130064754343",
+            "sortCode": "01026",
+            "bankName": "BAOSHANG BANK (包商银行)",
+            "bankCity": "SHENZHEN"
+        },
+        "companyName": "龙口市玉杰五金工具有限公司",
+        "companyIdNumber": "91370681MABU8HLY6N",
+        "gender": "F",
+        "nationality": "CN",
+        "itemCategory": "PRD0003",
+        "itemType": "Pipe Wrench",
+        "quantity": 100,
+        "paymentChannel": "BANK_TRANSFER",
+        "currency": "CNY",
+        "country": "CN",
+        "stored": false
     },
-    "paymentChannel": "BANK_TRANSFER",
-    "currency": "CNY",
-    "country": "CN",
-    "stored": false
-  },
-  "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
-  "reason": "Payment for goods",
-  "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
-  "remark": "Import Payment"
+    "quoteId": "{{quoteIdNgn}}",
+    "transactionPin": "123456",
+    "reason": "Gift",
+    "remark": "Testing"
 }'
 ```
 ```javascript JavaScript (Fetch)
@@ -79,22 +91,34 @@ const options = {
   },
   body: JSON.stringify({
     recipient: {
-      name: "Zhang Wei",
-      type: "INDIVIDUAL",
-      address: "123 Beijing Road, Shanghai, China",
+      name: "张少杰",
+      nickName: "{{$randomColor}}",
+      occupation: "HEALTHCARE",
+      icNumber: "130132198812201310",
+      relationship: "SELF",
+      type: "BUSINESS",
       account: {
-        accountNumber: "6222021001122334455",
-        bankName: "Bank of China"
+        accountNumber: "6217000130064754343",
+        sortCode: "01026",
+        bankName: "BAOSHANG BANK (包商银行)",
+        bankCity: "SHENZHEN"
       },
+      companyName: "龙口市玉杰五金工具有限公司",
+      companyIdNumber: "91370681MABU8HLY6N",
+      gender: "F",
+      nationality: "CN",
+      itemCategory: "PRD0003",
+      itemType: "Pipe Wrench",
+      quantity: 100,
       paymentChannel: "BANK_TRANSFER",
       currency: "CNY",
       country: "CN",
       stored: false
     },
-    quoteId: "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
-    reason: "Payment for goods",
-    invoice: "4b9b6d30-a2ed-421a-bd69-11536344f071",
-    remark: "Import Payment"
+    quoteId: "{{quoteIdNgn}}",
+    transactionPin: "123456",
+    reason: "Gift",
+    remark: "Testing"
   })
 };
 
@@ -117,22 +141,34 @@ url = "{{baseURL}}/v2/payout"
 
 payload = {
     "recipient": {
-        "name": "Zhang Wei",
-        "type": "INDIVIDUAL",
-        "address": "123 Beijing Road, Shanghai, China",
+        "name": "张少杰",
+        "nickName": "{{$randomColor}}",
+        "occupation": "HEALTHCARE",
+        "icNumber": "130132198812201310",
+        "relationship": "SELF",
+        "type": "BUSINESS",
         "account": {
-            "accountNumber": "6222021001122334455",
-            "bankName": "Bank of China"
+            "accountNumber": "6217000130064754343",
+            "sortCode": "01026",
+            "bankName": "BAOSHANG BANK (包商银行)",
+            "bankCity": "SHENZHEN"
         },
+        "companyName": "龙口市玉杰五金工具有限公司",
+        "companyIdNumber": "91370681MABU8HLY6N",
+        "gender": "F",
+        "nationality": "CN",
+        "itemCategory": "PRD0003",
+        "itemType": "Pipe Wrench",
+        "quantity": 100,
         "paymentChannel": "BANK_TRANSFER",
         "currency": "CNY",
         "country": "CN",
         "stored": False
     },
-    "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
-    "reason": "Payment for goods",
-    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
-    "remark": "Import Payment"
+    "quoteId": "{{quoteIdNgn}}",
+    "transactionPin": "123456",
+    "reason": "Gift",
+    "remark": "Testing"
 }
 
 headers = {
@@ -161,17 +197,31 @@ except requests.exceptions.HTTPError as err:
 
 | **Field** | **Type** | **Description** | **Required** |
 | :---------------------------------- | :------ | :-------------------------------------------------------------------------- | :------- |
-| `quoteId`                           | String  | The unique ID of the quote for this payout.                                 | ✅ Yes   |
-| `reason`                            | String  | The purpose of the transfer.                                                | ✅ Yes   |
-| `recipient`                         | Object  | An object containing all details about the person receiving the funds.      | ✅ Yes   |
-| `recipient.name`                    | String  | The full name of the recipient or business.                                 | ✅ Yes   |
-| `recipient.type`                    | String  | The type of recipient. Enum: `INDIVIDUAL`, `BUSINESS`.                      | ✅ Yes   |
-| `recipient.paymentChannel`          | String  | The payment method. Use `BANK_TRANSFER`.                                    | ✅ Yes   |
-| `recipient.currency`                | String  | The ISO currency code. Must be `CNY`.                                       | ✅ Yes   |
-| `recipient.country`                 | String  | The recipient's two-letter ISO country code. Must be `CN`.                  | ✅ Yes   |
-| `recipient.account`                 | Object  | An object containing the recipient's bank account details.                  | ✅ Yes   |
-| `recipient.account.accountNumber`   | String  | The recipient's bank account number.                                        | ✅ Yes   |
-| `recipient.account.bankName`        | String  | The name of the recipient's bank.                                           | ✅ Yes   |
+| `transactionPin`                  | String  | The transaction PIN for the payout.                                        | ✅ Yes   |
+| `quoteId`                         | String  | The unique ID of the quote for this payout.                                 | ✅ Yes   |
+| `reason`                          | String  | The purpose of the transfer.                                                | ✅ Yes   |
+| `recipient`                       | Object  | An object containing all details about the person receiving the funds.      | ✅ Yes   |
+| `recipient.name`                  | String  | The full name of the recipient or business.                                 | ✅ Yes   |
+| `recipient.nickName`              | String  | Recipient nickname.                                                         | ❌ No    |
+| `recipient.occupation`            | String  | Recipient occupation.                                                       | ❌ No    |
+| `recipient.icNumber`              | String  | Recipient identity card number.                                             | ❌ No    |
+| `recipient.relationship`          | String  | Relationship with the recipient.                                            | ❌ No    |
+| `recipient.type`                  | String  | The type of recipient. Enum: `INDIVIDUAL`, `BUSINESS`.                      | ✅ Yes   |
+| `recipient.paymentChannel`        | String  | The payment method. Use `BANK_TRANSFER`.                                    | ✅ Yes   |
+| `recipient.currency`              | String  | The ISO currency code. Must be `CNY`.                                       | ✅ Yes   |
+| `recipient.country`               | String  | The recipient's two-letter ISO country code. Must be `CN`.                  | ✅ Yes   |
+| `recipient.account`               | Object  | An object containing the recipient's bank account details.                  | ✅ Yes   |
+| `recipient.account.accountNumber` | String  | The recipient's bank account number.                                        | ✅ Yes   |
+| `recipient.account.sortCode`      | String  | Bank code / Sort code.                                                      | ❌ No    |
+| `recipient.account.bankName`      | String  | The name of the recipient's bank.                                           | ✅ Yes   |
+| `recipient.account.bankCity`      | String  | City of the bank.                                                           | ❌ No    |
+| `recipient.companyName`           | String  | Company name (required if `type` is `BUSINESS`).                            | ❌ No    |
+| `recipient.companyIdNumber`       | String  | Company identification number (required if `type` is `BUSINESS`).           | ❌ No    |
+| `recipient.gender`                | String  | Gender of the recipient (`M` or `F`).                                       | ❌ No    |
+| `recipient.nationality`           | String  | Nationality of the recipient (e.g., `CN`).                                  | ❌ No    |
+| `recipient.itemCategory`          | String  | Category of items (e.g., `PRD0003`).                                        | ❌ No    |
+| `recipient.itemType`              | String  | Type of item (e.g., `Pipe Wrench`).                                         | ❌ No    |
+| `recipient.quantity`              | Number  | Quantity of items.                                                          | ❌ No    |
 
 </Tab>
 </Tabs>
@@ -211,13 +261,25 @@ If the payout is successfully created, the API returns the following response:
       }
     },
     "recipient": {
-      "name": "Zhang Wei",
-      "type": "INDIVIDUAL",
-      "address": "123 Beijing Road, Shanghai, China",
+      "name": "张少杰",
+      "nickName": "Green",
+      "occupation": "HEALTHCARE",
+      "icNumber": "130132198812201310",
+      "relationship": "SELF",
+      "type": "BUSINESS",
       "account": {
-          "accountNumber": "6222021001122334455",
-          "bankName": "Bank of China"
+          "accountNumber": "6217000130064754343",
+          "sortCode": "01026",
+          "bankName": "BAOSHANG BANK (包商银行)",
+          "bankCity": "SHENZHEN"
       },
+      "companyName": "龙口市玉杰五金工具有限公司",
+      "companyIdNumber": "91370681MABU8HLY6N",
+      "gender": "F",
+      "nationality": "CN",
+      "itemCategory": "PRD0003",
+      "itemType": "Pipe Wrench",
+      "quantity": 100,
       "paymentChannel": "BANK_TRANSFER",
       "currency": "CNY",
       "country": "CN"

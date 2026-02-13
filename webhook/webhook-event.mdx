@@ -29,6 +29,7 @@ meCash webhook events are grouped into four main categories based on the type of
 
 ### [💰 Collection Events & Payloads](/webhook/collection-webhook)
 These events notify you about the status of funds being collected and deposited into your merchant wallet.
+* `collection.initiated`
 * `collection.completed`
 * `collection.failed`
 
@@ -70,6 +71,8 @@ This explains the different possible statuses of a transaction within the webhoo
 
 | **State** | **Description** |
 | :--- | :--- |
+| `INITIATED` | The transaction has been started. |
+| `PROCESSING` | The transaction is being processed. |
 | `COMPLETED` | The transaction was processed successfully. |
 | `PENDING` | The transaction is still in progress. |
 | `FAILED` | The transaction could not be processed. |

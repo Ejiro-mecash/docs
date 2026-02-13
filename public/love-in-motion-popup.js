@@ -1,11 +1,16 @@
 (function () {
+    // Only show on the home page
+    if (window.location.pathname !== '/' && window.location.pathname !== '/index') {
+        return;
+    }
+
     // Check if the popup has already been shown in this session
-    // if (sessionStorage.getItem('loveInMotionShown')) {
-    //     return;
-    // }
+    if (sessionStorage.getItem('loveInMotionShown')) {
+        return;
+    }
 
     // Mark as shown immediately
-    // sessionStorage.setItem('loveInMotionShown', 'true');
+    sessionStorage.setItem('loveInMotionShown', 'true');
 
     // Create the overlay
     const overlay = document.createElement('div');

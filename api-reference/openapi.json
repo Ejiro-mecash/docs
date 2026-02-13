@@ -43,6 +43,10 @@
     {
       "name": "Miscellaneous",
       "description": "Utility and miscellaneous operations"
+    },
+    {
+      "name": "Collection",
+      "description": "Mobile money and wallet funding operations"
     }
   ],
   "security": [
@@ -228,6 +232,23 @@
           "BUSINESS"
         ]
       },
+      "SourceOfFunds": {
+        "type": "string",
+        "description": "Code indicating the source of funds.",
+        "enum": [
+          "D1 Divestment - Other Assets",
+          "D2 Divestment - Property",
+          "D3 Divestment - Shares, Other securities",
+          "I1 Income - Business Income",
+          "I2 Income - Employment Income, Allowances",
+          "I3 Income - Interest, Dividend Income",
+          "I4 Income - Rental, Leasing Income",
+          "O1 Others - Insurance Claims, Compensation",
+          "O2 Others - Financial Support from Children, Parent, Spouse",
+          "O3 Others - Loans",
+          "O4 Others - Retirement Fund"
+        ]
+      },
       "SourceOfIncome": {
         "type": "string",
         "description": "The source of income for the payout.",
@@ -328,68 +349,6 @@
                     "type": "string",
                     "description": "The 3-digit NIP sort code.",
                     "example": "058"
-                  }
-                }
-              }
-            }
-          }
-        ]
-      },
-      "UsdRecipient": {
-        "title": "USD Payout",
-        "description": "Recipient details for a payout to the USA (USD).",
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/BaseRecipient"
-          },
-          {
-            "type": "object",
-            "required": [
-              "name",
-              "type",
-              "address"
-            ],
-            "properties": {
-              "name": {
-                "type": "string",
-                "description": "Full name of the recipient."
-              },
-              "type": {
-                "$ref": "#/components/schemas/RecipientType",
-                "description": "Recipient type; use `BUSINESS` for company payouts or `INDIVIDUAL` for personal payouts."
-              },
-              "address": {
-                "type": "string",
-                "description": "Mailing address of the recipient, required for USD payouts."
-              },
-              "account": {
-                "type": "object",
-                "required": [
-                  "accountNumber",
-                  "routingNumber"
-                ],
-                "properties": {
-                  "bankName": {
-                    "type": "string",
-                    "description": "The name of the bank."
-                  },
-                  "accountNumber": {
-                    "type": "string",
-                    "example": "857362910"
-                  },
-                  "routingNumber": {
-                    "type": "string",
-                    "description": "The 9-digit ABA routing number for ACH transfers.",
-                    "example": "021000021"
-                  },
-                  "swiftCode": {
-                    "type": "string",
-                    "description": "SWIFT/BIC code, often for wire transfers.",
-                    "example": "CHASUS33XXX"
-                  },
-                  "address": {
-                    "type": "string",
-                    "description": "The bank's physical address."
                   }
                 }
               }
@@ -728,8 +687,7 @@
                 "description": "Recipient type (INDIVIDUAL or BUSINESS)."
               },
               "sourceOfFunds": {
-                "type": "string",
-                "description": "Code indicating the source of funds (e.g., `I1`)."
+                "$ref": "#/components/schemas/SourceOfFunds"
               },
               "sourceOfIncome": {
                 "$ref": "#/components/schemas/SourceOfIncome"
@@ -800,8 +758,7 @@
                 "description": "Recipient mobile number."
               },
               "sourceOfFunds": {
-                "type": "string",
-                "description": "Code indicating the source of funds."
+                "$ref": "#/components/schemas/SourceOfFunds"
               },
               "sourceOfIncome": {
                 "$ref": "#/components/schemas/SourceOfIncome"
@@ -862,8 +819,7 @@
                 "description": "Recipient nickname."
               },
               "sourceOfFunds": {
-                "type": "string",
-                "description": "Code indicating the source of funds."
+                "$ref": "#/components/schemas/SourceOfFunds"
               },
               "sourceOfIncome": {
                 "$ref": "#/components/schemas/SourceOfIncome"
@@ -898,6 +854,108 @@
           }
         ]
       },
+      "CnyRecipient": {
+        "title": "CNY Payout",
+        "description": "Recipient details for a payout to China (CNY).",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseRecipient"
+          },
+          {
+            "type": "object",
+            "required": [
+              "name",
+              "type"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Full name of the recipient."
+              },
+              "nickName": {
+                "type": "string",
+                "description": "Recipient nickname."
+              },
+              "occupation": {
+                "type": "string",
+                "description": "Occupation of the recipient."
+              },
+              "icNumber": {
+                "type": "string",
+                "description": "Identity card number of the recipient."
+              },
+              "relationship": {
+                "type": "string",
+                "description": "Relationship with the recipient."
+              },
+              "type": {
+                "$ref": "#/components/schemas/RecipientType"
+              },
+              "account": {
+                "type": "object",
+                "required": [
+                  "bankName",
+                  "accountNumber"
+                ],
+                "properties": {
+                  "bankName": {
+                    "type": "string",
+                    "description": "Name of bank"
+                  },
+                  "accountNumber": {
+                    "type": "string",
+                    "description": "Recipient account number"
+                  },
+                  "sortCode": {
+                    "type": "string",
+                    "description": "Bank code / Sort code."
+                  },
+                  "bankCity": {
+                    "type": "string",
+                    "description": "City of the bank."
+                  }
+                }
+              },
+              "companyName": {
+                "type": "string",
+                "description": "Company name (if business)."
+              },
+              "companyIdNumber": {
+                "type": "string",
+                "description": "Company identification number."
+              },
+              "gender": {
+                "type": "string",
+                "enum": [
+                  "M",
+                  "F"
+                ],
+                "description": "Gender of the recipient."
+              },
+              "nationality": {
+                "type": "string",
+                "description": "Nationality of the recipient (e.g., CN)."
+              },
+              "itemCategory": {
+                "type": "string",
+                "description": "Category of items (e.g., PRD0003)."
+              },
+              "itemType": {
+                "type": "string",
+                "description": "Type of item (e.g., Pipe Wrench)."
+              },
+              "quantity": {
+                "type": "integer",
+                "description": "Quantity of items."
+              },
+              "stored": {
+                "type": "boolean",
+                "description": "Whether the recipient details should be saved."
+              }
+            }
+          }
+        ]
+      },
       "MyrRecipient": {
         "title": "MYR Payout",
         "description": "Recipient details for a payout to Malaysia (MYR).",
@@ -924,8 +982,7 @@
                 "description": "Recipient nickname."
               },
               "sourceOfFunds": {
-                "type": "string",
-                "description": "Code indicating the source of funds."
+                "$ref": "#/components/schemas/SourceOfFunds"
               },
               "sourceOfIncome": {
                 "$ref": "#/components/schemas/SourceOfIncome"
@@ -982,8 +1039,7 @@
                 "description": "Recipient nickname."
               },
               "sourceOfFunds": {
-                "type": "string",
-                "description": "Code indicating the source of funds."
+                "$ref": "#/components/schemas/SourceOfFunds"
               },
               "sourceOfIncome": {
                 "$ref": "#/components/schemas/SourceOfIncome"
@@ -1025,6 +1081,10 @@
           "recipient"
         ],
         "properties": {
+          "transactionPin": {
+            "type": "string",
+            "description": "The transaction PIN for the payout."
+          },
           "quoteId": {
             "type": "string",
             "description": "The unique identifier for the quote."
@@ -1056,9 +1116,6 @@
                 "$ref": "#/components/schemas/NgnRecipient"
               },
               {
-                "$ref": "#/components/schemas/UsdRecipient"
-              },
-              {
                 "$ref": "#/components/schemas/UsdSwiftRecipient"
               },
               {
@@ -1084,6 +1141,9 @@
               },
               {
                 "$ref": "#/components/schemas/VndRecipient"
+              },
+              {
+                "$ref": "#/components/schemas/CnyRecipient"
               }
             ]
           }
@@ -1095,6 +1155,10 @@
           "id": {
             "type": "string",
             "example": "c6611ad3-805a-415b-98b7-xxxxxxxxxxxxx"
+          },
+          "transactionPin": {
+            "type": "string",
+            "example": "123456"
           },
           "remark": {
             "type": "string",
@@ -1131,9 +1195,6 @@
                 "$ref": "#/components/schemas/NgnRecipient"
               },
               {
-                "$ref": "#/components/schemas/UsdRecipient"
-              },
-              {
                 "$ref": "#/components/schemas/UsdSwiftRecipient"
               },
               {
@@ -1159,6 +1220,9 @@
               },
               {
                 "$ref": "#/components/schemas/VndRecipient"
+              },
+              {
+                "$ref": "#/components/schemas/CnyRecipient"
               }
             ]
           },
@@ -2297,6 +2361,93 @@
             "example": true
           }
         }
+      },
+      "MobileMoneyOperator": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Airtel Money"
+          },
+          "country": {
+            "$ref": "#/components/schemas/CountryCode"
+          },
+          "code": {
+            "type": "string",
+            "example": "Airtel Money"
+          }
+        }
+      },
+      "MobileMoneyFundingRequest": {
+        "type": "object",
+        "required": [
+          "currency",
+          "country",
+          "amount",
+          "mobile",
+          "paymentMethod"
+        ],
+        "properties": {
+          "currency": {
+            "$ref": "#/components/schemas/CurrencyCode"
+          },
+          "country": {
+            "$ref": "#/components/schemas/CountryCode"
+          },
+          "amount": {
+            "type": "number",
+            "example": 100
+          },
+          "mobile": {
+            "type": "object",
+            "required": [
+              "number",
+              "provider"
+            ],
+            "properties": {
+              "number": {
+                "type": "string",
+                "example": "+265123456789"
+              },
+              "provider": {
+                "type": "string",
+                "example": "Airtel Money"
+              }
+            }
+          },
+          "paymentMethod": {
+            "type": "string",
+            "enum": [
+              "MOBILE_MONEY"
+            ],
+            "example": "MOBILE_MONEY"
+          }
+        }
+      },
+      "MobileMoneyFundingResponseData": {
+        "type": "object",
+        "properties": {
+          "referenceNumber": {
+            "type": "string",
+            "example": "Q1PEGKO4QFRRR"
+          },
+          "uniqueReference": {
+            "type": "string",
+            "example": "ad33948f-68fd-4279-8d5c-651f43ec294a"
+          },
+          "transactionId": {
+            "type": "string",
+            "example": "be6a81e7-59f3-406b-9d92-a615e8ccfb4c"
+          },
+          "paymentMethod": {
+            "type": "string",
+            "example": "MOBILE_MONEY"
+          },
+          "amount": {
+            "type": "number",
+            "example": 100
+          }
+        }
       }
     },
     "responses": {
@@ -3282,18 +3433,30 @@
                 "NGN_CNY_Payout": {
                   "summary": "NGN to CNY (Bank Transfer)",
                   "value": {
-                    "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
-                    "reason": "Payment for goods",
-                    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
-                    "remark": "Import Payment",
+                    "quoteId": "{{quoteIdNgn}}",
+                    "transactionPin": "123456",
+                    "reason": "Gift",
+                    "remark": "Testing",
                     "recipient": {
-                      "name": "Zhang Wei",
-                      "type": "INDIVIDUAL",
-                      "address": "123 Beijing Road, Shanghai, China",
+                      "name": "张少杰",
+                      "nickName": "{{$randomColor}}",
+                      "occupation": "HEALTHCARE",
+                      "icNumber": "130132198812201310",
+                      "relationship": "SELF",
+                      "type": "BUSINESS",
                       "account": {
-                        "accountNumber": "6222021001122334455",
-                        "bankName": "Bank of China"
+                        "accountNumber": "6217000130064754343",
+                        "sortCode": "01026",
+                        "bankName": "BAOSHANG BANK (包商银行)",
+                        "bankCity": "SHENZHEN"
                       },
+                      "companyName": "龙口市玉杰五金工具有限公司",
+                      "companyIdNumber": "91370681MABU8HLY6N",
+                      "gender": "F",
+                      "nationality": "CN",
+                      "itemCategory": "PRD0003",
+                      "itemType": "Pipe Wrench",
+                      "quantity": 100,
                       "paymentChannel": "BANK_TRANSFER",
                       "currency": "CNY",
                       "country": "CN",
@@ -3323,7 +3486,7 @@
                         "bankCity": "Seoul",
                         "accountNumber": "001299123456"
                       },
-                      "sourceOfFunds": "I1",
+                      "sourceOfFunds": "I1 Income - Business Income",
                       "sourceOfIncome": "Agriculture & Food",
                       "paymentChannel": "BANK_TRANSFER",
                       "currency": "KRW",
@@ -3352,7 +3515,7 @@
                         "bankCity": "Suntec City",
                         "accountNumber": "0012345678"
                       },
-                      "sourceOfFunds": "I1",
+                      "sourceOfFunds": "I1 Income - Business Income",
                       "sourceOfIncome": "Agriculture & Food",
                       "paymentChannel": "BANK_TRANSFER",
                       "currency": "SGD",
@@ -3381,7 +3544,7 @@
                         "bankCity": "Suntec City",
                         "accountNumber": "0012345678"
                       },
-                      "sourceOfFunds": "I1",
+                      "sourceOfFunds": "I1 Income - Business Income",
                       "sourceOfIncome": "Agriculture & Food",
                       "paymentChannel": "BANK_TRANSFER",
                       "currency": "SGD",
@@ -3407,7 +3570,7 @@
                         "bankCity": "Seoul",
                         "accountNumber": "0012345678"
                       },
-                      "sourceOfFunds": "income",
+                      "sourceOfFunds": "I1 Income - Business Income",
                       "sourceOfIncome": "Agriculture & Food",
                       "paymentChannel": "BANK_TRANSFER",
                       "currency": "KRW",
@@ -3433,7 +3596,7 @@
                         "bankCity": "Bangkok",
                         "accountNumber": "0012345678"
                       },
-                      "sourceOfFunds": "income",
+                      "sourceOfFunds": "I1 Income - Business Income",
                       "sourceOfIncome": "Agriculture & Food",
                       "paymentChannel": "BANK_TRANSFER",
                       "currency": "THB",
@@ -3457,7 +3620,7 @@
                         "sortCode": "00163",
                         "accountNumber": "0012345678"
                       },
-                      "sourceOfFunds": "income",
+                      "sourceOfFunds": "I1 Income - Business Income",
                       "sourceOfIncome": "Agriculture & Food",
                       "paymentChannel": "BANK_TRANSFER",
                       "currency": "MYR",
@@ -3482,7 +3645,7 @@
                         "bankCity": "Hanoi",
                         "accountNumber": "0012345678"
                       },
-                      "sourceOfFunds": "income",
+                      "sourceOfFunds": "I1 Income - Business Income",
                       "sourceOfIncome": "Agriculture & Food",
                       "paymentChannel": "BANK_TRANSFER",
                       "currency": "VND",
@@ -4150,6 +4313,144 @@
           },
           "500": {
             "$ref": "#/components/responses/PayoutInternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/mobileMoneyOperator": {
+      "get": {
+        "tags": [
+          "Collection"
+        ],
+        "summary": "Get Mobile Networks",
+        "description": "Retrieves a list of supported mobile money networks for a specific country and currency.",
+        "operationId": "getMobileMoneyOperators",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/CountryCode"
+            },
+            "description": "The country code to fetch the networks available (e.g., MW)"
+          },
+          {
+            "name": "currency",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/CurrencyCode"
+            },
+            "description": "Currency code (e.g., MWK)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Mobile money providers fetched successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/Success"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "data": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/MobileMoneyOperator"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "message": "recipient mobile networks fetched successfully",
+                  "status": "success",
+                  "data": [
+                    {
+                      "name": "TNM Mpamba",
+                      "country": "MW",
+                      "code": "TNM Mpamba"
+                    },
+                    {
+                      "name": "Airtel Money",
+                      "country": "MW",
+                      "code": "Airtel Money"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/funding": {
+      "post": {
+        "tags": [
+          "Collection"
+        ],
+        "summary": "Initiate Collection",
+        "description": "Initiates a mobile money collection request to fund the merchant's wallet.",
+        "operationId": "initiateFunding",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MobileMoneyFundingRequest"
+              },
+              "example": {
+                "currency": "MWK",
+                "country": "MW",
+                "amount": 100,
+                "mobile": {
+                  "number": "+265123456789",
+                  "provider": "Airtel Money"
+                },
+                "paymentMethod": "MOBILE_MONEY"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Funding transaction initiated successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/Success"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/MobileMoneyFundingResponseData"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "message": "fund transaction initiated successfully",
+                  "status": "success",
+                  "data": {
+                    "referenceNumber": "Q1PEGKO4QFRRR",
+                    "uniqueReference": "ad33948f-68fd-4279-8d5c-651f43ec294a",
+                    "transactionId": "be6a81e7-59f3-406b-9d92-a615e8ccfb4c",
+                    "paymentMethod": "MOBILE_MONEY",
+                    "amount": 100
+                  }
+                }
+              }
+            }
           }
         }
       }

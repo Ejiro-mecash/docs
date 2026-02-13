@@ -1,0 +1,126 @@
+---
+title: 'Mobile Money Collections'
+description: 'Learn how to discover providers and request mobile money payments in RWF, KES, and TZS.'
+icon: mobile-screen-button
+---
+
+The Mobile Money Collections API enables merchants to programmatically request payments from customers using mobile money wallets. This is ideal for funding your meCash wallet or collecting payments in local currencies like **RWF**, **KES**, and **TZS**.
+
+---
+
+## 1. Discover Supported Mobile Networks
+
+Before requesting a payment, you should discover which mobile money networks are supported in the target country and currency by passing the country code.
+
+### Get Networks Endpoint
+
+**GET:** `{{baseURL}}/v1/mobileMoneyOperator`
+
+#### Query Parameters
+
+| Field | Type | Description | Required |
+| :--- | :--- | :--- | :--- |
+| `country` | string | ISO country code (e.g., `MW`, `RW`, `KE`, `TZ`). | ✅ Yes |
+| `currency` | string | ISO currency code (e.g., `MWK`, `RWF`, `KES`, `TZS`). | ✅ Yes |
+
+<CodeGroup>
+```bash cURL
+curl --location '{{baseURL}}/v1/mobileMoneyOperator?country=MW&currency=MWK' \
+--header 'Content-Type: application/json' \
+--header 'x-api-key: YOUR_API_KEY'
+```
+</CodeGroup>
+
+#### Sample Response
+
+```json
+{
+    "message": "recipient mobile networks fetched successfully",
+    "status": "success",
+    "data": [
+        {
+            "name": "TNM Mpamba",
+            "country": "MW",
+            "code": "TNM Mpamba"
+        },
+        {
+            "name": "Airtel Money",
+            "country": "MW",
+            "code": "Airtel Money"
+        }
+    ]
+}
+```
+
+---
+
+## 2. Request a Payment (Initiate Collection)
+
+Once you have the network details, you can initiate a collection request. This will trigger a prompt on the customer's mobile device to authorize the payment.
+
+### Initiate Collection Endpoint
+
+**POST:** `{{baseURL}}/v1/funding`
+
+#### Request Body Breakdown
+
+| Field | Type | Description | Required |
+| :--- | :--- | :--- | :--- |
+| `currency` | string | ISO currency code. | ✅ Yes |
+| `country` | string | ISO country code. | ✅ Yes |
+| `amount` | number | The total amount to collect. | ✅ Yes |
+| `paymentMethod` | string | Must be `MOBILE_MONEY`. | ✅ Yes |
+| `mobile` | object | Container for mobile-specific details. | ✅ Yes |
+| `mobile.number` | string | The customer phone number (with country code). | ✅ Yes |
+| `mobile.provider` | string | The name/code of the mobile money network. | ✅ Yes |
+
+<CodeGroup>
+```bash cURL
+curl --location '{{baseURL}}/v1/funding' \
+--header 'Content-Type: application/json' \
+--header 'x-api-key: YOUR_API_KEY' \
+--data '{
+    "currency":"MWK",
+    "country":"MW",
+    "amount": 100.00,
+    "mobile": {
+        "number": "+265123456789",
+        "provider": "Airtel Money"
+    },
+    "paymentMethod": "MOBILE_MONEY"
+}'
+```
+</CodeGroup>
+
+#### Sample Response
+
+```json
+{
+    "message": "fund transaction initiated successfully",
+    "status": "success",
+    "data": {
+        "referenceNumber": "Q1PEGKO4QFRRR",
+        "uniqueReference": "ad33948f-68fd-4279-8d5c-651f43ec294a",
+        "transactionId": "be6a81e7-59f3-406b-9d92-a615e8ccfb4c",
+        "paymentMethod": "MOBILE_MONEY",
+        "amount": 100.00
+    }
+}
+```
+
+---
+
+## 3. Webhook Lifecycle Events
+
+Mobile money collections are asynchronous. You should listen for the following webhook events to track the payment lifecycle:
+
+| Event | Description |
+| :--- | :--- |
+| `collection.initiated` | The collection request has been sent to the provider. |
+| `collection.processing` | The customer has been prompted and we are awaiting authorization. |
+| `collection.completed` | The payment was successful and funds have been added to your wallet. |
+| `collection.failed` | The payment was rejected or timed out. |
+
+<Tip>
+Ensure your webhook URL is correctly configured and [verified](/webhook/validate-webhook) to receive these notifications.
+</Tip>

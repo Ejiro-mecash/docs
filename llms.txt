@@ -1,0 +1,28 @@
+# meCash Developer Documentation
+
+meCash is a liquidity infrastructure platform for emerging markets. It provides a suite of APIs designed to make global money movement—payouts, wallets, and collections—faster, cheaper, and more accessible using blockchain and stablecoin technology.
+
+## Core APIs
+
+- **Wallet API**: Create and manage multi-currency wallets and monitor balances.
+- **Quote API**: Generate real-time, guaranteed exchange rates for cross-border conversions.
+- **Payout API**: Send programmatically orchestrated fiat payments to bank accounts and mobile money wallets globally (NGN, USD, SGD, KRW, THB, MYR, VND, etc.).
+- **Collection API**: 
+  - **Mobile Money Collections**: Request payments from customers using mobile networks (RWF, KES, TZS).
+  - **Virtual Accounts**: Issue static or dynamic accounts in NGN, MWK, and USD to collect local payments.
+- **Ramp API**: Facilitate crypto-to-fiat (Off-Ramp) and crypto-to-crypto deposits and withdrawals (USDC, USDT, ETH).
+- **Transaction API**: Track and reconcile money movement end-to-end.
+
+## Key Resources
+
+- **Getting Started**: Set up your workspace, secure credentials, and whitelist IPs in the Sandbox.
+- **API Reference**: Full OpenAPI specification with interactive Try-it drawer and language-specific code snippets.
+- **Webhooks**: Real-time notifications for transaction lifecycle events (initiated, processing, completed, failed).
+- **Corridor Examples**: Detailed request/response recipes for specific payout routes.
+
+## Support & Community
+
+- **Dashboard**: https://business.me-cash.com/
+- **Discord**: https://discord.com/invite/CC5v6h52Wk
+- **X (Twitter)**: https://x.com/mecash14
+- **Support Email**: support@me-cash.com
