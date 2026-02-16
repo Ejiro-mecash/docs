@@ -65,7 +65,6 @@ curl --location --request POST '{{baseURL}}/v2/payout' \
         "accountNumber": "0012345678",
     },
     "sourceOfFunds": "I1",
-    "sourceOfIncome": "Agriculture & Food",
     "paymentChannel": "BANK_TRANSFER",
     "currency": "SGD",
     "country": "SG"
@@ -145,8 +144,7 @@ payload = {
             "accountNumber": "0012345678",
         },
         "sourceOfFunds": "I1",
-        "sourceOfIncome": "Agriculture & Food",
-        "paymentChannel": "BANK_TRANSFER",
+            "paymentChannel": "BANK_TRANSFER",
         "currency": "SGD",
         "country": "SG"
     },
@@ -194,7 +192,6 @@ except requests.exceptions.HTTPError as err:
 | `recipient.account.swiftCode` | String | The SWIFT code of the recipient's bank. | ✅ Yes |
 | `recipient.paymentChannel` | String | The payment method. Must be `BANK_TRANSFER`. | ✅ Yes |
 | `recipient.sourceOfFunds` | String | Code indicating the source of funds (e.g., `I1 Income - Business Income`). | ✅ Yes |
-| `recipient.sourceOfIncome` | String | The recipient's source of income (Enum). | ✅ Yes |
 
 </Tab>
 </Tabs>

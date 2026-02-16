@@ -74,8 +74,7 @@ curl --location --request POST '{{baseURL}}/v2/payout' \
         "country": "CN",
         "stored": false
     },
-    "quoteId": "{{quoteIdNgn}}",
-    "transactionPin": "123456",
+    "quoteId": "91e58c2d-ef14-4777-906b-xxxxxxxxxxxxx",
     "reason": "Gift",
     "remark": "Testing"
 }'
@@ -115,8 +114,7 @@ const options = {
       country: "CN",
       stored: false
     },
-    quoteId: "{{quoteIdNgn}}",
-    transactionPin: "123456",
+    quoteId: "91e58c2d-ef14-4777-906b-xxxxxxxxxxxxx",
     reason: "Gift",
     remark: "Testing"
   })
@@ -165,8 +163,7 @@ payload = {
         "country": "CN",
         "stored": False
     },
-    "quoteId": "{{quoteIdNgn}}",
-    "transactionPin": "123456",
+    "quoteId": "91e58c2d-ef14-4777-906b-xxxxxxxxxxxxx",
     "reason": "Gift",
     "remark": "Testing"
 }
@@ -197,7 +194,6 @@ except requests.exceptions.HTTPError as err:
 
 | **Field** | **Type** | **Description** | **Required** |
 | :---------------------------------- | :------ | :-------------------------------------------------------------------------- | :------- |
-| `transactionPin`                  | String  | The transaction PIN for the payout.                                        | ✅ Yes   |
 | `quoteId`                         | String  | The unique ID of the quote for this payout.                                 | ✅ Yes   |
 | `reason`                          | String  | The purpose of the transfer.                                                | ✅ Yes   |
 | `recipient`                       | Object  | An object containing all details about the person receiving the funds.      | ✅ Yes   |

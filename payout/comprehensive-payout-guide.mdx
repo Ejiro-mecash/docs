@@ -15,7 +15,7 @@ The Payout API allows you to send money to recipients worldwide using various pa
 | **Currency** | **Country** | **Payment Channels** | **Recipient Types** |
 |----------|---------|------------------|-----------------|
 | NGN | Nigeria 🇳🇬 | Bank Transfer | Individual, Business |
-| USD | United States 🇺🇸 | Bank Transfer | Individual, Business |
+| USD | United States 🇺🇸 | SWIFT | Individual, Business |
 | EUR | Europe 🇪🇺 | Bank Transfer | Individual, Business |
 | GBP | United Kingdom 🇬🇧 | Bank Transfer | Individual, Business |
 | CAD | Canada 🇨🇦 | Bank Transfer | Individual, Business |
@@ -148,7 +148,7 @@ curl --location '{{baseURL}}/v2/payout' \
     "lastName": "Smith",
     "type": "BUSINESS",
     "address": "123 Main St, New York, NY 10001",
-    "paymentChannel": "BANK_TRANSFER",
+    "paymentChannel": "SWIFT",
     "currency": "USD",
     "country": "US",
     "account": {
@@ -213,7 +213,7 @@ transaction = {
         "lastName": "Smith",
         "type": "BUSINESS",
         "address": "123 Main St, New York, NY 10001",
-        "paymentChannel": "BANK_TRANSFER",
+        "paymentChannel": "SWIFT",
         "currency": "USD",
         "country": "US",
         "account": {
@@ -376,7 +376,7 @@ print(response.json())
   "lastName": "string",
   "type": "INDIVIDUAL|BUSINESS",
   "address": "string",
-  "paymentChannel": "BANK_TRANSFER",
+  "paymentChannel": "SWIFT",
   "currency": "USD",
   "country": "US",
   "account": {

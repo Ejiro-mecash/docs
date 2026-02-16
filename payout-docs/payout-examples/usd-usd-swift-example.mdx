@@ -54,7 +54,7 @@ curl --location --request POST '{{baseURL}}/v2/payout' \
       "bankCity": "Atlanta",
       "accountNumber": "885406477269",
       "bankName": "DBS Bank Limited",
-      "intermediaryBankSwiftCode": "CHASUS33XXX"
+      "intermediarySwiftCode": "CHASUS33XXX"
     },
     "paymentChannel": "SWIFT",
     "country": "US",
@@ -88,7 +88,7 @@ const options = {
         bankCity: "Atlanta",
         accountNumber: "885406477269",
         bankName: "DBS Bank Limited",
-        intermediaryBankSwiftCode: "CHASUS33XXX"
+        intermediarySwiftCode: "CHASUS33XXX"
       },
       paymentChannel: "SWIFT",
       country: "US",
@@ -131,7 +131,7 @@ payload = {
             "bankCity": "Atlanta",
             "accountNumber": "885406477269",
             "bankName": "DBS Bank Limited",
-            "intermediaryBankSwiftCode": "CHASUS33XXX"
+            "intermediarySwiftCode": "CHASUS33XXX"
         },
         "paymentChannel": "SWIFT",
         "country": "US",
@@ -182,7 +182,7 @@ except requests.exceptions.HTTPError as err:
 | `recipient.account.sortCode`        | String  | The bank sort code.                                                         | ❔ No    |
 | `recipient.account.bankName`        | String  | The name of the recipient's bank.                                           | ✅ Yes   |
 | `recipient.account.bankCity`        | String  | The city where the bank is located.                                         | ❔ No    |
-| `recipient.account.intermediaryBankSwiftCode` | String | The SWIFT/BIC code of the intermediary bank. | ❔ No (Conditional) |
+| `recipient.account.intermediarySwiftCode` | String | The SWIFT/BIC code of the intermediary bank. | ❔ No (Conditional) |
 
 
 ---
@@ -231,7 +231,7 @@ If the payout is successfully created, the API returns the following response:
         "bankCity": "Atlanta",
         "accountNumber": "885406477269",
         "bankName": "DBS Bank Limited",
-        "intermediaryBankSwiftCode": "CHASUS33XXX"
+        "intermediarySwiftCode": "CHASUS33XXX"
       },
       "paymentChannel": "SWIFT",
       "country": "US",

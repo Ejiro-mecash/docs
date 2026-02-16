@@ -249,38 +249,6 @@
           "O4 Others - Retirement Fund"
         ]
       },
-      "SourceOfIncome": {
-        "type": "string",
-        "description": "The source of income for the payout.",
-        "enum": [
-          "Agriculture & Food",
-          "Apparel, Textiles & Accessories",
-          "Auto, Motorcycle Parts & Transportation",
-          "Bags, Cases & Boxes",
-          "Chemicals & Plastics",
-          "Construction & Building Materials",
-          "Consumer Electronics & Appliances",
-          "Electrical Equipment & Supplies",
-          "Energy & Resources",
-          "Furniture & Home Products",
-          "Gifts, Toys & Crafts",
-          "Hardware & Tools",
-          "Health & Medical",
-          "Industrial Equipment & Components",
-          "Instruments & Meters",
-          "Jewelry & Accessories",
-          "Lights & Lighting Products",
-          "Machinery & Manufacturing Equipment",
-          "Metallurgy, Minerals & Materials",
-          "Office Supplies & Stationery",
-          "Packaging & Printing",
-          "Security & Protection Products",
-          "Service Equipment",
-          "Sports & Recreation",
-          "Telecom Products",
-          "Transportation"
-        ]
-      },
       "BaseRecipient": {
         "type": "object",
         "properties": {
@@ -456,7 +424,7 @@
                 "description": "City where the bank is located.",
                 "example": "Atlanta"
               },
-              "intermediaryBankSwiftCode": {
+              "intermediarySwiftCode": {
                 "type": "string",
                 "description": "The SWIFT/BIC code of the intermediary bank, required for some international USD transfers.",
                 "example": "CHASUS33XXX"
@@ -694,9 +662,6 @@
               "sourceOfFunds": {
                 "$ref": "#/components/schemas/SourceOfFunds"
               },
-              "sourceOfIncome": {
-                "$ref": "#/components/schemas/SourceOfIncome"
-              },
               "account": {
                 "type": "object",
                 "required": [
@@ -765,9 +730,6 @@
               "sourceOfFunds": {
                 "$ref": "#/components/schemas/SourceOfFunds"
               },
-              "sourceOfIncome": {
-                "$ref": "#/components/schemas/SourceOfIncome"
-              },
               "account": {
                 "type": "object",
                 "required": [
@@ -825,9 +787,6 @@
               },
               "sourceOfFunds": {
                 "$ref": "#/components/schemas/SourceOfFunds"
-              },
-              "sourceOfIncome": {
-                "$ref": "#/components/schemas/SourceOfIncome"
               },
               "account": {
                 "type": "object",
@@ -985,9 +944,6 @@
               "sourceOfFunds": {
                 "$ref": "#/components/schemas/SourceOfFunds"
               },
-              "sourceOfIncome": {
-                "$ref": "#/components/schemas/SourceOfIncome"
-              },
               "account": {
                 "type": "object",
                 "required": [
@@ -1042,9 +998,6 @@
               "sourceOfFunds": {
                 "$ref": "#/components/schemas/SourceOfFunds"
               },
-              "sourceOfIncome": {
-                "$ref": "#/components/schemas/SourceOfIncome"
-              },
               "account": {
                 "type": "object",
                 "required": [
@@ -1082,10 +1035,6 @@
           "recipient"
         ],
         "properties": {
-          "transactionPin": {
-            "type": "string",
-            "description": "The transaction PIN for the payout."
-          },
           "quoteId": {
             "type": "string",
             "description": "The unique identifier for the quote."
@@ -1156,10 +1105,6 @@
           "id": {
             "type": "string",
             "example": "c6611ad3-805a-415b-98b7-xxxxxxxxxxxxx"
-          },
-          "transactionPin": {
-            "type": "string",
-            "example": "123456"
           },
           "remark": {
             "type": "string",
@@ -2390,10 +2335,14 @@
         ],
         "properties": {
           "currency": {
-            "$ref": "#/components/schemas/CurrencyCode"
+            "type": "string",
+            "description": "Currency code (e.g., MWK, RWF, KES).",
+            "example": "MWK"
           },
           "country": {
-            "$ref": "#/components/schemas/CountryCode"
+            "type": "string",
+            "description": "Country code (e.g., MW, RW, KE).",
+            "example": "MW"
           },
           "amount": {
             "type": "number",
@@ -3289,28 +3238,30 @@
                   }
                 },
                 "USD_Payout": {
-                  "summary": "Example Payout to the USA (USD)",
+                  "summary": "Example Payout to the USA (USD) via SWIFT",
                   "value": {
+                    "recipient": {
+                      "name": "James Wilson",
+                      "nickName": "Blue",
+                      "gender": "M",
+                      "occupation": "business entrepreneur",
+                      "type": "BUSINESS",
+                      "account": {
+                        "sortCode": "02090",
+                        "swiftCode": "GTBINGLA",
+                        "bankCity": "Atlanta",
+                        "accountNumber": "885406477269",
+                        "bankName": "DBS Bank Limited",
+                        "intermediarySwiftCode": "CHASUS33XXX"
+                      },
+                      "paymentChannel": "SWIFT",
+                      "country": "US",
+                      "currency": "USD"
+                    },
                     "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
                     "reason": "Gift",
                     "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
-                    "remark": "Testing",
-                    "recipient": {
-                      "name": "Linda Collins",
-                      "type": "BUSINESS",
-                      "address": "200 Koch Vista, New York, NY 10001",
-                      "account": {
-                        "accountNumber": "8573629XX",
-                        "swiftCode": "12345",
-                        "bankName": "Chase Bank",
-                        "address": "1948 Kemmer Ville, New York, NY 10002",
-                        "routingNumber": "0210000XX"
-                      },
-                      "paymentChannel": "BANK_TRANSFER",
-                      "currency": "USD",
-                      "country": "US",
-                      "stored": false
-                    }
+                    "remark": "Testing"
                   }
                 },
                 "EUR_Payout": {
@@ -3423,7 +3374,7 @@
                         "bankCity": "Atlanta",
                         "accountNumber": "885406477269",
                         "bankName": "DBS Bank Limited",
-                        "intermediaryBankSwiftCode": "CHASUS33XXX"
+                        "intermediarySwiftCode": "CHASUS33XXX"
                       },
                       "paymentChannel": "SWIFT",
                       "country": "US",
@@ -3434,8 +3385,7 @@
                 "NGN_CNY_Payout": {
                   "summary": "NGN to CNY (Bank Transfer)",
                   "value": {
-                    "quoteId": "{{quoteIdNgn}}",
-                    "transactionPin": "123456",
+                    "quoteId": "91e58c2d-ef14-4777-906b-xxxxxxxxxxxxx",
                     "reason": "Gift",
                     "remark": "Testing",
                     "recipient": {
@@ -3488,7 +3438,6 @@
                         "accountNumber": "001299123456"
                       },
                       "sourceOfFunds": "I1 Income - Business Income",
-                      "sourceOfIncome": "Agriculture & Food",
                       "paymentChannel": "BANK_TRANSFER",
                       "currency": "KRW",
                       "country": "KR"
@@ -3517,7 +3466,6 @@
                         "accountNumber": "0012345678"
                       },
                       "sourceOfFunds": "I1 Income - Business Income",
-                      "sourceOfIncome": "Agriculture & Food",
                       "paymentChannel": "BANK_TRANSFER",
                       "currency": "SGD",
                       "country": "SG"
@@ -3546,7 +3494,6 @@
                         "accountNumber": "0012345678"
                       },
                       "sourceOfFunds": "I1 Income - Business Income",
-                      "sourceOfIncome": "Agriculture & Food",
                       "paymentChannel": "BANK_TRANSFER",
                       "currency": "SGD",
                       "country": "SG"
@@ -3572,7 +3519,6 @@
                         "accountNumber": "0012345678"
                       },
                       "sourceOfFunds": "I1 Income - Business Income",
-                      "sourceOfIncome": "Agriculture & Food",
                       "paymentChannel": "BANK_TRANSFER",
                       "currency": "KRW",
                       "country": "KR"
@@ -3598,7 +3544,6 @@
                         "accountNumber": "0012345678"
                       },
                       "sourceOfFunds": "I1 Income - Business Income",
-                      "sourceOfIncome": "Agriculture & Food",
                       "paymentChannel": "BANK_TRANSFER",
                       "currency": "THB",
                       "country": "TH"
@@ -3622,7 +3567,6 @@
                         "accountNumber": "0012345678"
                       },
                       "sourceOfFunds": "I1 Income - Business Income",
-                      "sourceOfIncome": "Agriculture & Food",
                       "paymentChannel": "BANK_TRANSFER",
                       "currency": "MYR",
                       "country": "MY"
@@ -3647,7 +3591,6 @@
                         "accountNumber": "0012345678"
                       },
                       "sourceOfFunds": "I1 Income - Business Income",
-                      "sourceOfIncome": "Agriculture & Food",
                       "paymentChannel": "BANK_TRANSFER",
                       "currency": "VND",
                       "country": "VN"
@@ -3673,7 +3616,7 @@
                         "bankCity": "Atlanta",
                         "accountNumber": "885406477269",
                         "bankName": "DBS Bank Limited",
-                        "intermediaryBankSwiftCode": "CHASUS33XXX"
+                        "intermediarySwiftCode": "CHASUS33XXX"
                       },
                       "paymentChannel": "SWIFT",
                       "country": "US",
@@ -4332,18 +4275,20 @@
             "in": "query",
             "required": true,
             "schema": {
-              "$ref": "#/components/schemas/CountryCode"
+              "type": "string",
+              "example": "MW"
             },
-            "description": "The country code to fetch the networks available (e.g., MW)"
+            "description": "The country code to fetch the networks available (e.g., MW, RW, KE)"
           },
           {
             "name": "currency",
             "in": "query",
             "required": true,
             "schema": {
-              "$ref": "#/components/schemas/CurrencyCode"
+              "type": "string",
+              "example": "MWK"
             },
-            "description": "Currency code (e.g., MWK)"
+            "description": "Currency code (e.g., MWK, RWF, KES)"
           }
         ],
         "responses": {
