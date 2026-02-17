@@ -61,7 +61,7 @@ curl --location --request POST '{{baseURL}}/v2/payout' \
         "bankCity": "Bangkok",
         "accountNumber": "0012345678",
     },
-    "sourceOfFunds": "income",
+    "sourceOfFunds": "I1",
     "paymentChannel": "BANK_TRANSFER",
     "currency": "THB",
     "country": "TH"
@@ -93,7 +93,7 @@ const options = {
         bankCity: "Bangkok",
         accountNumber: "0012345678",
       },
-      sourceOfFunds: "I1 Income - Business Income",
+      sourceOfFunds: "I1",
       paymentChannel: "BANK_TRANSFER",
       currency: "THB",
       country: "TH"
@@ -134,7 +134,7 @@ payload = {
             "bankCity": "Bangkok",
             "accountNumber": "0012345678",
         },
-        "sourceOfFunds": "income",
+        "sourceOfFunds": "I1",
             "paymentChannel": "BANK_TRANSFER",
         "currency": "THB",
         "country": "TH"
@@ -182,7 +182,7 @@ except requests.exceptions.HTTPError as err:
 | `recipient.account.accountNumber` | String | The recipient's bank account number. | ✅ Yes |
 | `recipient.account.sortCode` | String | The bank code/sort code (e.g., `00301`). | ✅ Yes |
 | `recipient.paymentChannel` | String | The payment method. Must be `BANK_TRANSFER`. | ✅ Yes |
-| `recipient.sourceOfFunds` | String | Code indicating the source of funds (e.g., `I1 Income - Business Income`). | ✅ Yes |
+| `recipient.sourceOfFunds` | String | Code indicating the source of funds (e.g., `I1`). | ✅ Yes |
 
 </Tab>
 </Tabs>

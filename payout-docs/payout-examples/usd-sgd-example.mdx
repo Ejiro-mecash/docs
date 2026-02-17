@@ -99,7 +99,7 @@ const options = {
         bankCity: "Suntec City",
         accountNumber: "0012345678",
       },
-      sourceOfFunds: "I1 Income - Business Income",
+      sourceOfFunds: "I1",
       paymentChannel: "BANK_TRANSFER",
       currency: "SGD",
       country: "SG"
@@ -191,7 +191,7 @@ except requests.exceptions.HTTPError as err:
 | `recipient.account.sortCode` | String | The bank sort code (if applicable). | ❔ No |
 | `recipient.account.swiftCode` | String | The SWIFT code of the recipient's bank. | ✅ Yes |
 | `recipient.paymentChannel` | String | The payment method. Must be `BANK_TRANSFER`. | ✅ Yes |
-| `recipient.sourceOfFunds` | String | Code indicating the source of funds (e.g., `I1 Income - Business Income`). | ✅ Yes |
+| `recipient.sourceOfFunds` | String | Code indicating the source of funds (e.g., `I1`). | ✅ Yes |
 
 </Tab>
 </Tabs>

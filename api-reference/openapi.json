@@ -236,17 +236,17 @@
         "type": "string",
         "description": "Code indicating the source of funds.",
         "enum": [
-          "D1 Divestment - Other Assets",
-          "D2 Divestment - Property",
-          "D3 Divestment - Shares, Other securities",
-          "I1 Income - Business Income",
-          "I2 Income - Employment Income, Allowances",
-          "I3 Income - Interest, Dividend Income",
-          "I4 Income - Rental, Leasing Income",
-          "O1 Others - Insurance Claims, Compensation",
-          "O2 Others - Financial Support from Children, Parent, Spouse",
-          "O3 Others - Loans",
-          "O4 Others - Retirement Fund"
+          "D1",
+          "D2",
+          "D3",
+          "I1",
+          "I2",
+          "I3",
+          "I4",
+          "O1",
+          "O2",
+          "O3",
+          "O4"
         ]
       },
       "BaseRecipient": {
@@ -3437,7 +3437,7 @@
                         "bankCity": "Seoul",
                         "accountNumber": "001299123456"
                       },
-                      "sourceOfFunds": "I1 Income - Business Income",
+                      "sourceOfFunds": "I1",
                       "paymentChannel": "BANK_TRANSFER",
                       "currency": "KRW",
                       "country": "KR"
@@ -3465,7 +3465,7 @@
                         "bankCity": "Suntec City",
                         "accountNumber": "0012345678"
                       },
-                      "sourceOfFunds": "I1 Income - Business Income",
+                      "sourceOfFunds": "I1",
                       "paymentChannel": "BANK_TRANSFER",
                       "currency": "SGD",
                       "country": "SG"
@@ -3493,7 +3493,7 @@
                         "bankCity": "Suntec City",
                         "accountNumber": "0012345678"
                       },
-                      "sourceOfFunds": "I1 Income - Business Income",
+                      "sourceOfFunds": "I1",
                       "paymentChannel": "BANK_TRANSFER",
                       "currency": "SGD",
                       "country": "SG"
@@ -3518,7 +3518,7 @@
                         "bankCity": "Seoul",
                         "accountNumber": "0012345678"
                       },
-                      "sourceOfFunds": "I1 Income - Business Income",
+                      "sourceOfFunds": "I1",
                       "paymentChannel": "BANK_TRANSFER",
                       "currency": "KRW",
                       "country": "KR"
@@ -3543,7 +3543,7 @@
                         "bankCity": "Bangkok",
                         "accountNumber": "0012345678"
                       },
-                      "sourceOfFunds": "I1 Income - Business Income",
+                      "sourceOfFunds": "I1",
                       "paymentChannel": "BANK_TRANSFER",
                       "currency": "THB",
                       "country": "TH"
@@ -3566,7 +3566,7 @@
                         "sortCode": "00163",
                         "accountNumber": "0012345678"
                       },
-                      "sourceOfFunds": "I1 Income - Business Income",
+                      "sourceOfFunds": "I1",
                       "paymentChannel": "BANK_TRANSFER",
                       "currency": "MYR",
                       "country": "MY"
@@ -3590,7 +3590,7 @@
                         "bankCity": "Hanoi",
                         "accountNumber": "0012345678"
                       },
-                      "sourceOfFunds": "I1 Income - Business Income",
+                      "sourceOfFunds": "I1",
                       "paymentChannel": "BANK_TRANSFER",
                       "currency": "VND",
                       "country": "VN"
