@@ -11,6 +11,7 @@
     "usd-myr-example": "USD → MYR",
     "usd-vnd-example": "USD → VND",
     "usd-krw-example": "USD → KRW",
-    "mkw-mkw-example": "MKW → MKW",
+    "ngn-cny-example": "NGN → CNY",
+    "mwk-mwk-example": "MWK → MWK",
     "usd-usd-swift-example": "USD → USD via Swift"
 }

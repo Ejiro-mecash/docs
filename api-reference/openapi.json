@@ -193,7 +193,16 @@
           "KR",
           "TH",
           "MY",
-          "VN"
+          "VN",
+          "CN",
+          "GH",
+          "CI",
+          "KE",
+          "RW",
+          "SN",
+          "ZA",
+          "AT",
+          "DK"
         ]
       },
       "CurrencyCode": {
@@ -211,7 +220,14 @@
           "KRW",
           "THB",
           "MYR",
-          "VND"
+          "VND",
+          "CNY",
+          "GHS",
+          "KES",
+          "RWF",
+          "XOF",
+          "ZAR",
+          "DKK"
         ]
       },
       "PaymentChannel": {
@@ -221,7 +237,8 @@
         "enum": [
           "BANK_TRANSFER",
           "INTERAC",
-          "SWIFT"
+          "SWIFT",
+          "MOBILE_MONEY"
         ]
       },
       "RecipientType": {

@@ -1,9 +1,9 @@
 ---
-title: 'MKW  → MKW'
+title: 'MWK → MWK'
 icon: money-bill-transfer
 ---
 
-This endpoint allows users to **send payouts in MKW** to recipients in **Malawi**. 
+This endpoint allows users to **send payouts in MWK** to recipients in **Malawi**.
 The request must include recipient details, payment method, and payout amounts.
 
 ## Endpoint
@@ -54,8 +54,8 @@ The following fields are required when making an **NGN payout request**:
 | `recipient.account.accountNumber` | String  | Recipient’s **bank account number**                 | ✅ Yes   |
 | `recipient.account.bankCode`      | String  | Bank code of the recipient's bank                  | ✅ Yes   |
 | `recipient.paymentChannel`        | String  | Payment method (`BANK_TRANSFER`, `MOBILE_WALLET`)  | ✅ Yes   |
-| `recipient.currency`              | String  | `MKW` (Malawian kwacha)                             | ✅ Yes   |
-| `recipient.country`               | String  | `MK` (Malamwi)                                     | ✅ Yes   |
+| `recipient.currency`              | String  | `MWK` (Malawian kwacha)                             | ✅ Yes   |
+| `recipient.country`               | String  | `MW` (Malawi)                                      | ✅ Yes   |
 | `quoteId`                         | String  | Unique Quote ID for the payout                     | ✅ Yes   |
 | `invoice`                         | String  | Unique identifier for the invoice (optional)       | ❌ No    |
 | `reason`                          | String  | Reason for the payout (e.g., `Gift`, `Invoice Payment`) | ✅ Yes   |
@@ -82,13 +82,13 @@ If the payout is successfully created, the API returns the following response:
         "quote": {
             "id": "d19a64f9-5a47-4bda-b7c2-xxxxxxxxxxxxx",
             "source": {
-                "currency": "MKW",
+                "currency": "MWK",
                 "country": "MK",
                 "amount": 100
             },
             "target": {
-                "currency": "MKW",
-                "country": "MKW",
+                "currency": "MWK",
+                "country": "MW",
                 "amount": 147000
             },
             "rate": 1,
@@ -130,10 +130,10 @@ If the payout is successfully created, the API returns the following response:
 | `data.type`                          | String  | Type of transaction (e.g., `SEND`).                                          |
 | `data.state`                         | String  | Current state of the payout (`PENDING`, `COMPLETED`, `FAILED`, `REFUNDED`). |
 | `data.quote.id`                      | String  | Unique ID of the quote used for the transaction.                              |
-| `data.quote.source.currency`         | String  | Currency of the source funds (`MKW`).                                         |
-| `data.quote.source.country`          | String  | ISO country code of the source (`MK`).                                        |
+| `data.quote.source.currency`         | String  | Currency of the source funds (`MWK`).                                         |
+| `data.quote.source.country`          | String  | ISO country code of the source (`MW`).                                        |
 | `data.quote.source.amount`           | Number  | Amount debited from the source.                                              |
-| `data.quote.target.currency`         | String  | Currency received by the recipient (`MKW`).                                   |
+| `data.quote.target.currency`         | String  | Currency received by the recipient (`MWK`).                                   |
 | `data.quote.target.country`          | String  | ISO country code of the recipient (`MW`).                                     |
 | `data.quote.target.amount`           | Number  | Amount credited to the recipient.                                             |
 | `data.quote.rate`                    | Number  | Conversion rate applied.                                                     |
