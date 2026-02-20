@@ -294,8 +294,7 @@
     }
   },
   "scripts": [
-    "/ask-ai-floating-widget.js",
-    "/love-in-motion-popup.js"
+    "/ask-ai-floating-widget.js"
   ],
   "banner": {
     "content": "🚀 **New Feature:** API Logs! View all your API requests and responses in the **Developers** tab of your dashboard.",

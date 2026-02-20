@@ -511,10 +511,6 @@
                     "type": "string",
                     "description": "Name of the bank, e.g Deutsche Bank"
                   },
-                  "branchCode": {
-                    "type": "string",
-                    "description": "A bank branch identifier, if applicable."
-                  },
                   "address": {
                     "type": "string",
                     "description": "The bank's physical address."
@@ -703,10 +699,6 @@
                   "swiftCode": {
                     "type": "string",
                     "description": "SWIFT/BIC code."
-                  },
-                  "branchCode": {
-                    "type": "string",
-                    "description": "Branch code."
                   },
                   "bankCity": {
                     "type": "string",
@@ -1047,6 +1039,69 @@
       },
       "CreatePayoutRequest": {
         "type": "object",
+        "description": "Request body for creating a payout. Select the tab for your target corridor.",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/NgnPayoutRequest"
+          },
+          {
+            "$ref": "#/components/schemas/UsdSwiftPayoutRequest"
+          },
+          {
+            "$ref": "#/components/schemas/EurPayoutRequest"
+          },
+          {
+            "$ref": "#/components/schemas/GbpPayoutRequest"
+          },
+          {
+            "$ref": "#/components/schemas/CadBankPayoutRequest"
+          },
+          {
+            "$ref": "#/components/schemas/CadInteracPayoutRequest"
+          },
+          {
+            "$ref": "#/components/schemas/SgdPayoutRequest"
+          },
+          {
+            "$ref": "#/components/schemas/KrwPayoutRequest"
+          },
+          {
+            "$ref": "#/components/schemas/ThbPayoutRequest"
+          },
+          {
+            "$ref": "#/components/schemas/MyrPayoutRequest"
+          },
+          {
+            "$ref": "#/components/schemas/VndPayoutRequest"
+          },
+          {
+            "$ref": "#/components/schemas/CnyPayoutRequest"
+          },
+          {
+            "$ref": "#/components/schemas/MwkPayoutRequest"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "corridorKey",
+          "mapping": {
+            "NGN": "#/components/schemas/NgnPayoutRequest",
+            "USD_SWIFT": "#/components/schemas/UsdSwiftPayoutRequest",
+            "EUR": "#/components/schemas/EurPayoutRequest",
+            "GBP": "#/components/schemas/GbpPayoutRequest",
+            "CAD_BANK": "#/components/schemas/CadBankPayoutRequest",
+            "CAD_INTERAC": "#/components/schemas/CadInteracPayoutRequest",
+            "SGD": "#/components/schemas/SgdPayoutRequest",
+            "KRW": "#/components/schemas/KrwPayoutRequest",
+            "THB": "#/components/schemas/ThbPayoutRequest",
+            "MYR": "#/components/schemas/MyrPayoutRequest",
+            "VND": "#/components/schemas/VndPayoutRequest",
+            "CNY": "#/components/schemas/CnyPayoutRequest",
+            "MWK": "#/components/schemas/MwkPayoutRequest"
+          }
+        }
+      },
+      "BasePayoutRequest": {
+        "type": "object",
         "required": [
           "quoteId",
           "recipient"
@@ -1054,11 +1109,11 @@
         "properties": {
           "quoteId": {
             "type": "string",
-            "description": "The unique identifier for the quote."
+            "description": "The unique identifier for the quote (valid for 10 minutes)."
           },
           "reason": {
             "type": "string",
-            "description": "The reason for the payout.",
+            "description": "The purpose of the transfer.",
             "enum": [
               "FAMILY_SUPPORT",
               "GIFT",
@@ -1070,51 +1125,234 @@
           },
           "invoice": {
             "type": "string",
-            "description": "The unique identifier for the invoice (returned from file upload endpoint)."
+            "description": "Optional invoice file ID (returned from the file upload endpoint)."
           },
           "remark": {
             "type": "string",
-            "description": "A standardized remark for the transaction."
-          },
-          "recipient": {
-            "description": "Details of the recipient. The structure depends on the recipient's currency and payment channel.",
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/NgnRecipient"
-              },
-              {
-                "$ref": "#/components/schemas/UsdSwiftRecipient"
-              },
-              {
-                "$ref": "#/components/schemas/EurRecipient"
-              },
-              {
-                "$ref": "#/components/schemas/GbpRecipient"
-              },
-              {
-                "$ref": "#/components/schemas/CadRecipient"
-              },
-              {
-                "$ref": "#/components/schemas/SgdRecipient"
-              },
-              {
-                "$ref": "#/components/schemas/KrwRecipient"
-              },
-              {
-                "$ref": "#/components/schemas/ThbRecipient"
-              },
-              {
-                "$ref": "#/components/schemas/MyrRecipient"
-              },
-              {
-                "$ref": "#/components/schemas/VndRecipient"
-              },
-              {
-                "$ref": "#/components/schemas/CnyRecipient"
-              }
-            ]
+            "description": "An optional note about the transaction. Use `fail` in sandbox to trigger a failed payout webhook."
           }
         }
+      },
+      "NgnPayoutRequest": {
+        "title": "NGN → NGN",
+        "description": "Payout to a Nigerian bank account (NGN).",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BasePayoutRequest"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "recipient": {
+                "$ref": "#/components/schemas/NgnRecipient"
+              }
+            }
+          }
+        ]
+      },
+      "UsdSwiftPayoutRequest": {
+        "title": "NGN / USD → USD",
+        "description": "Payout to a US bank account via SWIFT.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BasePayoutRequest"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "recipient": {
+                "$ref": "#/components/schemas/UsdSwiftRecipient"
+              }
+            }
+          }
+        ]
+      },
+      "EurPayoutRequest": {
+        "title": "NGN → EUR",
+        "description": "Payout to a SEPA European bank account (EUR).",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BasePayoutRequest"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "recipient": {
+                "$ref": "#/components/schemas/EurRecipient"
+              }
+            }
+          }
+        ]
+      },
+      "GbpPayoutRequest": {
+        "title": "NGN → GBP",
+        "description": "Payout to a UK bank account (GBP).",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BasePayoutRequest"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "recipient": {
+                "$ref": "#/components/schemas/GbpRecipient"
+              }
+            }
+          }
+        ]
+      },
+      "CadBankPayoutRequest": {
+        "title": "NGN → CAD (Bank Transfer)",
+        "description": "Payout to a Canadian bank account via bank transfer (CAD).",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BasePayoutRequest"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "recipient": {
+                "$ref": "#/components/schemas/CadRecipient"
+              }
+            }
+          }
+        ]
+      },
+      "CadInteracPayoutRequest": {
+        "title": "NGN → CAD (Interac)",
+        "description": "Payout to a Canadian recipient via Interac e-Transfer (CAD).",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BasePayoutRequest"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "recipient": {
+                "$ref": "#/components/schemas/CadInteracRecipient"
+              }
+            }
+          }
+        ]
+      },
+      "SgdPayoutRequest": {
+        "title": "NGN / USD → SGD",
+        "description": "Payout to a Singapore bank account (SGD).",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BasePayoutRequest"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "recipient": {
+                "$ref": "#/components/schemas/SgdRecipient"
+              }
+            }
+          }
+        ]
+      },
+      "KrwPayoutRequest": {
+        "title": "NGN / USD → KRW",
+        "description": "Payout to a South Korean bank account (KRW).",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BasePayoutRequest"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "recipient": {
+                "$ref": "#/components/schemas/KrwRecipient"
+              }
+            }
+          }
+        ]
+      },
+      "ThbPayoutRequest": {
+        "title": "USD → THB",
+        "description": "Payout to a Thai bank account (THB).",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BasePayoutRequest"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "recipient": {
+                "$ref": "#/components/schemas/ThbRecipient"
+              }
+            }
+          }
+        ]
+      },
+      "MyrPayoutRequest": {
+        "title": "USD → MYR",
+        "description": "Payout to a Malaysian bank account (MYR).",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BasePayoutRequest"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "recipient": {
+                "$ref": "#/components/schemas/MyrRecipient"
+              }
+            }
+          }
+        ]
+      },
+      "VndPayoutRequest": {
+        "title": "USD → VND",
+        "description": "Payout to a Vietnamese bank account (VND).",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BasePayoutRequest"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "recipient": {
+                "$ref": "#/components/schemas/VndRecipient"
+              }
+            }
+          }
+        ]
+      },
+      "CnyPayoutRequest": {
+        "title": "NGN → CNY",
+        "description": "Payout to a Chinese bank account (CNY).",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BasePayoutRequest"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "recipient": {
+                "$ref": "#/components/schemas/CnyRecipient"
+              }
+            }
+          }
+        ]
+      },
+      "MwkPayoutRequest": {
+        "title": "MWK → MWK",
+        "description": "Payout to a Malawian bank account (MWK).",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BasePayoutRequest"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "recipient": {
+                "$ref": "#/components/schemas/MwkRecipient"
+              }
+            }
+          }
+        ]
       },
       "Payout": {
         "type": "object",
@@ -1567,9 +1805,6 @@
                     "type": "string"
                   },
                   "accountNumber": {
-                    "type": "string"
-                  },
-                  "branchCode": {
                     "type": "string"
                   },
                   "mobileProvider": {
@@ -2286,10 +2521,6 @@
           "sortCode": {
             "type": "string",
             "example": "561"
-          },
-          "branchCode": {
-            "type": "string",
-            "nullable": true
           },
           "country": {
             "type": "string",
