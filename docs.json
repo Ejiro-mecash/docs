@@ -6,7 +6,7 @@
     "playground": {
       "proxy": false
     },
-    "path": "docs/api-reference/openapi.json",
+    "path": "api-reference/openapi.json",
     "baseUrl": [
       {
         "name": "Sandbox",

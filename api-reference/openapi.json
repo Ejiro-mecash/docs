@@ -3465,7 +3465,7 @@
                 "$ref": "#/components/schemas/CreatePayoutRequest"
               },
               "examples": {
-                "NGN_Payout": {
+                "NGN_NGN_Payout": {
                   "summary": "Example Payout to Nigeria (NGN)",
                   "value": {
                     "remark": "Testing",
@@ -3485,7 +3485,7 @@
                     }
                   }
                 },
-                "USD_Payout": {
+                "NGN_USD_Payout": {
                   "summary": "Example Payout to the USA (USD) via SWIFT",
                   "value": {
                     "recipient": {
@@ -3512,7 +3512,7 @@
                     "remark": "Testing"
                   }
                 },
-                "EUR_Payout": {
+                "NGN_EUR_Payout": {
                   "summary": "Example Payout to Europe (EUR)",
                   "value": {
                     "quoteId": "a4f7b2c1-ef14-4999-906b-xxxxxxxxxxxxx",
@@ -3535,7 +3535,7 @@
                     }
                   }
                 },
-                "GBP_Payout": {
+                "NGN_GBP_Payout": {
                   "summary": "Example Payout to the United Kingdom (GBP)",
                   "value": {
                     "quoteId": "a4f7b2c1-ef14-4999-906b-xxxxxxxxxxxxx",
@@ -3559,7 +3559,7 @@
                     }
                   }
                 },
-                "CAD_Payout": {
+                "NGN_CAD_Payout": {
                   "summary": "Example Payout to Canada (CAD)",
                   "value": {
                     "quoteId": "f1474828-6a2e-4ee8-8598-xxxxxxxxxxxx",
@@ -3583,7 +3583,7 @@
                     }
                   }
                 },
-                "CAD_Payout_INTERAC": {
+                "NGN_CAD_Payout_INTERAC": {
                   "summary": "Example Payout to Canada (CAD) via INTERAC",
                   "value": {
                     "quoteId": "5392890f-cab6-40ee-8db2-xxxxxxxxxx",
@@ -3603,7 +3603,7 @@
                     }
                   }
                 },
-                "USD_Payout_SWIFT": {
+                "USD_USD_Payout": {
                   "summary": "Example Payout to USA (USD) via SWIFT",
                   "value": {
                     "quoteId": "d3267c84-2b3c-4d6e-9f8g-xxxxxxxxxxxx",
@@ -3788,6 +3788,7 @@
                       "account": {
                         "bankName": "AGRICULTURE & AGRICULTL COOP",
                         "sortCode": "00301",
+                        "swiftCode": "AGRICTHBKXXX",
                         "bankCity": "Bangkok",
                         "accountNumber": "0012345678"
                       },
@@ -3812,6 +3813,7 @@
                       "account": {
                         "bankName": "Affin Bank Berhad",
                         "sortCode": "00163",
+                        "swiftCode": "AFFNMYKLXXX",
                         "accountNumber": "0012345678"
                       },
                       "sourceOfFunds": "I1",
@@ -3835,6 +3837,7 @@
                       "account": {
                         "bankName": "Vietnam Bank",
                         "sortCode": "00205",
+                        "swiftCode": "VNTBVNHNXXX",
                         "bankCity": "Hanoi",
                         "accountNumber": "0012345678"
                       },
@@ -3842,33 +3845,6 @@
                       "paymentChannel": "BANK_TRANSFER",
                       "currency": "VND",
                       "country": "VN"
-                    }
-                  }
-                },
-                "USD_Custom_SWIFT_Payout": {
-                  "summary": "USD to USD (Global SWIFT)",
-                  "value": {
-                    "quoteId": "d3267c84-2b3c-4d6e-9f8g-xxxxxxxxxxxx",
-                    "reason": "Gift",
-                    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
-                    "remark": "Testing",
-                    "recipient": {
-                      "name": "James Wilson",
-                      "nickName": "Blue",
-                      "gender": "M",
-                      "occupation": "business entrepreneur",
-                      "type": "BUSINESS",
-                      "account": {
-                        "sortCode": "02090",
-                        "swiftCode": "GTBINGLA",
-                        "bankCity": "Atlanta",
-                        "accountNumber": "885406477269",
-                        "bankName": "DBS Bank Limited",
-                        "intermediarySwiftCode": "CHASUS33XXX"
-                      },
-                      "paymentChannel": "SWIFT",
-                      "country": "US",
-                      "currency": "USD"
                     }
                   }
                 }

@@ -57,6 +57,7 @@ curl --location --request POST '{{baseURL}}/v2/payout' \
     "account": {
         "bankName": "Vietnam Bank",
         "sortCode": "00205",
+        "swiftCode": "VNTBVNHNXXX",
         "bankCity": "Hanoi",
     },
     "sourceOfFunds": "I1",
@@ -87,6 +88,7 @@ const options = {
       account: {
         bankName: "Vietnam Bank",
         sortCode: "00205",
+        swiftCode: "VNTBVNHNXXX",
         bankCity: "Hanoi",
         accountNumber: "0012345678",
       },
@@ -127,6 +129,7 @@ payload = {
         "account": {
             "bankName": "Vietnam Bank",
             "sortCode": "00205",
+            "swiftCode": "VNTBVNHNXXX",
             "bankCity": "Hanoi",
             "accountNumber": "0012345678",
         },
@@ -177,6 +180,7 @@ except requests.exceptions.HTTPError as err:
 | `recipient.account.bankName` | String | The name of the recipient's bank. | ✅ Yes |
 | `recipient.account.accountNumber` | String | The recipient's bank account number. | ✅ Yes |
 | `recipient.account.sortCode` | String | The bank code/sort code (e.g., `00205`). | ✅ Yes |
+| `recipient.account.swiftCode` | String | The SWIFT code of the bank (e.g., `VNTBVNHNXXX`). | ✅ Yes |
 | `recipient.paymentChannel` | String | The payment method. Must be `BANK_TRANSFER`. | ✅ Yes |
 | `recipient.sourceOfFunds` | String | Code indicating the source of funds (e.g., `I1`). | ✅ Yes |
 
