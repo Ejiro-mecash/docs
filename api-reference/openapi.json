@@ -843,7 +843,7 @@
             "properties": {
               "name": {
                 "type": "string",
-                "description": "Full name of the recipient."
+                "description": "Full name of the recipient. (Must be in Chinese characters)"
               },
               "nickName": {
                 "type": "string",
@@ -3465,8 +3465,8 @@
                 "$ref": "#/components/schemas/CreatePayoutRequest"
               },
               "examples": {
-                "NGN_Payout": {
-                  "summary": "Example Payout to Nigeria (NGN)",
+                "NGN_BankTransfer_Payout": {
+                  "summary": "Example Payout to Nigeria (NGN) via Bank Transfer",
                   "value": {
                     "remark": "Testing",
                     "reason": "Gift",
@@ -3485,7 +3485,7 @@
                     }
                   }
                 },
-                "USD_Payout": {
+                "USD_SWIFT_Payout": {
                   "summary": "Example Payout to the USA (USD) via SWIFT",
                   "value": {
                     "recipient": {
@@ -3512,8 +3512,8 @@
                     "remark": "Testing"
                   }
                 },
-                "EUR_Payout": {
-                  "summary": "Example Payout to Europe (EUR)",
+                "EUR_BankTransfer_Payout": {
+                  "summary": "Example Payout to Europe (EUR) via Bank Transfer",
                   "value": {
                     "quoteId": "a4f7b2c1-ef14-4999-906b-xxxxxxxxxxxxx",
                     "reason": "Gift",
@@ -3535,8 +3535,8 @@
                     }
                   }
                 },
-                "GBP_Payout": {
-                  "summary": "Example Payout to the United Kingdom (GBP)",
+                "GBP_BankTransfer_Payout": {
+                  "summary": "Example Payout to the United Kingdom (GBP) via Bank Transfer",
                   "value": {
                     "quoteId": "a4f7b2c1-ef14-4999-906b-xxxxxxxxxxxxx",
                     "reason": "Gift",
@@ -3559,8 +3559,8 @@
                     }
                   }
                 },
-                "CAD_Payout": {
-                  "summary": "Example Payout to Canada (CAD)",
+                "CAD_BankTransfer_Payout": {
+                  "summary": "Example Payout to Canada (CAD) via Bank Transfer",
                   "value": {
                     "quoteId": "f1474828-6a2e-4ee8-8598-xxxxxxxxxxxx",
                     "reason": "Gift",
@@ -3583,7 +3583,7 @@
                     }
                   }
                 },
-                "CAD_Payout_INTERAC": {
+                "CAD_INTERAC_Payout": {
                   "summary": "Example Payout to Canada (CAD) via INTERAC",
                   "value": {
                     "quoteId": "5392890f-cab6-40ee-8db2-xxxxxxxxxx",
@@ -3603,7 +3603,7 @@
                     }
                   }
                 },
-                "CNY_Payout": {
+                "CNY_BankTransfer_Payout": {
                   "summary": "NGN to CNY (Bank Transfer)",
                   "value": {
                     "quoteId": "91e58c2d-ef14-4777-906b-xxxxxxxxxxxxx",
@@ -3611,7 +3611,7 @@
                     "remark": "Testing",
                     "recipient": {
                       "name": "张少杰",
-                      "nickName": "{{$randomColor}}",
+                      "nickName": "Mr Lee",
                       "occupation": "HEALTHCARE",
                       "icNumber": "130132198812201310",
                       "relationship": "SELF",
@@ -3636,8 +3636,8 @@
                     }
                   }
                 },
-                "KRW_Payout": {
-                  "summary": "NGN to KRW (Bank Transfer)",
+                "KRW_BankTransfer_Payout": {
+                  "summary": "NGN to KRW (Bank Transfer) via Bank Transfer",
                   "value": {
                     "quoteId": "b51741c8-05c5-41af-9bbf-582fef04dcb8",
                     "reason": "Gift",
@@ -3665,8 +3665,8 @@
                     }
                   }
                 },
-                "SGD_Payout": {
-                  "summary": "NGN to SGD (Bank Transfer)",
+                "SGD_BankTransfer_Payout": {
+                  "summary": "NGN to SGD (Bank Transfer) via Bank Transfer",
                   "value": {
                     "quoteId": "d3b47ced-ff79-436f-a926-2d19b03e9fa6",
                     "reason": "Gift",
@@ -3693,8 +3693,36 @@
                     }
                   }
                 },
-                "MYR_Payout": {
-                  "summary": "USD to MYR (Bank Transfer)",
+                "THB_BankTransfer_Payout": {
+                  "summary": "NGN to THB (Bank Transfer) via Bank Transfer",
+                  "value": {
+                    "quoteId": "d3b47ced-ff79-436f-a926-2d19b03e9fa6",
+                    "reason": "Gift",
+                    "remark": "Testing",
+                    "recipient": {
+                      "name": "Jayden Tan",
+                      "nickName": "TestLRQ",
+                      "gender": "M",
+                      "occupation": "business entrepreneur",
+                      "countryName": "TH",
+                      "type": "BUSINESS",
+                      "stored": false,
+                      "account": {
+                        "bankName": "DBS Bank",
+                        "sortCode": "00120",
+                        "swiftCode": "DBSSSGSGXXX",
+                        "bankCity": "Suntec City",
+                        "accountNumber": "0012345678"
+                      },
+                      "sourceOfFunds": "I1",
+                      "paymentChannel": "BANK_TRANSFER",
+                      "currency": "THB",
+                      "country": "TH"
+                    }
+                  }
+                },
+                "MYR_BankTransfer_Payout": {
+                  "summary": "USD to MYR (Bank Transfer) via Bank Transfer",
                   "value": {
                     "quoteId": "779997685832",
                     "reason": "Gift",
@@ -3702,7 +3730,7 @@
                     "recipient": {
                       "name": "Jayden Tan",
                       "nickName": "TestMY",
-                      "type": "INDIVIDUAL",
+                      "type": "BUSINESS",
                       "stored": false,
                       "account": {
                         "bankName": "Affin Bank Berhad",
@@ -3717,8 +3745,8 @@
                     }
                   }
                 },
-                "VND_Payout": {
-                  "summary": "USD to VND (Bank Transfer)",
+                "VND_BankTransfer_Payout": {
+                  "summary": "USD to VND (Bank Transfer) via Bank Transfer",
                   "value": {
                     "quoteId": "vn-usd-quote-id-sample",
                     "reason": "Gift",
@@ -3726,7 +3754,7 @@
                     "recipient": {
                       "name": "Nguyễn Văn Nam",
                       "nickName": "DemoVNNickname",
-                      "type": "INDIVIDUAL",
+                      "type": "BUSINESS",
                       "stored": false,
                       "account": {
                         "bankName": "Vietnam Bank",

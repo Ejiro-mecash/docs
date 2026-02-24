@@ -1,10 +1,9 @@
 ---
 title: 'Mobile Money Collections'
-description: 'Learn how to discover providers and request mobile money payments in RWF, KES, and TZS.'
 icon: mobile-screen-button
 ---
 
-The Mobile Money Collections API enables merchants to programmatically request payments from customers using mobile money wallets. This is ideal for funding your meCash wallet or collecting payments in local currencies like **RWF**, **KES**, and **TZS**.
+The meCash Mobile Money Collections API enables merchants to programmatically request payments from customers using mobile money wallets. This is ideal for funding your meCash wallet or collecting payments in local currencies like **MWK**, **RWF**, **KES**, and **TZS**.
 
 ---
 
@@ -22,6 +21,10 @@ Before requesting a payment, you should discover which mobile money networks are
 | :--- | :--- | :--- | :--- |
 | `country` | string | ISO country code (e.g., `MW`, `RW`, `KE`, `TZ`). | ✅ Yes |
 | `currency` | string | ISO currency code (e.g., `MWK`, `RWF`, `KES`, `TZS`). | ✅ Yes |
+
+<Tip>
+This Endpoint is optional for Kenyan Mobile Money Collections.
+</Tip>
 
 <CodeGroup>
 ```bash cURL
