@@ -220,6 +220,12 @@
         "tab": "Resources",
         "groups": [
           {
+            "group": "Overview",
+            "pages": [
+              "resources-overview"
+            ]
+          },
+          {
             "group": "Release Notes",
             "pages": [
               "release-notes-api",

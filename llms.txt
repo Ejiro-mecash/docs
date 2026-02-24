@@ -1,6 +1,7 @@
 # meCash Developer Documentation
 
-meCash is a liquidity infrastructure platform for emerging markets. It provides a suite of APIs designed to make global money movement—payouts, wallets, and collections—faster, cheaper, and more accessible using blockchain and stablecoin technology.
+meCash is a digital finance platform that allows you to send and receive money in Africa internationally . It provides a suite of APIs designed to make global money movement—payouts, wallets, and collections—faster, cheaper, and more accessible using blockchain and stablecoin technology.
+While it offers a user-friendly mobile app, it has expanded to provide a fuller suite of financial services, including a web-based dashboard.
 
 ## Core APIs
 
@@ -23,6 +24,5 @@ meCash is a liquidity infrastructure platform for emerging markets. It provides 
 ## Support & Community
 
 - **Dashboard**: https://business.me-cash.com/
-- **Discord**: https://discord.com/invite/CC5v6h52Wk
 - **X (Twitter)**: https://x.com/mecash14
 - **Support Email**: support@me-cash.com
