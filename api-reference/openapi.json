@@ -1579,7 +1579,7 @@
             ]
           },
           "mobileProvider": {
-            "type": "enum",
+            "type": "string",
             "description": "The mobile provider code (ISO 4217).",
             "enum": [
               "MTN",
@@ -1819,7 +1819,7 @@
                     "type": "string"
                   },
                   "mobileProvider": {
-                    "type": "enum",
+                    "type": "string",
                     "description": "The mobile provider code (ISO 4217).",
                     "enum": [
                       "MTN",
@@ -2878,7 +2878,7 @@
                   "status": "failed"
                 }
               },
-              "QuoteNotFound": {
+              "QuoteNotFoundExample": {
                 "summary": "Quote Not Found",
                 "value": {
                   "message": "Quote does not exist",

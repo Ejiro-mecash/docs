@@ -3,20 +3,8 @@ title: "Request a Demo"
 mode: "custom"
 ---
 
-export const services = [
-  { value: "payout_apis", label: "Payout APIs" },
-  { value: "virtual_account", label: "Virtual Account" },
-  { value: "usd_virtual_account", label: "USD Virtual Account" },
-  { value: "payment_links", label: "Payment Links" },
-  { value: "others", label: "Others" },
-];
+import { RequestDemoForm } from '/snippets/request-demo-form.mdx';
 
-export const RequestDemoPage = () => {
-  const [selectedService, setSelectedService] = React.useState("");
-  const [dropdownOpen, setDropdownOpen] = React.useState(false);
-  const selectedLabel = services.find(s => s.value === selectedService)?.label || "Select a service";
-
-  return (
 <div className="min-h-screen bg-white dark:bg-[#020305] text-gray-900 dark:text-white font-sans flex flex-col lg:flex-row overflow-hidden -m-8 transition-colors duration-200">
 
   {/* LEFT COLUMN: API Product Showcase */}
@@ -100,109 +88,7 @@ export const RequestDemoPage = () => {
   {/* RIGHT COLUMN: The Form */}
   <div className="flex-1 bg-white dark:bg-[#0B0D12] border-l border-gray-100 dark:border-white/5 p-8 lg:p-20 flex items-center justify-center">
     
-    <div className="w-full max-w-md">
-      
-      <form 
-        onSubmit={async (e) => {
-          e.preventDefault();
-          
-          // 1. Send the email in the background (AJAX)
-          const formData = new FormData(e.target);
-          try {
-            await fetch("https://formsubmit.co/ajax/ejiro.onose@me-cash.com", {
-              method: "POST",
-              body: formData
-            });
-          } catch (error) {
-            console.error("Email sending failed, but redirecting anyway:", error);
-          }
+    <RequestDemoForm />
 
-          // 2. FORCE REDIRECT to Cal.com
-          window.location.href = "https://cal.com/mecash-support/30min";
-        }}
-        className="space-y-5"
-      >
-        
-        {/* Hidden Config */}
-        <input type="hidden" name="_subject" value="New meCash Demo Request" />
-        <input type="hidden" name="_captcha" value="false" />
-
-        {/* Name Fields */}
-        <div className="grid grid-cols-2 gap-5">
-          <div className="flex flex-col gap-2">
-            <label className="text-sm font-medium text-gray-700 dark:text-gray-300">First name</label>
-            <input type="text" name="first_name" placeholder="Adaeze" required 
-              className="w-full bg-white dark:bg-[#16181D] border border-gray-200 dark:border-white/10 rounded-lg px-4 py-3 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-600 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all" />
-          </div>
-          <div className="flex flex-col gap-2">
-            <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Last name</label>
-            <input type="text" name="last_name" placeholder="Okonkwo" required 
-              className="w-full bg-white dark:bg-[#16181D] border border-gray-200 dark:border-white/10 rounded-lg px-4 py-3 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-600 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all" />
-          </div>
-        </div>
-
-        {/* Email Field */}
-        <div className="flex flex-col gap-2">
-          <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Company email</label>
-          <input type="email" name="email" placeholder="you@company.com" required 
-            className="w-full bg-white dark:bg-[#16181D] border border-gray-200 dark:border-white/10 rounded-lg px-4 py-3 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-600 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all" />
-        </div>
-
-        {/* Company Name Field */}
-        <div className="flex flex-col gap-2">
-          <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Company name</label>
-          <input type="text" name="company" placeholder="Acme Inc." required 
-            className="w-full bg-white dark:bg-[#16181D] border border-gray-200 dark:border-white/10 rounded-lg px-4 py-3 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-600 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all" />
-        </div>
-
-        {/* Service Interest Custom Dropdown */}
-        <div className="flex flex-col gap-2" style={{ position: 'relative' }}>
-          <label className="text-sm font-medium text-gray-700 dark:text-gray-300">What service are you interested in?</label>
-          <input type="hidden" name="service" value={selectedService} required />
-          <div
-            onClick={() => setDropdownOpen(!dropdownOpen)}
-            className="w-full bg-white dark:bg-[#16181D] border border-gray-200 dark:border-white/10 rounded-lg px-4 py-3 cursor-pointer flex justify-between items-center"
-            style={{ userSelect: 'none' }}
-          >
-            <span className={selectedService ? "text-gray-900 dark:text-white" : "text-gray-400 dark:text-gray-600"}>{selectedLabel}</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ transform: dropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }}><path d="M19 9l-7 7-7-7"></path></svg>
-          </div>
-          {dropdownOpen && (
-            <div className="absolute left-0 right-0 bg-white dark:bg-[#16181D] border border-gray-200 dark:border-white/10 rounded-lg shadow-lg overflow-hidden z-50" style={{ top: '100%', marginTop: '4px' }}>
-              {services.map((s) => (
-                <div
-                  key={s.value}
-                  onClick={() => { setSelectedService(s.value); setDropdownOpen(false); }}
-                  className="px-4 py-3 cursor-pointer hover:bg-purple-50 dark:hover:bg-purple-900/20 text-gray-900 dark:text-white"
-                >
-                  {s.label}
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* Message Field (Tall Input) */}
-        <div className="flex flex-col gap-2">
-          <label className="text-sm font-medium text-gray-700 dark:text-gray-300">How can we help?</label>
-          <input type="text" name="message" placeholder="Tell us about your payout volume or integration needs..." 
-            className="w-full bg-white dark:bg-[#16181D] border border-gray-200 dark:border-white/10 rounded-lg px-5 py-7 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-600 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all" />
-        </div>
-
-        {/* Submit Button */}
-        <button type="submit" className="w-full bg-black dark:bg-white text-white dark:text-black font-bold py-3.5 rounded-full hover:opacity-80 transition-opacity mt-2 cursor-pointer shadow-lg">
-          Book a demo
-        </button>
-
-        <p className="text-xs text-center text-gray-500 mt-4">
-          By clicking "Book a demo", you agree to our Terms and Privacy Policy.
-        </p>
-
-      </form>
-    </div>
   </div>
 </div>
-  );
-};
-
-<RequestDemoPage />
