@@ -8,7 +8,7 @@ export const services = [
   { value: "others", label: "Others" },
 ];
 
-export const RequestDemoForm = () => {
+const RequestDemoForm = () => {
   const [selectedService, setSelectedService] = useState("");
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const selectedLabel = services.find(s => s.value === selectedService)?.label || "Select a service";
@@ -112,3 +112,5 @@ export const RequestDemoForm = () => {
     </div>
   );
 };
+
+export default RequestDemoForm;
