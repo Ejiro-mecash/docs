@@ -13,6 +13,24 @@ Monitor mobile changes so you can plan app store releases, regression testing, a
 ## Mobile SDKs
 
 <AccordionGroup>
+  <Accordion title="February 2026 — Mobile Release (Status: Live)">
+    **New Features & Enhancements**
+
+    - **Wallet View List Format**: Changed the Wallet view on the Mobile app to display in a LIST format.
+    - **USD & SWIFT Payouts**: Added interface and input fields for Sender and Beneficiary details to process USD Payouts using SWIFT, including an optional Intermediary Bank SWIFT Code field.
+    - **Moolahgo Payouts**: Configured payout routes for Singapore (SGD), Vietnam (VND), Malaysia (MYR), Thailand (THB), and South Korea (KRW).
+
+    **Form & Input Validations**
+
+    - Implemented a 25-character limit validation on the `bene_nickname` field for Moolahgo routes.
+    - Removed the character limit on the Recipient account number field and enabled alphanumeric input for all routes.
+
+    **UI Bug Fixes**
+
+    - Resolved an issue where the NGN transaction amount incorrectly switched to other currencies when switching wallet views.
+    - Fixed a bug where the KES flag persisted on the conversion screen even after changing the debit currency.
+  </Accordion>
+
   <Accordion title="January 2026 — Mobile Release (Status: Live)">
     **Improvements**
 
