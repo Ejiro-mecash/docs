@@ -1,0 +1,304 @@
+---
+title: "Pay China"
+description: "Send instant payouts from your multi-currency wallet to China with meCash. Fast, compliant, and reliable cross-border transfers to CNY."
+mode: "custom"
+icon: "flag"
+---
+
+<div className="min-h-screen bg-white dark:bg-[#020305] text-gray-900 dark:text-white font-sans -m-8 transition-colors duration-200">
+
+  {/* ── HERO SECTION ── */}
+  <section className="relative overflow-hidden">
+
+    {/* Background Gradient Blurs */}
+    <div className="absolute top-[-30%] right-[-10%] w-[50%] h-[70%] bg-purple-300/40 dark:bg-purple-800/25 rounded-full blur-[140px] pointer-events-none"></div>
+    <div className="absolute bottom-[-20%] left-[-10%] w-[40%] h-[50%] bg-red-200/30 dark:bg-red-900/15 rounded-full blur-[120px] pointer-events-none"></div>
+
+    <div className="max-w-6xl mx-auto px-6 lg:px-16 py-20 lg:py-32 flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+
+      {/* Hero Copy */}
+      <div className="flex-1 max-w-xl z-10">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-100 dark:bg-purple-500/15 mb-8">
+          <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+          <span className="text-purple-700 dark:text-purple-300 font-semibold text-sm tracking-wide">Live Corridor</span>
+        </div>
+
+        <h1 className="text-4xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-6 text-gray-900 dark:text-white">
+          Pay China 🇨🇳,{" "}
+          <span className="bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
+            Instantly.
+          </span>
+        </h1>
+
+        <p className="text-lg lg:text-xl text-gray-600 dark:text-gray-400 leading-relaxed mb-10">
+          Send payouts directly from <strong>your meCash multi-wallet</strong> to <strong>CNY</strong> bank accounts across China. Settle supplier invoices, reimburse partners, or pay employees — all through a single API call.
+        </p>
+
+        <div className="flex flex-wrap gap-4">
+          <a href="/payout-docs/payout-examples/ngn-cny-example" className="inline-flex items-center justify-center px-8 py-4 rounded-full bg-gradient-to-r from-purple-600 to-purple-800 text-white font-semibold text-base shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 hover:-translate-y-0.5 transition-all no-underline">
+            View API Docs →
+          </a>
+          <a href="/request-demo" className="inline-flex items-center justify-center px-8 py-4 rounded-full border border-gray-300 dark:border-white/15 bg-white/80 dark:bg-white/5 backdrop-blur-sm text-gray-900 dark:text-white font-semibold text-base hover:-translate-y-0.5 transition-all no-underline">
+            Book a Demo
+          </a>
+        </div>
+      </div>
+
+      {/* Hero Illustration */}
+      <div className="flex-1 flex justify-center z-10">
+        <img
+          src="/public/images/pay-china-hero.png"
+          alt="Illustration showing money flowing from Nigeria to China"
+          className="w-full max-w-md lg:max-w-lg rounded-3xl shadow-2xl shadow-purple-500/10"
+        />
+      </div>
+
+    </div>
+  </section>
+
+  {/* ── STATS RIBBON ── */}
+  <section className="border-y border-gray-100 dark:border-white/5 bg-gray-50/80 dark:bg-white/[0.02]">
+    <div className="max-w-5xl mx-auto px-6 py-12 grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+      <div>
+        <p className="text-3xl lg:text-4xl font-bold text-purple-600 dark:text-purple-400">Multi → CNY</p>
+        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Currency Coverage</p>
+      </div>
+      <div>
+        <p className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white">Bank Transfer</p>
+        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Payment Channel</p>
+      </div>
+      <div>
+        <p className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white">v2</p>
+        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">API Version</p>
+      </div>
+      <div>
+        <p className="text-3xl lg:text-4xl font-bold text-green-600 dark:text-green-400">Real-time</p>
+        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Settlement</p>
+      </div>
+    </div>
+  </section>
+
+  {/* ── HOW IT WORKS ── */}
+  <section className="max-w-5xl mx-auto px-6 lg:px-16 py-24">
+    <div className="text-center mb-16">
+      <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">How It Works</h2>
+      <p className="text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">Three simple steps to pay any bank account in China via our REST API.</p>
+    </div>
+
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+      {/* Step 1 */}
+      <div className="relative group p-8 rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.03] hover:border-purple-400 dark:hover:border-purple-500/40 hover:shadow-xl hover:shadow-purple-500/5 transition-all">
+        <div className="w-12 h-12 rounded-xl bg-purple-100 dark:bg-purple-500/15 flex items-center justify-center mb-6">
+          <span className="text-purple-600 dark:text-purple-400 font-bold text-lg">1</span>
+        </div>
+        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">Create a Quote</h3>
+        <p className="text-gray-500 dark:text-gray-400 leading-relaxed">
+          Lock in your cross-currency exchange rate with a guaranteed quote. Transparent fees, no hidden charges.
+        </p>
+      </div>
+
+      {/* Step 2 */}
+      <div className="relative group p-8 rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.03] hover:border-purple-400 dark:hover:border-purple-500/40 hover:shadow-xl hover:shadow-purple-500/5 transition-all">
+        <div className="w-12 h-12 rounded-xl bg-purple-100 dark:bg-purple-500/15 flex items-center justify-center mb-6">
+          <span className="text-purple-600 dark:text-purple-400 font-bold text-lg">2</span>
+        </div>
+        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">Submit Payout</h3>
+        <p className="text-gray-500 dark:text-gray-400 leading-relaxed">
+          Post recipient bank details, company info, and the quote ID to our <code className="text-purple-600 dark:text-purple-400">/v2/payout</code> endpoint.
+        </p>
+      </div>
+
+      {/* Step 3 */}
+      <div className="relative group p-8 rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.03] hover:border-purple-400 dark:hover:border-purple-500/40 hover:shadow-xl hover:shadow-purple-500/5 transition-all">
+        <div className="w-12 h-12 rounded-xl bg-purple-100 dark:bg-purple-500/15 flex items-center justify-center mb-6">
+          <span className="text-purple-600 dark:text-purple-400 font-bold text-lg">3</span>
+        </div>
+        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">Track & Confirm</h3>
+        <p className="text-gray-500 dark:text-gray-400 leading-relaxed">
+          Monitor status via webhooks or polling. Receive real-time confirmation when funds reach the recipient's Chinese bank account.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  {/* ── CODE PREVIEW ── */}
+  <section className="bg-gray-50 dark:bg-white/[0.02] border-y border-gray-100 dark:border-white/5">
+    <div className="max-w-5xl mx-auto px-6 lg:px-16 py-24">
+      <div className="flex flex-col lg:flex-row items-start gap-12 lg:gap-16">
+
+        {/* Copy */}
+        <div className="flex-1 max-w-md">
+          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-6">One API call. Payout done.</h2>
+          <p className="text-lg text-gray-500 dark:text-gray-400 mb-8 leading-relaxed">
+            With a single <code className="text-purple-600 dark:text-purple-400">POST</code> request, you can send funds to any Chinese bank account. Our API handles compliance, FX conversion, and settlement automatically.
+          </p>
+
+          <div className="space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-lg bg-green-100 dark:bg-green-500/15 flex items-center justify-center flex-shrink-0">
+                <span className="text-green-600 dark:text-green-400 text-sm">✓</span>
+              </div>
+              <span className="text-gray-700 dark:text-gray-300 font-medium">Supports Individual & Business recipients</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-lg bg-green-100 dark:bg-green-500/15 flex items-center justify-center flex-shrink-0">
+                <span className="text-green-600 dark:text-green-400 text-sm">✓</span>
+              </div>
+              <span className="text-gray-700 dark:text-gray-300 font-medium">Automatic FX conversion at locked rates</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-lg bg-green-100 dark:bg-green-500/15 flex items-center justify-center flex-shrink-0">
+                <span className="text-green-600 dark:text-green-400 text-sm">✓</span>
+              </div>
+              <span className="text-gray-700 dark:text-gray-300 font-medium">Webhook notifications on status changes</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-lg bg-green-100 dark:bg-green-500/15 flex items-center justify-center flex-shrink-0">
+                <span className="text-green-600 dark:text-green-400 text-sm">✓</span>
+              </div>
+              <span className="text-gray-700 dark:text-gray-300 font-medium">Built-in compliance & item categorization</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Code Block */}
+        <div className="flex-1 w-full">
+          <div className="rounded-2xl overflow-hidden border border-gray-200 dark:border-white/10 shadow-xl shadow-black/5 dark:shadow-black/30">
+
+            {/* Code Header */}
+            <div className="flex items-center gap-2 px-5 py-3 bg-gray-100 dark:bg-[#16181D] border-b border-gray-200 dark:border-white/10">
+              <div className="flex gap-1.5">
+                <div className="w-3 h-3 rounded-full bg-red-400"></div>
+                <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
+                <div className="w-3 h-3 rounded-full bg-green-400"></div>
+              </div>
+              <span className="ml-3 text-xs text-gray-500 font-mono">POST /v2/payout</span>
+            </div>
+
+            {/* Code Body */}
+            <div className="p-6 bg-white dark:bg-[#0B0D12] overflow-x-auto">
+              <pre className="text-sm font-mono leading-relaxed text-gray-800 dark:text-gray-300 whitespace-pre">
+{`{
+  "recipient": {
+    "name": "张少杰",
+    "type": "BUSINESS",
+    "account": {
+      "accountNumber": "6217000130064754343",
+      "bankName": "BAOSHANG BANK (包商银行)",
+      "bankCity": "SHENZHEN"
+    },
+    "companyName": "龙口市玉杰五金工具有限公司",
+    "paymentChannel": "BANK_TRANSFER",
+    "currency": "CNY",
+    "country": "CN"
+  },
+  "quoteId": "91e58c2d-ef14-...",
+  "reason": "Payment for goods"
+}`}
+              </pre>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  {/* ── FEATURES GRID ── */}
+  <section className="max-w-5xl mx-auto px-6 lg:px-16 py-24">
+    <div className="text-center mb-16">
+      <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">Why meCash for China Payouts?</h2>
+      <p className="text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">Purpose-built infrastructure for Africa-to-China trade settlement.</p>
+    </div>
+
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+      <div className="p-8 rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.03] hover:shadow-lg transition-shadow">
+        <div className="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-500/15 flex items-center justify-center mb-5">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue-600 dark:text-blue-400"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+        </div>
+        <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Deep Banking Network</h3>
+        <p className="text-gray-500 dark:text-gray-400 leading-relaxed">Direct connections to major Chinese banks including ICBC, Bank of China, Baoshang Bank, and more.</p>
+      </div>
+
+      <div className="p-8 rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.03] hover:shadow-lg transition-shadow">
+        <div className="w-12 h-12 rounded-xl bg-amber-100 dark:bg-amber-500/15 flex items-center justify-center mb-5">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-amber-600 dark:text-amber-400"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+        </div>
+        <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Compliance Built-In</h3>
+        <p className="text-gray-500 dark:text-gray-400 leading-relaxed">Item categorization, company ID validation, and IC number checks handled automatically by the API.</p>
+      </div>
+
+      <div className="p-8 rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.03] hover:shadow-lg transition-shadow">
+        <div className="w-12 h-12 rounded-xl bg-green-100 dark:bg-green-500/15 flex items-center justify-center mb-5">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-green-600 dark:text-green-400"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg>
+        </div>
+        <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Competitive Rates</h3>
+        <p className="text-gray-500 dark:text-gray-400 leading-relaxed">
+          Lock in real-time cross-currency exchange rates with guaranteed quotes and transparent fee breakdowns.
+        </p>
+      </div>
+
+      <div className="p-8 rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.03] hover:shadow-lg transition-shadow">
+        <div className="w-12 h-12 rounded-xl bg-pink-100 dark:bg-pink-500/15 flex items-center justify-center mb-5">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-pink-600 dark:text-pink-400"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><path d="M10 9H8"></path></svg>
+        </div>
+        <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Full Audit Trail</h3>
+        <p className="text-gray-500 dark:text-gray-400 leading-relaxed">Every payout is tracked with a reference number, timestamps, and webhook events for complete reconciliation.</p>
+      </div>
+
+    </div>
+  </section>
+
+  {/* ── USE CASES ── */}
+  <section className="bg-gray-50 dark:bg-white/[0.02] border-y border-gray-100 dark:border-white/5">
+    <div className="max-w-5xl mx-auto px-6 lg:px-16 py-24">
+      <div className="text-center mb-16">
+        <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">Built For Africa–China Trade</h2>
+        <p className="text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">Whether you're settling supplier invoices or paying for imported goods, meCash makes it seamless.</p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="p-6 rounded-2xl bg-white dark:bg-white/[0.04] border border-gray-200 dark:border-white/10 text-center">
+          <div className="text-4xl mb-4">🏭</div>
+          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Supplier Payments</h3>
+          <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">Pay Chinese manufacturers and wholesalers directly from your multi-currency wallet.</p>
+        </div>
+        <div className="p-6 rounded-2xl bg-white dark:bg-white/[0.04] border border-gray-200 dark:border-white/10 text-center">
+          <div className="text-4xl mb-4">📦</div>
+          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Import Settlement</h3>
+          <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">Settle invoices for goods imported from Guangzhou, Yiwu, Shenzhen, and beyond.</p>
+        </div>
+        <div className="p-6 rounded-2xl bg-white dark:bg-white/[0.04] border border-gray-200 dark:border-white/10 text-center">
+          <div className="text-4xl mb-4">💼</div>
+          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Business Remittance</h3>
+          <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">Send operational funds or payroll to employees and partners in China.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ── CTA SECTION ── */}
+  <section className="relative overflow-hidden">
+    <div className="absolute inset-0 bg-gradient-to-br from-purple-600 to-purple-900 dark:from-purple-800 dark:to-purple-950"></div>
+    <div className="absolute top-[-30%] right-[-15%] w-[50%] h-[80%] bg-white/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+    <div className="relative max-w-4xl mx-auto px-6 lg:px-16 py-24 text-center">
+      <h2 className="text-3xl lg:text-5xl font-bold text-white mb-6">Ready to Start Paying China?</h2>
+      <p className="text-lg text-purple-100/80 mb-10 max-w-2xl mx-auto">
+        Get API credentials, explore the sandbox, and go live in hours — not weeks. Our team is here to support your integration.
+      </p>
+      <div className="flex flex-wrap justify-center gap-4">
+        <a href="/quickstart" className="inline-flex items-center justify-center px-8 py-4 rounded-full bg-white text-purple-700 font-bold text-base hover:-translate-y-0.5 shadow-lg shadow-black/20 transition-all no-underline">
+          Get Started Free
+        </a>
+        <a href="/request-demo" className="inline-flex items-center justify-center px-8 py-4 rounded-full border-2 border-white/30 text-white font-semibold text-base hover:bg-white/10 hover:-translate-y-0.5 transition-all no-underline">
+          Talk to Sales
+        </a>
+      </div>
+    </div>
+  </section>
+
+</div>

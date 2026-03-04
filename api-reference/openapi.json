@@ -1577,6 +1577,16 @@
               "MWK",
               "USD"
             ]
+          },
+          "mobileProvider": {
+            "type": "enum",
+            "description": "The mobile provider code (ISO 4217).",
+            "enum": [
+              "MTN",
+              "GLO",
+              "AIRTEL",
+              "9MOBILE"
+            ]
           }
         }
       },
@@ -1584,7 +1594,8 @@
         "type": "object",
         "required": [
           "country",
-          "currency"
+          "currency",
+          "mobileProvider"
         ],
         "properties": {
           "country": {
@@ -1808,7 +1819,14 @@
                     "type": "string"
                   },
                   "mobileProvider": {
-                    "type": "string"
+                    "type": "enum",
+                    "description": "The mobile provider code (ISO 4217).",
+                    "enum": [
+                      "MTN",
+                      "GLO",
+                      "AIRTEL",
+                      "9MOBILE"
+                    ]
                   }
                 }
               },

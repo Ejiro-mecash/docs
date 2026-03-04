@@ -1,9 +1,8 @@
 ---
-title: 'USD → USD via Swift'
-icon: money-bill-transfer
+title: '🇺🇸 USD Payout'
 ---
 
-This endpoint allows you to process USD payouts to recipients in the United States using the **SWIFT** payment channel for international wire transfers.
+This endpoint allows you to process payouts in **US Dollars (USD)** to recipients with a bank account in the United States.
 
 ---
 
@@ -13,11 +12,13 @@ This endpoint allows you to process USD payouts to recipients in the United Stat
 
 ---
 
-## Payment Channel Overview
+## Supported Payment Channels
+
+USD payouts support two payment channels:
 
 | **Channel** | **Description** | **Use Case** |
 | :---------- | :-------------- | :----------- |
-| `SWIFT` | International wire transfer using SWIFT code | Cross-border USD wire transfers |
+| `SWIFT` | International wire transfer using SWIFT code | International/Cross-border transfers |
 
 ---
 
@@ -35,6 +36,13 @@ Include these headers in your request:
 ---
 
 ## Sample Requests
+
+<Tabs>
+
+
+<Tab title="SWIFT">
+
+Use `SWIFT` for international wire transfers using SWIFT/BIC codes.
 
 <CodeGroup>
 ```bash cURL
@@ -60,7 +68,7 @@ curl --location --request POST '{{baseURL}}/v2/payout' \
     "country": "US",
     "currency": "USD"
   },
-  "quoteId": "d3267c84-2b3c-4d6e-9f8g-xxxxxxxxxxxx",
+  "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
   "reason": "Gift",
   "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
   "remark": "Testing"
@@ -94,7 +102,7 @@ const options = {
       country: "US",
       currency: "USD"
     },
-    quoteId: "d3267c84-2b3c-4d6e-9f8g-xxxxxxxxxxxx",
+    quoteId: "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
     reason: "Gift",
     invoice: "4b9b6d30-a2ed-421a-bd69-11536344f071",
     remark: "Testing"
@@ -137,7 +145,7 @@ payload = {
         "country": "US",
         "currency": "USD"
     },
-    "quoteId": "d3267c84-2b3c-4d6e-9f8g-xxxxxxxxxxxx",
+    "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
     "reason": "Gift",
     "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
     "remark": "Testing"
@@ -157,15 +165,23 @@ except requests.exceptions.HTTPError as err:
 ```
 </CodeGroup>
 
+</Tab>
+</Tabs>
+
 ---
 
 ### Request Body Breakdown
+
+<Tabs>
+
+
+<Tab title="SWIFT Fields">
 
 | **Field** | **Type** | **Description** | **Required** |
 | :---------------------------------- | :------ | :-------------------------------------------------------------------------- | :------- |
 | `quoteId`                           | String  | The unique ID of the quote for this payout.                                 | ✅ Yes   |
 | `reason`                            | String  | The purpose of the transfer (e.g., `Gift`, `Payment for services`).         | ✅ Yes   |
-| `invoice`                           | String  | Optional identifier for the invoice (returned from file upload).            | ❌ No    |
+| `invoice`                           | String  | Optional identifier for the invoice (returned from file upload).            | ❔ No    |
 | `remark`                            | String  | An optional, additional note about the transaction.                         | ❔ No    |
 | `recipient`                         | Object  | An object containing all details about the person receiving the funds.      | ✅ Yes   |
 | `recipient.name`                    | String  | The full name of the recipient or business.                                 | ✅ Yes   |
@@ -184,6 +200,8 @@ except requests.exceptions.HTTPError as err:
 | `recipient.account.bankCity`        | String  | The city where the bank is located.                                         | ❔ No    |
 | `recipient.account.intermediarySwiftCode` | String | The SWIFT/BIC code of the intermediary bank. | ❔ No (Conditional) |
 
+</Tab>
+</Tabs>
 
 ---
 
@@ -197,45 +215,42 @@ If the payout is successfully created, the API returns the following response:
   "status": "success",
   "data": {
     "id": "a1b2c3d4-e5f6-7890-abcd-xxxxxxxxxxxxx",
-    "reason": "Gift",
     "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
+    "reason": "Gift",
     "referenceNumber": "TXYZD6RWSQMKF",
     "type": "SEND",
     "state": "COMPLETED",
     "quote": {
-      "id": "d3267c84-2b3c-4d6e-9f8g-xxxxxxxxxxxx",
+      "id": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
       "source": {
-        "currency": "USD",
-        "country": "US",
-        "amount": 1000
+        "currency": "NGN",
+        "country": "NG",
+        "amount": 160000
       },
       "target": {
         "currency": "USD",
         "country": "US",
-        "amount": 1000
+        "amount": 100
       },
-      "rate": 1,
+      "rate": 1600,
       "fee": {
-        "amount": 25
+        "amount": 500
       }
     },
     "recipient": {
-      "name": "James Wilson",
-      "nickName": "Blue",
-      "gender": "M",
-      "occupation": "business entrepreneur",
+      "name": "Linda Collins",
       "type": "BUSINESS",
+      "address": "200 Koch Vista, New York, NY 10001",
       "account": {
-        "sortCode": "02090",
-        "swiftCode": "GTBINGLA",
-        "bankCity": "Atlanta",
-        "accountNumber": "885406477269",
-        "bankName": "DBS Bank Limited",
-        "intermediarySwiftCode": "CHASUS33XXX"
+          "accountNumber": "8573629XX",
+          "swiftCode": "1234",
+          "bankName": "Chase Bank",
+          "address": "1948 Kemmer Ville, New York, NY 10002",
+          "routingNumber": "0210000XX"
       },
       "paymentChannel": "SWIFT",
-      "country": "US",
-      "currency": "USD"
+      "currency": "USD",
+      "country": "US"
     },
     "created": "2025-02-27T14:17:48.038044Z",
     "processed": "2025-02-27T14:20:49.712685Z"
@@ -259,10 +274,10 @@ If the payout is successfully created, the API returns the following response:
 | `data.quote.source.currency`       | String | The three-letter currency code of the source funds.             |
 | `data.quote.target.amount`         | Number | The converted amount that the recipient received.               |
 | `data.recipient.name`              | String | The full name of the recipient.                                 |
-| `data.recipient.type`              | String | The type of recipient entity, e.g., `BUSINESS`.                 |
-| `data.recipient.account.accountNumber` | String | The recipient's bank account number.                        |
+| `data.recipient.type`              | String | The type of recipient entity, e.g., `BUSINESS`.                     |
+| `data.recipient.account.accountNumber` | String | The recipient's bank account number.                            |
 | `data.recipient.account.bankName`  | String | The name of the recipient's bank.                               |
-| `data.recipient.account.swiftCode` | String | The SWIFT/BIC code of the recipient's bank.                     |
+| `data.recipient.account.swiftCode`  | String | The swift code of the recipient's bank.                     |
 | `data.created`                     | String | ISO 8601 timestamp of when the transaction was created.         |
 | `data.processed`                   | String | ISO 8601 timestamp of when the transaction was processed.       |
 ---
@@ -291,54 +306,11 @@ The payout transaction can have one of the following states:
 | `500`       | Internal Server Error  | An internal error occurred.                     |
 ---
 
----
-
-## **Understanding Intermediary Banks**
-
-An **Intermediary Bank** (also known as a correspondent bank) is a third-party bank that acts as a middleman between the sending bank and the beneficiary bank to facilitate international wire transfers.
-
-### Why is an Intermediary SWIFT Code Needed?
-When the sending bank and the beneficiary bank do not have a direct financial relationship, they use an intermediary bank to move the funds across borders. This is extremely common for USD transfers outside the United States.
-
-### When is the field required?
-- **Required:** If your beneficiary bank requires funds to be routed through a specific intermediary bank to receive USD. This information is typically provided in the beneficiary's wire instructions.
-- **Optional:** If the beneficiary bank has a direct relationship with major US clearing banks, this field can be left blank.
-
-### How to get the Intermediary SWIFT Code?
-The recipient must obtain these details directly from their bank. It is usually found in the "International Wire Instructions" or "Transfer Details" section of their bank's documentation.
-
----
-
-## **UI Reference**
-
-In the meCash dashboard, the **Intermediary Bank SWIFT Code** field is located within the Add Beneficiary form under the Bank Account section.
-
-![Intermediary Bank Field Reference](/public/images/intermediary-bank-ui.png)
-
----
-
-## **Frequently Asked Questions (FAQ)**
-
-<AccordionGroup>
-  <Accordion title="What happens if the intermediary SWIFT code is missing?">
-    If an intermediary bank is required for the route but not provided, the transfer may be delayed as banks attempt to find a valid route, or it may be rejected and returned (minus processing fees).
-  </Accordion>
-
-  <Accordion title="What happens if the wrong code is provided?">
-    Providing an incorrect SWIFT code will result in a failed transaction. The funds will eventually be returned to your wallet, but this can take several business days and may incur rejection fees from the involved banks.
-  </Accordion>
-
-  <Accordion title="Does every USD SWIFT transfer require an intermediary bank?">
-    No. Many large international banks have direct "correspondent" relationships. However, for smaller regional banks or specific corridors, an intermediary is essential for successful delivery.
-  </Accordion>
-</AccordionGroup>
-
----
 
 ## **Best Practices**
 ✅ Ensure `quoteId` is valid and linked to an existing quote.  
-✅ Confirm that the recipient's **bank account number** and **SWIFT code** are correct.  
-✅ Use `SWIFT` payment channel for international wire transfers requiring SWIFT/BIC codes.  
+✅ Confirm that the recipient's **bank account number** and **bank code** are correct.  
+✅ Use `SWIFT` for international wire transfers requiring SWIFT/BIC codes.  
 ✅ Use a valid API key in the headers.  
 ✅ Handle error responses correctly in your integration.  
 

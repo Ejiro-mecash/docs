@@ -3,6 +3,20 @@ title: "Request a Demo"
 mode: "custom"
 ---
 
+export const services = [
+  { value: "payout_apis", label: "Payout APIs" },
+  { value: "virtual_account", label: "Virtual Account" },
+  { value: "usd_virtual_account", label: "USD Virtual Account" },
+  { value: "payment_links", label: "Payment Links" },
+  { value: "others", label: "Others" },
+];
+
+export const RequestDemoPage = () => {
+  const [selectedService, setSelectedService] = React.useState("");
+  const [dropdownOpen, setDropdownOpen] = React.useState(false);
+  const selectedLabel = services.find(s => s.value === selectedService)?.label || "Select a service";
+
+  return (
 <div className="min-h-screen bg-white dark:bg-[#020305] text-gray-900 dark:text-white font-sans flex flex-col lg:flex-row overflow-hidden -m-8 transition-colors duration-200">
 
   {/* LEFT COLUMN: API Product Showcase */}
@@ -51,20 +65,28 @@ mode: "custom"
           <span className="font-semibold text-gray-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">Quotes API</span>
         </a>
 
-        {/* Link 4: Transaction API (Icon: Receipt) */}
-        <a href="/transaction-docs/get-transaction" className="group flex items-center gap-4 p-4 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 backdrop-blur-sm shadow-sm hover:border-purple-500 dark:hover:border-purple-500 hover:shadow-md transition-all cursor-pointer no-underline">
+        {/* Link 4: Pay China (Icon: Globe/China flag) */}
+        <a href="/pay-china" className="group flex items-center gap-4 p-4 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 backdrop-blur-sm shadow-sm hover:border-purple-500 dark:hover:border-purple-500 hover:shadow-md transition-all cursor-pointer no-underline">
           <div className="p-2.5 rounded-lg bg-orange-100 dark:bg-orange-500/20 text-orange-600 dark:text-orange-300 group-hover:scale-110 transition-transform">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><path d="M10 9H8"></path></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
           </div>
-          <span className="font-semibold text-gray-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">Transaction API</span>
+          <span className="font-semibold text-gray-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">Pay China API</span>
         </a>
 
-        {/* Link 5: Payment Links API (Icon: Chain) */}
-        <a href="/payment-links" className="group flex items-center gap-4 p-4 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 backdrop-blur-sm shadow-sm hover:border-purple-500 dark:hover:border-purple-500 hover:shadow-md transition-all cursor-pointer no-underline">
+       {/* Link 5: USD Virtual Account (Icon: Dollar sign) */}
+        <a href="/virtual-accounts-docs/usd-virtual-account" className="group flex items-center gap-4 p-4 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 backdrop-blur-sm shadow-sm hover:border-purple-500 dark:hover:border-purple-500 hover:shadow-md transition-all cursor-pointer no-underline">
           <div className="p-2.5 rounded-lg bg-pink-100 dark:bg-pink-500/20 text-pink-600 dark:text-pink-300 group-hover:scale-110 transition-transform">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+          </div>
+          <span className="font-semibold text-gray-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">USD Virtual Account API</span>
+        </a>
+
+        {/* Link 6: Payment Links (Icon: Link) */}
+        <a href="/payment-links" className="group flex items-center gap-4 p-4 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 backdrop-blur-sm shadow-sm hover:border-purple-500 dark:hover:border-purple-500 hover:shadow-md transition-all cursor-pointer no-underline">
+          <div className="p-2.5 rounded-lg bg-teal-100 dark:bg-teal-500/20 text-teal-600 dark:text-teal-300 group-hover:scale-110 transition-transform">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
           </div>
-          <span className="font-semibold text-gray-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">Payment Links API</span>
+          <span className="font-semibold text-gray-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">Payment Links</span>
         </a>
 
       </div>
@@ -133,6 +155,33 @@ mode: "custom"
             className="w-full bg-white dark:bg-[#16181D] border border-gray-200 dark:border-white/10 rounded-lg px-4 py-3 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-600 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all" />
         </div>
 
+        {/* Service Interest Custom Dropdown */}
+        <div className="flex flex-col gap-2" style={{ position: 'relative' }}>
+          <label className="text-sm font-medium text-gray-700 dark:text-gray-300">What service are you interested in?</label>
+          <input type="hidden" name="service" value={selectedService} required />
+          <div
+            onClick={() => setDropdownOpen(!dropdownOpen)}
+            className="w-full bg-white dark:bg-[#16181D] border border-gray-200 dark:border-white/10 rounded-lg px-4 py-3 cursor-pointer flex justify-between items-center"
+            style={{ userSelect: 'none' }}
+          >
+            <span className={selectedService ? "text-gray-900 dark:text-white" : "text-gray-400 dark:text-gray-600"}>{selectedLabel}</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ transform: dropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }}><path d="M19 9l-7 7-7-7"></path></svg>
+          </div>
+          {dropdownOpen && (
+            <div className="absolute left-0 right-0 bg-white dark:bg-[#16181D] border border-gray-200 dark:border-white/10 rounded-lg shadow-lg overflow-hidden z-50" style={{ top: '100%', marginTop: '4px' }}>
+              {services.map((s) => (
+                <div
+                  key={s.value}
+                  onClick={() => { setSelectedService(s.value); setDropdownOpen(false); }}
+                  className="px-4 py-3 cursor-pointer hover:bg-purple-50 dark:hover:bg-purple-900/20 text-gray-900 dark:text-white"
+                >
+                  {s.label}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
         {/* Message Field (Tall Input) */}
         <div className="flex flex-col gap-2">
           <label className="text-sm font-medium text-gray-700 dark:text-gray-300">How can we help?</label>
@@ -153,3 +202,7 @@ mode: "custom"
     </div>
   </div>
 </div>
+  );
+};
+
+<RequestDemoPage />
