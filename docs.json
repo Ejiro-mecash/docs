@@ -51,6 +51,7 @@
     "tabs": [
       {
         "tab": "Getting Started",
+        "icon": "play",
         "groups": [
           {
             "group": "Setup",
@@ -97,12 +98,13 @@
           },
           {
             "group": "Payouts",
-            "icon": "money-bill-transfer",
+            "icon": "hand-holding-dollar",
             "pages": [
               "payout-docs/payout",
               "payout-docs/supported-payouts",
               {
                 "group": "Payout Examples",
+                "tag": "new",
                 "icon": "layer-group",
                 "pages": [
                   "payout-docs/payout-examples/index",
@@ -142,7 +144,7 @@
           },
           {
             "group": "Webhooks",
-            "icon": "webhook",
+            "icon": "bell",
             "pages": [
               {
                 "group": "Guides",
@@ -338,5 +340,15 @@
   "banner": {
     "content": "🚀 **New Feature:** API Logs! View all your API requests and responses in the **Developers** tab of your dashboard.",
     "dismissible": true
+  },
+  "contextual": {
+    "options": [
+      "copy",
+      "view",
+      "chatgpt",
+      "claude",
+      "perplexity",
+      "cursor"
+    ]
   }
 }

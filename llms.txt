@@ -13,6 +13,7 @@ While it offers a user-friendly mobile app, it has expanded to provide a fuller 
   - **Virtual Accounts**: Issue static or dynamic accounts in NGN, MWK, and USD to collect local payments.
 - **Ramp API**: Facilitate crypto-to-fiat (Off-Ramp) and crypto-to-crypto deposits and withdrawals (USDC, USDT, ETH).
 - **Transaction API**: Track and reconcile money movement end-to-end.
+- **API Logs**: View and monitor all API requests and responses in real-time.
 
 ## Key Resources
 
