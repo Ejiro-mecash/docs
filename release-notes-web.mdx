@@ -19,12 +19,12 @@ Use these notes to keep your internal runbooks, training materials, and embedded
     - **Virtual Cards**: Launched [Virtual Cards](/virtual-cards) this month, allowing merchants to issue and manage cards directly via the dashboard.
     - **Source Account Information**: Added a "Source Account Information" section to the Transaction Details page on the Merchant portal, displaying Source Account Name, Number, and Bank Name.
     - **Payment Links Updates**: Allowed decimal inputs on the payment link amount form and ensured the amount displays correctly on the transaction screen.
-    - **Moolahgo Payouts**: Configured new payout routes for Singapore (SGD), Vietnam (VND), Malaysia (MYR), Thailand (THB), and South Korea (KRW) via Moolahgo.
+    - **New Payout Routes**: Configured new payout routes for Singapore (SGD), Vietnam (VND), Malaysia (MYR), Thailand (THB), and South Korea (KRW).
     - **USD Payouts Enhancements**: Added an optional Intermediary Bank SWIFT Code text box for USD payouts.
 
     **Form & Input Validations**
 
-    - Implemented a 25-character limit validation on the `bene_nickname` field for all Moolahgo routes.
+    - Implemented a 25-character limit validation on the `bene_nickname` field for all routes.
     - Removed character count limits on the Recipient account number field and allowed alphanumeric inputs across all routes.
     - Fixed a bug where the NGN field incorrectly flagged `.00` values as decimals during USD to NGN conversions.
 
@@ -32,13 +32,11 @@ Use these notes to keep your internal runbooks, training materials, and embedded
 
     - Fixed a pagination bug that reset the transaction list back to Page 1 after viewing transaction details.
     - Removed the Bank Name on the PROD-Transaction details page for NGN to CAD transfers via INTERAC.
-    - Fixed a 404 error state when updating webhook URLs in the developers' module.
   </Accordion>
 
   <Accordion title="January 2026 — Web App Release (Status: Live)">
     **New Features & Enhancements**
 
-    - **Valentine's Campaign Support**: Launched themed promotional articles and in-app flyers to support seasonal marketing campaigns.
     - **Automated Ledger Alerts**: Implemented automated email notifications triggered whenever an Admin performs a manual balance adjustment to ensure oversight.
 
     **Fixes**
