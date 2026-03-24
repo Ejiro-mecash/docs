@@ -27,7 +27,7 @@ Gather all the amounts you need to send. Each item only requires a `sourceAmount
 Send all amounts in a single `POST /v1/bulk/quote` request along with the payment channel, source, and target corridor.
 
 ```bash cURL
-curl --request POST 'https://devapi.me-cash.com/v1/bulk/quote' \
+curl --request POST 'https://{{baseURL}}/v1/bulk/quote' \
   --header 'Content-Type: application/json' \
   --header 'x-api-key: YOUR_API_KEY' \
   --data '{
@@ -50,7 +50,7 @@ The response returns an array of quotes, each with its own `quoteId`, rate, fee,
 Fetch one or more quotes by ID to confirm pricing before executing payouts.
 
 ```bash cURL
-curl --request GET 'https://devapi.me-cash.com/v1/bulk/quote?quoteIds=fa01c1ad-6c0f-4074-8221-ffc8fdaa16db&quoteIds=6809b2ab-1d4d-4436-8218-46667419eee7' \
+curl --request GET 'https://{{baseURL}}/v1/bulk/quote?quoteIds=fa01c1ad-6c0f-4074-8221-ffc8fdaa16db&quoteIds=6809b2ab-1d4d-4436-8218-46667419eee7' \
   --header 'Content-Type: application/json' \
   --header 'x-api-key: YOUR_API_KEY'
 ```
