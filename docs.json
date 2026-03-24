@@ -93,7 +93,8 @@
             "pages": [
               "quote-docs/about-quote",
               "quote-docs/supported-curriencies",
-              "quote-docs/create-quote-all-examples"
+              "quote-docs/create-quote-all-examples",
+              "quote-docs/bulk-quote"
             ]
           },
           {
@@ -102,6 +103,7 @@
             "pages": [
               "payout-docs/payout",
               "payout-docs/supported-payouts",
+              "payout-docs/bulk-payout",
               {
                 "group": "Payout Examples",
                 "tag": "new",
@@ -224,6 +226,16 @@
             ]
           },
           {
+            "group": "Bulk Payout",
+            "icon": "users",
+            "tag": "new",
+            "pages": [
+              "payout/create-bulk-quote",
+              "payout/get-bulk-quotes",
+              "payout/create-bulk-payout"
+            ]
+          },
+          {
             "group": "Virtual Account",
             "icon": "building-columns",
             "pages": [
@@ -338,7 +350,7 @@
     "/ask-ai-floating-widget.js"
   ],
   "banner": {
-    "content": "🚀 **New Feature:** API Logs! View all your API requests and responses in the **Developers** tab of your dashboard.",
+    "content": "🚀 **New Feature:** Bulk Payouts! Send funds to multiple beneficiaries in a single request. [Check the guide](/payout-docs/bulk-payout)",
     "dismissible": true
   },
   "contextual": {

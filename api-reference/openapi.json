@@ -47,6 +47,10 @@
     {
       "name": "Collection",
       "description": "Mobile money and wallet funding operations"
+    },
+    {
+      "name": "Bulk Payout",
+      "description": "Bulk transfer operations for sending to multiple beneficiaries in a single request"
     }
   ],
   "security": [
@@ -1134,7 +1138,7 @@
         }
       },
       "NgnPayoutRequest": {
-        "title": "NGN → NGN",
+        "title": "NGN Payout",
         "description": "Payout to a Nigerian bank account (NGN).",
         "allOf": [
           {
@@ -1151,7 +1155,7 @@
         ]
       },
       "UsdSwiftPayoutRequest": {
-        "title": "NGN / USD → USD",
+        "title": "USD SWIFT Payout",
         "description": "Payout to a US bank account via SWIFT.",
         "allOf": [
           {
@@ -1168,7 +1172,7 @@
         ]
       },
       "EurPayoutRequest": {
-        "title": "NGN → EUR",
+        "title": "EUR Payout",
         "description": "Payout to a SEPA European bank account (EUR).",
         "allOf": [
           {
@@ -1185,7 +1189,7 @@
         ]
       },
       "GbpPayoutRequest": {
-        "title": "NGN → GBP",
+        "title": "GBP Payout",
         "description": "Payout to a UK bank account (GBP).",
         "allOf": [
           {
@@ -1202,7 +1206,7 @@
         ]
       },
       "CadBankPayoutRequest": {
-        "title": "NGN → CAD (Bank Transfer)",
+        "title": "CAD (Bank Transfer) Payout",
         "description": "Payout to a Canadian bank account via bank transfer (CAD).",
         "allOf": [
           {
@@ -1219,7 +1223,7 @@
         ]
       },
       "CadInteracPayoutRequest": {
-        "title": "NGN → CAD (Interac)",
+        "title": "CAD (Interac) Payout",
         "description": "Payout to a Canadian recipient via Interac e-Transfer (CAD).",
         "allOf": [
           {
@@ -1236,7 +1240,7 @@
         ]
       },
       "SgdPayoutRequest": {
-        "title": "NGN / USD → SGD",
+        "title": "SGD Payout",
         "description": "Payout to a Singapore bank account (SGD).",
         "allOf": [
           {
@@ -1253,7 +1257,7 @@
         ]
       },
       "KrwPayoutRequest": {
-        "title": "NGN / USD → KRW",
+        "title": "KRW Payout",
         "description": "Payout to a South Korean bank account (KRW).",
         "allOf": [
           {
@@ -1270,7 +1274,7 @@
         ]
       },
       "ThbPayoutRequest": {
-        "title": "USD → THB",
+        "title": "THB Payout",
         "description": "Payout to a Thai bank account (THB).",
         "allOf": [
           {
@@ -1287,7 +1291,7 @@
         ]
       },
       "MyrPayoutRequest": {
-        "title": "USD → MYR",
+        "title": "MYR Payout",
         "description": "Payout to a Malaysian bank account (MYR).",
         "allOf": [
           {
@@ -1304,7 +1308,7 @@
         ]
       },
       "VndPayoutRequest": {
-        "title": "USD → VND",
+        "title": "VND Payout",
         "description": "Payout to a Vietnamese bank account (VND).",
         "allOf": [
           {
@@ -1321,7 +1325,7 @@
         ]
       },
       "CnyPayoutRequest": {
-        "title": "NGN → CNY",
+        "title": "CNY Payout",
         "description": "Payout to a Chinese bank account (CNY).",
         "allOf": [
           {
@@ -1338,7 +1342,7 @@
         ]
       },
       "MwkPayoutRequest": {
-        "title": "MWK → MWK",
+        "title": "MWK Payout",
         "description": "Payout to a Malawian bank account (MWK).",
         "allOf": [
           {
@@ -2664,6 +2668,251 @@
             "example": 100
           }
         }
+      },
+      "CreateBulkQuoteRequest": {
+        "type": "object",
+        "required": ["paymentChannel", "items", "source", "target"],
+        "properties": {
+          "paymentChannel": {
+            "$ref": "#/components/schemas/PaymentChannel",
+            "description": "The channel through which the payments will be processed."
+          },
+          "items": {
+            "type": "array",
+            "description": "List of individual transfer amounts to quote.",
+            "items": {
+              "type": "object",
+              "required": ["sourceAmount"],
+              "properties": {
+                "sourceAmount": {
+                  "type": "number",
+                  "description": "The amount to send in the source currency.",
+                  "example": 100.00
+                }
+              }
+            }
+          },
+          "source": {
+            "type": "object",
+            "required": ["currency", "country"],
+            "properties": {
+              "currency": {
+                "$ref": "#/components/schemas/CurrencyCode"
+              },
+              "country": {
+                "$ref": "#/components/schemas/CountryCode"
+              }
+            },
+            "description": "Source currency and country."
+          },
+          "target": {
+            "type": "object",
+            "required": ["currency", "country"],
+            "properties": {
+              "currency": {
+                "$ref": "#/components/schemas/CurrencyCode"
+              },
+              "country": {
+                "$ref": "#/components/schemas/CountryCode"
+              }
+            },
+            "description": "Target currency and country."
+          }
+        }
+      },
+      "BulkQuoteResponseData": {
+        "type": "object",
+        "properties": {
+          "quotes": {
+            "type": "array",
+            "description": "List of individual quotes generated for each item.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "quoteId": {
+                  "type": "string",
+                  "format": "uuid",
+                  "description": "Unique identifier for this individual quote.",
+                  "example": "fa01c1ad-6c0f-4074-8221-ffc8fdaa16db"
+                },
+                "sourceAmount": {
+                  "type": "number",
+                  "description": "Amount in source currency.",
+                  "example": 100.00
+                },
+                "targetAmount": {
+                  "type": "number",
+                  "description": "Amount the recipient will receive.",
+                  "example": 100.00
+                },
+                "rate": {
+                  "type": "number",
+                  "description": "Exchange rate applied.",
+                  "example": 1.0
+                },
+                "fee": {
+                  "type": "number",
+                  "description": "Fee charged for this transfer.",
+                  "example": 5.00
+                },
+                "sourceCurrency": {
+                  "type": "string",
+                  "example": "NGN"
+                },
+                "targetCurrency": {
+                  "type": "string",
+                  "example": "NGN"
+                },
+                "expiresInSeconds": {
+                  "type": "integer",
+                  "description": "Seconds until this quote expires.",
+                  "example": 600
+                }
+              }
+            }
+          }
+        }
+      },
+      "CreateBulkPayoutRequest": {
+        "type": "object",
+        "required": ["orders"],
+        "properties": {
+          "orders": {
+            "type": "array",
+            "description": "List of payout orders. Each order references a quote and includes recipient details.",
+            "items": {
+              "$ref": "#/components/schemas/BulkPayoutOrder"
+            }
+          }
+        }
+      },
+      "BulkPayoutOrder": {
+        "type": "object",
+        "required": ["quoteId", "recipient"],
+        "properties": {
+          "quoteId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "The quote ID obtained from the bulk quote endpoint.",
+            "example": "b70f6798-ae5c-41fd-92c9-d6cfc325b8dc"
+          },
+          "recipient": {
+            "type": "object",
+            "required": ["name", "account", "paymentChannel", "currency", "country"],
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid",
+                "description": "Optional saved recipient ID from the address book.",
+                "example": "a5b60e98-90b2-4fd6-95b6-13dadc51467f"
+              },
+              "name": {
+                "type": "string",
+                "description": "Full name of the beneficiary.",
+                "example": "NNOROM UZOMA CHUKWUDI"
+              },
+              "account": {
+                "type": "object",
+                "required": ["accountNumber", "sortCode"],
+                "properties": {
+                  "bankName": {
+                    "type": "string",
+                    "description": "Name of the destination bank.",
+                    "example": "FCMB"
+                  },
+                  "sortCode": {
+                    "type": "string",
+                    "description": "Bank sort code / routing code.",
+                    "example": "214"
+                  },
+                  "accountNumber": {
+                    "type": "string",
+                    "description": "Recipient bank account number.",
+                    "example": "2483520014"
+                  }
+                }
+              },
+              "paymentChannel": {
+                "$ref": "#/components/schemas/PaymentChannel"
+              },
+              "currency": {
+                "$ref": "#/components/schemas/CurrencyCode"
+              },
+              "country": {
+                "$ref": "#/components/schemas/CountryCode"
+              }
+            }
+          },
+          "remark": {
+            "type": "string",
+            "description": "An optional note or reference for this transfer.",
+            "example": "payment 1"
+          },
+          "reason": {
+            "type": "string",
+            "description": "Purpose of the transfer.",
+            "example": "Gift"
+          }
+        }
+      },
+      "BulkPayoutResponseData": {
+        "type": "object",
+        "properties": {
+          "bulkReference": {
+            "type": "string",
+            "description": "A unique reference for the entire bulk payout request.",
+            "example": "BULK-20260324-001"
+          },
+          "totalOrders": {
+            "type": "integer",
+            "description": "Total number of payout orders submitted.",
+            "example": 2
+          },
+          "successCount": {
+            "type": "integer",
+            "description": "Number of orders successfully accepted for processing.",
+            "example": 2
+          },
+          "failedCount": {
+            "type": "integer",
+            "description": "Number of orders that failed validation.",
+            "example": 0
+          },
+          "orders": {
+            "type": "array",
+            "description": "Per-order status details.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "quoteId": {
+                  "type": "string",
+                  "format": "uuid",
+                  "example": "b70f6798-ae5c-41fd-92c9-d6cfc325b8dc"
+                },
+                "transactionId": {
+                  "type": "string",
+                  "format": "uuid",
+                  "description": "Unique transaction ID for this individual transfer.",
+                  "example": "f4e597cc-18fa-4c23-b9c1-xxxxxxxxxxxxx"
+                },
+                "status": {
+                  "type": "string",
+                  "description": "Status of this order (PROCESSING, FAILED, etc.).",
+                  "example": "PROCESSING"
+                },
+                "recipientName": {
+                  "type": "string",
+                  "example": "NNOROM UZOMA CHUKWUDI"
+                },
+                "message": {
+                  "type": "string",
+                  "description": "Status message or error reason for this order.",
+                  "example": "payout queued"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "responses": {
@@ -3291,6 +3540,129 @@
             "example": {
               "message": "Unsupported blockchain network",
               "status": "failed"
+            }
+          }
+        }
+      },
+      "BulkQuoteCreatedSuccess": {
+        "description": "Bulk quote created successfully.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "bulk quote created successfully"
+                },
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "data": {
+                  "$ref": "#/components/schemas/BulkQuoteResponseData"
+                }
+              }
+            },
+            "example": {
+              "message": "bulk quote created successfully",
+              "status": "success",
+              "data": {
+                "quotes": [
+                  {
+                    "quoteId": "fa01c1ad-6c0f-4074-8221-ffc8fdaa16db",
+                    "sourceAmount": 100.00,
+                    "targetAmount": 100.00,
+                    "rate": 1.0,
+                    "fee": 5.00,
+                    "sourceCurrency": "NGN",
+                    "targetCurrency": "NGN",
+                    "expiresInSeconds": 600
+                  },
+                  {
+                    "quoteId": "6809b2ab-1d4d-4436-8218-46667419eee7",
+                    "sourceAmount": 250.50,
+                    "targetAmount": 250.50,
+                    "rate": 1.0,
+                    "fee": 5.00,
+                    "sourceCurrency": "NGN",
+                    "targetCurrency": "NGN",
+                    "expiresInSeconds": 600
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "BulkQuoteFetchSuccess": {
+        "description": "Bulk quotes fetched successfully.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "bulk quotes fetched successfully"
+                },
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "data": {
+                  "$ref": "#/components/schemas/BulkQuoteResponseData"
+                }
+              }
+            }
+          }
+        }
+      },
+      "BulkPayoutCreatedSuccess": {
+        "description": "Bulk payout submitted successfully.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "bulk payout queued"
+                },
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "data": {
+                  "$ref": "#/components/schemas/BulkPayoutResponseData"
+                }
+              }
+            },
+            "example": {
+              "message": "bulk payout queued",
+              "status": "success",
+              "data": {
+                "bulkReference": "BULK-20260324-001",
+                "totalOrders": 2,
+                "successCount": 2,
+                "failedCount": 0,
+                "orders": [
+                  {
+                    "quoteId": "b70f6798-ae5c-41fd-92c9-d6cfc325b8dc",
+                    "transactionId": "f4e597cc-18fa-4c23-b9c1-xxxxxxxxxxxxx",
+                    "status": "PROCESSING",
+                    "recipientName": "NNOROM UZOMA CHUKWUDI",
+                    "message": "payout queued"
+                  },
+                  {
+                    "quoteId": "faeafe20-d5c8-47b5-913a-2c81d15a69cb",
+                    "transactionId": "a8b2c3d4-5e6f-7890-abcd-xxxxxxxxxxxxx",
+                    "status": "PROCESSING",
+                    "recipientName": "NNOROM UZOMA CHUKWUDI",
+                    "message": "payout queued"
+                  }
+                ]
+              }
             }
           }
         }
@@ -4561,6 +4933,167 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/v1/bulk/quote": {
+      "post": {
+        "tags": ["Bulk Payout"],
+        "summary": "Create Bulk Quote",
+        "description": "Creates quotes for multiple transfers in a single request. Each item in the `items` array receives its own quote with independent pricing. Use the returned `quoteId` values when submitting the bulk payout.",
+        "operationId": "createBulkQuote",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBulkQuoteRequest"
+              },
+              "example": {
+                "paymentChannel": "BANK_TRANSFER",
+                "items": [
+                  { "sourceAmount": 100.00 },
+                  { "sourceAmount": 250.50 }
+                ],
+                "source": { "currency": "NGN", "country": "NG" },
+                "target": { "currency": "NGN", "country": "NG" }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/BulkQuoteCreatedSuccess"
+          },
+          "400": {
+            "$ref": "#/components/responses/PayoutBadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/PayoutUnauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/PayoutForbidden"
+          },
+          "500": {
+            "$ref": "#/components/responses/PayoutInternalServerError"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Bulk Payout"],
+        "summary": "Fetch Bulk Quotes",
+        "description": "Retrieves one or more previously created bulk quotes by their IDs. Pass multiple `quoteIds` query parameters to fetch several quotes at once.",
+        "operationId": "getBulkQuotes",
+        "parameters": [
+          {
+            "name": "quoteIds",
+            "in": "query",
+            "required": true,
+            "description": "One or more quote IDs to retrieve. Repeat the parameter for multiple IDs.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              }
+            },
+            "style": "form",
+            "explode": true,
+            "example": ["fa01c1ad-6c0f-4074-8221-ffc8fdaa16db", "6809b2ab-1d4d-4436-8218-46667419eee7"]
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/BulkQuoteFetchSuccess"
+          },
+          "400": {
+            "$ref": "#/components/responses/PayoutBadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/PayoutUnauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/PayoutForbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/QuoteNotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/PayoutInternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/bulk/payout": {
+      "post": {
+        "tags": ["Bulk Payout"],
+        "summary": "Create Bulk Payout",
+        "description": "Submits multiple payout orders in a single request. Each order references a `quoteId` from the bulk quote endpoint and includes full recipient details. Orders are validated and processed independently — a failure in one order does not block the others.",
+        "operationId": "createBulkPayout",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBulkPayoutRequest"
+              },
+              "example": {
+                "orders": [
+                  {
+                    "quoteId": "b70f6798-ae5c-41fd-92c9-d6cfc325b8dc",
+                    "recipient": {
+                      "id": "a5b60e98-90b2-4fd6-95b6-13dadc51467f",
+                      "name": "NNOROM UZOMA CHUKWUDI",
+                      "account": {
+                        "bankName": "FCMB",
+                        "sortCode": "214",
+                        "accountNumber": "2483520014"
+                      },
+                      "paymentChannel": "BANK_TRANSFER",
+                      "currency": "NGN",
+                      "country": "NG"
+                    },
+                    "remark": "payment 1",
+                    "reason": "Gift"
+                  },
+                  {
+                    "quoteId": "faeafe20-d5c8-47b5-913a-2c81d15a69cb",
+                    "recipient": {
+                      "id": "a5b60e98-90b2-4fd6-95b6-13dadc51467f",
+                      "name": "NNOROM UZOMA CHUKWUDI",
+                      "account": {
+                        "bankName": "FCMB",
+                        "sortCode": "214",
+                        "accountNumber": "2483520014"
+                      },
+                      "paymentChannel": "BANK_TRANSFER",
+                      "currency": "NGN",
+                      "country": "NG"
+                    },
+                    "remark": "payment 2",
+                    "reason": "Gift"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/BulkPayoutCreatedSuccess"
+          },
+          "400": {
+            "$ref": "#/components/responses/PayoutBadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/PayoutUnauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/PayoutForbidden"
+          },
+          "500": {
+            "$ref": "#/components/responses/PayoutInternalServerError"
           }
         }
       }
