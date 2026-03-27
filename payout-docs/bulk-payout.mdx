@@ -43,7 +43,7 @@ sequenceDiagram
 Send all transfer amounts in a single request to `POST /v1/bulk/quote`. Each item receives its own `quoteId` with independent pricing, fees, and expiry.
 
 ```bash cURL
-curl --request POST 'https://devapi.me-cash.com/v1/bulk/quote' \
+curl --request POST 'https://{{baseURL}}/v1/bulk/quote' \
   --header 'Content-Type: application/json' \
   --header 'x-api-key: YOUR_API_KEY' \
   --data '{
@@ -62,7 +62,7 @@ curl --request POST 'https://devapi.me-cash.com/v1/bulk/quote' \
 Retrieve one or more quotes by their IDs to confirm pricing before executing. Pass multiple `quoteIds` as query parameters.
 
 ```bash cURL
-curl --request GET 'https://devapi.me-cash.com/v1/bulk/quote?quoteIds=fa01c1ad-6c0f-4074-8221-ffc8fdaa16db&quoteIds=6809b2ab-1d4d-4436-8218-46667419eee7' \
+curl --request GET 'https://{{baseURL}}/v1/bulk/quote?quoteIds=fa01c1ad-6c0f-4074-8221-ffc8fdaa16db&quoteIds=6809b2ab-1d4d-4436-8218-46667419eee7' \
   --header 'Content-Type: application/json' \
   --header 'x-api-key: YOUR_API_KEY'
 ```
@@ -72,7 +72,7 @@ curl --request GET 'https://devapi.me-cash.com/v1/bulk/quote?quoteIds=fa01c1ad-6
 Send all payout orders in one request to `POST /v1/bulk/payout`. Each order pairs a `quoteId` with recipient bank details.
 
 ```bash cURL
-curl --request POST 'https://devapi.me-cash.com/v1/bulk/payout' \
+curl --request POST 'https://{{baseURL}}/v1/bulk/payout' \
   --header 'Content-Type: application/json' \
   --header 'x-api-key: YOUR_API_KEY' \
   --data '{
@@ -85,7 +85,7 @@ curl --request POST 'https://devapi.me-cash.com/v1/bulk/payout' \
                 "account": {
                     "bankName": "FCMB",
                     "sortCode": "214",
-                    "accountNumber": "2483520014"
+                    "accountNumber": "248352****"
                 },
                 "paymentChannel": "BANK_TRANSFER",
                 "currency": "NGN",
@@ -102,7 +102,7 @@ curl --request POST 'https://devapi.me-cash.com/v1/bulk/payout' \
                 "account": {
                     "bankName": "FCMB",
                     "sortCode": "214",
-                    "accountNumber": "2483520014"
+                    "accountNumber": "248352****"
                 },
                 "paymentChannel": "BANK_TRANSFER",
                 "currency": "NGN",
@@ -117,7 +117,7 @@ curl --request POST 'https://devapi.me-cash.com/v1/bulk/payout' \
 
 ### Step 4: Listen for webhooks
 
-Each individual transfer triggers its own webhook (`payout.completed` or `payout.failed`). Use the `transactionId` from the bulk payout response to correlate webhook events with specific orders.
+Each individual transfer triggers its own webhook ([`payout.completed`](/webhook/payout-webhook) or [`payout.failed`](/webhook/payout-webhook)). Use the `referenceNumber` from each order's bulk payout response to correlate events with specific orders. See [Webhook Signature Verification](/webhook/webhooks-signature-verification) to secure your endpoint.
 
 </Steps>
 
@@ -127,8 +127,8 @@ Each individual transfer triggers its own webhook (`payout.completed` or `payout
 |----------|-------------|
 | **Independent processing** | Each transfer is validated and processed separately. A single failure does not block other orders. |
 | **Balance pre-check** | The system validates that your wallet balance covers the total amount plus all fees before processing any orders. |
-| **Individual transaction records** | Every order generates its own `transactionId` and transaction record for full traceability. |
-| **Quote expiry** | Bulk quotes expire after 10 minutes. Submit your payout promptly after quoting. |
+| **Individual transaction records** | Every order generates its own `referenceNumber`. Use the [Get Transaction API](/transaction-docs/get-transaction) to fetch full traceability details. |
+| **Quote expiry** | [Bulk quotes](/quote-docs/bulk-quote) expire after 10 minutes. Submit your payout promptly after quoting. |
 | **Rate limits** | The bulk endpoint enforces payload size limits. Contact support for your account's maximum orders per request. |
 | **Audit trail** | Both the bulk request reference and individual transaction references are logged for compliance and reconciliation. |
 

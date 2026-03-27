@@ -31,14 +31,14 @@ curl --location --request POST '{{baseURL}}/v2/payout' \
             "name": "John Doe",
             "account": {
                 "bankName": "National Bank of Malawi",
-                "accountNumber": "123456789"
+                "accountNumber": "123456***"
             },
             "paymentChannel": "BANK_TRANSFER",
             "currency": "MWK",
             "country": "MW"
         },
   "quoteId": "d19a64f9-5a47-4bda-b7c2-xxxxxxxxxx",
-  "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
+  "invoice": "4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx",
   "reason": "Invoice Payment"
 }'
 ```
@@ -73,7 +73,7 @@ If the payout is successfully created, the API returns the following response:
     "data": {
         "id": "a1b2c3d4-e5f6-7890-abcd-xxxxxxxxxxxxx",
         "remark": "Gift",
-        "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
+        "invoice": "4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx",
         "reason": "Gift",
         "referenceNumber": "TXYZD6RWSQMKF",
         "type": "SEND",
@@ -100,7 +100,7 @@ If the payout is successfully created, the API returns the following response:
             "name": "John Doe",
             "account": {
                 "bankName": "National Bank of Malawi",
-                "accountNumber": "123456789"
+                "accountNumber": "123456***"
             },
             "paymentChannel": "BANK_TRANSFER",
             "currency": "MWK",

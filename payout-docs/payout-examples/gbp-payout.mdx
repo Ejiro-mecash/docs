@@ -43,7 +43,7 @@ curl --location --request POST '{{baseURL}}/v2/payout' \
       "bankName": "Investment Account",
       "sortCode": "040004",
       "address": "8190 Amely Freeway",
-      "accountNumber": "78355047"
+      "accountNumber": "7835****"
     },
     "paymentChannel": "BANK_TRANSFER",
     "currency": "GBP",
@@ -52,7 +52,7 @@ curl --location --request POST '{{baseURL}}/v2/payout' \
   },
   "quoteId": "a4f7b2c1-ef14-4999-906b-xxxxxxxxxxxxx",
   "reason": "Gift",
-  "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
+  "invoice": "4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx",
   "remark": "Testing"
 }'
 ```
@@ -74,7 +74,7 @@ const options = {
         bankName: "Investment Account",
         sortCode: "040004",
         address: "8190 Amely Freeway",
-        accountNumber: "78355047"
+        accountNumber: "7835****"
       },
       paymentChannel: "BANK_TRANSFER",
       currency: "GBP",
@@ -83,7 +83,7 @@ const options = {
     },
     quoteId: "a4f7b2c1-ef14-4999-906b-xxxxxxxxxxxxx",
     reason: "Gift",
-    invoice: "4b9b6d30-a2ed-421a-bd69-11536344f071",
+    invoice: "4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx",
     remark: "Testing"
   })
 };
@@ -109,7 +109,7 @@ payload = {
             "bankName": "Investment Account",
             "sortCode": "040004",
             "address": "8190 Amely Freeway",
-            "accountNumber": "78355047"
+            "accountNumber": "7835****"
         },
         "paymentChannel": "BANK_TRANSFER",
         "currency": "GBP",
@@ -118,7 +118,7 @@ payload = {
     },
     "quoteId": "a4f7b2c1-ef14-4999-906b-xxxxxxxxxxxxx",
     "reason": "Gift",
-    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
+    "invoice": "4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx",
     "remark": "Testing"
 }
 
@@ -144,7 +144,7 @@ const data = {
       bankName: "Investment Account",
       sortCode: "040004",
       address: "8190 Amely Freeway",
-      accountNumber: "78355047"
+      accountNumber: "7835****"
     },
     paymentChannel: "BANK_TRANSFER",
     currency: "GBP",
@@ -153,7 +153,7 @@ const data = {
   },
   quoteId: "a4f7b2c1-ef14-4999-906b-xxxxxxxxxxxxx",
   reason: "Gift",
-  invoice: "4b9b6d30-a2ed-421a-bd69-11536344f071",
+  invoice: "4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx",
   remark: "Testing"
 };
 
@@ -211,7 +211,7 @@ If the payout is successfully created, the API returns the following response:
   "data": {
     "id": "b8c7d6e5-f4a3-210f-fedc-xxxxxxxxxxxxx",
     "reason": "Gift",
-    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
+    "invoice": "4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx",
     "remark": "Testing",
     "referenceNumber": "GBPPAYOUT12345",
     "type": "SEND",

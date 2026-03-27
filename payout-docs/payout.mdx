@@ -33,15 +33,15 @@ sequenceDiagram
     deactivate PartnerAPI
 ```
 
-<Tip> Subscribe to payout webhooks to receive reliable delivery and failure notifications. See [`webhooks-event`](/webhooks-event) for implementation details.</Tip>
+<Tip> Subscribe to payout webhooks to receive reliable delivery and failure notifications. See [Payout Webhook Events](/webhook/payout-webhook) and [Signature Verification](/webhook/webhooks-signature-verification) for implementation details.</Tip>
 
 
 
 ## Operational considerations
 
-- **Quotes are mandatory**: Always create a quote first and reuse the `quoteId` during payout creation.
+- **Quotes are mandatory**: Always [create a quote](/quote-docs/create-quote) first and reuse the `quoteId` during payout creation.
 - **Idempotency**: Use client-generated references to safely retry payouts without double-paying.
-- **Webhooks**: Treat the synchronous payout response as an acknowledgement. The final status arrives via webhook.
+- **Webhooks**: Treat the synchronous payout response as an acknowledgement. The final status arrives via [payout webhook](/webhook/payout-webhook).
 - **Compliance rules**: Review the `rules` array on the quote to enforce per-corridor limits in your UI.
 
 ## Payout API Routes

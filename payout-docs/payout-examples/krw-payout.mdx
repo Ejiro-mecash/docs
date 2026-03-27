@@ -52,7 +52,7 @@ curl --location --request POST '{{baseURL}}/v2/payout' \
     "name": "Min-jun Kim",
     "nickName": "TestLRQ",
     "gender": "M",
-    "mobileNumber": "08012345678",
+    "mobileNumber": "080123*****",
     "occupation": "business entrepreneur",
     "countryName": "KR",
     "type": "BUSINESS",
@@ -62,14 +62,14 @@ curl --location --request POST '{{baseURL}}/v2/payout' \
         "sortCode": "01462",
         "swiftCode": "DBSSSGSGXXX",
         "bankCity": "Seoul",
-        "accountNumber": "001299123456",
+        "accountNumber": "001299******",
     },
     "sourceOfFunds": "I1",
     "paymentChannel": "BANK_TRANSFER",
     "currency": "KRW",
     "country": "KR"
   },
-  "quoteId": "b51741c8-05c5-41af-9bbf-582fef04dcb8",
+  "quoteId": "b51741c8-05c5-41af-9bbf-xxxxxxxxxxxxx",
   "reason": "Gift",
   "remark": "Testing"
 }'
@@ -88,7 +88,7 @@ const options = {
       name: "Min-jun Kim",
       nickName: "TestLRQ",
       gender: "M",
-      mobileNumber: "08012345678",
+      mobileNumber: "080123*****",
       occupation: "business entrepreneur",
       countryName: "KR",
       type: "BUSINESS",
@@ -98,7 +98,7 @@ const options = {
         sortCode: "01462",
         swiftCode: "DBSSSGSGXXX",
         bankCity: "Seoul",
-        accountNumber: "001299123456",
+        accountNumber: "001299******",
 
       },
       sourceOfFunds: "I1",
@@ -106,7 +106,7 @@ const options = {
       currency: "KRW",
       country: "KR"
     },
-    quoteId: "b51741c8-05c5-41af-9bbf-582fef04dcb8",
+    quoteId: "b51741c8-05c5-41af-9bbf-xxxxxxxxxxxxx",
     reason: "Gift",
     remark: "Testing"
   })
@@ -134,7 +134,7 @@ payload = {
         "name": "Min-jun Kim",
         "nickName": "TestLRQ",
         "gender": "M",
-        "mobileNumber": "08012345678",
+        "mobileNumber": "080123*****",
         "occupation": "business entrepreneur",
         "countryName": "KR",
         "type": "BUSINESS",
@@ -144,7 +144,7 @@ payload = {
             "sortCode": "01462",
             "swiftCode": "DBSSSGSGXXX",
             "bankCity": "Seoul",
-            "accountNumber": "001299123456",
+            "accountNumber": "001299******",
 
         },
         "sourceOfFunds": "I1",
@@ -152,7 +152,7 @@ payload = {
         "currency": "KRW",
         "country": "KR"
     },
-    "quoteId": "b51741c8-05c5-41af-9bbf-582fef04dcb8",
+    "quoteId": "b51741c8-05c5-41af-9bbf-xxxxxxxxxxxxx",
     "reason": "Gift",
     "remark": "Testing"
 }
@@ -217,7 +217,7 @@ If the payout is successfully created, the API returns the following response:
     "type": "SEND",
     "state": "COMPLETED",
     "quote": {
-      "id": "b51741c8-05c5-41af-9bbf-582fef04dcb8",
+      "id": "b51741c8-05c5-41af-9bbf-xxxxxxxxxxxxx",
       "source": {
         "currency": "NGN",
         "country": "NG",
@@ -239,7 +239,7 @@ If the payout is successfully created, the API returns the following response:
       "account": {
           "name": "Min-jun Kim",
           "bankName": "KDB산업:Korea Development Bank",
-          "accountNumber": "001299123456"
+          "accountNumber": "001299******"
       },
       "paymentChannel": "BANK_TRANSFER",
       "currency": "KRW",

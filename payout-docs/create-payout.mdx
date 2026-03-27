@@ -38,7 +38,7 @@ The code examples below mirror the corridors covered in our payout guides. Selec
   },
   "quoteId": "453eeu-567j-6tr3d-xxxxxxxxxxxxx",
   "reason": "Bills",
-  "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
+  "invoice": "4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx",
   "remark": ""
 }
 ```
@@ -56,7 +56,7 @@ The code examples below mirror the corridors covered in our payout guides. Selec
 | `recipient.account.accountNumber` | String | Destination account number. | ✅ Yes | `0712617XXX` |
 | `quoteId` | String | Quote identifier returned from the Quote API. | ✅ Yes | `453eeu-567j-6tr3d-xxxxxxxxxxxxx` |
 | `reason` | String | High-level purpose of the transfer. | ✅ Yes | `Bills` |
-| `invoice` | String | Optional identifier for the invoice (returned from file upload endpoint). | ❌ No | `4b9b6d30-a2ed-421a-bd69-11536344f071` |
+| `invoice` | String | Optional identifier for the invoice (returned from file upload endpoint). | ❌ No | `4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx` |
 | `remark` | String | Additional comments or reference. | Optional | `September utilities` |
 
 Depending on the corridor and channel, additional fields (such as mobile wallet metadata or address information) may be required. Refer to the route-specific examples in [`payout docs examples`](/payout-docs/payout-examples/ngn-usd-example).
@@ -82,7 +82,7 @@ curl --request POST '{{baseURL}}/v2/payout' \
     },
     "quoteId": "453eeu-567j-6tr3d-xxxxxxxxxxxxx",
     "reason": "Bills",
-    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
+    "invoice": "4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx",
     "remark": ""
   }'
 ```
@@ -101,7 +101,7 @@ const payload = {
   },
   quoteId: '453eeu-567j-6tr3d-xxxxxxxxxxxxx',
   reason: 'Bills',
-  invoice: '4b9b6d30-a2ed-421a-bd69-11536344f071',
+  invoice: '4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx',
   remark: ''
 };
 
@@ -145,7 +145,7 @@ payload = {
     },
     "quoteId": "453eeu-567j-6tr3d-xxxxxxxxxxxxx",
     "reason": "Bills",
-    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
+    "invoice": "4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx",
     "remark": "",
 }
 
@@ -170,7 +170,7 @@ axios.post('{{baseURL}}/v2/payout', {
   },
   quoteId: '453eeu-567j-6tr3d-xxxxxxxxxxxxx',
   reason: 'Bills',
-  invoice: '4b9b6d30-a2ed-421a-bd69-11536344f071',
+  invoice: '4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx',
   remark: ''
 }, {
   headers: {
@@ -200,7 +200,7 @@ axios.post('{{baseURL}}/v2/payout', {
   "status": "success",
   "data": {
     "id": "f4e597cc-18fa-4c23-b9c1-xxxxxxxxxxxxx",
-    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
+    "invoice": "4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx",
     "reference": "BILLS-20240915",
     "quoteId": "453eeu-567j-6tr3d-xxxxxxxxxxxxx",
     "state": "PROCESSING",
@@ -246,8 +246,9 @@ axios.post('{{baseURL}}/v2/payout', {
 
 - Generate idempotency references to safely retry without duplicating transfers.
 - Validate recipients locally before calling the API to reduce error handling.
-- Listen to payout webhooks and reconcile with the [`Get Transaction API`](/transaction-docs/get-transaction) for final settlement details.
+- Listen to [payout webhooks](/webhook/payout-webhook) and reconcile with the [`Get Transaction API`](/transaction-docs/get-transaction) for final settlement details.
+- Need to pay multiple recipients at once? Use the [Bulk Payout API](/payout-docs/bulk-payout) instead.
 
 <Tip>
-**Testing Failed Payouts:** In the sandbox environment, you can simulate a failed payout by setting `"remark": "fail"` in your request. This will trigger a `payout.failed` webhook, allowing you to test your error handling logic.
+**Testing Failed Payouts:** In the sandbox environment, you can simulate a failed payout by setting `"remark": "fail"` in your request. This will trigger a [`payout.failed`](/webhook/payout-webhook) webhook, allowing you to test your error handling logic.
 </Tip>

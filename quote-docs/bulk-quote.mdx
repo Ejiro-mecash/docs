@@ -60,6 +60,8 @@ curl --request GET 'https://{{baseURL}}/v1/bulk/quote?quoteIds=fa01c1ad-6c0f-407
 Pass each `quoteId` into the corresponding order in your [`POST /v1/bulk/payout`](/payout-docs/bulk-payout) request.
 </Steps>
 
+<Tip>Only one Payment Channel and Route (Source and Target Currency/Country) is allowed per bulk quote request.</Tip>
+
 ## Request fields
 
 | Field | Type | Description | Required |
@@ -74,18 +76,18 @@ Pass each `quoteId` into the corresponding order in your [`POST /v1/bulk/payout`
 
 ## Response fields
 
-Each quote in the response array contains:
+Each array item contains a `quote` object with the standard quote structure:
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `quoteId` | String (UUID) | Unique identifier for this quote. Use when creating the bulk payout. |
-| `sourceAmount` | Number | Amount in the source currency. |
-| `targetAmount` | Number | Amount the recipient will receive. |
-| `rate` | Number | Exchange rate applied. |
-| `fee` | Number | Fee charged for this transfer. |
-| `sourceCurrency` | String | Source currency code. |
-| `targetCurrency` | String | Target currency code. |
-| `expiresInSeconds` | Integer | Seconds until this quote expires (typically 600). |
+| `quote.id` | String (UUID) | Unique identifier for this quote. Use when creating the bulk payout. |
+| `quote.source.amount` | Number | Amount in the source currency. |
+| `quote.target.amount` | Number | Amount the recipient will receive. |
+| `quote.rate` | Number | Exchange rate applied. |
+| `quote.fee.amount` | Number | Fee charged for this transfer. |
+| `quote.source.currency` | String | Source currency code. |
+| `quote.target.currency` | String | Target currency code. |
+| `quote.expiresInSeconds` | Integer | Seconds until this quote expires (typically 600). |
 
 ## Next steps
 

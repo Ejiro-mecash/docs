@@ -58,7 +58,7 @@ Store the quote and prompt the user to continue to payout before it expires (`ex
 - **Rules**: Corridor limits and compliance requirements that applied.
 - **Expiry**: `expiresInSeconds` tells you how long the quote remains valid. Quotes expire 10 minutes after creation unless otherwise stated in the response.
 
-If the quote expires or fails validation, the payout endpoint returns an error. Refresh the quote and retry the payout with the new `quoteId`.
+If the quote expires or fails validation, the [payout endpoint](/payout-docs/create-payout) returns an error. Refresh the quote and retry the payout with the new `quoteId`.
 
 
 ## Why quotes matter
@@ -75,6 +75,12 @@ If the quote expires or fails validation, the payout endpoint returns an error. 
   </Card>
   <Card title="Get Quote API" icon="search" href="/quote/get-quote">
     Fetch stored quotes via the API Reference entry for `GET /v1/quote/{quoteId}` and validate payload structures.
+  </Card>
+  <Card title="Bulk Quotes" icon="layer-group" href="/quote-docs/bulk-quote">
+    Need to quote multiple transfers at once? Use the Bulk Quote API.
+  </Card>
+  <Card title="Create Payout" icon="paper-plane" href="/payout-docs/create-payout">
+    Use your `quoteId` to disburse funds to a recipient.
   </Card>
 </CardGroup>
 - Generate a quote programmatically with the [`Create Quote API`](/quote-docs/create-quote).

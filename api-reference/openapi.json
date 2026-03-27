@@ -2671,7 +2671,12 @@
       },
       "CreateBulkQuoteRequest": {
         "type": "object",
-        "required": ["paymentChannel", "items", "source", "target"],
+        "required": [
+          "paymentChannel",
+          "items",
+          "source",
+          "target"
+        ],
         "properties": {
           "paymentChannel": {
             "$ref": "#/components/schemas/PaymentChannel",
@@ -2682,7 +2687,9 @@
             "description": "List of individual transfer amounts to quote.",
             "items": {
               "type": "object",
-              "required": ["sourceAmount"],
+              "required": [
+                "sourceAmount"
+              ],
               "properties": {
                 "sourceAmount": {
                   "type": "number",
@@ -2694,7 +2701,10 @@
           },
           "source": {
             "type": "object",
-            "required": ["currency", "country"],
+            "required": [
+              "currency",
+              "country"
+            ],
             "properties": {
               "currency": {
                 "$ref": "#/components/schemas/CurrencyCode"
@@ -2707,7 +2717,10 @@
           },
           "target": {
             "type": "object",
-            "required": ["currency", "country"],
+            "required": [
+              "currency",
+              "country"
+            ],
             "properties": {
               "currency": {
                 "$ref": "#/components/schemas/CurrencyCode"
@@ -2729,44 +2742,8 @@
             "items": {
               "type": "object",
               "properties": {
-                "quoteId": {
-                  "type": "string",
-                  "format": "uuid",
-                  "description": "Unique identifier for this individual quote.",
-                  "example": "fa01c1ad-6c0f-4074-8221-ffc8fdaa16db"
-                },
-                "sourceAmount": {
-                  "type": "number",
-                  "description": "Amount in source currency.",
-                  "example": 100.00
-                },
-                "targetAmount": {
-                  "type": "number",
-                  "description": "Amount the recipient will receive.",
-                  "example": 100.00
-                },
-                "rate": {
-                  "type": "number",
-                  "description": "Exchange rate applied.",
-                  "example": 1.0
-                },
-                "fee": {
-                  "type": "number",
-                  "description": "Fee charged for this transfer.",
-                  "example": 5.00
-                },
-                "sourceCurrency": {
-                  "type": "string",
-                  "example": "NGN"
-                },
-                "targetCurrency": {
-                  "type": "string",
-                  "example": "NGN"
-                },
-                "expiresInSeconds": {
-                  "type": "integer",
-                  "description": "Seconds until this quote expires.",
-                  "example": 600
+                "quote": {
+                  "$ref": "#/components/schemas/CreateQuoteSuccessData"
                 }
               }
             }
@@ -2775,7 +2752,9 @@
       },
       "CreateBulkPayoutRequest": {
         "type": "object",
-        "required": ["orders"],
+        "required": [
+          "orders"
+        ],
         "properties": {
           "orders": {
             "type": "array",
@@ -2788,7 +2767,10 @@
       },
       "BulkPayoutOrder": {
         "type": "object",
-        "required": ["quoteId", "recipient"],
+        "required": [
+          "quoteId",
+          "recipient"
+        ],
         "properties": {
           "quoteId": {
             "type": "string",
@@ -2798,14 +2780,14 @@
           },
           "recipient": {
             "type": "object",
-            "required": ["name", "account", "paymentChannel", "currency", "country"],
+            "required": [
+              "name",
+              "account",
+              "paymentChannel",
+              "currency",
+              "country"
+            ],
             "properties": {
-              "id": {
-                "type": "string",
-                "format": "uuid",
-                "description": "Optional saved recipient ID from the address book.",
-                "example": "a5b60e98-90b2-4fd6-95b6-13dadc51467f"
-              },
               "name": {
                 "type": "string",
                 "description": "Full name of the beneficiary.",
@@ -2813,7 +2795,10 @@
               },
               "account": {
                 "type": "object",
-                "required": ["accountNumber", "sortCode"],
+                "required": [
+                  "accountNumber",
+                  "sortCode"
+                ],
                 "properties": {
                   "bankName": {
                     "type": "string",
@@ -2861,14 +2846,18 @@
           "bulkReference": {
             "type": "string",
             "description": "A unique reference for the entire bulk payout request.",
-            "example": "BULK-20260324-001"
+            "example": "00a5478d-272a-4be0-8c77-d85be1ec5ea8"
           },
-          "totalOrders": {
+          "status": {
+            "type": "string",
+            "example": "SUCCESS"
+          },
+          "totalRequested": {
             "type": "integer",
             "description": "Total number of payout orders submitted.",
             "example": 2
           },
-          "successCount": {
+          "successfulCount": {
             "type": "integer",
             "description": "Number of orders successfully accepted for processing.",
             "example": 2
@@ -2878,39 +2867,40 @@
             "description": "Number of orders that failed validation.",
             "example": 0
           },
+          "totalAmount": {
+            "type": "number",
+            "description": "Total source amount for all successful orders.",
+            "example": 350.50
+          },
+          "totalFees": {
+            "type": "number",
+            "description": "Total fees for all successful orders.",
+            "example": 400.00
+          },
           "orders": {
             "type": "array",
-            "description": "Per-order status details.",
+            "description": "List of processed payout orders. Successful orders return full payout details, while failed ones may return just a failureReason.",
             "items": {
-              "type": "object",
-              "properties": {
-                "quoteId": {
-                  "type": "string",
-                  "format": "uuid",
-                  "example": "b70f6798-ae5c-41fd-92c9-d6cfc325b8dc"
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/Payout"
                 },
-                "transactionId": {
-                  "type": "string",
-                  "format": "uuid",
-                  "description": "Unique transaction ID for this individual transfer.",
-                  "example": "f4e597cc-18fa-4c23-b9c1-xxxxxxxxxxxxx"
-                },
-                "status": {
-                  "type": "string",
-                  "description": "Status of this order (PROCESSING, FAILED, etc.).",
-                  "example": "PROCESSING"
-                },
-                "recipientName": {
-                  "type": "string",
-                  "example": "NNOROM UZOMA CHUKWUDI"
-                },
-                "message": {
-                  "type": "string",
-                  "description": "Status message or error reason for this order.",
-                  "example": "payout queued"
+                {
+                  "type": "object",
+                  "properties": {
+                    "failureReason": {
+                      "type": "string",
+                      "example": "Recipient name mismatch"
+                    }
+                  }
                 }
-              }
+              ]
             }
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-03-25T10:50:07.810009313Z"
           }
         }
       }
@@ -3511,6 +3501,13 @@
                   "message": "Insufficient Balance",
                   "status": "failed"
                 }
+              },
+              "DuplicateQuoteId": {
+                "summary": "Duplicate quote ID in bulk order",
+                "value": {
+                  "message": "Duplicate quote ID in bulk order: 537a5e91-3aa6-4e3f-9ed7-c16066ced503",
+                  "status": "failed"
+                }
               }
             }
           }
@@ -3565,29 +3562,87 @@
               }
             },
             "example": {
-              "message": "bulk quote created successfully",
+              "message": "quotes created",
               "status": "success",
               "data": {
                 "quotes": [
                   {
-                    "quoteId": "fa01c1ad-6c0f-4074-8221-ffc8fdaa16db",
-                    "sourceAmount": 100.00,
-                    "targetAmount": 100.00,
-                    "rate": 1.0,
-                    "fee": 5.00,
-                    "sourceCurrency": "NGN",
-                    "targetCurrency": "NGN",
-                    "expiresInSeconds": 600
+                    "quote": {
+                      "id": "cf132126-af1c-4fd7-b924-427826a34b64",
+                      "paymentChannel": "BANK_TRANSFER",
+                      "source": {
+                        "currency": "NGN",
+                        "country": "NG",
+                        "amount": 100.00
+                      },
+                      "target": {
+                        "currency": "NGN",
+                        "country": "NG",
+                        "amount": 100.00
+                      },
+                      "rate": 1.00000000,
+                      "fee": {
+                        "amount": 200.00,
+                        "stampDuty": 0
+                      },
+                      "rules": [
+                        {
+                          "category": "LIMIT",
+                          "appliedCurrency": "NGN",
+                          "appliedCountry": "NG",
+                          "transaction": {
+                            "minimum": 100.00,
+                            "maximum": 1000000.00
+                          },
+                          "invoice": 500000.00
+                        }
+                      ],
+                      "summary": {
+                        "total": 300.00
+                      },
+                      "settlement": "30 Mins",
+                      "quoteCurrency": "NGN",
+                      "expiresInSeconds": 600
+                    }
                   },
                   {
-                    "quoteId": "6809b2ab-1d4d-4436-8218-46667419eee7",
-                    "sourceAmount": 250.50,
-                    "targetAmount": 250.50,
-                    "rate": 1.0,
-                    "fee": 5.00,
-                    "sourceCurrency": "NGN",
-                    "targetCurrency": "NGN",
-                    "expiresInSeconds": 600
+                    "quote": {
+                      "id": "4be1d423-e2eb-437d-8223-16cfcb308195",
+                      "paymentChannel": "BANK_TRANSFER",
+                      "source": {
+                        "currency": "NGN",
+                        "country": "NG",
+                        "amount": 250.50
+                      },
+                      "target": {
+                        "currency": "NGN",
+                        "country": "NG",
+                        "amount": 250.50
+                      },
+                      "rate": 1.00000000,
+                      "fee": {
+                        "amount": 200.00,
+                        "stampDuty": 0
+                      },
+                      "rules": [
+                        {
+                          "category": "LIMIT",
+                          "appliedCurrency": "NGN",
+                          "appliedCountry": "NG",
+                          "transaction": {
+                            "minimum": 100.00,
+                            "maximum": 1000000.00
+                          },
+                          "invoice": 500000.00
+                        }
+                      ],
+                      "summary": {
+                        "total": 450.50
+                      },
+                      "settlement": "30 Mins",
+                      "quoteCurrency": "NGN",
+                      "expiresInSeconds": 600
+                    }
                   }
                 ]
               }
@@ -3604,7 +3659,7 @@
               "properties": {
                 "message": {
                   "type": "string",
-                  "example": "bulk quotes fetched successfully"
+                  "example": "quotes fetched"
                 },
                 "status": {
                   "type": "string",
@@ -3613,6 +3668,92 @@
                 "data": {
                   "$ref": "#/components/schemas/BulkQuoteResponseData"
                 }
+              }
+            },
+            "example": {
+              "message": "quotes fetched",
+              "status": "success",
+              "data": {
+                "quotes": [
+                  {
+                    "quote": {
+                      "id": "cf132126-af1c-4fd7-b924-427826a34b64",
+                      "paymentChannel": "BANK_TRANSFER",
+                      "source": {
+                        "currency": "NGN",
+                        "country": "NG",
+                        "amount": 100.0
+                      },
+                      "target": {
+                        "currency": "NGN",
+                        "country": "NG",
+                        "amount": 100.0
+                      },
+                      "rate": 1.0,
+                      "fee": {
+                        "amount": 200.0,
+                        "stampDuty": 0
+                      },
+                      "rules": [
+                        {
+                          "category": "LIMIT",
+                          "appliedCurrency": "NGN",
+                          "appliedCountry": "NG",
+                          "transaction": {
+                            "minimum": 100.0,
+                            "maximum": 1000000.0
+                          },
+                          "invoice": 500000.0
+                        }
+                      ],
+                      "summary": {
+                        "total": 300.0
+                      },
+                      "settlement": "30 Mins",
+                      "quoteCurrency": "NGN",
+                      "expiresInSeconds": 600
+                    }
+                  },
+                  {
+                    "quote": {
+                      "id": "4be1d423-e2eb-437d-8223-16cfcb308195",
+                      "paymentChannel": "BANK_TRANSFER",
+                      "source": {
+                        "currency": "NGN",
+                        "country": "NG",
+                        "amount": 250.5
+                      },
+                      "target": {
+                        "currency": "NGN",
+                        "country": "NG",
+                        "amount": 250.5
+                      },
+                      "rate": 1.0,
+                      "fee": {
+                        "amount": 200.0,
+                        "stampDuty": 0
+                      },
+                      "rules": [
+                        {
+                          "category": "LIMIT",
+                          "appliedCurrency": "NGN",
+                          "appliedCountry": "NG",
+                          "transaction": {
+                            "minimum": 100.0,
+                            "maximum": 1000000.0
+                          },
+                          "invoice": 500000.0
+                        }
+                      ],
+                      "summary": {
+                        "total": 450.5
+                      },
+                      "settlement": "30 Mins",
+                      "quoteCurrency": "NGN",
+                      "expiresInSeconds": 600
+                    }
+                  }
+                ]
               }
             }
           }
@@ -3639,29 +3780,111 @@
               }
             },
             "example": {
-              "message": "bulk payout queued",
+              "message": "bulk order processed",
               "status": "success",
               "data": {
-                "bulkReference": "BULK-20260324-001",
-                "totalOrders": 2,
-                "successCount": 2,
+                "bulkReference": "00a5478d-272a-4be0-8c77-d85be1ec5ea8",
+                "status": "SUCCESS",
+                "totalRequested": 2,
+                "successfulCount": 2,
                 "failedCount": 0,
+                "totalAmount": 350.5,
+                "totalFees": 400.0,
                 "orders": [
                   {
-                    "quoteId": "b70f6798-ae5c-41fd-92c9-d6cfc325b8dc",
-                    "transactionId": "f4e597cc-18fa-4c23-b9c1-xxxxxxxxxxxxx",
-                    "status": "PROCESSING",
-                    "recipientName": "NNOROM UZOMA CHUKWUDI",
-                    "message": "payout queued"
+                    "id": "77250b66-9bb7-4d5a-a634-0b16659959fe",
+                    "remark": "payment 1",
+                    "reason": "Gift",
+                    "referenceNumber": "IE8YGOSWDG9HN",
+                    "type": "SEND",
+                    "state": "PENDING",
+                    "quote": {
+                      "id": "4be1d423-e2eb-437d-8223-16cfcb308195",
+                      "paymentChannel": "BANK_TRANSFER",
+                      "source": {
+                        "currency": "NGN",
+                        "country": "NG",
+                        "amount": 250.5
+                      },
+                      "target": {
+                        "currency": "NGN",
+                        "country": "NG",
+                        "amount": 250.5
+                      },
+                      "rate": 1.0,
+                      "fee": {
+                        "amount": 200.0,
+                        "stampDuty": 0
+                      },
+                      "summary": {
+                        "total": 450.5
+                      },
+                      "settlement": "30 Mins",
+                      "quoteCurrency": "NGN"
+                    },
+                    "recipient": {
+                      "name": "NNOROM UZOMA CHUKWUDI",
+                      "account": {
+                        "bankName": "FCMB",
+                        "sortCode": "214",
+                        "accountNumber": "2483520014"
+                      },
+                      "paymentChannel": "BANK_TRANSFER",
+                      "currency": "NGN",
+                      "country": "NG"
+                    },
+                    "created": "2026-03-25T10:50:06.115252622Z",
+                    "processed": "2026-03-25T10:50:06.115252622Z",
+                    "bulkReference": "00a5478d-272a-4be0-8c77-d85be1ec5ea8"
                   },
                   {
-                    "quoteId": "faeafe20-d5c8-47b5-913a-2c81d15a69cb",
-                    "transactionId": "a8b2c3d4-5e6f-7890-abcd-xxxxxxxxxxxxx",
-                    "status": "PROCESSING",
-                    "recipientName": "NNOROM UZOMA CHUKWUDI",
-                    "message": "payout queued"
+                    "id": "17f755c3-f7fc-4ab5-b076-c3f3eb912155",
+                    "remark": "payment 2",
+                    "reason": "Gift",
+                    "referenceNumber": "AXZYRRN5PBDIO",
+                    "type": "SEND",
+                    "state": "PENDING",
+                    "quote": {
+                      "id": "cf132126-af1c-4fd7-b924-427826a34b64",
+                      "paymentChannel": "BANK_TRANSFER",
+                      "source": {
+                        "currency": "NGN",
+                        "country": "NG",
+                        "amount": 100.0
+                      },
+                      "target": {
+                        "currency": "NGN",
+                        "country": "NG",
+                        "amount": 100.0
+                      },
+                      "rate": 1.0,
+                      "fee": {
+                        "amount": 200.0,
+                        "stampDuty": 0
+                      },
+                      "summary": {
+                        "total": 300.0
+                      },
+                      "settlement": "30 Mins",
+                      "quoteCurrency": "NGN"
+                    },
+                    "recipient": {
+                      "name": "NNOROM UZOMA CHUKWUDI",
+                      "account": {
+                        "bankName": "FCMB",
+                        "sortCode": "214",
+                        "accountNumber": "2483520014"
+                      },
+                      "paymentChannel": "BANK_TRANSFER",
+                      "currency": "NGN",
+                      "country": "NG"
+                    },
+                    "created": "2026-03-25T10:50:07.309355914Z",
+                    "processed": "2026-03-25T10:50:07.309355914Z",
+                    "bulkReference": "00a5478d-272a-4be0-8c77-d85be1ec5ea8"
                   }
-                ]
+                ],
+                "createdAt": "2026-03-25T10:50:07.810009313Z"
               }
             }
           }
@@ -4939,7 +5162,9 @@
     },
     "/v1/bulk/quote": {
       "post": {
-        "tags": ["Bulk Payout"],
+        "tags": [
+          "Bulk Payout"
+        ],
         "summary": "Create Bulk Quote",
         "description": "Creates quotes for multiple transfers in a single request. Each item in the `items` array receives its own quote with independent pricing. Use the returned `quoteId` values when submitting the bulk payout.",
         "operationId": "createBulkQuote",
@@ -4953,11 +5178,21 @@
               "example": {
                 "paymentChannel": "BANK_TRANSFER",
                 "items": [
-                  { "sourceAmount": 100.00 },
-                  { "sourceAmount": 250.50 }
+                  {
+                    "sourceAmount": 100.00
+                  },
+                  {
+                    "sourceAmount": 250.50
+                  }
                 ],
-                "source": { "currency": "NGN", "country": "NG" },
-                "target": { "currency": "NGN", "country": "NG" }
+                "source": {
+                  "currency": "NGN",
+                  "country": "NG"
+                },
+                "target": {
+                  "currency": "NGN",
+                  "country": "NG"
+                }
               }
             }
           }
@@ -4981,7 +5216,9 @@
         }
       },
       "get": {
-        "tags": ["Bulk Payout"],
+        "tags": [
+          "Bulk Payout"
+        ],
         "summary": "Fetch Bulk Quotes",
         "description": "Retrieves one or more previously created bulk quotes by their IDs. Pass multiple `quoteIds` query parameters to fetch several quotes at once.",
         "operationId": "getBulkQuotes",
@@ -5000,7 +5237,10 @@
             },
             "style": "form",
             "explode": true,
-            "example": ["fa01c1ad-6c0f-4074-8221-ffc8fdaa16db", "6809b2ab-1d4d-4436-8218-46667419eee7"]
+            "example": [
+              "fa01c1ad-6c0f-4074-8221-ffc8fdaa16db",
+              "6809b2ab-1d4d-4436-8218-46667419eee7"
+            ]
           }
         ],
         "responses": {
@@ -5027,7 +5267,9 @@
     },
     "/v1/bulk/payout": {
       "post": {
-        "tags": ["Bulk Payout"],
+        "tags": [
+          "Bulk Payout"
+        ],
         "summary": "Create Bulk Payout",
         "description": "Submits multiple payout orders in a single request. Each order references a `quoteId` from the bulk quote endpoint and includes full recipient details. Orders are validated and processed independently — a failure in one order does not block the others.",
         "operationId": "createBulkPayout",

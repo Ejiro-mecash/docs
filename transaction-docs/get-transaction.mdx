@@ -159,6 +159,7 @@ axios.get(`{{baseURL}}/v1/transaction/${transactionId}`, {
 | 500 | Server error. | `Internal server error` | Retry later or contact support if persistent. |
 
 ## **Usage tips**
-- Call this endpoint after receiving payout webhooks to verify the final state and amounts.
+- Call this endpoint after receiving [payout webhooks](/webhook/payout-webhook) to verify the final state and amounts.
 - Persist transaction responses for audit trails; they include the original quote snapshot.
 - If the transaction remains `PROCESSING` for longer than expected, reach out to support with the `referenceNumber` for investigation.
+- Transactions are created when you call [`POST /v2/payout`](/payout-docs/create-payout) or the [Bulk Payout API](/payout-docs/bulk-payout).

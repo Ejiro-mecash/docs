@@ -55,7 +55,7 @@ curl --location --request POST '{{baseURL}}/v2/payout' \
   },
   "quoteId": "f1474828-6a2e-4ee8-8598-xxxxxxxxxxxx",
   "reason": "Gift",
-  "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
+  "invoice": "4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx",
   "remark": "test"
 }'
 ```
@@ -74,7 +74,7 @@ const options = {
       address: "12 blue street",
       account: {
         bankName: "Bank of Test",
-        accountNumber: "230999239399",
+        accountNumber: "230999******",
         address: "bank address",
         sortCode: "890",
         swiftCode": "SWIFT1234",
@@ -86,7 +86,7 @@ const options = {
     },
     quoteId: "f1474828-6a2e-4ee8-8598-xxxxxxxxxxx",
     reason: "Gift",
-    invoice: "4b9b6d30-a2ed-421a-bd69-11536344f071",
+    invoice: "4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx",
     remark: "test"
   })
 };
@@ -114,7 +114,7 @@ payload = {
         "address": "12 blue street",
         "account": {
             "bankName": "Bank of Test",
-            "accountNumber": "230999239399",
+            "accountNumber": "230999******",
             "address": "bank address",
             "sortCode": "890",
             "swiftCode": "SWIFT1234",
@@ -126,7 +126,7 @@ payload = {
     },
     "quoteId": "f1474828-6a2e-4ee8-8598-xxxxxxxxxx",
     "reason": "Gift",
-    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
+    "invoice": "4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx",
     "remark": "test"
 }
 
@@ -153,7 +153,7 @@ const data = {
     address: "12 blue street",
     account: {
       bankName: "Bank of Test",
-      accountNumber: "230999239399",
+      accountNumber: "230999******",
       address: "bank address",
       sortCode: "890",
       swiftCode: "SWIFT1234",
@@ -165,7 +165,7 @@ const data = {
   },
   quoteId: "f1474828-6a2e-4ee8-8598-xxxxxxxxxx",
   reason: "Gift",
-  invoice: "4b9b6d30-a2ed-421a-bd69-11536344f071",
+  invoice: "4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx",
   remark: "test"
 };
 
@@ -200,7 +200,7 @@ curl --location --request POST '{{baseURL}}/v2/payout' \
 --data '{
     "recipient": {
         "name": "Nettie Wuckert",
-        "mobileNumber": "6137007875",
+        "mobileNumber": "613700****",
         "email": "Guiseppe_Wisoky77@example.net",
         "type": "BUSINESS",
         "account": {},
@@ -211,7 +211,7 @@ curl --location --request POST '{{baseURL}}/v2/payout' \
     },
     "quoteId": "5392890f-cab6-40ee-8db2-xxxxxxxxxx",
     "reason": "Gift",
-    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
+    "invoice": "4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx",
     "remark": "Testing"
 }'
 ```
@@ -227,7 +227,7 @@ const options = {
   body: JSON.stringify({
     recipient: {
       name: "Nettie Wuckert",
-      mobileNumber: "6137007875",
+      mobileNumber: "613700****",
       email: "Guiseppe_Wisoky77@example.net",
       type: "BUSINESS",
       account: {},
@@ -238,7 +238,7 @@ const options = {
     },
     quoteId: "5392890f-cab6-40ee-8db2-9de2532b2de0",
     reason: "Gift",
-    invoice: "4b9b6d30-a2ed-421a-bd69-11536344f071",
+    invoice: "4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx",
     remark: "Testing"
   })
 };
@@ -263,7 +263,7 @@ url = "{{baseURL}}/v2/payout"
 payload = {
     "recipient": {
         "name": "Nettie Wuckert",
-        "mobileNumber": "6137007875",
+        "mobileNumber": "613700****",
         "email": "Guiseppe_Wisoky77@example.net",
         "type": "BUSINESS",
         "account": {},
@@ -274,7 +274,7 @@ payload = {
     },
     "quoteId": "5392890f-cab6-40ee-8db2-xxxxxxxxxx",
     "reason": "Gift",
-    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
+    "invoice": "4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx",
     "remark": "Testing"
 }
 
@@ -298,7 +298,7 @@ const url = '{{baseURL}}/v2/payout';
 const data = {
   recipient: {
     name: "Nettie Wuckert",
-    mobileNumber: "6137007875",
+    mobileNumber: "613700****",
     email: "Guiseppe_Wisoky77@example.net",
     type: "BUSINESS",
     account: {},
@@ -309,7 +309,7 @@ const data = {
   },
   quoteId: "5392890f-cab6-40ee-8db2-xxxxxxxxxx",
   reason: "Gift",
-  invoice: "4b9b6d30-a2ed-421a-bd69-11536344f071",
+  invoice: "4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx",
   remark: "Testing"
 };
 
@@ -370,7 +370,7 @@ If the payout is successfully created, the API returns the following response:
   "status": "success",
   "data": {
     "id": "d4e5f6a7-b8c9-1234-abcd-xxxxxxxxxxxxx",
-    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
+    "invoice": "4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx",
     "reason": "Gift",
     "referenceNumber": "CADXFER5ABCFG",
     "type": "SEND",
@@ -424,7 +424,7 @@ If the payout is successfully created, the API returns the following response:
   "status": "success",
   "data": {
     "id": "a1b2c3d4-e5f6-7890-abcd-xxxxxxxxxx",
-    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
+    "invoice": "4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx",
     "reason": "Gift",
     "referenceNumber": "CADINT5ZYXWV",
     "type": "SEND",

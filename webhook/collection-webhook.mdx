@@ -2,6 +2,8 @@
 
 This event notifies you about the status of a collection (funding) transaction. Collections follow a lifecycle with different states: `collection.initiated`, `collection.processing`, `collection.completed`, and `collection.failed`.
 
+<Tip>Always [verify the webhook signature](/webhook/webhooks-signature-verification) before processing events. See [other webhook events](/webhook/payout-webhook) for payout notifications.</Tip>
+
 - **Initiated**: The request has been successfully sent to the provider.
 - **Processing**: The customer has been notified and we are awaiting authorization.
 - **Completed**: The funds have been successfully collected and added to the wallet.
@@ -11,7 +13,7 @@ This event notifies you about the status of a collection (funding) transaction. 
 
 ### Sample Payloads
 
-````carousel
+### collection.initiated
 ```json collection.initiated
 {
   "event": "collection.initiated",
@@ -25,8 +27,7 @@ This event notifies you about the status of a collection (funding) transaction. 
     "destination": "RW wallet",
     "source": {
       "bankName": null,
-      "accountName": null,
-      "accountNumber": "+250123456789",
+      "accountNumber": "+250123******",
       "provider": "MTN_MOMO_RWA"
     },
     "created": "2026-02-13T12:46:56.834795305Z",
@@ -34,7 +35,8 @@ This event notifies you about the status of a collection (funding) transaction. 
   }
 }
 ```
-<!-- slide -->
+### collection.completed
+
 ```json collection.completed
 {
   "event": "collection.completed",
@@ -49,8 +51,7 @@ This event notifies you about the status of a collection (funding) transaction. 
     "destination": "RW wallet",
     "source": {
       "bankName": "MTN_MOMO_RWA",
-      "accountName": "MTN_MOMO_RWA",
-      "accountNumber": "250123456789",
+      "accountNumber": "250123******",
       "provider": "MTN_MOMO_RWA"
     },
     "fee": {
@@ -63,7 +64,7 @@ This event notifies you about the status of a collection (funding) transaction. 
   }
 }
 ```
-````
+
 
 ### Payload Breakdown
 
@@ -85,3 +86,96 @@ This event notifies you about the status of a collection (funding) transaction. 
 | `data.fee.base` | string | The base fee for the transaction. |
 | `data.created` | string | ISO 8601 timestamp of when the transaction was created. |
 | `data.processed` | string | ISO 8601 timestamp of when the transaction was processed. |
+
+
+## Momo Collections Webhook 
+
+```JSON
+{
+    "message": "webhook event log fetched successfully",
+    "status": "success",
+    "data": {
+        "id": "69caf5d6-4d0f-49e1-997d-b09b0cc91d9a",
+        "name": "collection.completed",
+        "mode": "LIVE",
+        "state": "FAILED",
+        "notification": {
+            "url": "https://webhook.site/1bb210a0-626b-47c9-a38e-71b29fdef40d"
+        },
+        "response": {
+            "duration": "67",
+            "code": "500"
+        },
+        "payload": {
+            "event": "collection.completed",
+            "data": {
+                "id": "b5c0b6c0-3cec-4677-b15b-4035df4ba8b0",
+                "referenceNumber": "TTJJKUWZEXBOG",
+                "amount": "200.00",
+                "settlementAmount": "186.00",
+                "type": "FUNDING",
+                "state": "COMPLETED",
+                "paymentMethod": "MOBILE_MONEY",
+                "destination": "RW wallet",
+                "source": {
+                    "bankName": "MTN_MOMO_RWA",
+                    "accountName": null,
+                    "accountNumber": null,
+                    "provider": null
+                },
+                "fee": {
+                    "vat": "2.00",
+                    "stampDuty": "2.00",
+                    "base": "10.00"
+                },
+                "created": "2026-03-26T10:40:25.758487Z",
+                "processed": "2026-03-26T10:40:25.758487Z"
+            }
+        },
+        "created": "2026-03-26T10:40:31.841388Z",
+        "processed": "2026-03-26T10:40:31.977505Z"
+    }
+}
+```
+
+### Payload Breakdown
+
+| **Field** | **Type** | **Description** |
+| :--- | :--- | :--- |
+| `message` | string | The message returned by the API. |
+| `status` | string | The status of the request. |
+| `data` | object | The data returned by the API. |
+| `data.id` | string | The ID of the webhook event. |
+| `data.name` | string | The name of the webhook event. |
+| `data.mode` | string | The mode of the webhook event. |
+| `data.state` | string | The state of the webhook event. |
+| `data.notification` | object | The notification details of the webhook event. |
+| `data.notification.url` | string | The URL of the webhook event. |
+| `data.response` | object | The response details of the webhook event. |
+| `data.response.duration` | string | The duration of the webhook event. |
+| `data.response.code` | string | The response code of the webhook event. |
+| `data.payload` | object | The payload of the webhook event. |
+| `data.payload.event` | string | The event name of the webhook event. |
+| `data.payload.data` | object | The data of the webhook event. |
+| `data.payload.data.id` | string | The ID of the webhook event. |
+| `data.payload.data.referenceNumber` | string | The reference number of the webhook event. |
+| `data.payload.data.amount` | string | The amount of the webhook event. |
+| `data.payload.data.settlementAmount` | string | The settlement amount of the webhook event. |
+| `data.payload.data.type` | string | The type of the webhook event. |
+| `data.payload.data.state` | string | The state of the webhook event. |
+| `data.payload.data.paymentMethod` | string | The payment method of the webhook event. |
+| `data.payload.data.destination` | string | The destination of the webhook event. |
+| `data.payload.data.source` | object | The source of the webhook event. |
+| `data.payload.data.source.bankName` | string | The bank name of the webhook event. |
+| `data.payload.data.source.accountName` | string | The account name of the webhook event. |
+| `data.payload.data.source.accountNumber` | string | The account number of the webhook event. |
+| `data.payload.data.source.provider` | string | The provider of the webhook event. |
+| `data.payload.data.fee` | object | The fee of the webhook event. |
+| `data.payload.data.fee.vat` | string | The VAT of the webhook event. |
+| `data.payload.data.fee.stampDuty` | string | The stamp duty of the webhook event. |
+| `data.payload.data.fee.base` | string | The base fee of the webhook event. |
+| `data.payload.data.created` | string | The created timestamp of the webhook event. |
+| `data.payload.data.processed` | string | The processed timestamp of the webhook event. |
+| `data.created` | string | The created timestamp of the webhook event. |
+| `data.processed` | string | The processed timestamp of the webhook event. |
+    

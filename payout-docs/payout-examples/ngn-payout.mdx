@@ -29,7 +29,7 @@ curl --location --request POST '{{baseURL}}/v2/payout' \
 --data-raw '{
   "remark": "Testing",
   "reason": "Gift",
-  "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
+  "invoice": "4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx",
   "quoteId": "91e58c2d-ef14-4777-906b-xxxxxxxxxxxxx",
   "recipient": {
     "name": "Adeolu Adebayo",
@@ -56,7 +56,7 @@ const options = {
   body: JSON.stringify({
     remark: 'Testing',
     reason: 'Gift',
-    invoice: '4b9b6d30-a2ed-421a-bd69-11536344f071',
+    invoice: '4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx',
     quoteId: '91e58c2d-ef14-4777-906b-xxxxxxxxxxxxx',
     recipient: {
       name: 'Adeolu Adebayo',
@@ -91,7 +91,7 @@ url = "{{baseURL}}/v2/payout"
 payload = {
     "remark": "Testing",
     "reason": "Gift",
-    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
+    "invoice": "4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx",
     "quoteId": "91e58c2d-ef14-4777-906b-xxxxxxxxxxxxx",
     "recipient": {
         "name": "Adeolu Adebayo",
@@ -127,7 +127,7 @@ const url = '{{baseURL}}/v2/payout';
 const data = {
   remark: 'Testing',
   reason: 'Gift',
-  invoice: '4b9b6d30-a2ed-421a-bd69-11536344f071',
+  invoice: '4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx',
   quoteId: '91e58c2d-ef14-4777-906b-xxxxxxxxxxxxx',
   recipient: {
     name: 'Adeolu Adebayo',
@@ -195,7 +195,7 @@ If the payout is successfully created, the API returns the following response:
   "data": {
     "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
     "remark": "Testing",
-    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
+    "invoice": "4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx",
     "reason": "Gift",
     "referenceNumber": "TXYZD6RWSQMKF",
     "type": "SEND",

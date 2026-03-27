@@ -60,7 +60,7 @@ curl --location --request POST '{{baseURL}}/v2/payout' \
       "sortCode": "02090",
       "swiftCode": "GTBINGLA",
       "bankCity": "Atlanta",
-      "accountNumber": "885406477269",
+      "accountNumber": "885406******",
       "bankName": "DBS Bank Limited",
       "intermediarySwiftCode": "CHASUS33XXX"
     },
@@ -70,7 +70,7 @@ curl --location --request POST '{{baseURL}}/v2/payout' \
   },
   "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
   "reason": "Gift",
-  "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
+  "invoice": "4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx",
   "remark": "Testing"
 }'
 ```
@@ -94,7 +94,7 @@ const options = {
         sortCode: "02090",
         swiftCode: "GTBINGLA",
         bankCity: "Atlanta",
-        accountNumber: "885406477269",
+        accountNumber: "885406******",
         bankName: "DBS Bank Limited",
         intermediarySwiftCode: "CHASUS33XXX"
       },
@@ -104,7 +104,7 @@ const options = {
     },
     quoteId: "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
     reason: "Gift",
-    invoice: "4b9b6d30-a2ed-421a-bd69-11536344f071",
+    invoice: "4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx",
     remark: "Testing"
   })
 };
@@ -137,7 +137,7 @@ payload = {
             "sortCode": "02090",
             "swiftCode": "GTBINGLA",
             "bankCity": "Atlanta",
-            "accountNumber": "885406477269",
+            "accountNumber": "885406******",
             "bankName": "DBS Bank Limited",
             "intermediarySwiftCode": "CHASUS33XXX"
         },
@@ -147,7 +147,7 @@ payload = {
     },
     "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
     "reason": "Gift",
-    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
+    "invoice": "4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx",
     "remark": "Testing"
 }
 
@@ -215,7 +215,7 @@ If the payout is successfully created, the API returns the following response:
   "status": "success",
   "data": {
     "id": "a1b2c3d4-e5f6-7890-abcd-xxxxxxxxxxxxx",
-    "invoice": "4b9b6d30-a2ed-421a-bd69-11536344f071",
+    "invoice": "4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx",
     "reason": "Gift",
     "referenceNumber": "TXYZD6RWSQMKF",
     "type": "SEND",

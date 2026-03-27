@@ -13,6 +13,7 @@ openapi: post /v1/bulk/payout
 | 400 | `Account name mismatch, use account enquiry endpoint` | Account name in payload differs from bank enquiry results. | Re-run account enquiry and match the returned account name. |
 | 400 | `Invalid Bank Sortcode` | Sort code missing, malformed, or unsupported. | Fetch the correct sort code from the bank list and verify formatting. |
 | 400 | `{field_name} cannot be empty` | Required recipient field omitted from the payload. | Fill in every mandatory field (name, account number, etc.) before submitting. |
+| 400 | `Duplicate quote ID in bulk order` | The same quote ID was provided multiple times in the bulk order request. | Ensure each quote ID is unique within the same bulk order. |
 | 401 | `API key missing or incorrect` | `x-api-key` header absent, invalid, or expired. | Supply the correct API key for the environment you are targeting. |
 | 403 | `IP not whitelisted` | Request originated from an unapproved IP. | Add your server IP to the dashboard allowlist. |
 | 422 | `Invalid quote ID provided` | Quote ID missing, invalid, expired, or already consumed. | Create new bulk quotes and reference them in the payout call. |
