@@ -35,6 +35,11 @@
     "name": "meCash",
     "context": true
   },
+  "analytics": {
+    "ga4": {
+      "measurementId": "G-13ST68RF3L"
+    }
+  },
   "appearance": {
     "default": "dark"
   },
