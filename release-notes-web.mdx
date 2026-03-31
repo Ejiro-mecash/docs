@@ -13,6 +13,40 @@ Use these notes to keep your internal runbooks, training materials, and embedded
 ## Web Dashboard
 
 <AccordionGroup>
+  <Accordion title="March 2026 — Web App Release (Status: Live)">
+    **New Features**
+
+    - **Multi-user Login**: Introduced multi-user authentication on the web platform, enabling teams to securely access and operate within a shared account environment with improved collaboration.
+    - **Virtual Cards Section**: Added a dedicated section for virtual cards, improving discoverability and making it easier for users to explore and manage card-related features.
+    - **Pricing Page Update**: Refreshed the pricing page to reflect updated rates and improve clarity for users reviewing transaction costs and service fees.
+    - **GBP Support (Admin)**: Enabled GBP support within the admin platform, expanding currency capabilities and allowing broader transaction coverage.
+
+    **Enhancements**
+
+    - **Customer-centric error messages**: Improved error messaging across the web app to provide clearer, more actionable feedback to users during failed operations.
+    - **Nickname field validation**: Added character limits and validation to ensure consistent and user-friendly input handling.
+    - **Removed account number validation constraints**: Relaxed strict validation rules to support a wider range of valid account formats across regions.
+    - **Source account information (Merchant)**: Enhanced transaction transparency by showing source account details on transaction pages.
+    - **Volume Integration improvements**: Continued integration work with Volume, including handling edge cases such as name match caveats for improved reliability.
+    - **Quote currency display updates**: Standardized how quote currencies are displayed to improve readability and reduce ambiguity.
+    - **Exchange rate display standardization**: Unified exchange rate formatting across the platform for consistency.
+    - **Default amount updates (calculator)**: Improved the send-money calculator by refining default values for a better user starting point.
+    - **Funding caption update**: Updated UI text to better communicate funding actions and reduce confusion.
+    - **Minimum transaction validation review**: Refined validation logic to ensure minimum transaction thresholds are correctly enforced.
+    - **Log in / Sign up responsiveness fix**: Improved UI responsiveness to ensure authentication buttons display correctly across smaller screen sizes.
+
+    **Bug Fixes**
+
+    - **NGN decimal handling issue**: Fixed a bug where `.00` values were incorrectly flagged during USD to NGN conversions.
+    - **Missing send amount (USD → GBP)**: Resolved an issue where transaction amounts were not displayed correctly for specific currency routes.
+    - **RWF funding simulation error**: Fixed an issue causing failures when simulating funding flows.
+    - **Broken mobile network images**: Restored missing or broken UI assets on payment links.
+    - **Sort code visibility & handling issues**: Fixed inconsistencies in sort code display and ensured proper backend handling.
+    - **Dashboard endless loading state**: Resolved a performance issue causing the dashboard to remain in a loading state indefinitely.
+    - **Pricing card UI issue**: Removed unintended UI elements from pricing cards for a cleaner interface.
+    - **User action edit button issue**: Removed unnecessary edit actions from user management views.
+  </Accordion>
+
   <Accordion title="February 2026 — Web App Release (Status: Live)">
     **New Features & Enhancements**
 

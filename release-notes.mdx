@@ -19,7 +19,28 @@ Stay on top of changes that could impact your integration. Each section lists th
   <Tab title="API">
   
   ## API Platform
-  
+
+  ### March 2026 — Version v1.x (Status: Live)
+
+  **New features**
+
+  - Introduced API endpoints for collecting payments via **Mobile Money** across multiple African currencies.
+  - Enabled **Bulk Payouts** so businesses can process multiple transfers in a single request.
+  - Added support for **Pay with Mobile Money** and **Pay by Bank App** within API integrations.
+
+  **Enhancements**
+
+  - Added backend nickname validation, standardized error responses, and consistent API response codes.
+  - Enabled role-based access control (multi-user), IP allowlisting enforcement, and CloudWatch monitoring.
+  - Expanded webhook payloads with a `settledAmount` field and improved transaction activity logging.
+  - Improved sandbox reliability and overall testing environment setup.
+
+  **Bug fixes**
+
+  - Fixed static quote currency handling, missing account numbers in responses, and phone number validation gaps.
+  - Corrected refunded-vs-completed transaction status inconsistencies and stamp duty deduction errors.
+  - Resolved sandbox account response issues and admin transaction server errors.
+
   ### October, 2025 — v1.18.0 (Status: Live)
   
   - Added `preferred_settlement_currency` to the Quote API so you can lock settlement currency per request.
@@ -37,6 +58,28 @@ Stay on top of changes that could impact your integration. Each section lists th
   
   ## Web Dashboard
   
+  ### March 2026 — Web App Release (Status: Live)
+
+  **New features**
+
+  - Introduced **multi-user authentication** for teams operating within shared account environments.
+  - Added a dedicated **Virtual Cards** section to the dashboard for easier discovery and management.
+  - Refreshed the **pricing page** with updated rates and improved clarity.
+  - Enabled **GBP support** in the admin platform for broader transaction coverage.
+
+  **Enhancements**
+
+  - Improved customer-centric error messages, nickname field validation (character limits), and exchange rate display standardization.
+  - Enhanced transaction transparency by surfacing source account information on merchant pages.
+  - Refined Volume Integration reliability, quote currency display, send-money calculator defaults, and minimum transaction validation.
+  - Fixed log in / sign up button responsiveness across smaller screen sizes.
+
+  **Bug fixes**
+
+  - Fixed NGN decimal handling (`.00` flagged incorrectly), missing USD → GBP send amounts, and RWF funding simulation errors.
+  - Restored broken mobile network images and resolved sort code visibility issues.
+  - Fixed the dashboard endless loading state, pricing card UI artefacts, and user action edit button visibility.
+
   ### October 2025 — Web App Release (Status: Live)
   
   **New features**
@@ -121,6 +164,25 @@ Stay on top of changes that could impact your integration. Each section lists th
   
   ## Mobile SDKs
   
+  ### March 2026 — Mobile Release (Status: Live)
+
+  **New features**
+
+  - Enabled **USD payouts via SWIFT** directly from the mobile app.
+  - Introduced **Open Banking** bank funding and payout capabilities via Volume integration.
+  - Expanded global reach with **Moolahgo Payout** across multiple Asian markets.
+
+  **Enhancements**
+
+  - Redesigned wallet view to a list-based layout for improved readability and navigation.
+  - Added nickname character-limit validation and removed restrictive account validation constraints.
+  - Enhanced transaction details with source account info, quote currency clarity, and expanded stamp duty visibility.
+  - Updated onboarding UX to reduce friction; added failure reason visibility in the Admin mobile view.
+
+  **Bug fixes**
+
+  - Fixed USD-CNY exchange rate fetch errors.
+
   ### September 2025 — Mobile Release (iOS 1.7.3 / Android 1.7.3) (Status: Live)
   
   **New features & improvements**

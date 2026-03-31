@@ -19,6 +19,38 @@ Stay on top of API changes that could impact your integration. Each entry notes 
 ## API Platform
 
 <AccordionGroup>
+  <Accordion title="March 2026 — Version v1.x (Status: Live)">
+    **New Features**
+
+    - **Mobile Money Collections API**: Introduced API endpoints for collecting payments via mobile money across multiple African currencies.
+    - **Bulk Payout for Businesses**: Enabled businesses to process multiple payouts in a single request, improving operational efficiency.
+    - **Pay with Mobile Money**: Added support for mobile money as a payment method within API integrations.
+    - **Pay by Bank App Integration**: Introduced support for bank-based payment flows through API integrations.
+
+    **Enhancements**
+
+    - **Nickname validation (API level)**: Added backend validation to ensure nickname consistency across platforms.
+    - **Removed account validation constraints**: Improved compatibility with diverse account formats globally.
+    - **Standardized backend error responses**: Unified error structures for easier debugging and integration.
+    - **API response codes implementation**: Introduced consistent response codes for a better developer experience.
+    - **Multi-user access (roles & permissions)**: Enabled role-based access control and scalable user management.
+    - **IP allowlisting enforcement**: Added an extra layer of security by restricting access to approved IPs.
+    - **Webhook enhancements (`settledAmount` field)**: Expanded webhook payloads to include settlement information.
+    - **Transaction activity logging**: Improved auditability by logging all transaction-related actions.
+    - **CloudWatch monitoring integration**: Enhanced system observability and performance monitoring.
+    - **Sandbox & testing improvements**: Improved API testing reliability and sandbox environment setup.
+
+    **Bug Fixes**
+
+    - **Static quote currency issue**: Fixed incorrect handling of quote currencies during transaction creation.
+    - **Missing account number in response**: Ensured account numbers are returned correctly in API responses.
+    - **Phone number validation gaps**: Strengthened validation to prevent malformed inputs.
+    - **Incorrect transaction status (refunded vs completed)**: Fixed status inconsistencies for refunded transactions.
+    - **Sandbox account response issue**: Corrected invalid account object responses in sandbox.
+    - **Admin transaction server error**: Resolved backend errors affecting admin transaction views.
+    - **Stamp duty inconsistencies**: Fixed incorrect stamp duty deductions in API transactions.
+  </Accordion>
+
   <Accordion title="February 2026 — Version v1.x (Status: Live)">
     **New Features & Enhancements**
 
