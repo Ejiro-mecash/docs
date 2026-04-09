@@ -1,0 +1,43 @@
+---
+title: 'Virtual Account Spec'
+description: 'A comprehensive overview of meCash virtual account types and usage guides.'
+icon: 'building-columns'
+---
+
+meCash Virtual Accounts empower businesses to generate unique bank account numbers that map directly to their meCash wallet. This enables seamless payment collection from customers via standard bank transfers, with automatic reconcilement and instant wallet crediting.
+
+Whether you need permanent accounts for recurring customers or time-bound accounts for specific invoices, our virtual account infrastructure handles the complexity of the banking system so you can focus on your business.
+
+## Core Features
+
+- **Multi-Currency Support**: Collect payments in NGN, MWK, and USD.
+- **Automated Reconciliation**: Every deposit is automatically tied to the specific virtual account, triggering instant webhooks.
+- **Flexible Settlement**: Choose between instant settlement for immediate cash flow or T+1 for standard processing.
+- **Dual Constraints**: Control dynamic accounts using both time-based expiration and amount-based closure.
+
+## Exploration & Implementation
+
+Use the cards below to dive into specific implementation guides and technical documentation for each virtual account type.
+
+<CardGroup cols={2}>
+  <Card title="Virtual Account Overview" icon="circle-info" href="/virtual-accounts-docs/about-virtual-account">
+    Learn about the core concepts, settlement options, and the general collection flow.
+  </Card>
+  <Card title="Static Virtual Accounts" icon="address-card" href="/virtual-accounts-docs/static-virtual-account">
+    Guide for creating permanent account numbers for long-term customer relationships.
+  </Card>
+  <Card title="Dynamic Virtual Accounts" icon="bolt" href="/virtual-accounts-docs/dynamic-virtual-account">
+    Guide for generating one-time, time-bound, or amount-constrained payment accounts.
+  </Card>
+  <Card title="USD Virtual Accounts" icon="usa" href="/virtual-accounts-docs/usd-virtual-account">
+    Specific instructions for collecting US Dollar payments through virtual account infrastructure.
+  </Card>
+</CardGroup>
+
+## Next Steps
+
+Once you've integrated virtual accounts, don't forget to set up your webhooks to receive real-time notifications for every deposit.
+
+<Card title="Webhooks Integration" icon="bell" href="/webhook/webhook">
+  Configure your endpoint to listen for virtual account credit events.
+</Card>

@@ -159,4 +159,3 @@ axios.get(`{{baseURL}}/v1/quote/${quoteId}`, {
 - Cache the quote in your session store so you can re-display the guaranteed amount in confirmation UIs.
 - If the quote has expired, call [`Create Quote`](/quote-docs/create-quote) again and repeat the flow.
 - Pass the retrieved `quoteId` directly to [`POST /v2/payout`](/payout-docs/create-payout) to settle the transfer.
-- For bulk transfers, retrieve multiple quotes via the [Fetch Bulk Quotes API](/payout/get-bulk-quotes).

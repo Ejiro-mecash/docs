@@ -98,8 +98,7 @@
             "pages": [
               "quote-docs/about-quote",
               "quote-docs/supported-curriencies",
-              "quote-docs/create-quote-all-examples",
-              "quote-docs/bulk-quote"
+              "quote-docs/create-quote-all-examples"
             ]
           },
           {
@@ -235,9 +234,8 @@
             "icon": "users",
             "tag": "new",
             "pages": [
-              "payout/create-bulk-quote",
-              "payout/get-bulk-quotes",
-              "payout/create-bulk-payout"
+              "payout/create-bulk-payout",
+              "payout/get-batch-status"
             ]
           },
           {
@@ -288,6 +286,7 @@
               "pay-china",
               "payment-links",
               "virtual-cards",
+              "virtual-account-spec",
               {
                 "group": "Ramp",
                 "icon": "arrows-rotate",

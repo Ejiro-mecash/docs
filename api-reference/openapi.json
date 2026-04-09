@@ -2694,7 +2694,7 @@
                 "sourceAmount": {
                   "type": "number",
                   "description": "The amount to send in the source currency.",
-                  "example": 100.00
+                  "example": 100.0
                 }
               }
             }
@@ -2753,90 +2753,62 @@
       "CreateBulkPayoutRequest": {
         "type": "object",
         "required": [
-          "orders"
+          "items",
+          "source",
+          "target",
+          "paymentChannel",
+          "remark"
         ],
         "properties": {
-          "orders": {
+          "items": {
             "type": "array",
-            "description": "List of payout orders. Each order references a quote and includes recipient details.",
+            "description": "List of payout orders to process in the bulk payload.",
             "items": {
-              "$ref": "#/components/schemas/BulkPayoutOrder"
+              "$ref": "#/components/schemas/BulkPayoutOrderItem"
             }
-          }
-        }
-      },
-      "BulkPayoutOrder": {
-        "type": "object",
-        "required": [
-          "quoteId",
-          "recipient"
-        ],
-        "properties": {
-          "quoteId": {
-            "type": "string",
-            "format": "uuid",
-            "description": "The quote ID obtained from the bulk quote endpoint.",
-            "example": "b70f6798-ae5c-41fd-92c9-d6cfc325b8dc"
           },
-          "recipient": {
+          "source": {
             "type": "object",
             "required": [
-              "name",
-              "account",
-              "paymentChannel",
               "currency",
               "country"
             ],
             "properties": {
-              "name": {
-                "type": "string",
-                "description": "Full name of the beneficiary.",
-                "example": "NNOROM UZOMA CHUKWUDI"
-              },
-              "account": {
-                "type": "object",
-                "required": [
-                  "accountNumber",
-                  "sortCode"
-                ],
-                "properties": {
-                  "bankName": {
-                    "type": "string",
-                    "description": "Name of the destination bank.",
-                    "example": "FCMB"
-                  },
-                  "sortCode": {
-                    "type": "string",
-                    "description": "Bank sort code / routing code.",
-                    "example": "214"
-                  },
-                  "accountNumber": {
-                    "type": "string",
-                    "description": "Recipient bank account number.",
-                    "example": "2483520014"
-                  }
-                }
-              },
-              "paymentChannel": {
-                "$ref": "#/components/schemas/PaymentChannel"
-              },
               "currency": {
-                "$ref": "#/components/schemas/CurrencyCode"
+                "type": "string",
+                "example": "NGN"
               },
               "country": {
-                "$ref": "#/components/schemas/CountryCode"
+                "type": "string",
+                "example": "NG"
               }
             }
           },
+          "target": {
+            "type": "object",
+            "required": [
+              "currency",
+              "country"
+            ],
+            "properties": {
+              "currency": {
+                "type": "string",
+                "example": "NGN"
+              },
+              "country": {
+                "type": "string",
+                "example": "NG"
+              }
+            }
+          },
+          "paymentChannel": {
+            "type": "string",
+            "example": "BANK_TRANSFER"
+          },
           "remark": {
             "type": "string",
-            "description": "An optional note or reference for this transfer.",
-            "example": "payment 1"
-          },
-          "reason": {
-            "type": "string",
-            "description": "Purpose of the transfer.",
-            "example": "Gift"
+            "description": "A general remark for the bulk payout.",
+            "example": "June 2026 Salary"
           }
         }
       },
@@ -2870,12 +2842,12 @@
           "totalAmount": {
             "type": "number",
             "description": "Total source amount for all successful orders.",
-            "example": 350.50
+            "example": 350.5
           },
           "totalFees": {
             "type": "number",
             "description": "Total fees for all successful orders.",
-            "example": 400.00
+            "example": 400.0
           },
           "orders": {
             "type": "array",
@@ -2901,6 +2873,82 @@
             "type": "string",
             "format": "date-time",
             "example": "2026-03-25T10:50:07.810009313Z"
+          }
+        }
+      },
+      "BulkPayoutOrderItem": {
+        "type": "object",
+        "required": [
+          "referenceNumber",
+          "targetAmount",
+          "reason",
+          "recipient"
+        ],
+        "properties": {
+          "referenceNumber": {
+            "type": "string",
+            "description": "Unique reference number for this specific payout item.",
+            "example": "REF_ZZOEAZH8ZJI6"
+          },
+          "targetAmount": {
+            "type": "string",
+            "description": "The amount to send to the recipient.",
+            "example": "1500"
+          },
+          "reason": {
+            "type": "string",
+            "description": "Purpose of the transfer.",
+            "example": "Salary payment"
+          },
+          "recipient": {
+            "type": "object",
+            "required": [
+              "name",
+              "account",
+              "paymentChannel",
+              "currency",
+              "country"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "NNOROM UZOMA CHUKWUDI"
+              },
+              "account": {
+                "type": "object",
+                "required": [
+                  "bankName",
+                  "sortCode",
+                  "accountNumber"
+                ],
+                "properties": {
+                  "bankName": {
+                    "type": "string",
+                    "example": "FCMB"
+                  },
+                  "sortCode": {
+                    "type": "string",
+                    "example": "214"
+                  },
+                  "accountNumber": {
+                    "type": "string",
+                    "example": "2483520014"
+                  }
+                }
+              },
+              "paymentChannel": {
+                "type": "string",
+                "example": "BANK_TRANSFER"
+              },
+              "currency": {
+                "type": "string",
+                "example": "NGN"
+              },
+              "country": {
+                "type": "string",
+                "example": "NG"
+              }
+            }
           }
         }
       }
@@ -3573,16 +3621,16 @@
                       "source": {
                         "currency": "NGN",
                         "country": "NG",
-                        "amount": 100.00
+                        "amount": 100.0
                       },
                       "target": {
                         "currency": "NGN",
                         "country": "NG",
-                        "amount": 100.00
+                        "amount": 100.0
                       },
-                      "rate": 1.00000000,
+                      "rate": 1.0,
                       "fee": {
-                        "amount": 200.00,
+                        "amount": 200.0,
                         "stampDuty": 0
                       },
                       "rules": [
@@ -3591,14 +3639,14 @@
                           "appliedCurrency": "NGN",
                           "appliedCountry": "NG",
                           "transaction": {
-                            "minimum": 100.00,
-                            "maximum": 1000000.00
+                            "minimum": 100.0,
+                            "maximum": 1000000.0
                           },
-                          "invoice": 500000.00
+                          "invoice": 500000.0
                         }
                       ],
                       "summary": {
-                        "total": 300.00
+                        "total": 300.0
                       },
                       "settlement": "30 Mins",
                       "quoteCurrency": "NGN",
@@ -3612,16 +3660,16 @@
                       "source": {
                         "currency": "NGN",
                         "country": "NG",
-                        "amount": 250.50
+                        "amount": 250.5
                       },
                       "target": {
                         "currency": "NGN",
                         "country": "NG",
-                        "amount": 250.50
+                        "amount": 250.5
                       },
-                      "rate": 1.00000000,
+                      "rate": 1.0,
                       "fee": {
-                        "amount": 200.00,
+                        "amount": 200.0,
                         "stampDuty": 0
                       },
                       "rules": [
@@ -3630,14 +3678,14 @@
                           "appliedCurrency": "NGN",
                           "appliedCountry": "NG",
                           "transaction": {
-                            "minimum": 100.00,
-                            "maximum": 1000000.00
+                            "minimum": 100.0,
+                            "maximum": 1000000.0
                           },
-                          "invoice": 500000.00
+                          "invoice": 500000.0
                         }
                       ],
                       "summary": {
-                        "total": 450.50
+                        "total": 450.5
                       },
                       "settlement": "30 Mins",
                       "quoteCurrency": "NGN",
@@ -4115,6 +4163,16 @@
                         "bankName": "DBS Bank Limited",
                         "intermediarySwiftCode": "CHASUS33XXX"
                       },
+                      "sender": {
+                        "name": "Test Limited",
+                        "icNumber": "96671733919",
+                        "nationality": "NG",
+                        "address": {
+                          "line1": "12 main st"
+                        },
+                        "mobileNumber": "+234872272808",
+                        "occupation": "HEALTHCARE"
+                      },
                       "paymentChannel": "SWIFT",
                       "country": "US",
                       "currency": "USD"
@@ -4223,7 +4281,7 @@
                     "reason": "Gift",
                     "remark": "Testing",
                     "recipient": {
-                      "name": "张少杰",
+                      "name": "\u5f20\u5c11\u6770",
                       "nickName": "Mr Lee",
                       "occupation": "HEALTHCARE",
                       "icNumber": "130132198812201310",
@@ -4232,10 +4290,10 @@
                       "account": {
                         "accountNumber": "6217000130064754343",
                         "sortCode": "01026",
-                        "bankName": "BAOSHANG BANK (包商银行)",
+                        "bankName": "BAOSHANG BANK (\u5305\u5546\u94f6\u884c)",
                         "bankCity": "SHENZHEN"
                       },
-                      "companyName": "龙口市玉杰五金工具有限公司",
+                      "companyName": "\u9f99\u53e3\u5e02\u7389\u6770\u4e94\u91d1\u5de5\u5177\u6709\u9650\u516c\u53f8",
                       "companyIdNumber": "91370681MABU8HLY6N",
                       "gender": "F",
                       "nationality": "CN",
@@ -4265,7 +4323,7 @@
                       "type": "BUSINESS",
                       "stored": false,
                       "account": {
-                        "bankName": "KDB산업:Korea Development Bank",
+                        "bankName": "KDB\uc0b0\uc5c5:Korea Development Bank",
                         "sortCode": "01462",
                         "swiftCode": "DBSSSGSGXXX",
                         "bankCity": "Seoul",
@@ -4365,7 +4423,7 @@
                     "reason": "Gift",
                     "remark": "TestVND",
                     "recipient": {
-                      "name": "Nguyễn Văn Nam",
+                      "name": "Nguy\u1ec5n V\u0103n Nam",
                       "nickName": "DemoVNNickname",
                       "type": "BUSINESS",
                       "stored": false,
@@ -5179,10 +5237,10 @@
                 "paymentChannel": "BANK_TRANSFER",
                 "items": [
                   {
-                    "sourceAmount": 100.00
+                    "sourceAmount": 100.0
                   },
                   {
-                    "sourceAmount": 250.50
+                    "sourceAmount": 250.5
                   }
                 ],
                 "source": {
@@ -5271,7 +5329,7 @@
           "Bulk Payout"
         ],
         "summary": "Create Bulk Payout",
-        "description": "Submits multiple payout orders in a single request. Each order references a `quoteId` from the bulk quote endpoint and includes full recipient details. Orders are validated and processed independently — a failure in one order does not block the others.",
+        "description": "Submits multiple payout orders in a single request. Each order references a `quoteId` from the bulk quote endpoint and includes full recipient details. Orders are validated and processed independently \u2014 a failure in one order does not block the others.",
         "operationId": "createBulkPayout",
         "requestBody": {
           "required": true,
@@ -5281,11 +5339,12 @@
                 "$ref": "#/components/schemas/CreateBulkPayoutRequest"
               },
               "example": {
-                "orders": [
+                "items": [
                   {
-                    "quoteId": "b70f6798-ae5c-41fd-92c9-d6cfc325b8dc",
+                    "referenceNumber": "REF_ZZOEAZH8ZJI6",
+                    "targetAmount": "1500",
+                    "reason": "Salary payment",
                     "recipient": {
-                      "id": "a5b60e98-90b2-4fd6-95b6-13dadc51467f",
                       "name": "NNOROM UZOMA CHUKWUDI",
                       "account": {
                         "bankName": "FCMB",
@@ -5295,14 +5354,13 @@
                       "paymentChannel": "BANK_TRANSFER",
                       "currency": "NGN",
                       "country": "NG"
-                    },
-                    "remark": "payment 1",
-                    "reason": "Gift"
+                    }
                   },
                   {
-                    "quoteId": "faeafe20-d5c8-47b5-913a-2c81d15a69cb",
+                    "referenceNumber": "REF_DZNGDNK5FFGH",
+                    "targetAmount": "2500",
+                    "reason": "Salary payment",
                     "recipient": {
-                      "id": "a5b60e98-90b2-4fd6-95b6-13dadc51467f",
                       "name": "NNOROM UZOMA CHUKWUDI",
                       "account": {
                         "bankName": "FCMB",
@@ -5312,11 +5370,227 @@
                       "paymentChannel": "BANK_TRANSFER",
                       "currency": "NGN",
                       "country": "NG"
-                    },
-                    "remark": "payment 2",
-                    "reason": "Gift"
+                    }
+                  },
+                  {
+                    "referenceNumber": "REF_YMSVIDEXJX1Y",
+                    "targetAmount": "3600",
+                    "reason": "Salary payment",
+                    "recipient": {
+                      "name": "NNOROM UZOMA CHUKWUDI",
+                      "account": {
+                        "bankName": "FCMB",
+                        "sortCode": "214",
+                        "accountNumber": "2483520014"
+                      },
+                      "paymentChannel": "BANK_TRANSFER",
+                      "currency": "NGN",
+                      "country": "NG"
+                    }
+                  },
+                  {
+                    "referenceNumber": "REF_SZEEB02E54SU",
+                    "targetAmount": "4600",
+                    "reason": "Salary payment",
+                    "recipient": {
+                      "name": "NNOROM UZOMA CHUKWUDI",
+                      "account": {
+                        "bankName": "FCMB",
+                        "sortCode": "214",
+                        "accountNumber": "2483520014"
+                      },
+                      "paymentChannel": "BANK_TRANSFER",
+                      "currency": "NGN",
+                      "country": "NG"
+                    }
+                  },
+                  {
+                    "referenceNumber": "REF_KJJO74VI57AO",
+                    "targetAmount": "5600",
+                    "reason": "Salary payment",
+                    "recipient": {
+                      "name": "NNOROM UZOMA CHUKWUDI",
+                      "account": {
+                        "bankName": "FCMB",
+                        "sortCode": "214",
+                        "accountNumber": "2483520014"
+                      },
+                      "paymentChannel": "BANK_TRANSFER",
+                      "currency": "NGN",
+                      "country": "NG"
+                    }
+                  },
+                  {
+                    "referenceNumber": "REF_PPJFVFJMKW5A",
+                    "targetAmount": "6600",
+                    "reason": "Salary payment",
+                    "recipient": {
+                      "name": "NNOROM UZOMA CHUKWUDI",
+                      "account": {
+                        "bankName": "FCMB",
+                        "sortCode": "214",
+                        "accountNumber": "2483520014"
+                      },
+                      "paymentChannel": "BANK_TRANSFER",
+                      "currency": "NGN",
+                      "country": "NG"
+                    }
+                  },
+                  {
+                    "referenceNumber": "REF_QCWQGFKAXUBA",
+                    "targetAmount": "7600",
+                    "reason": "Salary payment",
+                    "recipient": {
+                      "name": "NNOROM UZOMA CHUKWUDI",
+                      "account": {
+                        "bankName": "FCMB",
+                        "sortCode": "214",
+                        "accountNumber": "2483520014"
+                      },
+                      "paymentChannel": "BANK_TRANSFER",
+                      "currency": "NGN",
+                      "country": "NG"
+                    }
+                  },
+                  {
+                    "referenceNumber": "REF_BAKCRFDYDC9X",
+                    "targetAmount": "8600",
+                    "reason": "Salary payment",
+                    "recipient": {
+                      "name": "NNOROM UZOMA CHUKWUDI",
+                      "account": {
+                        "bankName": "FCMB",
+                        "sortCode": "214",
+                        "accountNumber": "2483520014"
+                      },
+                      "paymentChannel": "BANK_TRANSFER",
+                      "currency": "NGN",
+                      "country": "NG"
+                    }
+                  },
+                  {
+                    "referenceNumber": "REF_CONN9F8AA5EC",
+                    "targetAmount": "9600",
+                    "reason": "Salary payment",
+                    "recipient": {
+                      "name": "NNOROM UZOMA CHUKWUDI",
+                      "account": {
+                        "bankName": "FCMB",
+                        "sortCode": "214",
+                        "accountNumber": "2483520014"
+                      },
+                      "paymentChannel": "BANK_TRANSFER",
+                      "currency": "NGN",
+                      "country": "NG"
+                    }
+                  },
+                  {
+                    "referenceNumber": "REF_GLXP22YSU9OO",
+                    "targetAmount": "10600",
+                    "reason": "Salary payment",
+                    "recipient": {
+                      "name": "NNOROM UZOMA CHUKWUDI",
+                      "account": {
+                        "bankName": "FCMB",
+                        "sortCode": "214",
+                        "accountNumber": "2483520014"
+                      },
+                      "paymentChannel": "BANK_TRANSFER",
+                      "currency": "NGN",
+                      "country": "NG"
+                    }
+                  },
+                  {
+                    "referenceNumber": "REF_AFYDWOMAZSKA",
+                    "targetAmount": "11600",
+                    "reason": "Salary payment",
+                    "recipient": {
+                      "name": "NNOROM UZOMA CHUKWUDI",
+                      "account": {
+                        "bankName": "FCMB",
+                        "sortCode": "214",
+                        "accountNumber": "2483520014"
+                      },
+                      "paymentChannel": "BANK_TRANSFER",
+                      "currency": "NGN",
+                      "country": "NG"
+                    }
+                  },
+                  {
+                    "referenceNumber": "REF_OTGLM5QFT3TC",
+                    "targetAmount": "12600",
+                    "reason": "Salary payment",
+                    "recipient": {
+                      "name": "NNOROM UZOMA CHUKWUDI",
+                      "account": {
+                        "bankName": "FCMB",
+                        "sortCode": "214",
+                        "accountNumber": "2483520014"
+                      },
+                      "paymentChannel": "BANK_TRANSFER",
+                      "currency": "NGN",
+                      "country": "NG"
+                    }
+                  },
+                  {
+                    "referenceNumber": "REF_ZPAOS49K1AN3",
+                    "targetAmount": "13600",
+                    "reason": "Salary payment",
+                    "recipient": {
+                      "name": "NNOROM UZOMA CHUKWUDI",
+                      "account": {
+                        "bankName": "FCMB",
+                        "sortCode": "214",
+                        "accountNumber": "2483520014"
+                      },
+                      "paymentChannel": "BANK_TRANSFER",
+                      "currency": "NGN",
+                      "country": "NG"
+                    }
+                  },
+                  {
+                    "referenceNumber": "REF_OSWIGD93131C",
+                    "targetAmount": "14600",
+                    "reason": "Salary payment",
+                    "recipient": {
+                      "name": "NNOROM UZOMA CHUKWUDI",
+                      "account": {
+                        "bankName": "FCMB",
+                        "sortCode": "214",
+                        "accountNumber": "2483520014"
+                      },
+                      "paymentChannel": "BANK_TRANSFER",
+                      "currency": "NGN",
+                      "country": "NG"
+                    }
+                  },
+                  {
+                    "referenceNumber": "REF_FONS7M755EXO",
+                    "targetAmount": "20600",
+                    "reason": "Salary payment",
+                    "recipient": {
+                      "name": "NNOROM UZOMA CHUKWUDI",
+                      "account": {
+                        "bankName": "FCMB",
+                        "sortCode": "214",
+                        "accountNumber": "2483520014"
+                      },
+                      "paymentChannel": "BANK_TRANSFER",
+                      "currency": "NGN",
+                      "country": "NG"
+                    }
                   }
-                ]
+                ],
+                "source": {
+                  "currency": "NGN",
+                  "country": "NG"
+                },
+                "target": {
+                  "currency": "NGN",
+                  "country": "NG"
+                },
+                "paymentChannel": "BANK_TRANSFER",
+                "remark": "June 2026 Salary"
               }
             }
           }
@@ -5336,6 +5610,125 @@
           },
           "500": {
             "$ref": "#/components/responses/PayoutInternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/bulk/payout/{batchId}/status": {
+      "get": {
+        "tags": [
+          "Bulk Payout"
+        ],
+        "summary": "Fetch Batch Status",
+        "description": "Retrieves the processing status and results of a bulk payout batch using its unique ID.",
+        "operationId": "getBulkPayoutStatus",
+        "parameters": [
+          {
+            "name": "batchId",
+            "in": "path",
+            "required": true,
+            "description": "The unique identifier for the batch submission.",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "44cbef79-3b95-4214-bda2-78014f400d11"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Batch status retrieved successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Batch fetched successfully"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "batchId": {
+                          "type": "string",
+                          "format": "uuid",
+                          "example": "44cbef79-3b95-4214-bda2-78014f400d11"
+                        },
+                        "referenceNo": {
+                          "type": "string",
+                          "example": "KJ5CFZ0YMWJC7"
+                        },
+                        "timestamp": {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2026-04-08T17:35:54.114741545Z"
+                        },
+                        "batchTotal": {
+                          "type": "number",
+                          "example": 15
+                        },
+                        "totalSuccessful": {
+                          "type": "number",
+                          "example": 5
+                        },
+                        "totalFailed": {
+                          "type": "number",
+                          "example": 2
+                        },
+                        "totalPending": {
+                          "type": "number",
+                          "example": 8
+                        },
+                        "results": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "referenceNumber": {
+                                "type": "string",
+                                "example": "REF_ZZOEAZH8ZJI6"
+                              },
+                              "status": {
+                                "type": "string",
+                                "enum": [
+                                  "COMPLETED",
+                                  "FAILED",
+                                  "PENDING"
+                                ],
+                                "example": "COMPLETED"
+                              },
+                              "id": {
+                                "type": "string",
+                                "format": "uuid",
+                                "example": "a1b2c3d4-e5f6-7890-abcd-xxxxxxxxxxxxx"
+                              },
+                              "error": {
+                                "type": "string",
+                                "example": "Insufficient balance"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/PayoutUnauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/PayoutForbidden"
+          },
+          "404": {
+            "description": "Batch not found."
           }
         }
       }

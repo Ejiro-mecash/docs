@@ -63,11 +63,20 @@ curl --location --request POST '{{baseURL}}/v2/payout' \
       "accountNumber": "885406******",
       "bankName": "DBS Bank Limited",
       "intermediarySwiftCode": "CHASUS33XXX"
-    },
-    "paymentChannel": "SWIFT",
-    "country": "US",
-    "currency": "USD"
+    }
   },
+  "sender": {
+    "name": "Test Limited",
+    "icNumber": "96671******",
+    "nationality": "NG",
+    "address": {
+      "line1": "12 main st"
+    },
+    "mobileNumber": "+234872******",
+    "occupation": "HEALTHCARE"
+  },
+  "paymentChannel": "SWIFT",
+  "currency": "USD",
   "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
   "reason": "Gift",
   "invoice": "4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx",
@@ -97,11 +106,20 @@ const options = {
         accountNumber: "885406******",
         bankName: "DBS Bank Limited",
         intermediarySwiftCode: "CHASUS33XXX"
-      },
-      paymentChannel: "SWIFT",
-      country: "US",
-      currency: "USD"
+      }
     },
+    sender: {
+      name: "Test Limited",
+      icNumber: "96671******",
+      nationality: "NG",
+      address: {
+        line1: "12 main st"
+      },
+      mobileNumber: "+234872******",
+      occupation: "HEALTHCARE"
+    },
+    paymentChannel: "SWIFT",
+    currency: "USD",
     quoteId: "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
     reason: "Gift",
     invoice: "4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx",
@@ -140,11 +158,20 @@ payload = {
             "accountNumber": "885406******",
             "bankName": "DBS Bank Limited",
             "intermediarySwiftCode": "CHASUS33XXX"
-        },
-        "paymentChannel": "SWIFT",
-        "country": "US",
-        "currency": "USD"
+        }
     },
+    "sender": {
+        "name": "Test Limited",
+        "icNumber": "96671******",
+        "nationality": "NG",
+        "address": {
+            "line1": "12 main st"
+        },
+        "mobileNumber": "+234872******",
+        "occupation": "HEALTHCARE"
+    },
+    "paymentChannel": "SWIFT",
+    "currency": "USD",
     "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
     "reason": "Gift",
     "invoice": "4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx",
@@ -179,6 +206,8 @@ except requests.exceptions.HTTPError as err:
 
 | **Field** | **Type** | **Description** | **Required** |
 | :---------------------------------- | :------ | :-------------------------------------------------------------------------- | :------- |
+| `paymentChannel`                    | String  | The payment method. Use `SWIFT` for international wire transfers.           | ✅ Yes   |
+| `currency`                          | String  | The ISO currency code. Must be `USD`.                                       | ✅ Yes   |
 | `quoteId`                           | String  | The unique ID of the quote for this payout.                                 | ✅ Yes   |
 | `reason`                            | String  | The purpose of the transfer (e.g., `Gift`, `Payment for services`).         | ✅ Yes   |
 | `invoice`                           | String  | Optional identifier for the invoice (returned from file upload).            | ❔ No    |
@@ -189,16 +218,26 @@ except requests.exceptions.HTTPError as err:
 | `recipient.gender`                  | String  | Gender of the recipient. Enum: `M`, `F`.                                    | ❔ No    |
 | `recipient.occupation`              | String  | The recipient's occupation or profession.                                   | ❔ No    |
 | `recipient.type`                    | String  | The type of recipient. Enum: `INDIVIDUAL`, `BUSINESS`.                      | ✅ Yes   |
-| `recipient.paymentChannel`          | String  | The payment method. Use `SWIFT` for international wire transfers.           | ✅ Yes   |
-| `recipient.currency`                | String  | The ISO currency code. Must be `USD`.                                       | ✅ Yes   |
-| `recipient.country`                 | String  | The recipient's two-letter ISO country code. Must be `US`.                  | ✅ Yes   |
 | `recipient.account`                 | Object  | An object containing the recipient's bank account details.                  | ✅ Yes   |
 | `recipient.account.accountNumber`   | String  | The recipient's bank account number.                                        | ✅ Yes   |
 | `recipient.account.swiftCode`       | String  | The SWIFT/BIC code of the recipient's bank.                                 | ✅ Yes   |
 | `recipient.account.sortCode`        | String  | The bank sort code.                                                         | ❔ No    |
 | `recipient.account.bankName`        | String  | The name of the recipient's bank.                                           | ✅ Yes   |
 | `recipient.account.bankCity`        | String  | The city where the bank is located.                                         | ❔ No    |
-| `recipient.account.intermediarySwiftCode` | String | The SWIFT/BIC code of the intermediary bank. | ❔ No (Conditional) |
+| `sender`                            | Object  | An object containing details about the person initiating the transfer.      | ✅ Yes   |
+| `sender.name`                       | String  | The full name of the sender or business.                                    | ✅ Yes   |
+| `sender.icNumber`                   | String  | The sender's identification/IC number.                                      | ✅ Yes   |
+| `sender.nationality`                | String  | The sender's two-letter ISO nationality code (e.g., `NG`).                  | ✅ Yes   |
+| `sender.address`                    | Object  | An object containing the sender's address details.                          | ✅ Yes   |
+| `sender.address.line1`              | String  | The first line of the sender's address.                                     | ✅ Yes   |
+| `sender.mobileNumber`               | String  | The sender's mobile number in international format (e.g., `+234...`).       | ✅ Yes   |
+| `sender.occupation`                 | String  | The sender's occupation or industry (e.g., `HEALTHCARE`).                   | ✅ Yes   |
+| `sender.name`                       | String  | The full name of the sender.                                                | ✅ Yes   |
+| `sender.icNumber`                   | String  | The IC number of the sender.                                                | ✅ Yes   |
+| `sender.nationality`                | String  | The ISO nationality code of the sender.                                     | ✅ Yes   |
+| `sender.address`                    | String  | The address of the sender.                                                  | ✅ Yes   |
+| `sender.mobileNumber`               | String  | The phone number of the sender.                                             | ✅ Yes   |
+| `sender.occupation`                 | String  | The occupation of the sender.                                               | ✅ Yes   |
 
 </Tab>
 </Tabs>
@@ -252,6 +291,16 @@ If the payout is successfully created, the API returns the following response:
       "currency": "USD",
       "country": "US"
     },
+    "sender": {
+      "name": "Test Limited",
+      "icNumber": "96671******",
+      "nationality": "NG",
+      "address": {
+        "line1": "12 main st"
+      },
+      "mobileNumber": "+234872******",
+      "occupation": "HEALTHCARE"
+    },
     "created": "2025-02-27T14:17:48.038044Z",
     "processed": "2025-02-27T14:20:49.712685Z"
   }
@@ -278,6 +327,13 @@ If the payout is successfully created, the API returns the following response:
 | `data.recipient.account.accountNumber` | String | The recipient's bank account number.                            |
 | `data.recipient.account.bankName`  | String | The name of the recipient's bank.                               |
 | `data.recipient.account.swiftCode`  | String | The swift code of the recipient's bank.                     |
+| `data.sender`                      | Object | An object containing details about the sender.                  |
+| `data.sender.name`                 | String | The full name of the sender or business.                        |
+| `data.sender.icNumber`             | String | The sender's masked identification/IC number.                   |
+| `data.sender.nationality`          | String | The sender's two-letter ISO nationality code.                   |
+| `data.sender.address.line1`        | String | The first line of the sender's address.                         |
+| `data.sender.mobileNumber`         | String | The sender's masked mobile number.                              |
+| `data.sender.occupation`           | String | The sender's occupation or industry.                            |
 | `data.created`                     | String | ISO 8601 timestamp of when the transaction was created.         |
 | `data.processed`                   | String | ISO 8601 timestamp of when the transaction was processed.       |
 ---
