@@ -4,8 +4,6 @@ icon: users
 tag: new
 ---
 
-<Info>This API is still under construction.</Info>
-
 The **meCash Bulk Payout API** lets you disburse funds to multiple beneficiaries in a single API request. Instead of sending individual transfer requests, you submit a batch of payout orders — ideal for payroll, vendor payments, commissions, and mass disbursements.
 
 <Tip>Each order within a bulk payout is processed independently. If one transfer fails validation, the remaining valid transfers still execute.</Tip>
@@ -17,9 +15,9 @@ sequenceDiagram
     participant Platform as Your Platform
     participant MeCash as meCash API
 
-    Platform->{{"group": "Payout Examples", "tag": "new", "icon": "layer-group", "pages": ["payout-docs/payout-examples/index", "payout-docs/payout-examples/ngn-payout", "payout-docs/payout-examples/usd-payout", "payout-docs/payout-examples/eur-payout", "payout-docs/payout-examples/gbp-payout", "payout-docs/payout-examples/cad-payout", "payout-docs/payout-examples/sgd-payout", "payout-docs/payout-examples/krw-payout", "payout-docs/payout-examples/cny-payout", "payout-docs/payout-examples/mwk-payout", "payout-docs/payout-examples/thb-payout", "payout-docs/payout-examples/myr-payout", "payout-docs/payout-examples/vnd-payout"]}}>>MeCash: 1. POST /v1/bulk/payout (orders + recipients)
+    Platform->>MeCash: 1. POST /v1/bulk/payout (orders + recipients)
     activate MeCash
-    MeCash-->>Platform: Per-order status (202)
+    MeCash-->>Platform: Batch accepted (202)
     deactivate MeCash
 
     Note over MeCash,Platform: Asynchronous processing
@@ -37,297 +35,96 @@ sequenceDiagram
 <Steps>
 ### Step 1: Submit bulk payout
 
-Send all payout orders in one request to `POST /v1/bulk/payout`. Each order pairs a `quoteId` with recipient bank details.
+Send all payout orders in one request to `POST /v1/bulk/payout`. Each item includes a unique `referenceNumber`, amount, reason, and full recipient bank details.
 
-```bash cURL
-curl --location 'https://devapi.me-cash.com/v1/bulk/payout' \
---header 'Content-Type: application/json' \
---header 'x-api-key: YOUR_API_KEY' \
---data '{
-    "items": [
-        {
-            "referenceNumber": "REF_ZZOEAZH8ZJI6",
-            "targetAmount": "1500",
-            "reason": "Salary payment",
-            "recipient": {
-                "name": "NNOROM UZOMA CHUKWUDI",
-                "account": {
-                    "bankName": "FCMB",
-                    "sortCode": "214",
-                    "accountNumber": "2483520014"
-                },
-                "paymentChannel": "BANK_TRANSFER",
-                "currency": "NGN",
-                "country": "NG"
+<Tabs>
+  <Tab title="Request">
+    ```bash cURL
+    curl --location 'https://devapi.me-cash.com/v1/bulk/payout' \
+    --header 'Content-Type: application/json' \
+    --header 'x-api-key: YOUR_API_KEY' \
+    --data '{
+        "items": [
+            {
+                "referenceNumber": "REF_ZZOEAZH8ZJI6",
+                "targetAmount": "1500",
+                "reason": "Salary payment",
+                "recipient": {
+                    "name": "NNOROM UZOMA CHUKWUDI",
+                    "account": {
+                        "bankName": "FCMB",
+                        "sortCode": "214",
+                        "accountNumber": "2483520014"
+                    },
+                    "paymentChannel": "BANK_TRANSFER",
+                    "currency": "NGN",
+                    "country": "NG"
+                }
+            },
+            {
+                "referenceNumber": "REF_DZNGDNK5FFGH",
+                "targetAmount": "2500",
+                "reason": "Salary payment",
+                "recipient": {
+                    "name": "NNOROM UZOMA CHUKWUDI",
+                    "account": {
+                        "bankName": "FCMB",
+                        "sortCode": "214",
+                        "accountNumber": "2483520014"
+                    },
+                    "paymentChannel": "BANK_TRANSFER",
+                    "currency": "NGN",
+                    "country": "NG"
+                }
+            },
+            {
+                "referenceNumber": "REF_YMSVIDEXJX1Y",
+                "targetAmount": "3600",
+                "reason": "Salary payment",
+                "recipient": {
+                    "name": "NNOROM UZOMA CHUKWUDI",
+                    "account": {
+                        "bankName": "FCMB",
+                        "sortCode": "214",
+                        "accountNumber": "2483520014"
+                    },
+                    "paymentChannel": "BANK_TRANSFER",
+                    "currency": "NGN",
+                    "country": "NG"
+                }
             }
+        ],
+        "source": {
+            "currency": "NGN",
+            "country": "NG"
         },
-        {
-            "referenceNumber": "REF_DZNGDNK5FFGH",
-            "targetAmount": "2500",
-            "reason": "Salary payment",
-            "recipient": {
-                "name": "NNOROM UZOMA CHUKWUDI",
-                "account": {
-                    "bankName": "FCMB",
-                    "sortCode": "214",
-                    "accountNumber": "2483520014"
-                },
-                "paymentChannel": "BANK_TRANSFER",
-                "currency": "NGN",
-                "country": "NG"
-            }
+        "target": {
+            "currency": "NGN",
+            "country": "NG"
         },
-        {
-            "referenceNumber": "REF_YMSVIDEXJX1Y",
-            "targetAmount": "3600",
-            "reason": "Salary payment",
-            "recipient": {
-                "name": "NNOROM UZOMA CHUKWUDI",
-                "account": {
-                    "bankName": "FCMB",
-                    "sortCode": "214",
-                    "accountNumber": "2483520014"
-                },
-                "paymentChannel": "BANK_TRANSFER",
-                "currency": "NGN",
-                "country": "NG"
-            }
-        },
-        {
-            "referenceNumber": "REF_SZEEB02E54SU",
-            "targetAmount": "4600",
-            "reason": "Salary payment",
-            "recipient": {
-                "name": "NNOROM UZOMA CHUKWUDI",
-                "account": {
-                    "bankName": "FCMB",
-                    "sortCode": "214",
-                    "accountNumber": "2483520014"
-                },
-                "paymentChannel": "BANK_TRANSFER",
-                "currency": "NGN",
-                "country": "NG"
-            }
-        },
-        {
-            "referenceNumber": "REF_KJJO74VI57AO",
-            "targetAmount": "5600",
-            "reason": "Salary payment",
-            "recipient": {
-                "name": "NNOROM UZOMA CHUKWUDI",
-                "account": {
-                    "bankName": "FCMB",
-                    "sortCode": "214",
-                    "accountNumber": "2483520014"
-                },
-                "paymentChannel": "BANK_TRANSFER",
-                "currency": "NGN",
-                "country": "NG"
-            }
-        },
-        {
-            "referenceNumber": "REF_PPJFVFJMKW5A",
-            "targetAmount": "6600",
-            "reason": "Salary payment",
-            "recipient": {
-                "name": "NNOROM UZOMA CHUKWUDI",
-                "account": {
-                    "bankName": "FCMB",
-                    "sortCode": "214",
-                    "accountNumber": "2483520014"
-                },
-                "paymentChannel": "BANK_TRANSFER",
-                "currency": "NGN",
-                "country": "NG"
-            }
-        },
-        {
-            "referenceNumber": "REF_QCWQGFKAXUBA",
-            "targetAmount": "7600",
-            "reason": "Salary payment",
-            "recipient": {
-                "name": "NNOROM UZOMA CHUKWUDI",
-                "account": {
-                    "bankName": "FCMB",
-                    "sortCode": "214",
-                    "accountNumber": "2483520014"
-                },
-                "paymentChannel": "BANK_TRANSFER",
-                "currency": "NGN",
-                "country": "NG"
-            }
-        },
-        {
-            "referenceNumber": "REF_BAKCRFDYDC9X",
-            "targetAmount": "8600",
-            "reason": "Salary payment",
-            "recipient": {
-                "name": "NNOROM UZOMA CHUKWUDI",
-                "account": {
-                    "bankName": "FCMB",
-                    "sortCode": "214",
-                    "accountNumber": "2483520014"
-                },
-                "paymentChannel": "BANK_TRANSFER",
-                "currency": "NGN",
-                "country": "NG"
-            }
-        },
-        {
-            "referenceNumber": "REF_CONN9F8AA5EC",
-            "targetAmount": "9600",
-            "reason": "Salary payment",
-            "recipient": {
-                "name": "NNOROM UZOMA CHUKWUDI",
-                "account": {
-                    "bankName": "FCMB",
-                    "sortCode": "214",
-                    "accountNumber": "2483520014"
-                },
-                "paymentChannel": "BANK_TRANSFER",
-                "currency": "NGN",
-                "country": "NG"
-            }
-        },
-        {
-            "referenceNumber": "REF_GLXP22YSU9OO",
-            "targetAmount": "10600",
-            "reason": "Salary payment",
-            "recipient": {
-                "name": "NNOROM UZOMA CHUKWUDI",
-                "account": {
-                    "bankName": "FCMB",
-                    "sortCode": "214",
-                    "accountNumber": "2483520014"
-                },
-                "paymentChannel": "BANK_TRANSFER",
-                "currency": "NGN",
-                "country": "NG"
-            }
-        },
-        {
-            "referenceNumber": "REF_AFYDWOMAZSKA",
-            "targetAmount": "11600",
-            "reason": "Salary payment",
-            "recipient": {
-                "name": "NNOROM UZOMA CHUKWUDI",
-                "account": {
-                    "bankName": "FCMB",
-                    "sortCode": "214",
-                    "accountNumber": "2483520014"
-                },
-                "paymentChannel": "BANK_TRANSFER",
-                "currency": "NGN",
-                "country": "NG"
-            }
-        },
-        {
-            "referenceNumber": "REF_OTGLM5QFT3TC",
-            "targetAmount": "12600",
-            "reason": "Salary payment",
-            "recipient": {
-                "name": "NNOROM UZOMA CHUKWUDI",
-                "account": {
-                    "bankName": "FCMB",
-                    "sortCode": "214",
-                    "accountNumber": "2483520014"
-                },
-                "paymentChannel": "BANK_TRANSFER",
-                "currency": "NGN",
-                "country": "NG"
-            }
-        },
-        {
-            "referenceNumber": "REF_ZPAOS49K1AN3",
-            "targetAmount": "13600",
-            "reason": "Salary payment",
-            "recipient": {
-                "name": "NNOROM UZOMA CHUKWUDI",
-                "account": {
-                    "bankName": "FCMB",
-                    "sortCode": "214",
-                    "accountNumber": "2483520014"
-                },
-                "paymentChannel": "BANK_TRANSFER",
-                "currency": "NGN",
-                "country": "NG"
-            }
-        },
-        {
-            "referenceNumber": "REF_OSWIGD93131C",
-            "targetAmount": "14600",
-            "reason": "Salary payment",
-            "recipient": {
-                "name": "NNOROM UZOMA CHUKWUDI",
-                "account": {
-                    "bankName": "FCMB",
-                    "sortCode": "214",
-                    "accountNumber": "2483520014"
-                },
-                "paymentChannel": "BANK_TRANSFER",
-                "currency": "NGN",
-                "country": "NG"
-            }
-        },
-        {
-            "referenceNumber": "REF_FONS7M755EXO",
-            "targetAmount": "20600",
-            "reason": "Salary payment",
-            "recipient": {
-                "name": "NNOROM UZOMA CHUKWUDI",
-                "account": {
-                    "bankName": "FCMB",
-                    "sortCode": "214",
-                    "accountNumber": "2483520014"
-                },
-                "paymentChannel": "BANK_TRANSFER",
-                "currency": "NGN",
-                "country": "NG"
-            }
+        "paymentChannel": "BANK_TRANSFER",
+        "remark": "June 2026 Salary"
+    }'
+    ```
+  </Tab>
+  <Tab title="Response (202)">
+    ```json copy
+    {
+        "message": "Batch Created",
+        "status": "success",
+        "data": {
+            "batchId": "44cbef79-3b95-4214-bda2-xxxxxxxxxxxx",
+            "referenceNo": "KJ5CFZ0YMWJC7",
+            "timestamp": "2026-04-08T17:35:54.114741545Z",
+            "batchTotal": 15,
+            "totalSuccessful": 0,
+            "totalFailed": 0,
+            "totalPending": 15
         }
-    ],
-    "source": {
-        "currency": "NGN",
-        "country": "NG"
-    },
-    "target": {
-        "currency": "NGN",
-        "country": "NG"
-    },
-    "paymentChannel": "BANK_TRANSFER",
-    "remark": "June 2026 Salary"
-}'
-```
-
-#### Response (202 Accepted)
-
-```json copy
-{
-    "message": "Batch Created",
-    "status": "success",
-    "data": {
-        "batchId": "44cbef79-3b95-4214-bda2-xxxxxxxxxxxx",
-        "referenceNo": "KJ5CFZ0YMWJC7",
-        "timestamp": "2026-04-08T17:35:54.114741545Z",
-        "batchTotal": 15,
-        "totalSuccessful": 0,
-        "totalFailed": 0,
-        "totalPending": 15
     }
-}
-```
-
-| **Field** | **Type** | **Description** |
-|-----------|----------|-----------------|
-| `message` | String | Confirmation that the batch was accepted. |
-| `status` | String | Overall request status, e.g. `success`. |
-| `data.batchId` | String | Unique identifier for the batch. Use this to track the entire batch. |
-| `data.referenceNo` | String | A short human-readable reference for the batch submission. |
-| `data.timestamp` | String | ISO 8601 timestamp of when the batch was created. |
-| `data.batchTotal` | Number | Total number of payout orders submitted in this batch. |
-| `data.totalSuccessful` | Number | Number of orders successfully processed at submission time. |
-| `data.totalFailed` | Number | Number of orders that failed at submission time. |
-| `data.totalPending` | Number | Number of orders still awaiting processing. |
+    ```
+  </Tab>
+</Tabs>
 
 <Info>
   A `202 Accepted` response means the batch has been **queued** — not yet processed. Orders are settled asynchronously. Listen for [`payout.completed`](/webhook/payout-webhook) and [`payout.failed`](/webhook/payout-webhook) webhooks to track individual transfer outcomes.
@@ -335,19 +132,111 @@ curl --location 'https://devapi.me-cash.com/v1/bulk/payout' \
 
 ### Step 2: Check batch status (Optional)
 
-If you prefer to poll for results rather than (or in addition to) using webhooks, you can fetch the status of the entire batch using the `batchId` returned in Step 1.
+Poll for results using the `batchId` returned from Step 1. This is useful if you want to check overall progress without waiting for individual webhooks.
 
-```bash cURL
-curl --location 'https://{{baseURL}}/v1/bulk/payout/{{batchID}}/status' \
---header 'Content-Type: application/json' \
---header 'x-api-key: YOUR_API_KEY'
-```
+<Tabs>
+  <Tab title="Request">
+    ```bash cURL
+    curl --location 'https://devapi.me-cash.com/v1/bulk/payout/{{batchId}}/status' \
+    --header 'Content-Type: application/json' \
+    --header 'x-api-key: YOUR_API_KEY'
+    ```
+  </Tab>
+  <Tab title="Response (200)">
+    ```json copy
+    {
+        "message": "Transaction Processing",
+        "status": "success",
+        "data": {
+            "state": "pending",
+            "batchId": "44cbef79-3b95-4214-bda2-78014f400d11",
+            "startTimestamp": "2026-04-08T17:35:54.070396Z",
+            "endTimestamp": null,
+            "batchTotal": 15,
+            "totalSuccessful": 0,
+            "totalFailed": 0,
+            "totalPending": 15,
+            "items": [
+                {
+                    "referenceNumber": "REF_ZZOEAZH8ZJI6",
+                    "status": "pending",
+                    "targetAmount": "1500",
+                    "reason": "Salary payment",
+                    "recipient": {
+                        "id": "f55914fe-0568-473d-bf6f-95c32c71094e",
+                        "name": "NNOROM UZOMA CHUKWUDI",
+                        "account": {
+                            "bankName": "FCMB",
+                            "sortCode": "214",
+                            "accountNumber": "2483520014"
+                        },
+                        "paymentChannel": "BANK_TRANSFER",
+                        "currency": "NGN",
+                        "country": "NG"
+                    }
+                }
+            ],
+            "source": { "currency": "NGN", "country": "NG" },
+            "target": { "currency": "NGN", "country": "NG" },
+            "paymentChannel": "BANK_TRANSFER",
+            "remark": "June 2026 Salary"
+        }
+    }
+    ```
+  </Tab>
+</Tabs>
 
 ### Step 3: Listen for webhooks
 
-Each individual transfer triggers its own webhook ([`payout.completed`](/webhook/payout-webhook) or [`payout.failed`](/webhook/payout-webhook)). Use the `referenceNumber` from each order's bulk payout response to correlate events with specific orders. See [Webhook Signature Verification](/webhook/webhooks-signature-verification) to secure your endpoint.
+Every individual payout in the batch triggers its own separate webhook — so a batch with 15 orders will fire **15 individual webhook events**. Each webhook is either [`payout.completed`](/webhook/payout-webhook) or [`payout.failed`](/webhook/payout-webhook), depending on the outcome of that specific transfer.
+
+Use the `referenceNumber` from each order to correlate incoming webhook events with specific transfers in your system.
+
+<Warning>
+  Your webhook endpoint must be able to handle **multiple concurrent deliveries**. For a large batch, many webhooks may arrive in quick succession as transfers are settled.
+</Warning>
+
+See [Webhook Signature Verification](/webhook/webhooks-signature-verification) to secure your endpoint.
 
 </Steps>
+
+## Request body breakdown
+
+| **Field** | **Type** | **Required** | **Description** |
+|-----------|----------|:------------:|-----------------|
+| `items` | Array | ✅ | List of individual payout orders (see below). |
+| `items[].referenceNumber` | String | ✅ | Your unique reference for this specific order. |
+| `items[].targetAmount` | String | ✅ | Amount to send to the recipient. |
+| `items[].reason` | String | ✅ | Purpose of the transfer (e.g. `Salary payment`). |
+| `items[].recipient.name` | String | ✅ | Full name of the recipient. |
+| `items[].recipient.account.bankName` | String | ✅ | Name of the recipient's bank. |
+| `items[].recipient.account.sortCode` | String | ✅ | Bank sort code / bank code. |
+| `items[].recipient.account.accountNumber` | String | ✅ | Recipient's bank account number. |
+| `items[].recipient.paymentChannel` | String | ✅ | Payment method (e.g. `BANK_TRANSFER`). |
+| `items[].recipient.currency` | String | ✅ | Target currency code (e.g. `NGN`). |
+| `items[].recipient.country` | String | ✅ | Target country code (e.g. `NG`). |
+| `source.currency` | String | ✅ | Source wallet currency. |
+| `source.country` | String | ✅ | Source wallet country. |
+| `target.currency` | String | ✅ | Destination currency. |
+| `target.country` | String | ✅ | Destination country. |
+| `paymentChannel` | String | ✅ | Top-level payment channel for the batch. |
+| `remark` | String | ❌ | A general note for the entire batch submission. |
+
+## Response breakdown
+
+| **Field** | **Type** | **Description** |
+|-----------|----------|-----------------|
+| `message` | String | Confirmation message from the API. |
+| `status` | String | Overall request status (`success` or `failed`). |
+| `data.state` | String | The processing state of the batch (e.g. `pending`, `completed`). |
+| `data.batchId` | String | Unique identifier for the batch submission. |
+| `data.startTimestamp`| String | ISO 8601 timestamp of when processing began. |
+| `data.endTimestamp` | String | ISO 8601 timestamp of when processing finished (`null` if pending). |
+| `data.batchTotal` | Number | Total number of payout orders in the batch. |
+| `data.totalSuccessful`| Number | Total orders that have reached a final success state. |
+| `data.totalFailed` | Number | Total orders that have failed processing. |
+| `data.totalPending` | Number | Total orders still in the queue or being processed. |
+| `data.items` | Array | A list of all individual payout orders and their specific statuses. |
 
 ## Key behaviors
 
@@ -375,7 +264,7 @@ Each individual transfer triggers its own webhook ([`payout.completed`](/webhook
 
 ## Next steps
 
-<CardGroup cols={2}>
+<CardGroup cols={3}>
   <Card title="Create Bulk Payout API" icon="paper-plane" href="/payout/create-bulk-payout">
     Full OpenAPI reference for `POST /v1/bulk/payout`.
   </Card>

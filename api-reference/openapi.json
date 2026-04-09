@@ -5649,42 +5649,48 @@
                     },
                     "message": {
                       "type": "string",
-                      "example": "Batch fetched successfully"
+                      "example": "Transaction Processing"
                     },
                     "data": {
                       "type": "object",
                       "properties": {
+                        "state": {
+                          "type": "string",
+                          "example": "pending"
+                        },
                         "batchId": {
                           "type": "string",
                           "format": "uuid",
                           "example": "44cbef79-3b95-4214-bda2-78014f400d11"
                         },
-                        "referenceNo": {
-                          "type": "string",
-                          "example": "KJ5CFZ0YMWJC7"
-                        },
-                        "timestamp": {
+                        "startTimestamp": {
                           "type": "string",
                           "format": "date-time",
-                          "example": "2026-04-08T17:35:54.114741545Z"
+                          "example": "2026-04-08T17:35:54.070396Z"
+                        },
+                        "endTimestamp": {
+                          "type": "string",
+                          "format": "date-time",
+                          "nullable": true,
+                          "example": null
                         },
                         "batchTotal": {
-                          "type": "number",
+                          "type": "integer",
                           "example": 15
                         },
                         "totalSuccessful": {
-                          "type": "number",
-                          "example": 5
+                          "type": "integer",
+                          "example": 0
                         },
                         "totalFailed": {
-                          "type": "number",
-                          "example": 2
+                          "type": "integer",
+                          "example": 0
                         },
                         "totalPending": {
-                          "type": "number",
-                          "example": 8
+                          "type": "integer",
+                          "example": 15
                         },
-                        "results": {
+                        "items": {
                           "type": "array",
                           "items": {
                             "type": "object",
@@ -5695,25 +5701,60 @@
                               },
                               "status": {
                                 "type": "string",
-                                "enum": [
-                                  "COMPLETED",
-                                  "FAILED",
-                                  "PENDING"
-                                ],
-                                "example": "COMPLETED"
+                                "example": "pending"
                               },
-                              "id": {
+                              "targetAmount": {
                                 "type": "string",
-                                "format": "uuid",
-                                "example": "a1b2c3d4-e5f6-7890-abcd-xxxxxxxxxxxxx"
+                                "example": "1500"
                               },
-                              "error": {
+                              "reason": {
                                 "type": "string",
-                                "example": "Insufficient balance"
+                                "example": "Salary payment"
+                              },
+                              "recipient": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "string",
+                                    "format": "uuid",
+                                    "example": "f55914fe-0568-473d-bf6f-95c32c71094e"
+                                  },
+                                  "name": {
+                                    "type": "string",
+                                    "example": "NNOROM UZOMA CHUKWUDI"
+                                  },
+                                  "account": {
+                                    "type": "object",
+                                    "properties": {
+                                      "bankName": { "type": "string", "example": "FCMB" },
+                                      "sortCode": { "type": "string", "example": "214" },
+                                      "accountNumber": { "type": "string", "example": "2483520014" }
+                                    }
+                                  },
+                                  "paymentChannel": { "type": "string", "example": "BANK_TRANSFER" },
+                                  "currency": { "type": "string", "example": "NGN" },
+                                  "country": { "type": "string", "example": "NG" }
+                                }
                               }
                             }
                           }
-                        }
+                        },
+                        "source": {
+                          "type": "object",
+                          "properties": {
+                            "currency": { "type": "string", "example": "NGN" },
+                            "country": { "type": "string", "example": "NG" }
+                          }
+                        },
+                        "target": {
+                          "type": "object",
+                          "properties": {
+                            "currency": { "type": "string", "example": "NGN" },
+                            "country": { "type": "string", "example": "NG" }
+                          }
+                        },
+                        "paymentChannel": { "type": "string", "example": "BANK_TRANSFER" },
+                        "remark": { "type": "string", "example": "June 2026 Salary" }
                       }
                     }
                   }
