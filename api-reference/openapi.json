@@ -1581,16 +1581,6 @@
               "MWK",
               "USD"
             ]
-          },
-          "mobileProvider": {
-            "type": "string",
-            "description": "The mobile provider code (ISO 4217).",
-            "enum": [
-              "MTN",
-              "GLO",
-              "AIRTEL",
-              "9MOBILE"
-            ]
           }
         }
       },
@@ -1598,8 +1588,7 @@
         "type": "object",
         "required": [
           "country",
-          "currency",
-          "mobileProvider"
+          "currency"
         ],
         "properties": {
           "country": {
@@ -1821,16 +1810,6 @@
                   },
                   "accountNumber": {
                     "type": "string"
-                  },
-                  "mobileProvider": {
-                    "type": "string",
-                    "description": "The mobile provider code (ISO 4217).",
-                    "enum": [
-                      "MTN",
-                      "GLO",
-                      "AIRTEL",
-                      "9MOBILE"
-                    ]
                   }
                 }
               },
@@ -2754,8 +2733,6 @@
         "type": "object",
         "required": [
           "items",
-          "source",
-          "target",
           "paymentChannel",
           "remark"
         ],
@@ -2767,42 +2744,13 @@
               "$ref": "#/components/schemas/BulkPayoutOrderItem"
             }
           },
-          "source": {
-            "type": "object",
-            "required": [
-              "currency",
-              "country"
-            ],
-            "properties": {
-              "currency": {
-                "type": "string",
-                "example": "NGN"
-              },
-              "country": {
-                "type": "string",
-                "example": "NG"
-              }
-            }
-          },
-          "target": {
-            "type": "object",
-            "required": [
-              "currency",
-              "country"
-            ],
-            "properties": {
-              "currency": {
-                "type": "string",
-                "example": "NGN"
-              },
-              "country": {
-                "type": "string",
-                "example": "NG"
-              }
-            }
-          },
           "paymentChannel": {
             "type": "string",
+            "description": "The overall payment channel intended for the batch.",
+            "enum": [
+              "BANK_TRANSFER",
+              "MOBILE_MONEY"
+            ],
             "example": "BANK_TRANSFER"
           },
           "remark": {
@@ -2912,6 +2860,7 @@
             "properties": {
               "name": {
                 "type": "string",
+                "description": "Full name of the designated recipient.",
                 "example": "NNOROM UZOMA CHUKWUDI"
               },
               "account": {
@@ -2938,6 +2887,11 @@
               },
               "paymentChannel": {
                 "type": "string",
+                "description": "Payment channel to use for delivery.",
+                "enum": [
+                  "BANK_TRANSFER",
+                  "MOBILE_MONEY"
+                ],
                 "example": "BANK_TRANSFER"
               },
               "currency": {
@@ -5329,7 +5283,7 @@
           "Bulk Payout"
         ],
         "summary": "Create Bulk Payout",
-        "description": "Submits multiple payout orders in a single request. Each order references a `quoteId` from the bulk quote endpoint and includes full recipient details. Orders are validated and processed independently \u2014 a failure in one order does not block the others.",
+        "description": "Submits multiple payout orders in a single request using the Bulk Payout API. Orders are validated and processed independently \u2014 a failure in one order does not block the others.",
         "operationId": "createBulkPayout",
         "requestBody": {
           "required": true,
@@ -5371,224 +5325,8 @@
                       "currency": "NGN",
                       "country": "NG"
                     }
-                  },
-                  {
-                    "referenceNumber": "REF_YMSVIDEXJX1Y",
-                    "targetAmount": "3600",
-                    "reason": "Salary payment",
-                    "recipient": {
-                      "name": "NNOROM UZOMA CHUKWUDI",
-                      "account": {
-                        "bankName": "FCMB",
-                        "sortCode": "214",
-                        "accountNumber": "2483520014"
-                      },
-                      "paymentChannel": "BANK_TRANSFER",
-                      "currency": "NGN",
-                      "country": "NG"
-                    }
-                  },
-                  {
-                    "referenceNumber": "REF_SZEEB02E54SU",
-                    "targetAmount": "4600",
-                    "reason": "Salary payment",
-                    "recipient": {
-                      "name": "NNOROM UZOMA CHUKWUDI",
-                      "account": {
-                        "bankName": "FCMB",
-                        "sortCode": "214",
-                        "accountNumber": "2483520014"
-                      },
-                      "paymentChannel": "BANK_TRANSFER",
-                      "currency": "NGN",
-                      "country": "NG"
-                    }
-                  },
-                  {
-                    "referenceNumber": "REF_KJJO74VI57AO",
-                    "targetAmount": "5600",
-                    "reason": "Salary payment",
-                    "recipient": {
-                      "name": "NNOROM UZOMA CHUKWUDI",
-                      "account": {
-                        "bankName": "FCMB",
-                        "sortCode": "214",
-                        "accountNumber": "2483520014"
-                      },
-                      "paymentChannel": "BANK_TRANSFER",
-                      "currency": "NGN",
-                      "country": "NG"
-                    }
-                  },
-                  {
-                    "referenceNumber": "REF_PPJFVFJMKW5A",
-                    "targetAmount": "6600",
-                    "reason": "Salary payment",
-                    "recipient": {
-                      "name": "NNOROM UZOMA CHUKWUDI",
-                      "account": {
-                        "bankName": "FCMB",
-                        "sortCode": "214",
-                        "accountNumber": "2483520014"
-                      },
-                      "paymentChannel": "BANK_TRANSFER",
-                      "currency": "NGN",
-                      "country": "NG"
-                    }
-                  },
-                  {
-                    "referenceNumber": "REF_QCWQGFKAXUBA",
-                    "targetAmount": "7600",
-                    "reason": "Salary payment",
-                    "recipient": {
-                      "name": "NNOROM UZOMA CHUKWUDI",
-                      "account": {
-                        "bankName": "FCMB",
-                        "sortCode": "214",
-                        "accountNumber": "2483520014"
-                      },
-                      "paymentChannel": "BANK_TRANSFER",
-                      "currency": "NGN",
-                      "country": "NG"
-                    }
-                  },
-                  {
-                    "referenceNumber": "REF_BAKCRFDYDC9X",
-                    "targetAmount": "8600",
-                    "reason": "Salary payment",
-                    "recipient": {
-                      "name": "NNOROM UZOMA CHUKWUDI",
-                      "account": {
-                        "bankName": "FCMB",
-                        "sortCode": "214",
-                        "accountNumber": "2483520014"
-                      },
-                      "paymentChannel": "BANK_TRANSFER",
-                      "currency": "NGN",
-                      "country": "NG"
-                    }
-                  },
-                  {
-                    "referenceNumber": "REF_CONN9F8AA5EC",
-                    "targetAmount": "9600",
-                    "reason": "Salary payment",
-                    "recipient": {
-                      "name": "NNOROM UZOMA CHUKWUDI",
-                      "account": {
-                        "bankName": "FCMB",
-                        "sortCode": "214",
-                        "accountNumber": "2483520014"
-                      },
-                      "paymentChannel": "BANK_TRANSFER",
-                      "currency": "NGN",
-                      "country": "NG"
-                    }
-                  },
-                  {
-                    "referenceNumber": "REF_GLXP22YSU9OO",
-                    "targetAmount": "10600",
-                    "reason": "Salary payment",
-                    "recipient": {
-                      "name": "NNOROM UZOMA CHUKWUDI",
-                      "account": {
-                        "bankName": "FCMB",
-                        "sortCode": "214",
-                        "accountNumber": "2483520014"
-                      },
-                      "paymentChannel": "BANK_TRANSFER",
-                      "currency": "NGN",
-                      "country": "NG"
-                    }
-                  },
-                  {
-                    "referenceNumber": "REF_AFYDWOMAZSKA",
-                    "targetAmount": "11600",
-                    "reason": "Salary payment",
-                    "recipient": {
-                      "name": "NNOROM UZOMA CHUKWUDI",
-                      "account": {
-                        "bankName": "FCMB",
-                        "sortCode": "214",
-                        "accountNumber": "2483520014"
-                      },
-                      "paymentChannel": "BANK_TRANSFER",
-                      "currency": "NGN",
-                      "country": "NG"
-                    }
-                  },
-                  {
-                    "referenceNumber": "REF_OTGLM5QFT3TC",
-                    "targetAmount": "12600",
-                    "reason": "Salary payment",
-                    "recipient": {
-                      "name": "NNOROM UZOMA CHUKWUDI",
-                      "account": {
-                        "bankName": "FCMB",
-                        "sortCode": "214",
-                        "accountNumber": "2483520014"
-                      },
-                      "paymentChannel": "BANK_TRANSFER",
-                      "currency": "NGN",
-                      "country": "NG"
-                    }
-                  },
-                  {
-                    "referenceNumber": "REF_ZPAOS49K1AN3",
-                    "targetAmount": "13600",
-                    "reason": "Salary payment",
-                    "recipient": {
-                      "name": "NNOROM UZOMA CHUKWUDI",
-                      "account": {
-                        "bankName": "FCMB",
-                        "sortCode": "214",
-                        "accountNumber": "2483520014"
-                      },
-                      "paymentChannel": "BANK_TRANSFER",
-                      "currency": "NGN",
-                      "country": "NG"
-                    }
-                  },
-                  {
-                    "referenceNumber": "REF_OSWIGD93131C",
-                    "targetAmount": "14600",
-                    "reason": "Salary payment",
-                    "recipient": {
-                      "name": "NNOROM UZOMA CHUKWUDI",
-                      "account": {
-                        "bankName": "FCMB",
-                        "sortCode": "214",
-                        "accountNumber": "2483520014"
-                      },
-                      "paymentChannel": "BANK_TRANSFER",
-                      "currency": "NGN",
-                      "country": "NG"
-                    }
-                  },
-                  {
-                    "referenceNumber": "REF_FONS7M755EXO",
-                    "targetAmount": "20600",
-                    "reason": "Salary payment",
-                    "recipient": {
-                      "name": "NNOROM UZOMA CHUKWUDI",
-                      "account": {
-                        "bankName": "FCMB",
-                        "sortCode": "214",
-                        "accountNumber": "2483520014"
-                      },
-                      "paymentChannel": "BANK_TRANSFER",
-                      "currency": "NGN",
-                      "country": "NG"
-                    }
                   }
                 ],
-                "source": {
-                  "currency": "NGN",
-                  "country": "NG"
-                },
-                "target": {
-                  "currency": "NGN",
-                  "country": "NG"
-                },
                 "paymentChannel": "BANK_TRANSFER",
                 "remark": "June 2026 Salary"
               }
@@ -5726,35 +5464,45 @@
                                   "account": {
                                     "type": "object",
                                     "properties": {
-                                      "bankName": { "type": "string", "example": "FCMB" },
-                                      "sortCode": { "type": "string", "example": "214" },
-                                      "accountNumber": { "type": "string", "example": "2483520014" }
+                                      "bankName": {
+                                        "type": "string",
+                                        "example": "FCMB"
+                                      },
+                                      "sortCode": {
+                                        "type": "string",
+                                        "example": "214"
+                                      },
+                                      "accountNumber": {
+                                        "type": "string",
+                                        "example": "2483520014"
+                                      }
                                     }
                                   },
-                                  "paymentChannel": { "type": "string", "example": "BANK_TRANSFER" },
-                                  "currency": { "type": "string", "example": "NGN" },
-                                  "country": { "type": "string", "example": "NG" }
+                                  "paymentChannel": {
+                                    "type": "string",
+                                    "example": "BANK_TRANSFER"
+                                  },
+                                  "currency": {
+                                    "type": "string",
+                                    "example": "NGN"
+                                  },
+                                  "country": {
+                                    "type": "string",
+                                    "example": "NG"
+                                  }
                                 }
                               }
                             }
                           }
                         },
-                        "source": {
-                          "type": "object",
-                          "properties": {
-                            "currency": { "type": "string", "example": "NGN" },
-                            "country": { "type": "string", "example": "NG" }
-                          }
+                        "paymentChannel": {
+                          "type": "string",
+                          "example": "BANK_TRANSFER"
                         },
-                        "target": {
-                          "type": "object",
-                          "properties": {
-                            "currency": { "type": "string", "example": "NGN" },
-                            "country": { "type": "string", "example": "NG" }
-                          }
-                        },
-                        "paymentChannel": { "type": "string", "example": "BANK_TRANSFER" },
-                        "remark": { "type": "string", "example": "June 2026 Salary" }
+                        "remark": {
+                          "type": "string",
+                          "example": "June 2026 Salary"
+                        }
                       }
                     }
                   }

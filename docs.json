@@ -51,7 +51,7 @@
     "light": "#B692F6",
     "dark": "#240552"
   },
-  "favicon": "/favicon/mecashlogo.png",
+  "favicon": "/favicon/mecash-favicon.png",
   "navigation": {
     "tabs": [
       {
@@ -287,6 +287,7 @@
               "payment-links",
               "virtual-cards",
               "virtual-account-spec",
+              "team-management",
               {
                 "group": "Ramp",
                 "icon": "arrows-rotate",

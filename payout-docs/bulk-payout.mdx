@@ -40,7 +40,7 @@ Send all payout orders in one request to `POST /v1/bulk/payout`. Each item inclu
 <Tabs>
   <Tab title="Request">
     ```bash cURL
-    curl --location 'https://devapi.me-cash.com/v1/bulk/payout' \
+    curl --location 'https://{{BaseURL}}/v1/bulk/payout' \
     --header 'Content-Type: application/json' \
     --header 'x-api-key: YOUR_API_KEY' \
     --data '{
@@ -94,14 +94,6 @@ Send all payout orders in one request to `POST /v1/bulk/payout`. Each item inclu
                 }
             }
         ],
-        "source": {
-            "currency": "NGN",
-            "country": "NG"
-        },
-        "target": {
-            "currency": "NGN",
-            "country": "NG"
-        },
         "paymentChannel": "BANK_TRANSFER",
         "remark": "June 2026 Salary"
     }'
@@ -137,7 +129,7 @@ Poll for results using the `batchId` returned from Step 1. This is useful if you
 <Tabs>
   <Tab title="Request">
     ```bash cURL
-    curl --location 'https://devapi.me-cash.com/v1/bulk/payout/{{batchId}}/status' \
+    curl --location 'https://{{BaseURL}}/v1/bulk/payout/{{batchId}}/status' \
     --header 'Content-Type: application/json' \
     --header 'x-api-key: YOUR_API_KEY'
     ```
@@ -176,8 +168,6 @@ Poll for results using the `batchId` returned from Step 1. This is useful if you
                     }
                 }
             ],
-            "source": { "currency": "NGN", "country": "NG" },
-            "target": { "currency": "NGN", "country": "NG" },
             "paymentChannel": "BANK_TRANSFER",
             "remark": "June 2026 Salary"
         }
@@ -215,10 +205,6 @@ See [Webhook Signature Verification](/webhook/webhooks-signature-verification) t
 | `items[].recipient.paymentChannel` | String | ✅ | Payment method (e.g. `BANK_TRANSFER`). |
 | `items[].recipient.currency` | String | ✅ | Target currency code (e.g. `NGN`). |
 | `items[].recipient.country` | String | ✅ | Target country code (e.g. `NG`). |
-| `source.currency` | String | ✅ | Source wallet currency. |
-| `source.country` | String | ✅ | Source wallet country. |
-| `target.currency` | String | ✅ | Destination currency. |
-| `target.country` | String | ✅ | Destination country. |
 | `paymentChannel` | String | ✅ | Top-level payment channel for the batch. |
 | `remark` | String | ❌ | A general note for the entire batch submission. |
 
