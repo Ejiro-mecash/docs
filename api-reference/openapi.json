@@ -2733,6 +2733,8 @@
         "type": "object",
         "required": [
           "items",
+          "source",
+          "target",
           "paymentChannel",
           "remark"
         ],
@@ -2742,6 +2744,46 @@
             "description": "List of payout orders to process in the bulk payload.",
             "items": {
               "$ref": "#/components/schemas/BulkPayoutOrderItem"
+            }
+          },
+          "source": {
+            "type": "object",
+            "description": "The source currency and country for the batch.",
+            "required": [
+              "currency",
+              "country"
+            ],
+            "properties": {
+              "currency": {
+                "type": "string",
+                "description": "ISO 4217 currency code of the source wallet (e.g., NGN).",
+                "example": "NGN"
+              },
+              "country": {
+                "type": "string",
+                "description": "ISO 3166-1 alpha-2 country code of the source (e.g., NG).",
+                "example": "NG"
+              }
+            }
+          },
+          "target": {
+            "type": "object",
+            "description": "The target currency and country for the batch.",
+            "required": [
+              "currency",
+              "country"
+            ],
+            "properties": {
+              "currency": {
+                "type": "string",
+                "description": "ISO 4217 currency code of the target (e.g., NGN).",
+                "example": "NGN"
+              },
+              "country": {
+                "type": "string",
+                "description": "ISO 3166-1 alpha-2 country code of the target recipient (e.g., NG).",
+                "example": "NG"
+              }
             }
           },
           "paymentChannel": {
@@ -5295,7 +5337,7 @@
               "example": {
                 "items": [
                   {
-                    "referenceNumber": "REF_ZZOEAZH8ZJI6",
+                    "referenceNumber": "12345",
                     "targetAmount": "1500",
                     "reason": "Salary payment",
                     "recipient": {
@@ -5311,8 +5353,8 @@
                     }
                   },
                   {
-                    "referenceNumber": "REF_DZNGDNK5FFGH",
-                    "targetAmount": "2500",
+                    "referenceNumber": "67890",
+                    "targetAmount": "1100",
                     "reason": "Salary payment",
                     "recipient": {
                       "name": "NNOROM UZOMA CHUKWUDI",
@@ -5327,6 +5369,14 @@
                     }
                   }
                 ],
+                "source": {
+                  "currency": "NGN",
+                  "country": "NG"
+                },
+                "target": {
+                  "currency": "NGN",
+                  "country": "NG"
+                },
                 "paymentChannel": "BANK_TRANSFER",
                 "remark": "June 2026 Salary"
               }
