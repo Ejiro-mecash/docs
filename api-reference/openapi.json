@@ -1370,9 +1370,13 @@
             "example": "Testing"
           },
           "invoice": {
-            "type": "string",
-            "description": "The unique identifier for the invoice.",
-            "example": "4b9b6d30-a2ed-421a-bd69-11536344f071"
+            "type": "object",
+            "properties": {
+              "fileName": {
+                "type": "string",
+                "example": "image.png"
+              }
+            }
           },
           "reason": {
             "type": "string",
@@ -1607,6 +1611,9 @@
             "format": "uuid",
             "example": "e5eec724-38f9-40e2-9i86-xxxxxxxxxxxxx"
           },
+          "paymentChannel": {
+            "$ref": "#/components/schemas/PaymentChannel"
+          },
           "source": {
             "type": "object",
             "properties": {
@@ -1649,6 +1656,10 @@
             "type": "object",
             "properties": {
               "amount": {
+                "type": "number",
+                "example": 0.0
+              },
+              "stampDuty": {
                 "type": "number",
                 "example": 0.0
               }
@@ -1701,6 +1712,10 @@
             }
           },
           "settlementTime": {
+            "type": "string",
+            "example": "1 hr"
+          },
+          "settlement": {
             "type": "string",
             "example": "1 hr"
           },
@@ -3012,11 +3027,81 @@
                   "$ref": "#/components/schemas/Payout"
                 }
               },
-              "required": [
+            "required": [
                 "status",
                 "message",
                 "data"
               ]
+            },
+            "examples": {
+              "USD_Payout_Success": {
+                "summary": "USD Payout Success Response",
+                "value": {
+                  "message": "transaction created successfully",
+                  "status": "success",
+                  "data": {
+                    "id": "274fd8a4-38f1-43c9-bf74-ae7744a0dba5",
+                    "remark": "User-friendly",
+                    "reason": "Gift",
+                    "referenceNumber": "0XCGU0EYFEK0Y",
+                    "invoice": {
+                      "fileName": "image.png"
+                    },
+                    "type": "SEND",
+                    "state": "PENDING",
+                    "quote": {
+                      "id": "4da9d52d-618b-4683-b408-8844d1b520cd",
+                      "paymentChannel": "SWIFT",
+                      "source": {
+                        "currency": "USD",
+                        "country": "US",
+                        "amount": 10.0
+                      },
+                      "target": {
+                        "currency": "USD",
+                        "country": "US",
+                        "amount": 10.0
+                      },
+                      "rate": 1.0,
+                      "fee": {
+                        "amount": 100.0,
+                        "stampDuty": 0
+                      },
+                      "summary": {
+                        "total": 110.0
+                      },
+                      "settlement": "1hr",
+                      "quoteCurrency": "USD"
+                    },
+                    "recipient": {
+                      "name": "Crystal Strosin",
+                      "nickName": "magenta",
+                      "gender": "M",
+                      "type": "BUSINESS",
+                      "account": {
+                        "bankName": "DBS Bank Limited",
+                        "sortCode": "02090",
+                        "accountNumber": "885406477269",
+                        "bankCity": "Atlanta",
+                        "swiftCode": "GTBINGLA"
+                      },
+                      "occupation": "business enterpreneur"
+                    },
+                    "sender": {
+                      "name": "Test Limited",
+                      "icNumber": "96671733919",
+                      "nationality": "NG",
+                      "address": {
+                        "line1": "12 main st"
+                      },
+                      "mobileNumber": "+234872272808",
+                      "occupation": "HEALTHCARE"
+                    },
+                    "created": "2026-04-23T18:06:41.022734019Z",
+                    "processed": "2026-04-23T18:06:41.022734019Z"
+                  }
+                }
+              }
             }
           }
         }

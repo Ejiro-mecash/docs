@@ -250,60 +250,69 @@ If the payout is successfully created, the API returns the following response:
 
 ```json copy
 {
-  "message": "Transaction created successfully",
-  "status": "success",
-  "data": {
-    "id": "a1b2c3d4-e5f6-7890-abcd-xxxxxxxxxxxxx",
-    "invoice": "4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx",
-    "reason": "Gift",
-    "referenceNumber": "TXYZD6RWSQMKF",
-    "type": "SEND",
-    "state": "COMPLETED",
-    "quote": {
-      "id": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
-      "source": {
-        "currency": "NGN",
-        "country": "NG",
-        "amount": 160000
-      },
-      "target": {
-        "currency": "USD",
-        "country": "US",
-        "amount": 100
-      },
-      "rate": 1600,
-      "fee": {
-        "amount": 500
-      }
-    },
-    "recipient": {
-      "name": "Linda Collins",
-      "type": "BUSINESS",
-      "address": "200 Koch Vista, New York, NY 10001",
-      "account": {
-          "accountNumber": "8573629XX",
-          "swiftCode": "1234",
-          "bankName": "Chase Bank",
-          "address": "1948 Kemmer Ville, New York, NY 10002",
-          "routingNumber": "0210000XX"
-      },
-      "paymentChannel": "SWIFT",
-      "currency": "USD",
-      "country": "US"
-    },
-    "sender": {
-      "name": "Test Limited",
-      "icNumber": "96671******",
-      "nationality": "NG",
-      "address": {
-        "line1": "12 main st"
-      },
-      "mobileNumber": "+234872******",
-      "occupation": "HEALTHCARE"
-    },
-    "created": "2025-02-27T14:17:48.038044Z",
-    "processed": "2025-02-27T14:20:49.712685Z"
-  }
+    "message": "transaction created successfully",
+    "status": "success",
+    "data": {
+        "id": "274fd8a4-38f1-43c9-bf74-ae7744a0dba5",
+        "remark": "User-friendly",
+        "reason": "Gift",
+        "referenceNumber": "0XCGU0EYFEK0Y",
+        "invoice": {
+            "fileName": "image.png"
+        },
+        "type": "SEND",
+        "state": "PENDING",
+        "quote": {
+            "id": "4da9d52d-618b-4683-b408-8844d1b520cd",
+            "paymentChannel": "SWIFT",
+            "source": {
+                "currency": "USD",
+                "country": "US",
+                "amount": 10.00
+            },
+            "target": {
+                "currency": "USD",
+                "country": "US",
+                "amount": 10.00
+            },
+            "rate": 1.00000000,
+            "fee": {
+                "amount": 100.00,
+                "stampDuty": 0
+            },
+            "summary": {
+                "total": 110.00
+            },
+            "settlement": "1hr",
+            "quoteCurrency": "USD"
+        },
+        "recipient": {
+            "name": "Crystal Strosin",
+            "nickName": "magenta",
+            "gender": "M",
+            "type": "BUSINESS",
+            "account": {
+                "bankName": "DBS Bank Limited",
+                "sortCode": "02090",
+                "accountNumber": "885406477269",
+                "bankCity": "Atlanta",
+                "swiftCode": "GTBINGLA"
+            },
+            "occupation": "business enterpreneur"
+        },
+        "sender": {
+            "name": "Test Limited",
+            "icNumber": "96671733919",
+            "nationality": "NG",
+            "address": {
+                "line1": "12 main st"
+            },
+            "mobileNumber": "+234872272808",
+            "occupation": "HEALTHCARE"
+        },
+        "created": "2026-04-23T18:06:41.022734019Z",
+        "processed": "2026-04-23T18:06:41.022734019Z"
+    }
 }
 ```
 ---
@@ -314,26 +323,39 @@ If the payout is successfully created, the API returns the following response:
 | `status`                           | String | The overall status of the request, e.g., `success`.             |
 | `data`                             | Object | A container for all the transaction data.                       |
 | `data.id`                          | String | The unique identifier for this payout transaction.              |
-| `data.reason`                      | String | The reason for the payout provided in the request.              |
-| `data.invoice`                     | String | Optional identifier for the invoice provided in the request.    |
+| `data.remark`                      | String | An optional, additional note about the transaction.             |
+| `data.reason`                      | String | The reason for the payout (e.g., `Gift`).                       |
 | `data.referenceNumber`             | String | A unique reference number generated for the payout.             |
+| `data.invoice`                     | Object | Details of the uploaded invoice.                                |
+| `data.invoice.fileName`            | String | The name of the invoice file.                                   |
 | `data.type`                        | String | The type of transaction, e.g., `SEND`.                          |
-| `data.state`                       | String | The current state of the payout (`COMPLETED`, `PENDING`, etc.). |
+| `data.state`                       | String | The current state of the payout (`PENDING`, `COMPLETED`, etc.). |
 | `data.quote.id`                    | String | The unique ID of the quote used for the transaction.            |
-| `data.quote.source.currency`       | String | The three-letter currency code of the source funds.             |
-| `data.quote.target.amount`         | Number | The converted amount that the recipient received.               |
+| `data.quote.paymentChannel`        | String | The payment method used (e.g., `SWIFT`).                        |
+| `data.quote.source.currency`       | String | Source currency code.                                           |
+| `data.quote.source.amount`         | Number | Total source amount before fees.                                |
+| `data.quote.target.currency`       | String | Destination currency code.                                      |
+| `data.quote.target.amount`         | Number | The converted amount that the recipient receives.               |
+| `data.quote.rate`                  | Number | The exchange rate applied to the transaction.                   |
+| `data.quote.fee.amount`            | Number | The transaction fee charged.                                    |
+| `data.quote.fee.stampDuty`         | Number | Applied stamp duty (if any).                                    |
+| `data.quote.summary.total`         | Number | Total amount (amount + fees) deducted from wallet.              |
+| `data.quote.settlement`            | String | The estimated time for settlement.                              |
+| `data.quote.quoteCurrency`         | String | The currency in which the quote is priced.                      |
 | `data.recipient.name`              | String | The full name of the recipient.                                 |
-| `data.recipient.type`              | String | The type of recipient entity, e.g., `BUSINESS`.                     |
-| `data.recipient.account.accountNumber` | String | The recipient's bank account number.                            |
-| `data.recipient.account.bankName`  | String | The name of the recipient's bank.                               |
-| `data.recipient.account.swiftCode`  | String | The swift code of the recipient's bank.                     |
-| `data.sender`                      | Object | An object containing details about the sender.                  |
-| `data.sender.name`                 | String | The full name of the sender or business.                        |
-| `data.sender.icNumber`             | String | The sender's masked identification/IC number.                   |
-| `data.sender.nationality`          | String | The sender's two-letter ISO nationality code.                   |
-| `data.sender.address.line1`        | String | The first line of the sender's address.                         |
-| `data.sender.mobileNumber`         | String | The sender's masked mobile number.                              |
-| `data.sender.occupation`           | String | The sender's occupation or industry.                            |
+| `data.recipient.nickName`          | String | Recipient's nickname.                                           |
+| `data.recipient.gender`            | String | Gender (`M` or `F`).                                            |
+| `data.recipient.type`              | String | The type of recipient entity, e.g., `BUSINESS`.                 |
+| `data.recipient.account.bankName`  | String | Name of the recipient's bank.                                   |
+| `data.recipient.account.accountNumber` | String | Recipient's bank account number.                            |
+| `data.recipient.account.swiftCode` | String | SWIFT/BIC code of the bank.                                     |
+| `data.recipient.occupation`        | String | Occupation of the recipient.                                    |
+| `data.sender.name`                 | String | Full name of the sender.                                        |
+| `data.sender.icNumber`             | String | Sender's ID number.                                             |
+| `data.sender.nationality`          | String | ISO country code of the sender's nationality.                   |
+| `data.sender.address.line1`        | String | Primary address line of the sender.                             |
+| `data.sender.mobileNumber`         | String | International mobile number of the sender.                      |
+| `data.sender.occupation`           | String | Occupation of the sender.                                       |
 | `data.created`                     | String | ISO 8601 timestamp of when the transaction was created.         |
 | `data.processed`                   | String | ISO 8601 timestamp of when the transaction was processed.       |
 ---
