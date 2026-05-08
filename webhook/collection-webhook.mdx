@@ -178,4 +178,214 @@ This event notifies you about the status of a collection (funding) transaction. 
 | `data.payload.data.processed` | string | The processed timestamp of the webhook event. |
 | `data.created` | string | The created timestamp of the webhook event. |
 | `data.processed` | string | The processed timestamp of the webhook event. |
+
+## Momo Payouts Webhook
+
+meCash sends webhook notifications for mobile money payouts. Subscribe to these events to track the lifecycle of your payouts.
+
+<Tabs>
+<Tab title="payout.completed">
+
+This event is triggered when a payout is successfully processed and the funds have been delivered to the recipient.
+
+```json
+{
+  "event": "payout.completed",
+  "data": {
+    "id": "5bab8c78-d3c1-4f91-88fd-6e81700aa97f",
+    "reason": "Refund",
+    "remark": "Testing",
+    "referenceNumber": "009H8DYVZES86",
+    "type": "SEND",
+    "state": "COMPLETED",
+    "quote": {
+      "id": "7c8eb365-285c-4b75-bcc8-xxxxxxxx",
+      "paymentChannel": "MOBILE_MONEY",
+      "source": {
+        "currency": "RWF",
+        "country": "RW",
+        "amount": "50.00"
+      },
+      "target": {
+        "currency": "RWF",
+        "country": "RW",
+        "amount": "50.00"
+      },
+      "rate": "1.0000",
+      "fee": {
+        "amount": "0.600000",
+        "stampDuty": "0.000000"
+      },
+      "summary": {
+        "total": "50.60"
+      }
+    },
+    "recipient": {
+      "name": "Ejiro Dare",
+      "account": {
+        "accountNumber": "+25079137xxxx",
+        "mobileProvider": "MTN_MOMO_RWA"
+      }
+    },
+    "created": "2026-05-08T15:05:09.040130Z",
+    "processed": "2026-05-08T15:06:58.208062455Z"
+  }
+}
+```
+
+</Tab>
+
+<Tab title="payout.pending">
+
+This event is triggered when a payout is initiated and is currently being processed by the network.
+
+```json
+{
+  "event": "payout.pending",
+  "data": {
+    "id": "5bab8c78-d3c1-4f91-88fd-6e81700aa97f",
+    "reason": "Refund",
+    "remark": "Testing",
+    "referenceNumber": "009H8DYVZES86",
+    "type": "SEND",
+    "state": "PENDING",
+    "quote": {
+      "id": "7c8eb365-285c-4b75-bcc8-xxxxxxxx",
+      "paymentChannel": "MOBILE_MONEY",
+      "source": {
+        "currency": "RWF",
+        "country": "RW",
+        "amount": "50.00"
+      },
+      "target": {
+        "currency": "RWF",
+        "country": "RW",
+        "amount": "50.00"
+      },
+      "rate": "1.000000000000",
+      "fee": {
+        "amount": "0.6000",
+        "stampDuty": "0.00"
+      },
+      "summary": {
+        "total": "50.60"
+      }
+    },
+    "recipient": {
+      "name": "Ejiro Dare",
+      "account": {
+        "accountNumber": "+25079137xxxx",
+        "mobileProvider": "MTN_MOMO_RWA"
+      }
+    },
+    "created": "2026-05-08T15:05:09.040129870Z",
+    "processed": "2026-05-08T15:05:09.040129870Z"
+  }
+}
+```
+
+</Tab>
+
+<Tab title="payout.refund">
+
+This event is triggered if a payout fails at the network level and the funds are returned to your balance.
+
+```json
+{
+  "event": "payout.refund",
+  "data": {
+    "id": "33bb4d10-60ac-4cd4-bcc0-bb084bf600ef",
+    "remark": "RSVL-VKWQYVUK5O49V",
+    "referenceNumber": "BNO2PZ2H2YWBW",
+    "type": "REFUND",
+    "state": "REFUNDED",
+    "quote": {
+      "id": "c299c608-128c-4d2a-a67e-e74fa153cbbf",
+      "paymentChannel": "MOBILE_MONEY",
+      "source": {
+        "currency": "RWF",
+        "country": "RW",
+        "amount": "20.00"
+      },
+      "target": {
+        "currency": "RWF",
+        "country": "RW",
+        "amount": "20.00"
+      },
+      "rate": "1.0000",
+      "fee": {
+        "amount": "0.240000",
+        "stampDuty": "0.000000"
+      },
+      "summary": {
+        "total": "20.24"
+      }
+    },
+    "recipient": {
+      "name": "Ejiro Dare",
+      "account": {
+        "accountNumber": "+25079137xxxx",
+        "mobileProvider": "MTN_MOMO_RWA"
+      }
+    },
+    "created": "2026-05-08T14:51:21.599289189Z",
+    "processed": "2026-05-08T14:51:21.599289189Z"
+  }
+}
+```
+
+</Tab>
+
+<Tab title="payout.failed">
+
+This event is triggered when a payout fails before reaching the recipient.
+
+```json
+{
+  "event": "payout.failed",
+  "data": {
+    "id": "e634e74b-c5ca-47ee-837d-c2a95ca4b9ea",
+    "reason": "Refund",
+    "remark": "Testing",
+    "referenceNumber": "VKWQYVUK5O49V",
+    "type": "SEND",
+    "state": "FAILED",
+    "quote": {
+      "id": "c299c608-128c-4d2a-a67e-e74fa153cbbf",
+      "paymentChannel": "MOBILE_MONEY",
+      "source": {
+        "currency": "RWF",
+        "country": "RW",
+        "amount": "20.00"
+      },
+      "target": {
+        "currency": "RWF",
+        "country": "RW",
+        "amount": "20.00"
+      },
+      "rate": "1.0000",
+      "fee": {
+        "amount": "0.240000",
+        "stampDuty": "0.000000"
+      },
+      "summary": {
+        "total": "20.24"
+      }
+    },
+    "recipient": {
+      "name": "Ejiro Dare",
+      "account": {
+        "accountNumber": "+25079137xxxx",
+        "mobileProvider": "MTN_MOMO_RWA"
+      }
+    },
+    "created": "2026-05-08T13:59:57.262053Z",
+    "processed": "2026-05-08T13:59:57.262053Z"
+  }
+}
+```
+
+</Tab>
+</Tabs>
+
     

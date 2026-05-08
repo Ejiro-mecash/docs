@@ -13,5 +13,6 @@
     "usd-krw-example": "USD → KRW",
     "ngn-cny-example": "NGN → CNY",
     "mwk-mwk-example": "MWK → MWK",
-    "usd-usd-swift-example": "USD → USD via Swift"
+    "usd-usd-swift-example": "USD → USD via Swift",
+    "rwf-payout": "🇷🇼 RWF Payout"
 }
