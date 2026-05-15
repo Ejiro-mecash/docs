@@ -1,0 +1,1273 @@
+---
+title: "Welcome"
+description: "Your starting point for building with the meCash API platform."
+mode: custom
+icon: compass
+---
+
+<div
+  style={{
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '4rem',
+    padding: '4rem 0',
+    maxWidth: '1100px',
+    margin: '0 auto'
+  }}
+>
+  <section className="hero-gradient">
+    <div className="hero-copy">
+      <span className="hero-kicker" style={{ color: '#000000' }}>meCash Developer Hub</span>
+      <h1 className="hero-title" style={{ color: '#000000' }}>
+        Make global payouts, wallets, and collections faster.
+      </h1>
+      <p className="hero-subtitle" style={{ color: '#000000' }}>
+        Build real-time money movement into your product with clear guides, OpenAPI references,
+        and prebuilt examples. Move from sandbox to production-ready integrations in hours, not weeks.
+      </p>
+      <div className="hero-actions">
+        <a className="hero-primary" href="/quickstart">
+          Let's get started
+        </a>
+        <a className="hero-secondary" href="/api-reference/introduction">
+          Explore API Reference
+        </a>
+      </div>
+    </div>
+    <div className="hero-illustration">
+      <img className="hero-illustration-dark" src="public/images/code-banner.png" alt="Purple document illustration" />
+    </div>
+  </section>
+
+  {/* ── TRUSTED METRICS ── */}
+  <section style={{ borderTop: '1px solid var(--border-color, #e5e7eb)', borderBottom: '1px solid var(--border-color, #e5e7eb)', background: 'var(--bg-muted, rgba(0,0,0,0.02))', borderRadius: '16px', padding: '2rem 2.5rem' }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1.5rem', textAlign: 'center' }}>
+      <div>
+        <p style={{ fontSize: '2rem', fontWeight: '700', background: 'linear-gradient(to right, #7c3aed, #8b5cf6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', margin: '0 0 4px' }}>150+</p>
+        <p style={{ fontSize: '0.875rem', color: 'var(--text-muted, #6b7280)', margin: 0 }}>Payout Corridors</p>
+      </div>
+      <div>
+        <p style={{ fontSize: '2rem', fontWeight: '700', margin: '0 0 4px' }}>REST</p>
+        <p style={{ fontSize: '0.875rem', color: 'var(--text-muted, #6b7280)', margin: 0 }}>API Architecture</p>
+      </div>
+      <div>
+        <p style={{ fontSize: '2rem', fontWeight: '700', margin: '0 0 4px' }}>⚡ Fast</p>
+        <p style={{ fontSize: '0.875rem', color: 'var(--text-muted, #6b7280)', margin: 0 }}>Reliable Webhooks</p>
+      </div>
+      <div>
+        <p style={{ fontSize: '2rem', fontWeight: '700', color: '#16a34a', margin: '0 0 4px' }}>99.9%</p>
+        <p style={{ fontSize: '0.875rem', color: 'var(--text-muted, #6b7280)', margin: 0 }}>Uptime SLA</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 className="section-title centered">
+      Navigate the Docs
+    </h2>
+    <CardGroup cols={4}>
+      <Card title="Getting Started" icon="rocket" href="/quickstart">
+        Create your workspace, secure your credentials, and verify IPs before your first request.
+      </Card>
+      <Card title="Documentation" icon="book" href="/documentation-overview">
+        Learn how wallets, quotes, payouts, and virtual accounts work together across flows.
+      </Card>
+      <Card title="API Reference" icon="code" href="/api-reference/introduction">
+        Browse every endpoint schema, test requests in the playground, and grab ready-made examples.
+      </Card>
+      <Card title="Resources" icon="lightbulb" href="/faq">
+        Tap into FAQs, troubleshooting guides, and support channels whenever you need assistance.
+      </Card>
+    </CardGroup>
+  </section>
+
+  {/* ── API PREVIEW ── */}
+  <section style={{ background: 'var(--bg-muted, rgba(0,0,0,0.02))', border: '1px solid var(--border-color, #e5e7eb)', borderRadius: '20px', padding: '2.5rem 3rem' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+      <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+        <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10b981', display: 'inline-block' }}></span>
+        <span style={{ fontSize: '0.75rem', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.05em', color: '#059669' }}>Quick Integration</span>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'row', gap: '3rem', alignItems: 'flex-start', flexWrap: 'wrap' }}>
+        <div style={{ flex: '1', minWidth: '260px' }}>
+          <h2 style={{ fontSize: '1.75rem', fontWeight: '700', margin: '0 0 1rem' }}>Ship in hours, not weeks.</h2>
+          <p style={{ color: 'var(--text-muted, #6b7280)', lineHeight: '1.7', marginBottom: '1.5rem' }}>
+            A clean REST API with predictable responses, real code examples in 12+ languages, and a sandbox you can hit immediately.
+          </p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
+              <span style={{ fontSize: '1rem' }}>✅</span>
+              <div>
+                <p style={{ fontWeight: '600', margin: '0 0 2px', fontSize: '0.9rem' }}>Instant Sandbox Access</p>
+                <p style={{ color: 'var(--text-muted, #6b7280)', margin: 0, fontSize: '0.85rem' }}>Test every endpoint with zero risk before going live.</p>
+              </div>
+            </div>
+            <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
+              <span style={{ fontSize: '1rem' }}>✅</span>
+              <div>
+                <p style={{ fontWeight: '600', margin: '0 0 2px', fontSize: '0.9rem' }}>Webhook-First Architecture</p>
+                <p style={{ color: 'var(--text-muted, #6b7280)', margin: 0, fontSize: '0.85rem' }}>Real-time notifications for every state change.</p>
+              </div>
+            </div>
+            <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
+              <span style={{ fontSize: '1rem' }}>✅</span>
+              <div>
+                <p style={{ fontWeight: '600', margin: '0 0 2px', fontSize: '0.9rem' }}>Interactive Playground</p>
+                <p style={{ color: 'var(--text-muted, #6b7280)', margin: 0, fontSize: '0.85rem' }}>Try requests directly from the docs — no Postman needed.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style={{ flex: '1', minWidth: '260px' }}>
+          <img
+            src="public/hero-api-response.png"
+            alt="200 OK Payout Completed API Response"
+            style={{ width: '100%', borderRadius: '14px', boxShadow: '0 8px 32px rgba(0,0,0,0.10)', border: '1px solid var(--border-color, #e5e7eb)', display: 'block' }}
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 className="section-title centered">
+      Launch a Use Case
+    </h2>
+    <CardGroup cols={2}>
+      <Card title="Manage Wallets" icon="wallet" href="/wallet-docs/wallet-overview">
+        Issue and monitor multi-currency wallets, sync balances, and reconcile funds across regions.
+      </Card>
+      <Card title="Lock in Rates" icon="calculator" href="/quote-docs/about-quote">
+        Generate guaranteed quotes with fee transparency and corridor-specific compliance rules.
+      </Card>
+      <Card title="Send Payouts" icon="money-bill-transfer" href="/payout-docs/payout">
+        Orchestrate bank transfers and mobile money payouts with detailed, corridor-specific recipes.
+      </Card>
+      <Card
+        title="Collect via Virtual Accounts"
+        icon="building-columns"
+        href="/virtual-accounts-docs/about-virtual-account"
+      >
+        Spin up static or dynamic collection accounts, automate notifications, and reconcile deposits seamlessly.
+      </Card>
+      <Card title="Bulk Payouts" icon="users" href="/payout-docs/bulk-payout">
+        Disburse funds to multiple beneficiaries in a single request, manage batch results, and automate high-volume transfers.
+      </Card>
+    </CardGroup>
+  </section>
+
+<section>
+    <h2 className="section-title centered">
+      Need a Hand?
+    </h2>
+    <CardGroup cols={2}>
+      <Card
+        title="Request a Demo"
+        icon="calendar"
+        href="/request-demo"
+      >
+        Book a personalized walkthrough with our product experts to explore payouts and collections.
+      </Card>
+      <Card
+        title="Join the Community"
+        icon="discord"
+        href="https://discord.com/invite/CC5v6h52Wk"
+      >
+        Chat with the meCash team and other builders in our Discord server for quick tips and support.
+      </Card>
+      <Card
+        title="Follow Updates on X"
+        icon="twitter"
+        href="https://x.com/mecash14"
+      >
+        Stay in the loop on releases, maintenance windows, and product highlights directly on X (Twitter).
+      </Card>
+      <Card
+        title="Email Support"
+        icon="envelope"
+        href="mailto:support@me-cash.com"
+      >
+        Prefer email? Reach the support team anytime at support@me-cash.com for tailored assistance.
+      </Card>
+    </CardGroup>
+  </section>
+
+  {/* Biel.ai widget (global on homepage) */}
+  <div aria-hidden="true" style={{ display: 'none' }}>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/biel-search/dist/biel-search/biel-search.css"
+    />
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/biel-search/dist/biel-search/biel-search.esm.js"
+    />
+  </div>
+  <biel-button
+    project="xvqjfh6ecf"
+    header-title="Biel.ai Chatbot"
+    button-position="bottom-right"
+    modal-position="sidebar-right"
+    button-style="dark"
+  >
+    Ask AI
+  </biel-button>
+</div>
+---
+title: "Quickstart Guide"
+description: "Get started with meCash API in minutes"
+icon: rocket
+---
+
+## Before you begin
+
+Make sure you have:
+
+- A registered [meCash Business](https://business.me-cash.com) account for your company.
+- Legal and compliance documents handy (KYB form, director IDs, proof of address, BVN).
+- A dedicated IP address or CIDR block for outbound traffic.
+- A publicly reachable HTTPS endpoint that can receive webhook events.
+
+## Get started with meCash API in 5 steps
+
+Follow this quickstart guide to integrate meCash API into your application.
+
+### Step 1: Create Your Account
+
+<AccordionGroup>
+  <Accordion icon="user-plus" title="Sign up for meCash Business">
+    <Frame>
+      <img
+        src="public/images/buisness-page.png"
+        alt="meCash Business sign-up screen highlighting the create account button"
+        style={{ borderRadius: '0.75rem' }}
+      />
+    </Frame>
+
+    1. Visit [meCash Business](https://business.me-cash.com).
+    2. Select **Sign Up**, complete the registration form, and set a strong password.
+    3. Verify your email address to unlock the dashboard.
+    4. Assign teammates under **Team Management** so they can collaborate.
+
+  </Accordion>
+  <Accordion icon="shield-check" title="Complete KYB Verification">
+    - Fill out the KYB form in full—partial submissions delay approvals.
+    - Upload clear copies of:
+        - Business registration certificate
+        - Valid government-issued ID for the business director
+        - Recent proof of address (utility bill or bank statement)
+
+    <Warning>The first and last name on the form must match the BVN you submit.</Warning>
+  </Accordion>
+
+  <Accordion icon="wallet" title="Activate your NGN virtual account">
+    - Provide your BVN for account verification to unlock an NGN account.
+    - Once approved, the account details appear under **Accounts → NGN**.
+
+    <Tip>The BVN name must exactly match the first and last name submitted in KYB.</Tip>
+  </Accordion>
+</AccordionGroup>
+
+### Step 2: Generate Your API Keys
+
+<AccordionGroup>
+  <Accordion icon="key" title="Create a sandbox API key">
+    <Frame>
+      <img
+        src="public/images/api-key-1.png"
+        alt="Developer dashboard showing sandbox API key creation"
+        style={{ borderRadius: '0.75rem' }}
+      />
+    </Frame>
+
+    1. Log in to the meCash Business dashboard.
+    2. Open **Developers → API Keys**.
+    3. Confirm the **Sandbox** environment is selected, then click **Create a Key**.
+    4. Label the key to match your environment and copy it to your secrets manager.
+
+    <Tip>Never expose API keys in client-side code or public repos.</Tip>
+  </Accordion>
+  <Accordion icon="arrows-split" title="Environment Setup">
+    From the dashboard you can toggle between the sandbox and production environments.
+    The environment URLs are:
+      - **Production**: `https://api.me-cash.com` - For live transactions.
+      - **Sandbox**: `https://sandboxapi.me-cash.com` - For testing and development.
+
+    <Note>Request a production key after KYB approval and final testing.</Note>
+  </Accordion>
+</AccordionGroup>
+
+### Step 3: Configure Security
+
+<Accordion icon="shield" title="IP Whitelisting">
+  <Frame>
+    <img
+      src="public/images/ipwhitelisitng1.png"
+      alt="IP whitelisting configuration page listing approved IP addresses"
+      style={{ borderRadius: '0.75rem' }}
+    />
+  </Frame>
+
+  1. Go to **Developer** section in your dashboard.
+  2. Navigate to **IP Whitelisting**.
+  3. Add your outbound server IPs or CIDR ranges.
+  4. Save the configuration.
+  
+  <Warning>Calls from non-whitelisted IPs are rejected automatically.</Warning>
+</Accordion> 
+
+### Step 4: Set up your webhook
+
+<Accordion icon="gear" title="Configure Your Webhook in the Dashboard">
+  <AccordionGroup>
+    <Accordion icon="compass-drafting" title="Navigate to the Webhooks page">
+      In the **Developers** section of your meCash dashboard, select **Webhooks** from the left-hand menu to review existing endpoints and create new ones.
+      <Frame>
+        <img
+          src="public/images/webhooks2.png"
+          alt="Developers dashboard highlighting the Webhooks navigation item"
+          style={{ borderRadius: '0.75rem' }}
+        />
+      </Frame>
+    </Accordion>
+    <Accordion icon="plus" title="Create a new webhook">
+      Click the **Create Webhook** button at the top-right corner to launch the configuration modal for a new endpoint.
+      <Frame>
+        <img
+          src="public/images/webhooks.png"
+          alt="Create webhook dialog in the meCash dashboard"
+          style={{ borderRadius: '0.75rem' }}
+        />
+      </Frame>
+    </Accordion>
+    <Accordion icon="link" title="Provide your webhook URL">
+      - Enter the publicly accessible **URL** where you want to receive webhook events.<br />
+      - Ensure the endpoint accepts HTTPS POST requests and responds within 10 seconds.<br />
+      - Return an HTTP **2XX** status code to acknowledge receipt and prevent retries.
+      <Frame>
+        <img
+          src="public/images/Screenshot202316.png"
+          alt="Webhook configuration form requesting callback URL"
+          style={{ borderRadius: '0.75rem' }}
+        />
+      </Frame>
+    </Accordion>
+    <Accordion icon="circle-check" title="Confirm and monitor delivery">
+      After clicking **Confirm**, your webhook appears in the list with its current status. Use the dashboard to pause, resume, rotate the signing secret, or trigger test events whenever you need a validation payload.
+    </Accordion>
+  </AccordionGroup>
+</Accordion>
+
+
+### Step 5: Make Your First API Call
+
+<Accordion icon="code" title="Test API Connection">
+
+  Start by listing wallets in the sandbox to confirm connectivity:
+
+  ```bash title="List wallets in sandbox"
+  export MCASH_API_KEY="YOUR_SANDBOX_API_KEY"
+
+  curl -sS https://sandboxapi.me-cash.com/v1/wallets \
+    -H "Content-Type: application/json" \
+    -H "x-api-key: $MCASH_API_KEY"
+  ```
+
+  A successful call returns a `200` response with your available wallets:
+
+  ```json title="Example response"
+  {
+    "data": [
+      {
+        "wallet_id": "WALLET-12345",
+        "currency": "NGN",
+        "balance": "0.00"
+      }
+    ]
+  }
+  ```
+
+  <Tip>Keep sandbox and production keys separate. Rotate keys periodically via the dashboard.</Tip>
+</Accordion>
+
+
+
+
+## Next steps
+
+Now that you have basic setup complete, explore these key features:
+
+<CardGroup cols={2}>
+
+<Card title="Create Quotes" icon="calculator" href="/quote/create-quote">
+  Learn how to generate currency conversion quotes.
+</Card>
+
+<Card title="Process Payouts" icon="money-bill-transfer" href="/payout/create-payout">
+  Send money to bank accounts and mobile wallets.
+</Card>
+
+<Card title="Manage Wallets" icon="wallet" href="/wallet/get-all-wallets">
+  Create and manage multi-currency wallets.
+</Card>
+
+<Card title="Create Virtual Account" icon="account" href="/virtual-account-docs/about-virtual-account">
+  Set up real-time transaction notifications.
+</Card>
+
+</CardGroup>
+
+<Note>
+  **Need help?** Contact us at [support@me-cash.com](mailto:support@me-cash.com) or join our [Discord community](https://discord.gg/CC5v6h52Wk).
+</Note>
+---
+title: "Generate API Keys"
+icon: key
+---
+
+After KYB approval, you can create API keys from the developer dashboard. The flow below guides you through generating a new key and removing one you no longer need.
+
+## Generate a new API key
+
+<AccordionGroup>
+  <Accordion icon="compass-drafting" title="1. Open the Developers section">
+    <Frame>
+      <img
+        src="/public/images/Screenshot100106.png"
+        alt="Developer section highlighted in the meCash dashboard navigation"
+        style={{ borderRadius: '0.75rem' }}
+      />
+    </Frame>
+
+    From the sidebar of your meCash dashboard, select **Developers** to manage API access.
+  </Accordion>
+
+  <Accordion icon="key" title="2. Create a sandbox API key">
+    <Frame>
+      <img
+        src="/public/images/api-key-1.png"
+        alt="API Keys panel showing the Create a Key button"
+        style={{ borderRadius: '0.75rem' }}
+      />
+    </Frame>
+
+    In the **API Keys** tab, click **Create a Key**. Choose the environment (Sandbox or Production) that matches your workflow.
+  </Accordion>
+
+  <Accordion icon="copy" title="3. Copy and secure the generated key">
+    <Frame>
+      <img
+        src="/public/images/Screenshot084315.png"
+        alt="Modal displaying a newly generated API key with copy options"
+        style={{ borderRadius: '0.75rem' }}
+      />
+    </Frame>
+
+    Copy the key immediately and store it somewhere safe—this is the only time it will be fully visible.
+  </Accordion>
+</AccordionGroup>
+
+<Warning>
+  Treat API keys like passwords. Never embed them in client-side code or commit them to version control.
+</Warning>
+
+## Delete an API key
+
+<AccordionGroup>
+  <Accordion icon="list-check" title="1. Navigate to API Keys">
+    <Frame>
+      <img
+        src="/public/images/Screenshot100106.png"
+        alt="Developers section selected in the dashboard navigation"
+        style={{ borderRadius: '0.75rem' }}
+      />
+    </Frame>
+
+    Log in, open **Developers**, and choose **API Keys** to review existing credentials.
+  </Accordion>
+
+  <Accordion icon="trash" title="2. Select the key to remove">
+    <Frame>
+      <img
+        src="/public/images/Screenshot091543.png"
+        alt="API key list with the Delete API Key button highlighted in red"
+        style={{ borderRadius: '0.75rem' }}
+      />
+    </Frame>
+
+    Locate the key you want to revoke and click **Delete API Key**.
+  </Accordion>
+
+  <Accordion icon="shield-halved" title="3. Confirm deletion with OTP">
+    <Frame>
+      <img
+        src="/public/images/Screenshot091600.png"
+        alt="Confirmation modal asking to delete the API key"
+        style={{ borderRadius: '0.75rem' }}
+      />
+    </Frame>
+
+    Confirm the action. You will receive a one-time password (OTP) via your registered email.
+  </Accordion>
+
+  <Accordion icon="lock-open" title="4. Enter OTP to finalize">
+    <Frame>
+      <img
+        src="/public/images/Screenshot091611.png"
+        alt="OTP verification step to confirm API key deletion"
+        style={{ borderRadius: '0.75rem' }}
+      />
+    </Frame>
+
+    Input the OTP and click **Continue**. The key is permanently removed once verification succeeds.
+  </Accordion>
+</AccordionGroup>
+
+<Note>
+  Need a fresh credential? Repeat the **Generate a new API key** steps above at any time.
+</Note>
+---
+title: 'How meCash Wallets Work'
+icon: wallet
+---
+
+
+
+A meCash wallet is a multi-currency digital wallet that lets you manage your funds globally. It's linked to a real bank account to ensure every transaction is secure and reliable.
+
+**With a meCash wallet, you can:**
+- 🏦 **Manage Multiple Currencies:** Handle transactions in various currencies (e.g., USD to NGN, NGN to EUR) from a single dashboard.
+- 💸 **Transact Globally:** Hold, send, and receive money across borders.
+- 🌍 **Extensive Currency Support:** Access over 12 currencies, including USD, EUR, XOF, and GBP.
+- ⚡ **Instant Transfers:** Move funds instantly to bank accounts, mobile money wallets, or other meCash users.
+
+
+## Supported meCash Wallet Currencies
+
+These currencies are currently available for creating and funding meCash wallets via the API:
+- Nigerian Naira (NGN) 🇳🇬
+- Malawian Kwacha (MWK) 🇲🇼
+- Rwandan Franc (RWF) 🇷🇼
+- Tanzanian Shilling (TZS) 🇹🇿
+- Kenyan Shilling (KES) 🇰🇪
+
+<Note> Currency availability will expand over time. Always check your dashboard for the latest list of supported currencies. </Note>
+
+## meCash Wallet Attributes
+
+Each wallet is tied to a user and has the following core attributes:
+
+| **Attribute** | **Type** | **Description** |
+| :--- | :--- | :--- |
+| `walletId` | `UUID` | A unique identifier for the wallet. |
+| `currency` | `String` | The three-letter ISO currency code (e.g., `NGN`, `USD`). |
+| `country` | `String` | The two-letter ISO country code (e.g., `NG`, `US`). |
+| `balance` | `Decimal` | The available funds in the wallet. We use a decimal type to ensure precision. |
+
+---
+
+
+---
+title: 'How Quotes Works'
+icon: calculator
+---
+
+
+The **meCash Quote API** returns a guaranteed exchange rate, fee breakdown, and settlement summary before you send money. Presenting this data to your users builds trust and prevents surprises when they confirm a payout.
+
+<Tip> Every quote response contains a `quoteId`. You must send the same ID when creating a payout so the locked-in rate, fees, and rules are applied.</Tip>
+
+## Quote lifecycle
+
+When customers request a conversion, your platform should create a quote immediately. The flow below shows how the hand-off between your systems and meCash works.
+
+```mermaid
+sequenceDiagram
+    participant User as End User
+    participant Platform as Your Platform
+    participant MeCash as meCash API
+
+    User->>Platform: Request conversion (e.g. NGN → USD)
+    activate Platform
+
+    Platform->>MeCash: POST /v1/quote { amount, source, target }
+    activate MeCash
+
+    MeCash-->>Platform: quoteId, rate, fees, settlement info
+    deactivate MeCash
+
+    Platform-->>User: Display guaranteed amount + charges
+    deactivate Platform
+```
+
+<Steps>
+### User requests a rate
+Collect the source amount, currency pair, and payment channel in your UI.
+### Platform creates the quote
+Send the data to `POST /v1/quote`. meCash evaluates limits, fees, and returns a `quoteId`.
+### User confirms
+Store the quote and prompt the user to continue to payout before it expires (`expiresInSeconds`).
+</Steps>
+
+<details>
+  <summary>Watch the in-product experience</summary>
+  <Bleed full>
+    <iframe
+      src="public/images/meCash.mp4"
+      width="100%"
+      height="480px"
+      title="meCash Quote flow demo"
+    />
+  </Bleed>
+</details>
+
+## What the response contains
+
+- **Totals**: Exchange rate, fee breakdown, and target currency amount.
+- **Rules**: Corridor limits and compliance requirements that applied.
+- **Expiry**: `expiresInSeconds` tells you how long the quote remains valid. Quotes expire 10 minutes after creation unless otherwise stated in the response.
+
+If the quote expires or fails validation, the [payout endpoint](/payout-docs/create-payout) returns an error. Refresh the quote and retry the payout with the new `quoteId`.
+
+
+## Why quotes matter
+
+- **Transparency**: Show the exact amount the recipient will receive before you debit the sender.
+- **Compliance**: Respect corridor-specific rules, limits, and required disclosures.
+- **User experience**: Prevent failed payouts by validating balances and rates upfront.
+
+## Next steps
+- Jump straight into the API Reference to inspect request and response schemas.
+<CardGroup cols={2}>
+  <Card title="Create Quote API" icon="code" href="/quote/create-quote">
+    Review the full OpenAPI reference for `POST /v1/quote`, including schema details, example requests, and live testing.
+  </Card>
+  <Card title="Get Quote API" icon="search" href="/quote/get-quote">
+    Fetch stored quotes via the API Reference entry for `GET /v1/quote/{quoteId}` and validate payload structures.
+  </Card>
+  <Card title="Create Payout" icon="paper-plane" href="/payout-docs/create-payout">
+    Use your `quoteId` to disburse funds to a recipient.
+  </Card>
+</CardGroup>
+- Generate a quote programmatically with the [`Create Quote API`](/quote-docs/create-quote).
+- Explore sample payloads in [`Create Quote examples`](/quote-docs/create-quote-all-examples).
+- Retrieve an existing quote using the [`Get Quote API`](/quote-docs/get-quote) before completing a payout.
+---
+title: 'How meCash Payouts Works'
+icon: money-bill-transfer
+---
+
+The **meCash Payout API** lets you send funds to recipients across multiple corridors. Every payout must reference a valid `quoteId`, ensuring the exchange rate, fees, and limits applied during quoting remain intact at execution time.
+
+## Payout lifecycle
+
+```mermaid
+sequenceDiagram
+    participant Customer as End User
+    participant PartnerAPI as Your Platform
+    participant MeCash as meCash API
+
+    Customer->>PartnerAPI: Initiate payout
+    activate PartnerAPI
+
+    PartnerAPI->>MeCash: 1. POST /v1/quote
+    activate MeCash
+    MeCash-->>PartnerAPI: quoteId + pricing
+    deactivate MeCash
+
+    PartnerAPI->>MeCash: 2. POST /v2/payout (quoteId + recipient)
+    activate MeCash
+    MeCash-->>PartnerAPI: Payout accepted (202)
+    deactivate MeCash
+
+    Note over MeCash,PartnerAPI: Asynchronous processing
+    MeCash-->>PartnerAPI: 3. Webhook payout.completed / payout.failed
+    activate PartnerAPI
+    PartnerAPI-->>Customer: Final status update
+    deactivate PartnerAPI
+```
+
+<Tip> Subscribe to payout webhooks to receive reliable delivery and failure notifications. See [Payout Webhook Events](/webhook/payout-webhook) and [Signature Verification](/webhook/webhooks-signature-verification) for implementation details.</Tip>
+
+
+
+## Operational considerations
+
+- **Quotes are mandatory**: Always [create a quote](/quote-docs/create-quote) first and reuse the `quoteId` during payout creation.
+- **Idempotency**: Use client-generated references to safely retry payouts without double-paying.
+- **Webhooks**: Treat the synchronous payout response as an acknowledgement. The final status arrives via [payout webhook](/webhook/payout-webhook).
+- **Compliance rules**: Review the `rules` array on the quote to enforce per-corridor limits in your UI.
+
+## Payout API Routes
+
+<CardGroup cols={3}>
+  <Card title="🇳🇬 NGN → 🇳🇬 NGN" href="/payout-docs/payout-examples/ngn-ngn-example">
+    Local-to-local naira payout with BVN checks and instant settlement.
+  </Card>
+  <Card title="🇳🇬 NGN → 🇺🇸 USD" href="/payout-docs/payout-examples/ngn-usd-example">
+    Send naira to a US bank, covering FX, fees, and compliance steps.
+  </Card>
+  <Card title="🇳🇬 NGN → 🇪🇺 EUR" href="/payout-docs/payout-examples/ngn-eur-example">
+    Move NGN funds into a euro account and handle required documents.
+  </Card>
+  <Card title="🇳🇬 NGN → 🇬🇧 GBP" href="/payout-docs/payout-examples/ngn-gbp-example">
+    Walk through payouts to the UK and sort-code validation basics.
+  </Card>
+  <Card title="🇳🇬 NGN → 🇨🇦 CAD" href="/payout-docs/payout-examples/ngn-cad-example">
+    Route NGN disbursements to Canada either via bank transfer or Interac.
+  </Card>
+  <Card title="🇲🇼 MWK → 🇲🇼 MWK" href="/payout-docs/payout-examples/mwk-mwk-example">
+    Run domestic Malawi payouts and reuse saved recipients easily.
+  </Card>
+</CardGroup>
+
+## Next steps
+
+- Create a payout with [`POST /v2/payout`](/payout-docs/create-payout).
+- **Send to multiple recipients at once** with the [`Bulk Payout API`](/payout-docs/bulk-payout) — ideal for payroll, vendor payments, and mass disbursements.
+- Explore corridor-specific payloads with the example cards above or jump straight to the [`payout docs examples`](/payout-docs/payout-examples/ngn-usd-example).
+- Monitor disbursement states using the [`Get Transaction API`](/transaction-docs/get-transaction).
+---
+title: 'Bulk Payouts'
+icon: users
+tag: new
+---
+
+The **meCash Bulk Payout API** lets you disburse funds to multiple beneficiaries in a single API request. Instead of sending individual transfer requests, you submit a batch of payout orders — ideal for payroll, vendor payments, commissions, and mass disbursements.
+
+<Tip>Each order within a bulk payout is processed independently. If one transfer fails validation, the remaining valid transfers still execute.</Tip>
+
+## Bulk payout lifecycle
+
+```mermaid
+sequenceDiagram
+    participant Platform as Your Platform
+    participant MeCash as meCash API
+
+    Platform->>MeCash: 1. POST /v1/bulk/payout (orders + recipients)
+    activate MeCash
+    MeCash-->>Platform: Batch accepted (202)
+    deactivate MeCash
+
+    Note over MeCash,Platform: Asynchronous processing
+
+    Platform->>MeCash: 2. GET /v1/bulk/payout/{batchId}/status (Optional)
+    activate MeCash
+    MeCash-->>Platform: Batch results & aggregate counts
+    deactivate MeCash
+
+    MeCash-->>Platform: 3. Webhook per transfer (payout.completed / payout.failed)
+```
+
+## How it works
+
+<Steps>
+### Step 1: Submit bulk payout
+
+Send all payout orders in one request to `POST /v1/bulk/payout`. Each item includes a unique `referenceNumber`, amount, reason, and full recipient bank details.
+
+<Tabs>
+  <Tab title="Request">
+    ```bash cURL
+    curl --location 'https://{{BaseURL}}/v1/bulk/payout' \
+    --header 'Content-Type: application/json' \
+    --header 'x-api-key: YOUR_API_KEY' \
+    --data '{
+        "items": [
+            {
+                "referenceNumber": "REF_ZZOEAZH8ZJI6",
+                "targetAmount": "1500",
+                "reason": "Salary payment",
+                "recipient": {
+                    "name": "NNOROM UZOMA CHUKWUDI",
+                    "account": {
+                        "bankName": "FCMB",
+                        "sortCode": "214",
+                        "accountNumber": "2483520014"
+                    },
+                    "paymentChannel": "BANK_TRANSFER",
+                    "currency": "NGN",
+                    "country": "NG"
+                }
+            },
+            {
+                "referenceNumber": "REF_DZNGDNK5FFGH",
+                "targetAmount": "2500",
+                "reason": "Salary payment",
+                "recipient": {
+                    "name": "NNOROM UZOMA CHUKWUDI",
+                    "account": {
+                        "bankName": "FCMB",
+                        "sortCode": "214",
+                        "accountNumber": "2483520014"
+                    },
+                    "paymentChannel": "BANK_TRANSFER",
+                    "currency": "NGN",
+                    "country": "NG"
+                }
+            },
+            {
+                "referenceNumber": "REF_YMSVIDEXJX1Y",
+                "targetAmount": "3600",
+                "reason": "Salary payment",
+                "recipient": {
+                    "name": "NNOROM UZOMA CHUKWUDI",
+                    "account": {
+                        "bankName": "FCMB",
+                        "sortCode": "214",
+                        "accountNumber": "2483520014"
+                    },
+                    "paymentChannel": "BANK_TRANSFER",
+                    "currency": "NGN",
+                    "country": "NG"
+                }
+            }
+        ],
+        "paymentChannel": "BANK_TRANSFER",
+        "remark": "June 2026 Salary"
+    }'
+    ```
+  </Tab>
+  <Tab title="Response (202)">
+    ```json copy
+    {
+        "message": "Batch Created",
+        "status": "success",
+        "data": {
+            "batchId": "44cbef79-3b95-4214-bda2-xxxxxxxxxxxx",
+            "referenceNo": "KJ5CFZ0YMWJC7",
+            "timestamp": "2026-04-08T17:35:54.114741545Z",
+            "batchTotal": 15,
+            "totalSuccessful": 0,
+            "totalFailed": 0,
+            "totalPending": 15
+        }
+    }
+    ```
+  </Tab>
+</Tabs>
+
+<Info>
+  A `202 Accepted` response means the batch has been **queued** — not yet processed. Orders are settled asynchronously. Listen for [`payout.completed`](/webhook/payout-webhook) and [`payout.failed`](/webhook/payout-webhook) webhooks to track individual transfer outcomes.
+</Info>
+
+### Step 2: Check batch status (Optional)
+
+Poll for results using the `batchId` returned from Step 1. This is useful if you want to check overall progress without waiting for individual webhooks.
+
+<Tabs>
+  <Tab title="Request">
+    ```bash cURL
+    curl --location 'https://{{BaseURL}}/v1/bulk/payout/{{batchId}}/status' \
+    --header 'Content-Type: application/json' \
+    --header 'x-api-key: YOUR_API_KEY'
+    ```
+  </Tab>
+  <Tab title="Response (200)">
+    ```json copy
+    {
+        "message": "Transaction Processing",
+        "status": "success",
+        "data": {
+            "state": "pending",
+            "batchId": "44cbef79-3b95-4214-bda2-78014f400d11",
+            "startTimestamp": "2026-04-08T17:35:54.070396Z",
+            "endTimestamp": null,
+            "batchTotal": 15,
+            "totalSuccessful": 0,
+            "totalFailed": 0,
+            "totalPending": 15,
+            "items": [
+                {
+                    "referenceNumber": "REF_ZZOEAZH8ZJI6",
+                    "status": "pending",
+                    "targetAmount": "1500",
+                    "reason": "Salary payment",
+                    "recipient": {
+                        "id": "f55914fe-0568-473d-bf6f-95c32c71094e",
+                        "name": "NNOROM UZOMA CHUKWUDI",
+                        "account": {
+                            "bankName": "FCMB",
+                            "sortCode": "214",
+                            "accountNumber": "2483520014"
+                        },
+                        "paymentChannel": "BANK_TRANSFER",
+                        "currency": "NGN",
+                        "country": "NG"
+                    }
+                }
+            ],
+            "paymentChannel": "BANK_TRANSFER",
+            "remark": "June 2026 Salary"
+        }
+    }
+    ```
+  </Tab>
+</Tabs>
+
+### Step 3: Listen for webhooks
+
+Every individual payout in the batch triggers its own separate webhook — so a batch with 15 orders will fire **15 individual webhook events**. Each webhook is either [`payout.completed`](/webhook/payout-webhook) or [`payout.failed`](/webhook/payout-webhook), depending on the outcome of that specific transfer.
+
+Use the `referenceNumber` from each order to correlate incoming webhook events with specific transfers in your system.
+
+<Warning>
+  Your webhook endpoint must be able to handle **multiple concurrent deliveries**. For a large batch, many webhooks may arrive in quick succession as transfers are settled.
+</Warning>
+
+See [Webhook Signature Verification](/webhook/webhooks-signature-verification) to secure your endpoint.
+
+</Steps>
+
+## Request body breakdown
+
+| **Field** | **Type** | **Required** | **Description** |
+|-----------|----------|:------------:|-----------------|
+| `items` | Array | ✅ | List of individual payout orders (see below). |
+| `items[].referenceNumber` | String | ✅ | Your unique reference for this specific order. |
+| `items[].targetAmount` | String | ✅ | Amount to send to the recipient. |
+| `items[].reason` | String | ✅ | Purpose of the transfer (e.g. `Salary payment`). |
+| `items[].recipient.name` | String | ✅ | Full name of the recipient. |
+| `items[].recipient.account.bankName` | String | ✅ | Name of the recipient's bank. |
+| `items[].recipient.account.sortCode` | String | ✅ | Bank sort code / bank code. |
+| `items[].recipient.account.accountNumber` | String | ✅ | Recipient's bank account number. |
+| `items[].recipient.paymentChannel` | String | ✅ | Payment method (e.g. `BANK_TRANSFER`). |
+| `items[].recipient.currency` | String | ✅ | Target currency code (e.g. `NGN`). |
+| `items[].recipient.country` | String | ✅ | Target country code (e.g. `NG`). |
+| `paymentChannel` | String | ✅ | Top-level payment channel for the batch. |
+| `remark` | String | ❌ | A general note for the entire batch submission. |
+
+## Response breakdown
+
+| **Field** | **Type** | **Description** |
+|-----------|----------|-----------------|
+| `message` | String | Confirmation message from the API. |
+| `status` | String | Overall request status (`success` or `failed`). |
+| `data.state` | String | The processing state of the batch (e.g. `pending`, `completed`). |
+| `data.batchId` | String | Unique identifier for the batch submission. |
+| `data.startTimestamp`| String | ISO 8601 timestamp of when processing began. |
+| `data.endTimestamp` | String | ISO 8601 timestamp of when processing finished (`null` if pending). |
+| `data.batchTotal` | Number | Total number of payout orders in the batch. |
+| `data.totalSuccessful`| Number | Total orders that have reached a final success state. |
+| `data.totalFailed` | Number | Total orders that have failed processing. |
+| `data.totalPending` | Number | Total orders still in the queue or being processed. |
+| `data.items` | Array | A list of all individual payout orders and their specific statuses. |
+
+## Key behaviors
+
+| Behavior | Description |
+|----------|-------------|
+| **Independent processing** | Each transfer is validated and processed separately. A single failure does not block other orders. |
+| **Balance pre-check** | The system validates that your wallet balance covers the total amount plus all fees before processing any orders. |
+| **Individual transaction records** | Every order generates its own `referenceNumber`. Use the [Get Transaction API](/transaction-docs/get-transaction) to fetch full traceability details. |
+| **Rate limits** | The bulk endpoint enforces payload size limits. Contact support for your account's maximum orders per request. |
+| **Audit trail** | Both the bulk request reference and individual transaction references are logged for compliance and reconciliation. |
+
+## Use cases
+
+<CardGroup cols={3}>
+  <Card title="Payroll" icon="money-bill-wave">
+    Disburse salaries to all employees in one API call instead of hundreds of individual transfers.
+  </Card>
+  <Card title="Vendor Payments" icon="store">
+    Pay multiple suppliers and vendors across different banks simultaneously.
+  </Card>
+  <Card title="Commission Payouts" icon="hand-holding-dollar">
+    Distribute commissions or rewards to agents, affiliates, or partners at once.
+  </Card>
+</CardGroup>
+
+## Next steps
+
+<CardGroup cols={3}>
+  <Card title="Create Bulk Payout API" icon="paper-plane" href="/payout/create-bulk-payout">
+    Full OpenAPI reference for `POST /v1/bulk/payout`.
+  </Card>
+  <Card title="Fetch Batch Status API" icon="search" href="/payout/get-batch-status">
+    Check processing status via `GET /v1/bulk/payout/{batchId}/status`.
+  </Card>
+  <Card title="Single Payout Guide" icon="arrow-right" href="/payout-docs/payout">
+    Need to send to just one recipient? Use the standard payout flow.
+  </Card>
+</CardGroup>
+---
+title: Webhooks
+icon: diagram-project
+---
+
+Webhooks are a way for meCash to send your application automatic notifications whenever specific events take place. Instead of your application constantly asking meCash for updates, meCash pushes information to you in real-time.
+<AccordionGroup>
+  <Accordion icon="diagram-project" title="How Webhooks Work">
+    ```mermaid
+    sequenceDiagram
+        participant A as meCash System
+        participant B as Your Webhook Endpoint
+        A->>A: Event occurs (payout, collection, etc.)
+        A->>B: Send secure HTTP POST with event payload
+        B-->>A: Return 2XX acknowledgment
+        B->>B: Validate X-Signature using HMAC-512
+        B->>B: Confirm authenticity of the request
+    ```
+    The process is straightforward:
+    1. **An Event Occurs**: Something happens in your account, like a successful payout or a collection.
+    2. **meCash Sends a Request**: We send a secure HTTP POST request containing the event details to the webhook URL you've configured.
+    3. **You Acknowledge and Verify**: Your server acknowledges receipt by returning a `2XX` status code and then validates the request's signature to confirm it's genuinely from meCash.
+  </Accordion>
+  <Accordion icon="shield-halved" title="Webhook Security">
+    <Callout type="info" emoji="🛡️">
+      All meCash webhook events are signed using an `HMAC-512` signature in the `X-Signature` header. The signature is computed from the raw request body using your webhook secret key (found in **Developers → Webhooks** in your dashboard). Always verify this signature before processing the event to ensure authenticity and prevent replay attacks.
+    </Callout>
+    - Reject requests with missing or invalid signatures.
+    - Log every webhook delivery for auditability.
+    - Retry failed processing gracefully and return `2XX` only after you persist the event.
+  </Accordion>
+  <Accordion icon="gear" title="Configure Your Webhook in the Dashboard">
+    <AccordionGroup>
+      <Accordion icon="compass-drafting" title="Navigate to the Webhooks page">
+        In the **Developers** section of your meCash dashboard, select **Webhooks** from the left-hand menu to review existing endpoints and create new ones.
+        <Frame>
+          <img
+            src="/public/images/webhooks2.png"
+            alt="Developers dashboard highlighting the Webhooks navigation item"
+            style={{ borderRadius: '0.75rem' }}
+          />
+        </Frame>
+      </Accordion>
+      <Accordion icon="plus" title="Create a new webhook">
+        Click the **Create Webhook** button at the top-right corner to launch the configuration modal for a new endpoint.
+        <Frame>
+          <img
+            src="/public/images/webhooks.png"
+            alt="Create webhook dialog in the meCash dashboard"
+            style={{ borderRadius: '0.75rem' }}
+          />
+        </Frame>
+      </Accordion>
+      <Accordion icon="link" title="Provide your webhook URL">
+        - Enter the publicly accessible **URL** where you want to receive webhook events.<br />
+        - Ensure the endpoint accepts HTTPS POST requests and responds within 10 seconds.<br />
+        - Return an HTTP **2XX status code** to acknowledge receipt and prevent retries.
+        <Frame>
+          <img
+            src="/public/images/Screenshot202316.png"
+            alt="Webhook configuration form requesting callback URL"
+            style={{ borderRadius: '0.75rem' }}
+          />
+        </Frame>
+      </Accordion>
+      <Accordion icon="circle-check" title="Confirm and monitor delivery">
+        After clicking **Confirm**, your webhook appears in the list with its current status. Use the dashboard to pause, resume, or regenerate the signing secret if needed.
+      </Accordion>
+    </AccordionGroup>
+  </Accordion>
+</AccordionGroup>
+---
+title: 'meCash Virtual Accounts'
+icon: building
+---
+
+Virtual accounts give your business bank account numbers that map directly to your meCash wallet. 
+Assign them to customers, collect payments via standard transfers, and reconcile everything from a single ledger.
+
+## Supported currencies
+
+
+| **Currency** | **Code** | **Status** |
+|----------|------|---------|
+| Nigerian Naira | NGN 🇳🇬 | Available |
+| Malawian Kwacha | MWK 🇲🇼 | Available |
+| US Dollar | USD 🇺🇸 | Available |
+
+> 📋 **More currencies coming soon** - We're continuously expanding to new corridors. Check your dashboard or our release notes for the latest updates.
+
+## 💳 Account Types
+
+### Static Virtual Accounts
+**Ideal for**: Recurring payments, long-term customers, and subscription services.
+
+**Key features**:
+- **Permanent account numbers** that never expire.
+- **Accept multiple deposits** from the same customer.
+- **Perfect for ongoing business relationships** .
+- **Simplified customer experience** with consistent payment details.
+
+### Dynamic Virtual Accounts  
+**Ideal for**: One-time invoices, time-bound campaigns, and specific payment scenarios.
+
+**Key features**:
+- **Dual-constraint design** - controlled by both time and amount parameters.
+- **Time-driven expiration** - auto-expires after your set duration.
+- **Amount-driven closure** - automatically closes once the exact payment amount is received.
+- **Enhanced security** for controlled payment scenarios.
+- **Perfect for invoice payments and campaign collections**.
+
+## ⚡ Settlement Options
+- **Instant** : Funds are credited to your wallet immediately after successful payment. It is useful for real-time cash flow, just-in-time fulfillment, and urgent payment processing.
+- **T+1** : Funds settle to your wallet on the next business day. It is easier reconciliation and Scheduled financial operations.
+
+
+## How the flow works
+
+```mermaid
+sequenceDiagram
+    title: Virtual Account Collections Flow
+
+    participant Customer
+    participant Business as Your Business
+    participant MeCash as meCash
+
+    Customer->>Business: Request payment details
+    Business->>MeCash: Create virtual account
+    eCash-->>Business: Virtual account number
+    Business-->>Customer: Share bank details
+
+    Customer->>meCash: Transfer funds
+    MeCash-->>Business: Wallet credited + webhook
+    Business-->>Customer: Confirm payment
+
+    Note over meCash: Settlement occurs per agreed schedule (Instant or T+1)
+```
+
+<AccordionGroup>
+  <Accordion icon="1-circle" title="Generate a virtual account">
+    Call the static or dynamic endpoint to issue a bank account number tied to your wallet.
+  </Accordion>
+  <Accordion icon="2-circle" title="Share payment details">
+    Provide the account name and number so customers can pay through their preferred banking channel.
+  </Accordion>
+  <Accordion icon="3-circle" title="Collect the transfer">
+    Incoming funds credit your wallet automatically. You also receive a webhook for each deposit.
+  </Accordion>
+  <Accordion icon="4-circle" title="Reconcile and settle">
+    Monitor wallet balances, then sweep funds to your bank per your instant or T+1 settlement schedule.
+  </Accordion>
+</AccordionGroup>
+
+## Next steps
+
+- Issue a permanent account with the [`Create Static Virtual Account`](/virtual-accounts-docs/static-virtual-account) guide.
+- Generate time-bound accounts for campaigns in [`Create Dynamic Virtual Account`](/virtual-accounts-docs/dynamic-virtual-account).
+- Retrieve account details with [`Get Virtual Account`](/virtual-accounts-docs/get-virtual-account).
+---
+title: "Ramp Overview"
+description: "Manage your cryptocurrency balances with Deposit, Withdraw, and Offramp capabilities"
+icon: "coins"
+---
+
+The **Ramp** feature in meCash provides a comprehensive solution for managing your cryptocurrency assets. It enables you to deposit crypto to your wallet, withdraw to external addresses, and convert your crypto to fiat currency through offramp functionality.
+
+## What is Ramp?
+
+Ramp is your gateway to seamless cryptocurrency management on meCash. It supports multiple cryptocurrencies and blockchain networks, allowing you to:
+
+<CardGroup cols={3}>
+  <Card title="Deposit Crypto" icon="arrow-down-to-line" href="/ramp-docs/deposit-crypto">
+    Fund your meCash wallet by sending assets (USDC, USDT, Ether) to your dedicated wallet address
+  </Card>
+  <Card title="Withdraw Crypto" icon="arrow-up-from-line" href="/ramp-docs/withdraw-crypto">
+    Send cryptocurrency from your meCash wallet to any external wallet address
+  </Card>
+  <Card title="Offramp" icon="money-bill-transfer" href="/ramp-docs/offramp">
+    Convert your cryptocurrency to fiat currency and receive it via bank transfer
+  </Card>
+</CardGroup>
+
+---
+
+## Supported Assets
+
+The Ramp feature currently supports the following cryptocurrencies:
+
+| **Asset** | **Symbol** | **Supported Networks** |
+|-----------|------------|------------------------|
+| USD Coin  | USDC       | Ethereum (ERC20), Polygon (MATIC) |
+| Ether     | ETH        | Ethereum (ERC20) |
+| Tether    | USDT       | Ethereum (ERC20), Polygon (MATIC) |
+
+<Callout type="warning" emoji="⚠️">
+  Always ensure you send assets on the correct network. Sending assets on an unsupported network will result in permanent loss of funds.
+</Callout>
+
+---
+
+## Accessing Ramp
+
+To access the Ramp feature:
+
+1. Log in to your [meCash Business Dashboard](https://business.me-cash.com)
+2. Navigate to **Ramp** in the left sidebar
+3. Click on **Balances** to view your crypto balances
+
+From the Balances page, you can:
+- View your available balance for each supported cryptocurrency
+- Switch between different networks (e.g., Ethereum, Polygon)
+- Access Deposit, Withdraw, and Offramp functions
+
+---
+
+## Dashboard Overview
+
+The Ramp dashboard displays:
+
+- **Network Selector**: Choose between supported blockchain networks
+- **Asset Tabs**: Switch between USDC, ETH, and Tether
+- **Available Balance**: Your current balance for the selected asset
+- **Action Buttons**: Quick access to Deposit, Withdraw, and Offramp
+- **Recent Transactions**: View your latest ramp transactions with status
+
+### Transaction Statuses
+
+| **Status** | **Description** |
+|------------|-----------------|
+| `PENDING`  | Transaction is being processed |
+| `COMPLETED`| Transaction has been successfully processed |
+| `FAILED`   | Transaction failed - check details for reason |
+
+---
+
+## Key Features
+
+### Multi-Network Support
+Switch between different blockchain networks directly from the dashboard. Each network has its own wallet address for deposits.
+
+### Real-Time Balance Updates
+Your balances are updated in real-time as transactions are confirmed on the blockchain.
+
+### Transaction History
+View all your ramp transactions including deposits, withdrawals, and offramp conversions with detailed information.
+
+### Competitive Rates
+Get competitive exchange rates for offramp conversions with transparent fee structures.
+
+---
+
+## Getting Started
+
+<Steps>
+  <Step title="Fund Your Wallet">
+    Start by [depositing crypto](/ramp-docs/deposit-crypto) to your meCash wallet using the provided wallet address or QR code.
+  </Step>
+  <Step title="Manage Your Assets">
+    [Withdraw](/ramp-docs/withdraw-crypto) to external wallets or [offramp](/ramp-docs/offramp) to convert crypto to fiat.
+  </Step>
+  <Step title="Monitor Transactions">
+    Track all your transactions in the Recent Transactions section.
+  </Step>
+</Steps>
+
+---
+
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Deposit Crypto" icon="arrow-down-to-line" href="/ramp-docs/deposit-crypto">
+    Learn how to fund your wallet with USDC, USDT, or ETH
+  </Card>
+  <Card title="Withdraw Crypto" icon="arrow-up-from-line" href="/ramp-docs/withdraw-crypto">
+    Send crypto to external wallets
+  </Card>
+  <Card title="Offramp" icon="money-bill-transfer" href="/ramp-docs/offramp">
+    Convert crypto to fiat currency
+  </Card>
+</CardGroup>

@@ -1,29 +1,54 @@
 # meCash Developer Documentation
 
-meCash is a digital finance platform that allows you to send and receive money in Africa internationally . It provides a suite of APIs designed to make global money movement—payouts, wallets, and collections—faster, cheaper, and more accessible using blockchain and stablecoin technology.
-While it offers a user-friendly mobile app, it has expanded to provide a fuller suite of financial services, including a web-based dashboard.
+> meCash is a digital finance platform facilitating global money movement—payouts, wallets, and collections—using blockchain and stablecoin technology. It provides a suite of APIs for faster, cheaper, and more accessible financial services in Africa and internationally.
+
+## Essential Resources
+
+- **[Quickstart Guide](/quickstart.mdx)**: Initial setup, credentials, and Sandbox environment.
+- **[Authentication](/authentication.mdx)**: API key management and security.
+- **[API Reference](/api-reference/introduction.mdx)**: Full OpenAPI specification and error codes.
+- **[Webhook Documentation](/webhook/webhook.mdx)**: Real-time event notifications and signature verification.
+- **[MCP Server](/mcp-server/index.js)**: Model Context Protocol server for meCash API integration.
 
 ## Core APIs
 
-- **Wallet API**: Create and manage multi-currency wallets and monitor balances.
-- **Quote API**: Generate real-time, guaranteed exchange rates for cross-border conversions.
-- **Payout API**: Send programmatically orchestrated fiat payments to bank accounts and mobile money wallets globally (NGN, USD, SGD, KRW, THB, MYR, VND, etc.).
-- **Collection API**: 
-  - **Mobile Money Collections**: Request payments from customers using mobile networks (RWF, KES, TZS).
-  - **Virtual Accounts**: Issue static or dynamic accounts in NGN, MWK, and USD to collect local payments.
-- **Ramp API**: Facilitate crypto-to-fiat (Off-Ramp) and crypto-to-crypto deposits and withdrawals (USDC, USDT, ETH).
-- **Transaction API**: Track and reconcile money movement end-to-end.
-- **API Logs**: View and monitor all API requests and responses in real-time.
+### [Wallet API](/wallet-docs/wallet-overview.mdx)
+Manage multi-currency wallets, check balances, and fund accounts.
+- [Get All Wallets](/wallet/get-all-wallets.mdx)
+- [Get Wallet Balance](/wallet/get-wallet-balance.mdx)
 
-## Key Resources
+### [Quote API](/quote-docs/about-quote.mdx)
+Real-time guaranteed exchange rates for cross-border conversions.
+- [Create Quote](/quote/create-quote.mdx)
+- [Supported Currencies](/quote-docs/supported-curriencies.mdx)
 
-- **Getting Started**: Set up your workspace, secure credentials, and whitelist IPs in the Sandbox.
-- **API Reference**: Full OpenAPI specification with interactive Try-it drawer and language-specific code snippets.
-- **Webhooks**: Real-time notifications for transaction lifecycle events (initiated, processing, completed, failed).
-- **Corridor Examples**: Detailed request/response recipes for specific payout routes.
+### [Payout API](/payout-docs/payout.mdx)
+Programmatic fiat payments to bank accounts and mobile money wallets.
+- [Create Payout](/payout/create-payout.mdx)
+- [Bulk Payouts](/payout-docs/bulk-payout.mdx)
+- [Corridor Examples](/payout-docs/payout-examples/index.mdx) (NGN, USD, EUR, GBP, etc.)
+
+### [Collection API](/wallet-docs/mobile-money-collections.mdx)
+- **Mobile Money**: Request payments via RWF, KES, TZS networks.
+- **[Virtual Accounts](/virtual-accounts-docs/about-virtual-account.mdx)**: Issue NGN, MWK, and USD accounts for local collections.
+
+### [Ramp API](/ramp-docs/ramp-overview.mdx)
+Crypto-to-fiat (Off-Ramp) and crypto-to-crypto deposits/withdrawals.
+- [Deposit Crypto](/ramp-docs/deposit-crypto.mdx)
+- [Withdraw Crypto](/ramp-docs/withdraw-crypto.mdx)
+
+## Tools & Features
+
+- **[Transaction API](/transaction-docs/get-transaction.mdx)**: Track and reconcile money movement.
+- **[Pay to China](/pay-china.mdx)**: Specialized guide for payments to Chinese bank accounts and wallets.
+- **[Payment Links](/payment-links.mdx)**: Create shareable links to collect payments easily.
+- **[API Testing Guide](/api-testing.mdx)**: Best practices for testing in Sandbox.
+- **[Ask AI](/ask-ai.mdx)**: Interactive AI-powered documentation assistant.
 
 ## Support & Community
 
-- **Dashboard**: https://business.me-cash.com/
-- **X (Twitter)**: https://x.com/mecash14
-- **Support Email**: support@me-cash.com
+- **Dashboard**: [business.me-cash.com](https://business.me-cash.com/)
+- **Status & Releases**: [Release Notes](/release-notes.mdx)
+- **Email**: support@me-cash.com
+- **X (Twitter)**: [@mecash14](https://x.com/mecash14)
+

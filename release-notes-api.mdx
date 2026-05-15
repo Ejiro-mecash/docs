@@ -19,6 +19,25 @@ Stay on top of API changes that could impact your integration. Each entry notes 
 ## API Platform
 
 <AccordionGroup>
+  <Accordion title="May 2026 — Version v1.x (Status: Live)">
+    **New Features**
+
+    - **SWIFT Payment Channel Split**: The generic `SWIFT` payment channel has been replaced with two explicit charge-bearer variants to give integrators finer control over who absorbs wire-transfer fees:
+
+    | **Channel** | **Charge Bearer** | **Description** |
+    | :---------- | :---------------- | :-------------- |
+    | `SWIFT_OURS` | Sender | The sending customer bears all transfer charges. |
+    | `SWIFT_SHARED` | Both parties | Transfer charges are shared between sender and beneficiary. |
+
+    **Backward Compatibility**
+
+    - Integrations still sending `paymentChannel: "SWIFT"` should migrate to either `SWIFT_OURS` or `SWIFT_SHARED` at the earliest opportunity.
+    - Choose `SWIFT_OURS` if your platform absorbs the full cost of the transfer.
+    - Choose `SWIFT_SHARED` if transfer charges should be deducted from the beneficiary's received amount.
+
+    **Action needed:** Update your payout request payloads to use `SWIFT_OURS` or `SWIFT_SHARED` in place of the deprecated `SWIFT` value. No other fields change — recipient account details, sender details, and quote request format remain identical.
+  </Accordion>
+
   <Accordion title="March 2026 — Version v1.x (Status: Live)">
     **New Features**
 

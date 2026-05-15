@@ -14,11 +14,12 @@ This endpoint allows you to process payouts in **US Dollars (USD)** to recipient
 
 ## Supported Payment Channels
 
-USD payouts support two payment channels:
+USD payouts support two SWIFT-based payment channels. Both use the same recipient fields — the only difference is who bears the transfer charges.
 
-| **Channel** | **Description** | **Use Case** |
-| :---------- | :-------------- | :----------- |
-| `SWIFT` | International wire transfer using SWIFT code | International/Cross-border transfers |
+| **Channel** | **Charge Bearer** | **Description** |
+| :---------- | :---------------- | :-------------- |
+| `SWIFT_OURS` | Sender | The sending customer bears all transfer charges. |
+| `SWIFT_SHARED` | Both parties | Transfer charges are shared between sender and beneficiary. |
 
 ---
 
@@ -40,9 +41,11 @@ Include these headers in your request:
 <Tabs>
 
 
-<Tab title="SWIFT">
+<Tab title="SWIFT_OURS">
 
-Use `SWIFT` for international wire transfers using SWIFT/BIC codes.
+Use `SWIFT_OURS` when the **sender bears all transfer charges**. Replace `paymentChannel` with `SWIFT_SHARED` if charges should be split with the beneficiary.
+
+<Note>Both `SWIFT_OURS` and `SWIFT_SHARED` use identical request fields — only the `paymentChannel` value changes.</Note>
 
 <CodeGroup>
 ```bash cURL
@@ -75,7 +78,7 @@ curl --location --request POST '{{baseURL}}/v2/payout' \
     "mobileNumber": "+234872******",
     "occupation": "HEALTHCARE"
   },
-  "paymentChannel": "SWIFT",
+  "paymentChannel": "SWIFT_OURS",
   "currency": "USD",
   "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
   "reason": "Gift",
@@ -118,7 +121,7 @@ const options = {
       mobileNumber: "+234872******",
       occupation: "HEALTHCARE"
     },
-    paymentChannel: "SWIFT",
+    paymentChannel: "SWIFT_OURS",
     currency: "USD",
     quoteId: "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
     reason: "Gift",
@@ -170,7 +173,7 @@ payload = {
         "mobileNumber": "+234872******",
         "occupation": "HEALTHCARE"
     },
-    "paymentChannel": "SWIFT",
+    "paymentChannel": "SWIFT_OURS",
     "currency": "USD",
     "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
     "reason": "Gift",
@@ -202,11 +205,11 @@ except requests.exceptions.HTTPError as err:
 <Tabs>
 
 
-<Tab title="SWIFT Fields">
+<Tab title="SWIFT_OURS / SWIFT_SHARED Fields">
 
 | **Field** | **Type** | **Description** | **Required** |
 | :---------------------------------- | :------ | :-------------------------------------------------------------------------- | :------- |
-| `paymentChannel`                    | String  | The payment method. Use `SWIFT` for international wire transfers.           | ✅ Yes   |
+| `paymentChannel`                    | String  | The SWIFT channel to use. `SWIFT_OURS` — sender bears all charges; `SWIFT_SHARED` — charges split between sender and beneficiary. | ✅ Yes   |
 | `currency`                          | String  | The ISO currency code. Must be `USD`.                                       | ✅ Yes   |
 | `quoteId`                           | String  | The unique ID of the quote for this payout.                                 | ✅ Yes   |
 | `reason`                            | String  | The purpose of the transfer (e.g., `Gift`, `Payment for services`).         | ✅ Yes   |
@@ -264,7 +267,7 @@ If the payout is successfully created, the API returns the following response:
         "state": "PENDING",
         "quote": {
             "id": "4da9d52d-618b-4683-b408-8844d1b520cd",
-            "paymentChannel": "SWIFT",
+            "paymentChannel": "SWIFT_OURS",
             "source": {
                 "currency": "USD",
                 "country": "US",
@@ -331,7 +334,7 @@ If the payout is successfully created, the API returns the following response:
 | `data.type`                        | String | The type of transaction, e.g., `SEND`.                          |
 | `data.state`                       | String | The current state of the payout (`PENDING`, `COMPLETED`, etc.). |
 | `data.quote.id`                    | String | The unique ID of the quote used for the transaction.            |
-| `data.quote.paymentChannel`        | String | The payment method used (e.g., `SWIFT`).                        |
+| `data.quote.paymentChannel`        | String | The payment channel used (e.g., `SWIFT_OURS` or `SWIFT_SHARED`). |
 | `data.quote.source.currency`       | String | Source currency code.                                           |
 | `data.quote.source.amount`         | Number | Total source amount before fees.                                |
 | `data.quote.target.currency`       | String | Destination currency code.                                      |
@@ -388,7 +391,7 @@ The payout transaction can have one of the following states:
 ## **Best Practices**
 ✅ Ensure `quoteId` is valid and linked to an existing quote.  
 ✅ Confirm that the recipient's **bank account number** and **bank code** are correct.  
-✅ Use `SWIFT` for international wire transfers requiring SWIFT/BIC codes.  
+✅ Use `SWIFT_OURS` when the sender bears all transfer charges, or `SWIFT_SHARED` when charges are split with the beneficiary.  
 ✅ Use a valid API key in the headers.  
 ✅ Handle error responses correctly in your integration.  
 
