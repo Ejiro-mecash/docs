@@ -236,13 +236,14 @@
       },
       "PaymentChannel": {
         "type": "string",
-        "description": "The channel through which the payment will be processed. For SWIFT transfers, use `SWIFT_OURS` (sender bears all charges) or `SWIFT_SHARED` (charges split between sender and beneficiary).",
+        "description": "The channel through which the payment will be processed. For SWIFT transfers, use `SWIFT_CUSTOMER` (sender/customer bears all transfer charges), `SWIFT_SHARED` (charges split between sender and beneficiary), or `SWIFT_BENEFICIARY` (beneficiary bears all transfer charges).",
         "example": "BANK_TRANSFER",
         "enum": [
           "BANK_TRANSFER",
           "INTERAC",
-          "SWIFT_OURS",
+          "SWIFT_CUSTOMER",
           "SWIFT_SHARED",
+          "SWIFT_BENEFICIARY",
           "MOBILE_MONEY"
         ]
       },
@@ -3052,7 +3053,7 @@
                     "state": "PENDING",
                     "quote": {
                       "id": "4da9d52d-618b-4683-b408-8844d1b520cd",
-                      "paymentChannel": "SWIFT_OURS",
+                      "paymentChannel": "SWIFT_CUSTOMER",
                       "source": {
                         "currency": "USD",
                         "country": "US",
@@ -4255,7 +4256,7 @@
                         "mobileNumber": "+234872272808",
                         "occupation": "HEALTHCARE"
                       },
-                      "paymentChannel": "SWIFT_OURS",
+                      "paymentChannel": "SWIFT_CUSTOMER",
                       "country": "US",
                       "currency": "USD"
                     },

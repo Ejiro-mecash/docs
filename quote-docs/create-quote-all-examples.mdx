@@ -467,7 +467,7 @@ curl --request POST '{{baseURL}}/v1/quote' \
 
 ### Convert 1,000 USD via Global SWIFT
 
-<Note>Use `SWIFT_OURS` when the sender bears all charges, or `SWIFT_SHARED` when charges are split with the beneficiary. Both channels use the same quote request format.</Note>
+<Note>Use `SWIFT_CUSTOMER` when the sender bears all charges, `SWIFT_SHARED` when charges are split, or `SWIFT_BENEFICIARY` when the beneficiary bears all charges. All channels use the same quote request format.</Note>
 
 <CodeGroup>
 ```bash Request
@@ -475,7 +475,7 @@ curl --request POST '{{baseURL}}/v1/quote' \
   --header 'x-api-key: YOUR_API_KEY' \
   --header 'Content-Type: application/json' \
   --data '{
-    "paymentChannel": "SWIFT_OURS",
+    "paymentChannel": "SWIFT_CUSTOMER",
     "source": { "amount": 1000, "country": "US", "currency": "USD" },
     "target": { "country": "US", "currency": "USD" }
   }'

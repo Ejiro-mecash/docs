@@ -9,7 +9,7 @@ Use this matrix to confirm whether your source currency maps to the corridor you
 
 - NGN senders can reach 16 cross-border destinations spanning West, East, and Southern Africa plus key Euro-American and Asian destinations.
 - MWK senders retain local payouts as well as a USD off-ramp for cross-border needs.
-- USD senders can route funds globally via SWIFT (`SWIFT_OURS` or `SWIFT_SHARED`) or use dedicated local routes for SEPA and Asian markets.
+- USD senders can route funds globally via SWIFT (`SWIFT_CUSTOMER`, `SWIFT_SHARED`, or `SWIFT_BENEFICIARY`) or use dedicated local routes for SEPA and Asian markets.
 - RWF senders can route funds to Nigeria, creating a bi-directional corridor with our NGN -> Rwanda route.
 - Bank transfers dominate for cross-border activity, while mobile money remains the fastest option for Ghana, Ivory Coast, Kenya, and Malawi.
 
@@ -29,7 +29,7 @@ Use this matrix to confirm whether your source currency maps to the corridor you
 | Denmark 🇩🇰 | DK | DKK | Bank Transfer |
 | Germany 🇩🇪 | DE | EUR | Bank Transfer |
 | United Kingdom 🇬🇧 | GB | GBP | Bank Transfer |
-| United States 🇺🇸 | US | USD | SWIFT_OURS, SWIFT_SHARED |
+| United States 🇺🇸 | US | USD | SWIFT_CUSTOMER, SWIFT_SHARED, SWIFT_BENEFICIARY |
 | Canada 🇨🇦 | CA | CAD | Bank Transfer |
 | China 🇨🇳 | CN | CNY | Bank Transfer |
 | Singapore 🇸🇬 | SG | SGD | Bank Transfer |
@@ -40,13 +40,13 @@ Use this matrix to confirm whether your source currency maps to the corridor you
 | **Destination country** | **Country code** | **Destination currency** | **Payment channel** |
 |---|---|---|---|
 | Malawi 🇲🇼 | MW | MWK | Bank Transfer |
-| United States 🇺🇸 | US | USD | SWIFT_OURS, SWIFT_SHARED |
+| United States 🇺🇸 | US | USD | SWIFT_CUSTOMER, SWIFT_SHARED, SWIFT_BENEFICIARY |
 
 ### USD source payouts
 
 | **Destination country** | **Country code** | **Destination currency** | **Payment channel** |
 |---|---|---|---|
-| Global (SWIFT) 🌐 | -- | USD | SWIFT_OURS, SWIFT_SHARED |
+| Global (SWIFT) 🌐 | -- | USD | SWIFT_CUSTOMER, SWIFT_SHARED, SWIFT_BENEFICIARY |
 | Singapore 🇸🇬 | SG | SGD | Bank Transfer |
 | Thailand 🇹🇭 | TH | THB | Bank Transfer |
 | Malaysia 🇲🇾 | MY | MYR | Bank Transfer |
@@ -63,8 +63,9 @@ Use this matrix to confirm whether your source currency maps to the corridor you
 
 - **Bank transfer**: Credit a traditional bank account using local banking networks. Ensure beneficiaries can accept local inward transfers and have completed any required KYC.
 - **Mobile money**: Deliver funds to a mobile wallet that recipients control via their phone. Recipients should confirm their wallet is active and has sufficient limits to accept the payout.
-- **SWIFT_OURS**: International wire transfer where the **sender bears all transfer charges**. Use this channel when your platform absorbs the full cost of the transfer.
+- **SWIFT_CUSTOMER**: International wire transfer where the **sender/customer bears all transfer charges**. Use this channel when your platform absorbs the full cost of the transfer.
 - **SWIFT_SHARED**: International wire transfer where **charges are shared between the sender and the beneficiary**. The beneficiary will receive a net amount after their portion of fees is deducted.
+- **SWIFT_BENEFICIARY**: International wire transfer where the **beneficiary bears all transfer charges**.
 
 ### Stay informed and request coverage
 
