@@ -1,0 +1,135 @@
+---
+title: "Get Wallet Balance"
+openapi: get /v1/ramp/wallet/{walletId}/balance
+---
+
+This endpoint retrieves the token balances (including available and pending balances) for a specific cryptocurrency wallet.
+
+---
+
+## Endpoint
+`GET` `{{baseURL}}/v1/ramp/wallet/{{walletId}}/balance`
+
+---
+
+## Headers
+
+| **Header** | **Value** | **Required** | **Description** |
+|--------------|--------------------|----------|----------------------------------------|
+| `Content-Type` | `application/json` | Yes      | Specifies that the request body is JSON.|
+| `x-api-key`    | `YOUR_API_KEY`       | Yes      | API key for authentication.             |
+
+---
+
+## Path Parameters
+
+| **Parameter** | **Type** | **Required** | **Description** |
+|---------------|----------|--------------|-----------------------------------------|
+| `walletId`    | string   | Yes          | Unique identifier of the wallet.        |
+
+---
+
+## Request Example
+
+<CodeGroup>
+```bash cURL
+# Replace YOUR_WALLET_ID with the actual wallet ID
+curl --location '{{baseURL}}/v1/ramp/wallet/YOUR_WALLET_ID/balance' \
+--header 'x-api-key: YOUR_API_KEY' \
+--header 'Content-Type: application/json'
+```
+```js JavaScript (fetch)
+const walletId = 'YOUR_WALLET_ID';
+fetch(`{{baseURL}}/v1/ramp/wallet/${walletId}/balance`, {
+  method: 'GET',
+  headers: {
+    'Content-Type': 'application/json',
+    'x-api-key': 'YOUR_API_KEY'
+  }
+})
+.then(res => res.json())
+.then(console.log)
+.catch(console.error);
+```
+```python Python (requests)
+import requests
+
+wallet_id = "YOUR_WALLET_ID"
+url = f"{{baseURL}}/v1/ramp/wallet/{wallet_id}/balance"
+headers = {
+    "x-api-key": "YOUR_API_KEY",
+    "Content-Type": "application/json"
+}
+
+response = requests.get(url, headers=headers)
+print(response.json())
+```
+```js Node.js (axios)
+const axios = require('axios');
+
+const walletId = 'YOUR_WALLET_ID';
+axios.get(`{{baseURL}}/v1/ramp/wallet/${walletId}/balance`, {
+  headers: {
+    'x-api-key': 'YOUR_API_KEY',
+    'Content-Type': 'application/json'
+  }
+})
+  .then((response) => {
+    console.log(response.data);
+  })
+  .catch((error) => {
+    console.error(error.response?.data ?? error.message);
+  });
+```
+</CodeGroup>
+
+---
+
+## Success Response 200 OK
+```json
+{
+    "message": "fetch wallet balance successfully",
+    "status": "success",
+    "data": {
+        "token": [
+            {
+                "id": "f761603e-e2af-4abf-b669-6fa709413a66",
+                "name": "USDC",
+                "symbol": "USDC",
+                "address": "0x41e94eb019c0762f9bfcf9fb1e58725bfb0e7582",
+                "decimals": 6,
+                "balance": 115,
+                "pendingBalance": 112.5113391,
+                "blockChain": "MATIC-AMOY"
+            }
+        ]
+    }
+}
+```
+
+### Response Breakdown
+
+| **Field** | **Type** | **Description** |
+|-------------------------|----------|---------------------------------------------------------|
+| `message`               | string   | Status message of the request.                          |
+| `status`                | string   | Status of the request (`"success"` or `"error"`).       |
+| `data`                  | object   | Object containing the token balances array.             |
+| `data.token`            | array    | List of cryptocurrency token details and balances.      |
+| `data.token[].id`       | string   | Unique identifier of the token in the database.         |
+| `data.token[].name`     | string   | The name of the token (e.g., `"USDC"`, `"Polygon"`).    |
+| `data.token[].symbol`   | string   | The symbol of the token (e.g., `"USDC"`, `"POL"`).      |
+| `data.token[].address`  | string   | The token smart contract address.                       |
+| `data.token[].decimals` | number   | Decimal places used by the token.                       |
+| `data.token[].balance`  | number   | Available balance of the token in the wallet.           |
+| `data.token[].pendingBalance` | number | Pending/unconfirmed balance of the token.            |
+| `data.token[].blockChain` | string | Blockchain network (e.g., `"MATIC-AMOY"`, `"ETH"`).    |
+
+---
+
+## Error Responses
+
+| **HTTP Status** | **Error Code** | **Message** | **Description** |
+|-------------|------------------|--------------------------------------|--------------------------------------------------------|
+| 401         | `UNAUTHORIZED`   | Missing or invalid API key           | The `x-api-key` header is missing or incorrect.        |
+| 404         | `NOT_FOUND`      | Wallet not found                     | The specified wallet ID does not exist.                |
+| 500         | `SERVER_ERROR`   | Internal server error                | An unexpected error occurred on the server.            |

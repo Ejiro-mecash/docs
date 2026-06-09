@@ -2964,6 +2964,734 @@
             }
           }
         }
+      },
+      "CreateRampOfframpQuoteRequest": {
+        "type": "object",
+        "required": [
+          "paymentChannel",
+          "source",
+          "target"
+        ],
+        "properties": {
+          "paymentChannel": {
+            "type": "string",
+            "example": "BANK_TRANSFER"
+          },
+          "source": {
+            "type": "object",
+            "required": [
+              "amount",
+              "symbol",
+              "blockchain"
+            ],
+            "properties": {
+              "amount": {
+                "type": "number",
+                "example": 5
+              },
+              "symbol": {
+                "type": "string",
+                "example": "USDC"
+              },
+              "blockchain": {
+                "type": "string",
+                "example": "MATIC-AMOY"
+              }
+            }
+          },
+          "target": {
+            "type": "object",
+            "required": [
+              "country",
+              "currency"
+            ],
+            "properties": {
+              "country": {
+                "type": "string",
+                "example": "NG"
+              },
+              "currency": {
+                "type": "string",
+                "example": "NGN"
+              }
+            }
+          }
+        }
+      },
+      "CreateRampCryptoQuoteRequest": {
+        "type": "object",
+        "required": [
+          "paymentChannel",
+          "source",
+          "target",
+          "recipient"
+        ],
+        "properties": {
+          "paymentChannel": {
+            "type": "string",
+            "example": "BANK_TRANSFER"
+          },
+          "source": {
+            "type": "object",
+            "required": [
+              "amount",
+              "symbol",
+              "blockchain"
+            ],
+            "properties": {
+              "amount": {
+                "type": "number",
+                "example": 2
+              },
+              "symbol": {
+                "type": "string",
+                "example": "USDC"
+              },
+              "blockchain": {
+                "type": "string",
+                "example": "MATIC-AMOY"
+              }
+            }
+          },
+          "target": {
+            "type": "object",
+            "required": [
+              "symbol",
+              "blockchain"
+            ],
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "example": "USDC"
+              },
+              "blockchain": {
+                "type": "string",
+                "example": "MATIC-AMOY"
+              }
+            }
+          },
+          "feeLevel": {
+            "type": "object",
+            "required": [
+              "type"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "MEDIUM"
+              }
+            }
+          },
+          "recipient": {
+            "type": "object",
+            "required": [
+              "address"
+            ],
+            "properties": {
+              "address": {
+                "type": "string",
+                "example": "0xd62acd62fdb155afaa5d12c6caf01119d413dfd9"
+              }
+            }
+          }
+        }
+      },
+      "CreateRampOfframpQuoteResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success"
+          },
+          "message": {
+            "type": "string",
+            "example": "quote generated successfully"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid",
+                "example": "3f41daaa-029c-44a2-b7c6-ed922a68177b"
+              },
+              "source": {
+                "type": "object",
+                "properties": {
+                  "currency": {
+                    "type": "string",
+                    "example": "USDC"
+                  },
+                  "symbol": {
+                    "type": "string",
+                    "example": "USDC"
+                  },
+                  "type": {
+                    "type": "string",
+                    "example": "CRYPTOCURRENCY"
+                  },
+                  "amount": {
+                    "type": "number",
+                    "example": 5
+                  },
+                  "network": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "f8fc48ff-81e6-4b5f-9a70-44fb744e3572"
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "USDC"
+                      },
+                      "blockchain": {
+                        "type": "string",
+                        "example": "MATIC-AMOY"
+                      }
+                    }
+                  }
+                }
+              },
+              "target": {
+                "type": "object",
+                "properties": {
+                  "currency": {
+                    "type": "string",
+                    "example": "NGN"
+                  },
+                  "country": {
+                    "type": "string",
+                    "example": "NG"
+                  },
+                  "type": {
+                    "type": "string",
+                    "example": "FIAT"
+                  },
+                  "paymentChannel": {
+                    "type": "string",
+                    "example": "BANK_TRANSFER"
+                  },
+                  "amount": {
+                    "type": "number",
+                    "example": 5537.1
+                  }
+                }
+              },
+              "rate": {
+                "type": "number",
+                "example": 1107.42
+              },
+              "fees": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "amount": {
+                      "type": "number",
+                      "example": 0.025
+                    },
+                    "gas": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "example": "MEDIUM"
+                        },
+                        "total": {
+                          "type": "number",
+                          "example": 0.29237925
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "summary": {
+                "type": "object",
+                "properties": {
+                  "total": {
+                    "type": "number",
+                    "example": 5.31737925
+                  }
+                }
+              },
+              "expiresInSeconds": {
+                "type": "integer",
+                "example": 600
+              }
+            }
+          }
+        }
+      },
+      "CreateRampCryptoQuoteResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success"
+          },
+          "message": {
+            "type": "string",
+            "example": "quote generated successfully"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid",
+                "example": "59628a6c-3d05-406a-ad39-77f92b09137c"
+              },
+              "source": {
+                "type": "object",
+                "properties": {
+                  "currency": {
+                    "type": "string",
+                    "example": "USDC"
+                  },
+                  "symbol": {
+                    "type": "string",
+                    "example": "USDC"
+                  },
+                  "blockchain": {
+                    "type": "string",
+                    "example": "MATIC-AMOY"
+                  },
+                  "type": {
+                    "type": "string",
+                    "example": "CRYPTOCURRENCY"
+                  },
+                  "amount": {
+                    "type": "number",
+                    "example": 2
+                  }
+                }
+              },
+              "target": {
+                "type": "object",
+                "properties": {
+                  "currency": {
+                    "type": "string",
+                    "example": "USDC"
+                  },
+                  "symbol": {
+                    "type": "string",
+                    "example": "USDC"
+                  },
+                  "blockchain": {
+                    "type": "string",
+                    "example": "MATIC-AMOY"
+                  },
+                  "type": {
+                    "type": "string",
+                    "example": "CRYPTOCURRENCY"
+                  },
+                  "amount": {
+                    "type": "number",
+                    "example": 2
+                  }
+                }
+              },
+              "rate": {
+                "type": "number",
+                "example": 1
+              },
+              "fees": {
+                "type": "object",
+                "properties": {
+                  "amount": {
+                    "type": "number",
+                    "example": 0.01
+                  },
+                  "gas": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "example": "LOW"
+                      },
+                      "amount": {
+                        "type": "number",
+                        "example": 0.01875321
+                      }
+                    }
+                  }
+                }
+              },
+              "summary": {
+                "type": "object",
+                "properties": {
+                  "total": {
+                    "type": "number",
+                    "example": 2.02875321
+                  }
+                }
+              },
+              "expiresInSeconds": {
+                "type": "integer",
+                "example": 600
+              }
+            }
+          }
+        }
+      },
+      "RampOfframpOrderResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success"
+          },
+          "message": {
+            "type": "string",
+            "example": "order successfully created"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid",
+                "example": "80709a38-1e22-40f2-ad05-ac181f611531"
+              },
+              "type": {
+                "type": "string",
+                "example": "SEND"
+              },
+              "category": {
+                "type": "string",
+                "example": "OFF_RAMP"
+              },
+              "state": {
+                "type": "string",
+                "example": "PENDING"
+              },
+              "referenceNumber": {
+                "type": "string",
+                "example": "XXEYBAHUJORQB"
+              },
+              "quote": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "example": "54728dcf-650d-4eb5-994f-95a060677487"
+                  },
+                  "source": {
+                    "type": "object",
+                    "properties": {
+                      "currency": {
+                        "type": "string",
+                        "example": "USDC"
+                      },
+                      "symbol": {
+                        "type": "string",
+                        "example": "USDC"
+                      },
+                      "type": {
+                        "type": "string",
+                        "example": "CRYPTOCURRENCY"
+                      },
+                      "amount": {
+                        "type": "number",
+                        "example": 5
+                      },
+                      "network": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "format": "uuid",
+                            "example": "f8fc48ff-81e6-4b5f-9a70-44fb744e3572"
+                          },
+                          "name": {
+                            "type": "string",
+                            "example": "Polygon Amoy"
+                          },
+                          "blockchain": {
+                            "type": "string",
+                            "example": "MATIC-AMOY"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "target": {
+                    "type": "object",
+                    "properties": {
+                      "currency": {
+                        "type": "string",
+                        "example": "NGN"
+                      },
+                      "country": {
+                        "type": "string",
+                        "example": "NG"
+                      },
+                      "type": {
+                        "type": "string",
+                        "example": "FIAT"
+                      },
+                      "paymentChannel": {
+                        "type": "string",
+                        "example": "BANK_TRANSFER"
+                      },
+                      "amount": {
+                        "type": "number",
+                        "example": 5537.1
+                      }
+                    }
+                  },
+                  "rate": {
+                    "type": "number",
+                    "example": 0.000903
+                  },
+                  "fees": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "amount": {
+                          "type": "number",
+                          "example": 0.025
+                        },
+                        "gas": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string",
+                              "example": "MEDIUM"
+                            },
+                            "total": {
+                              "type": "number",
+                              "example": 0.29237925
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "summary": {
+                    "type": "object",
+                    "properties": {
+                      "total": {
+                        "type": "number",
+                        "example": 5.31737925
+                      }
+                    }
+                  }
+                }
+              },
+              "recipient": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "example": "95475698-61d2-46ee-b148-b882956a0eff"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Pastor Bright"
+                  },
+                  "type": {
+                    "type": "string",
+                    "example": "BUSINESS"
+                  },
+                  "account": {
+                    "type": "object",
+                    "properties": {
+                      "sortCode": {
+                        "type": "string",
+                        "example": "044"
+                      },
+                      "accountNumber": {
+                        "type": "string",
+                        "example": "0867543789"
+                      }
+                    }
+                  }
+                }
+              },
+              "created": {
+                "type": "string",
+                "example": "2025-06-03T22:56:20.748484620"
+              }
+            }
+          }
+        }
+      },
+      "RampCryptoOrderResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success"
+          },
+          "message": {
+            "type": "string",
+            "example": "order successfully created"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid",
+                "example": "da0ab3cd-a608-4b0a-8de5-710112e2cb06"
+              },
+              "type": {
+                "type": "string",
+                "example": "SEND"
+              },
+              "category": {
+                "type": "string",
+                "example": "CRYPTOCURRENCY"
+              },
+              "state": {
+                "type": "string",
+                "example": "PENDING"
+              },
+              "referenceNumber": {
+                "type": "string",
+                "example": "PENUHSL7PRXEF"
+              },
+              "quote": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "example": "6d70f89d-bc23-45c1-8504-d805ccd22235"
+                  },
+                  "source": {
+                    "type": "object",
+                    "properties": {
+                      "currency": {
+                        "type": "string",
+                        "example": "USDC"
+                      },
+                      "symbol": {
+                        "type": "string",
+                        "example": "USDC"
+                      },
+                      "blockchain": {
+                        "type": "string",
+                        "example": "MATIC-AMOY"
+                      },
+                      "type": {
+                        "type": "string",
+                        "example": "CRYPTOCURRENCY"
+                      },
+                      "amount": {
+                        "type": "number",
+                        "example": 2
+                      }
+                    }
+                  },
+                  "target": {
+                    "type": "object",
+                    "properties": {
+                      "currency": {
+                        "type": "string",
+                        "example": "USDC"
+                      },
+                      "symbol": {
+                        "type": "string",
+                        "example": "USDC"
+                      },
+                      "blockchain": {
+                        "type": "string",
+                        "example": "MATIC-AMOY"
+                      },
+                      "type": {
+                        "type": "string",
+                        "example": "CRYPTOCURRENCY"
+                      },
+                      "amount": {
+                        "type": "number",
+                        "example": 2
+                      }
+                    }
+                  },
+                  "rate": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "fees": {
+                    "type": "object",
+                    "properties": {
+                      "amount": {
+                        "type": "number",
+                        "example": 0.01
+                      },
+                      "gas": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "example": "LOW"
+                          },
+                          "amount": {
+                            "type": "number",
+                            "example": 0.01875321
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "summary": {
+                    "type": "object",
+                    "properties": {
+                      "total": {
+                        "type": "number",
+                        "example": 2.02875321
+                      }
+                    }
+                  }
+                }
+              },
+              "recipient": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "example": "962aabb8-f74e-4e1f-aab1-99467b9cf3b5"
+                  },
+                  "address": {
+                    "type": "string",
+                    "example": "0xd62acd62fdb155afaa5d12c6caf01119d413dfd9"
+                  },
+                  "network": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "f8fc48ff-81e6-4b5f-9a70-44fb744e3572"
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "USDC"
+                      },
+                      "blockchain": {
+                        "type": "string",
+                        "example": "MATIC-AMOY"
+                      }
+                    }
+                  }
+                }
+              },
+              "created": {
+                "type": "string",
+                "example": "2025-06-04T12:04:00.817316767"
+              }
+            }
+          }
+        }
       }
     },
     "responses": {
@@ -3029,7 +3757,7 @@
                   "$ref": "#/components/schemas/Payout"
                 }
               },
-            "required": [
+              "required": [
                 "status",
                 "message",
                 "data"
@@ -5655,6 +6383,556 @@
           },
           "404": {
             "description": "Batch not found."
+          }
+        }
+      }
+    },
+    "/v1/ramp/wallet": {
+      "get": {
+        "tags": [
+          "Ramp"
+        ],
+        "summary": "Get All Wallets",
+        "description": "Retrieve all cryptocurrency wallets associated with the authenticated user.",
+        "operationId": "getAllRampWallets",
+        "responses": {
+          "200": {
+            "description": "Wallets retrieved successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "fetch wallet successfully"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "format": "uuid",
+                            "example": "ad14b5f8-bf59-4300-8749-234ba2198010"
+                          },
+                          "address": {
+                            "type": "string",
+                            "example": "0xc2132d05d31c914a87c6611c10748aeb04b58e8f"
+                          },
+                          "network": {
+                            "type": "string",
+                            "example": "MATIC"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/PayoutUnauthorized"
+          },
+          "500": {
+            "$ref": "#/components/responses/PayoutInternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/ramp/wallet/{walletId}": {
+      "get": {
+        "tags": [
+          "Ramp"
+        ],
+        "summary": "Get Wallet",
+        "description": "Retrieve a specific cryptocurrency wallet by its ID.",
+        "operationId": "getRampWallet",
+        "parameters": [
+          {
+            "name": "walletId",
+            "in": "path",
+            "required": true,
+            "description": "The unique identifier of the wallet to fetch.",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "bb438dfd-535f-4d5c-a9a7-cceb0988d4b3"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Wallet details retrieved successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "fetch wallet successfully"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "format": "uuid",
+                          "example": "bb438dfd-535f-4d5c-a9a7-cceb0988d4b3"
+                        },
+                        "address": {
+                          "type": "string",
+                          "example": "0xcb9aebd75ee1240e1e6d5a116772123f936ad109"
+                        },
+                        "blockChain": {
+                          "type": "string",
+                          "example": "MATIC-AMOY"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/PayoutUnauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundError"
+          },
+          "500": {
+            "$ref": "#/components/responses/PayoutInternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/ramp/wallet/{walletId}/balance": {
+      "get": {
+        "tags": [
+          "Ramp"
+        ],
+        "summary": "Get Wallet Balance",
+        "description": "Get the current balance of a specific cryptocurrency wallet.",
+        "operationId": "getRampWalletBalance",
+        "parameters": [
+          {
+            "name": "walletId",
+            "in": "path",
+            "required": true,
+            "description": "The unique identifier of the wallet to fetch balance for.",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "bb438dfd-535f-4d5c-a9a7-cceb0988d4b3"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Wallet balance retrieved successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "wallet balance fetched successfully"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "balance": {
+                          "type": "string",
+                          "example": "9.68262075"
+                        },
+                        "symbol": {
+                          "type": "string",
+                          "example": "USDC"
+                        },
+                        "blockchain": {
+                          "type": "string",
+                          "example": "MATIC-AMOY"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/PayoutUnauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundError"
+          },
+          "500": {
+            "$ref": "#/components/responses/PayoutInternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/ramp/quote": {
+      "post": {
+        "tags": [
+          "Ramp"
+        ],
+        "summary": "Create Quote",
+        "description": "Generates a guaranteed exchange rate and fee estimate for a crypto-to-fiat (offramp) or crypto-to-crypto conversion.",
+        "operationId": "createRampQuote",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/CreateRampOfframpQuoteRequest"
+                  },
+                  {
+                    "$ref": "#/components/schemas/CreateRampCryptoQuoteRequest"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Quote generated successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/CreateRampOfframpQuoteResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CreateRampCryptoQuoteResponse"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/PayoutUnauthorized"
+          },
+          "500": {
+            "$ref": "#/components/responses/PayoutInternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/ramp/quote/{quoteId}": {
+      "get": {
+        "tags": [
+          "Ramp"
+        ],
+        "summary": "Get Quote",
+        "description": "Retrieve details of a specific quote by its ID.",
+        "operationId": "getRampQuote",
+        "parameters": [
+          {
+            "name": "quoteId",
+            "in": "path",
+            "required": true,
+            "description": "The unique identifier of the quote.",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "3f41daaa-029c-44a2-b7c6-ed922a68177b"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Quote retrieved successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/CreateRampOfframpQuoteResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CreateRampCryptoQuoteResponse"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/PayoutUnauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundError"
+          },
+          "500": {
+            "$ref": "#/components/responses/PayoutInternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/ramp/gasFee": {
+      "post": {
+        "tags": [
+          "Ramp"
+        ],
+        "summary": "Generate Estimated Gas Fee",
+        "description": "Estimates the blockchain network gas fee for a crypto transfer.",
+        "operationId": "generateRampGasFee",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "amount",
+                  "symbol",
+                  "blockchain",
+                  "recipient"
+                ],
+                "properties": {
+                  "amount": {
+                    "type": "number",
+                    "example": 5
+                  },
+                  "symbol": {
+                    "type": "string",
+                    "example": "USDC"
+                  },
+                  "blockchain": {
+                    "type": "string",
+                    "example": "MATIC-AMOY"
+                  },
+                  "recipient": {
+                    "type": "object",
+                    "required": [
+                      "address"
+                    ],
+                    "properties": {
+                      "address": {
+                        "type": "string",
+                        "example": "0xd62acd62fdb155afaa5d12c6caf01119d413dfd9"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Gas fee estimated successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "gas fee estimated successfully"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "amount": {
+                          "type": "number",
+                          "example": 5
+                        },
+                        "symbol": {
+                          "type": "string",
+                          "example": "USDC"
+                        },
+                        "blockchain": {
+                          "type": "string",
+                          "example": "MATIC-AMOY"
+                        },
+                        "gas": {
+                          "type": "object",
+                          "properties": {
+                            "LOW": {
+                              "type": "string",
+                              "example": "0.01875321"
+                            },
+                            "MEDIUM": {
+                              "type": "string",
+                              "example": "0.02923792"
+                            },
+                            "HIGH": {
+                              "type": "string",
+                              "example": "0.03810231"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/PayoutUnauthorized"
+          },
+          "500": {
+            "$ref": "#/components/responses/PayoutInternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/ramp/order": {
+      "post": {
+        "tags": [
+          "Ramp"
+        ],
+        "summary": "Create Transaction",
+        "description": "Executes a transaction (either off-ramp to fiat or crypto-to-crypto transfer) using a previously generated quoteId. Takes parameters in multipart/form-data: transaction (JSON object string) and optional invoice (file).",
+        "operationId": "createRampOrder",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "transaction"
+                ],
+                "properties": {
+                  "transaction": {
+                    "type": "string",
+                    "description": "JSON string representing the transaction payload.",
+                    "example": "{\"recipient\":{\"name\":\"Pastor Bright\",\"type\":\"BUSINESS\",\"account\":{\"accountNumber\":\"0867543789\",\"sortCode\":\"044\"}},\"quoteId\":\"3f41daaa-029c-44a2-b7c6-ed922a68177b\",\"reason\":\"Gift\",\"remark\":\"thanks\"}"
+                  },
+                  "invoice": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Optional invoice file (PDF)."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Order successfully created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/RampOfframpOrderResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RampCryptoOrderResponse"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/PayoutUnauthorized"
+          },
+          "422": {
+            "description": "Unprocessable entity. For example, if the quote has expired.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "quote expired"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/PayoutInternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/ramp/transaction/{transactionId}": {
+      "get": {
+        "tags": [
+          "Ramp"
+        ],
+        "summary": "Get Transaction",
+        "description": "Retrieve details of a specific ramp transaction by its ID.",
+        "operationId": "getRampTransaction",
+        "parameters": [
+          {
+            "name": "transactionId",
+            "in": "path",
+            "required": true,
+            "description": "The unique identifier of the transaction.",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "da0ab3cd-a608-4b0a-8de5-710112e2cb06"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transaction details retrieved successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/RampOfframpOrderResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RampCryptoOrderResponse"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/PayoutUnauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundError"
+          },
+          "500": {
+            "$ref": "#/components/responses/PayoutInternalServerError"
           }
         }
       }

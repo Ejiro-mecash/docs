@@ -67,6 +67,12 @@ Use this sitemap to jump directly to any page across the meCash documentation se
 - [Webhook Delivery Logs](/webhook/webhooks-event)
 - [Webhook Signature Verification](/webhook/webhooks-signature-verification)
 
+### Ramp
+- [Ramp Overview](/ramp-docs/ramp-overview)
+- [Deposit Crypto](/ramp-docs/deposit-crypto)
+- [Withdraw Crypto](/ramp-docs/withdraw-crypto)
+- [Offramp](/ramp-docs/offramp)
+
 ## API Reference
 
 ### Wallet
@@ -95,6 +101,18 @@ Use this sitemap to jump directly to any page across the meCash documentation se
 - [Create Dynamic Virtual Account](/virtual-account/create-dynamic-virtual-account)
 - [Fund Virtual Account](/virtual-account/fund-virtual-account)
 - [Get Virtual Account](/virtual-account/get-virtual-account)
+
+### Ramp
+- [Get All Wallets](/quote-ramp/get-all-wallets)
+- [Get Wallet](/quote-ramp/get-wallet)
+- [Get Wallet Balance](/quote-ramp/get-wallet-balance)
+- [Create Quote (Crypto)](/quote-ramp/create-quote-crypto)
+- [Create Quote (Offramp)](/quote-ramp/create-quote-offramp)
+- [Get Quote (Crypto)](/quote-ramp/get-quote-crypto)
+- [Get Quote (Offramp)](/quote-ramp/get-quote-offramp)
+- [Get Gas Fee](/quote-ramp/get-gas-fee)
+- [Create Transaction](/quote-ramp/create-transaction)
+- [Get Transaction](/quote-ramp/get-transaction)
 
 ### Miscellaneous
 - [Perform Account Enquiry](/miscellaneous/perform-account-enquiry)

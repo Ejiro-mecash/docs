@@ -34,8 +34,20 @@ Programmatic fiat payments to bank accounts and mobile money wallets.
 
 ### [Ramp API](/ramp-docs/ramp-overview.mdx)
 Crypto-to-fiat (Off-Ramp) and crypto-to-crypto deposits/withdrawals.
+- [Ramp Overview](/ramp-docs/ramp-overview.mdx)
 - [Deposit Crypto](/ramp-docs/deposit-crypto.mdx)
 - [Withdraw Crypto](/ramp-docs/withdraw-crypto.mdx)
+- [Offramp](/ramp-docs/offramp.mdx)
+- [Get All Wallets](/quote-ramp/get-all-wallets.mdx)
+- [Get Wallet](/quote-ramp/get-wallet.mdx)
+- [Get Wallet Balance](/quote-ramp/get-wallet-balance.mdx)
+- [Create Quote (Crypto)](/quote-ramp/create-quote-crypto.mdx)
+- [Create Quote (Offramp)](/quote-ramp/create-quote-offramp.mdx)
+- [Get Quote (Crypto)](/quote-ramp/get-quote-crypto.mdx)
+- [Get Quote (Offramp)](/quote-ramp/get-quote-offramp.mdx)
+- [Get Gas Fee](/quote-ramp/get-gas-fee.mdx)
+- [Create Transaction](/quote-ramp/create-transaction.mdx)
+- [Get Transaction](/quote-ramp/get-transaction.mdx)
 
 ## Tools & Features
 

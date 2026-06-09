@@ -141,6 +141,16 @@
             ]
           },
           {
+            "group": "Ramp",
+            "icon": "arrow-right-arrow-left",
+            "pages": [
+              "ramp-docs/ramp-overview",
+              "ramp-docs/deposit-crypto",
+              "ramp-docs/withdraw-crypto",
+              "ramp-docs/offramp"
+            ]
+          },
+          {
             "group": "Transactions",
             "icon": "receipt",
             "pages": [
@@ -250,6 +260,22 @@
             ]
           },
           {
+            "group": "Ramp",
+            "icon": "arrows-rotate",
+            "pages": [
+              "quote-ramp/get-all-wallets",
+              "quote-ramp/get-wallet",
+              "quote-ramp/get-wallet-balance",
+              "quote-ramp/create-quote-crypto",
+              "quote-ramp/create-quote-offramp",
+              "quote-ramp/get-quote-crypto",
+              "quote-ramp/get-quote-offramp",
+              "quote-ramp/get-gas-fee",
+              "quote-ramp/create-transaction",
+              "quote-ramp/get-transaction"
+            ]
+          },
+          {
             "group": "Miscellaneous",
             "icon": "toolbox",
             "pages": [
@@ -287,17 +313,7 @@
               "payment-links",
               "virtual-cards",
               "virtual-account-spec",
-              "team-management",
-              {
-                "group": "Ramp",
-                "icon": "arrows-rotate",
-                "pages": [
-                  "ramp-docs/ramp-overview",
-                  "ramp-docs/deposit-crypto",
-                  "ramp-docs/withdraw-crypto",
-                  "ramp-docs/offramp"
-                ]
-              }
+              "team-management"
             ]
           },
           {
