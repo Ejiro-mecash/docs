@@ -1,0 +1,135 @@
+---
+title: 'Supported Ramp Assets & Destinations'
+description: 'Reference matrix of supported cryptocurrencies, blockchain networks, offramp fiat corridors, payment channels, and transaction limits for the meCash Ramp API.'
+icon: coins
+---
+
+Use this matrix to confirm your source cryptocurrency, target network or fiat currency, and applicable limits before building your Ramp integration.
+
+---
+
+## Supported cryptocurrencies
+
+The Ramp API accepts the following tokens as source assets. Each token is identified by its **symbol** and the **blockchain** it travels on — always specify both when calling the quote or gas fee endpoints.
+
+| **Token** | **Symbol** | **Blockchain** | **Blockchain ID** |
+|-----------|------------|----------------|-------------------|
+| USD Coin | `USDC` | Ethereum (ERC-20) | `ETH` |
+| USD Coin | `USDC` | Polygon | `MATIC` / `MATIC-AMOY` (Sandbox) |
+| Tether | `USDT` | Ethereum (ERC-20) | `ETH` |
+| Tether | `USDT` | Polygon | `MATIC` / `MATIC-AMOY` (Sandbox) |
+| Ether | `ETH` | Ethereum (ERC-20) | `ETH` |
+| Polygon | `POL` | Polygon | `MATIC` / `MATIC-AMOY` (Sandbox) |
+
+<Warning>
+  Always send assets on the correct network. Sending a token on an unsupported or mismatched network will result in **permanent loss of funds**. meCash cannot recover assets sent to the wrong network.
+</Warning>
+
+---
+
+## Address format
+
+For all Ethereum-based networks (Ethereum, Polygon), wallet addresses must satisfy:
+
+```
+^(0x)[0-9A-Fa-f]{40}$
+```
+
+- Starts with `0x`
+- Followed by exactly 40 hexadecimal characters
+- Total length: 42 characters
+
+<Tip>
+  The `addressRegex` field returned on every quote response contains the validation pattern for that specific network. Use it in your UI to pre-validate addresses before submission.
+</Tip>
+
+---
+
+## Offramp fiat destinations
+
+For offramp transactions (crypto-to-fiat), specify `target.country` and `target.currency` in your [Create Quote (Offramp)](/quote-ramp/create-quote-offramp) request.
+
+| **Currency** | **Code** | **Country** | **Country Code** | **Payment Channel(s)** |
+|---|---|---|---|---|
+| Nigerian Naira | `NGN` | Nigeria 🇳🇬 | `NG` | `BANK_TRANSFER`, `MOBILE_MONEY` |
+| US Dollar | `USD` | United States 🇺🇸 | `US` | `BANK_TRANSFER` (SWIFT) |
+| Euro | `EUR` | Euro zone 🇪🇺 | (varies) | `BANK_TRANSFER` (SEPA) |
+| British Pound | `GBP` | United Kingdom 🇬🇧 | `GB` | `BANK_TRANSFER` |
+| Canadian Dollar | `CAD` | Canada 🇨🇦 | `CA` | `BANK_TRANSFER` |
+
+### Payment channels
+
+| **Channel** | **Description** |
+|-------------|-----------------|
+| `BANK_TRANSFER` | Credit a traditional bank account via local or international networks |
+| `MOBILE_MONEY` | Deliver funds to a mobile money wallet (NGN corridors) |
+
+---
+
+## Transaction limits
+
+Limits are enforced per quote and returned in the `rules` array of every quote response. The values below are defaults — always read the `rules` array at runtime as they may differ per corridor or account tier.
+
+| **Currency** | **Minimum** | **Maximum (per transaction)** |
+|---|---|---|
+| NGN | ₦10 | ₦2,000,000 |
+| USD | $10 | $50,000 |
+| EUR | €10 | €50,000 |
+| GBP | £10 | £50,000 |
+| CAD | CA$10 | CA$50,000 |
+
+<Info>
+  The `rules[].invoice` field on the quote response represents the cumulative invoice limit. If your transaction approaches this ceiling, you may need to split the order.
+</Info>
+
+---
+
+## Gas fees
+
+Gas fees apply to **all** crypto transfers (both crypto-to-crypto and offramp). Three priority levels are available:
+
+| **Level** | **Speed** | **Use case** |
+|-----------|-----------|--------------|
+| `LOW` | Slower (~5–15 min) | Non-urgent transfers where cost matters |
+| `MEDIUM` | Standard (~2–5 min) | Balanced speed and cost (**default for offramp**) |
+| `HIGH` | Faster (~1–2 min) | Time-sensitive transfers |
+
+- For **crypto-to-crypto**: call [Get Gas Fee](/quote-ramp/get-gas-fee) first, then pass `feeLevel.type` into your [Create Quote (Crypto)](/quote-ramp/create-quote-crypto) request.
+- For **offramp**: gas is automatically calculated at `MEDIUM` and returned in the `gasFee` block of the [Create Quote (Offramp)](/quote-ramp/create-quote-offramp) response.
+
+---
+
+## Processing times
+
+| **Category** | **Destination** | **Estimated time** |
+|---|---|---|
+| Crypto-to-Crypto (Polygon) | Any EVM wallet | ~1–2 minutes |
+| Crypto-to-Crypto (Ethereum) | Any EVM wallet | ~2–5 minutes |
+| Offramp → NGN (Bank Transfer) | Nigerian bank | 5–30 minutes |
+| Offramp → NGN (Mobile Money) | Mobile wallet | 1–5 minutes |
+| Offramp → USD (SWIFT) | US bank | 1–3 business days |
+| Offramp → EUR (SEPA) | Euro bank | 1–2 business days |
+| Offramp → GBP | UK bank | 1–4 hours |
+
+<Info>
+  Processing times may be affected by network congestion (crypto) or bank processing schedules and public holidays (fiat).
+</Info>
+
+---
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="How Ramp Works" icon="arrows-rotate" href="/ramp-docs/about-ramp">
+    Understand the full API lifecycle and transaction flows.
+  </Card>
+  <Card title="Create Quote (Crypto)" icon="calculator" href="/quote-ramp/create-quote-crypto">
+    Start a crypto-to-crypto transfer by generating a quote.
+  </Card>
+  <Card title="Create Quote (Offramp)" icon="money-bill-transfer" href="/quote-ramp/create-quote-offramp">
+    Convert crypto to fiat currency by generating an offramp quote.
+  </Card>
+  <Card title="Ramp Webhooks" icon="bell" href="/webhook/ramp-webhook">
+    Set up webhooks to receive real-time transaction status updates.
+  </Card>
+</CardGroup>

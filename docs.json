@@ -142,12 +142,10 @@
           },
           {
             "group": "Ramp",
-            "icon": "arrow-right-arrow-left",
+            "icon": "arrows-rotate",
             "pages": [
-              "ramp-docs/ramp-overview",
-              "ramp-docs/deposit-crypto",
-              "ramp-docs/withdraw-crypto",
-              "ramp-docs/offramp"
+              "ramp-docs/about-ramp",
+              "ramp-docs/supported-assets"
             ]
           },
           {
@@ -314,6 +312,16 @@
               "virtual-cards",
               "virtual-account-spec",
               "team-management"
+            ]
+          },
+          {
+            "group": "Ramp Dashboard Guides",
+            "icon": "arrow-right-arrow-left",
+            "pages": [
+              "ramp-docs/ramp-overview",
+              "ramp-docs/deposit-crypto",
+              "ramp-docs/withdraw-crypto",
+              "ramp-docs/offramp"
             ]
           },
           {
