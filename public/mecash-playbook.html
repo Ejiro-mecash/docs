@@ -1,0 +1,2376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>meCash — Sales Enablement Playbook</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --purple: #B880E5;
+    --purple-dark: #8B3FC8;
+    --purple-deep: #5B1A9A;
+    --purple-light: #E8D0F7;
+    --purple-xlight: #F7F0FD;
+    --black: #0A0A0A;
+    --gray-dark: #1E1E2E;
+    --gray-mid: #4A4557;
+    --gray-text: #6B6785;
+    --gray-border: #E2D9F3;
+    --white: #FFFFFF;
+    --sidebar-w: 260px;
+    --rail: 4px solid var(--purple);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--white);
+    color: var(--black);
+    display: flex;
+    min-height: 100vh;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    width: var(--sidebar-w);
+    min-height: 100vh;
+    background: var(--gray-dark);
+    position: fixed;
+    top: 0; left: 0;
+    overflow-y: auto;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar-logo {
+    padding: 28px 24px 20px;
+    border-bottom: 1px solid rgba(184,128,229,0.2);
+  }
+
+  .sidebar-logo .logo-mark {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.5px;
+  }
+
+  .sidebar-logo .logo-mark span { color: var(--purple); }
+
+  .sidebar-logo .logo-sub {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray-text);
+    margin-top: 4px;
+  }
+
+  .sidebar-nav { padding: 16px 0; flex: 1; }
+
+  .nav-section-label {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--gray-text);
+    padding: 12px 24px 6px;
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 24px;
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 400;
+    transition: all 0.2s;
+    border-left: 3px solid transparent;
+    line-height: 1.3;
+  }
+
+  .nav-link:hover, .nav-link.active {
+    color: var(--white);
+    background: rgba(184,128,229,0.12);
+    border-left-color: var(--purple);
+  }
+
+  .nav-num {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--purple);
+    min-width: 18px;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  .sidebar-footer {
+    padding: 16px 24px;
+    border-top: 1px solid rgba(184,128,229,0.2);
+    font-size: 11px;
+    color: var(--gray-text);
+    text-align: center;
+  }
+
+  .sidebar-footer strong { color: var(--purple); }
+
+  /* ── MAIN CONTENT ── */
+  .main {
+    margin-left: var(--sidebar-w);
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--gray-dark);
+    padding: 80px 60px 70px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(184,128,229,0.25) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--purple-dark), var(--purple), var(--purple-light), transparent);
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(184,128,229,0.15);
+    border: 1px solid rgba(184,128,229,0.3);
+    border-radius: 100px;
+    padding: 5px 14px 5px 8px;
+    margin-bottom: 28px;
+  }
+
+  .hero-eyebrow .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--purple);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.4); }
+  }
+
+  .hero-eyebrow span {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--purple-light);
+  }
+
+  .hero h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(36px, 4vw, 54px);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.1;
+    letter-spacing: -1.5px;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 .accent { color: var(--purple); }
+
+  .hero p {
+    font-size: 17px;
+    color: rgba(255,255,255,0.6);
+    max-width: 560px;
+    line-height: 1.65;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 32px;
+    margin-top: 40px;
+  }
+
+  .hero-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .hero-stat .num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--purple);
+  }
+
+  .hero-stat .label {
+    font-size: 12px;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.5px;
+  }
+
+  /* ── CONTENT AREA ── */
+  .content { padding: 0; }
+
+  /* ── SECTIONS ── */
+  .section {
+    padding: 64px 60px;
+    border-bottom: 1px solid var(--gray-border);
+  }
+
+  .section:nth-child(even) { background: var(--purple-xlight); }
+
+  .section-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+
+  .section-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--purple);
+    background: var(--purple-light);
+    border-radius: 8px;
+    padding: 6px 12px;
+    white-space: nowrap;
+    margin-top: 4px;
+  }
+
+  .section-title-wrap h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(22px, 2.5vw, 30px);
+    font-weight: 700;
+    color: var(--black);
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+  }
+
+  .section-title-wrap p {
+    color: var(--gray-text);
+    margin-top: 8px;
+    font-size: 15px;
+  }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--white);
+    border: 1px solid var(--gray-border);
+    border-radius: 12px;
+    padding: 28px;
+    border-left: var(--rail);
+    transition: box-shadow 0.2s;
+  }
+
+  .card:hover { box-shadow: 0 4px 24px rgba(184,128,229,0.15); }
+
+  .card h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--black);
+    margin-bottom: 10px;
+  }
+
+  .card p { color: var(--gray-mid); font-size: 14px; line-height: 1.65; }
+
+  /* ── GRID LAYOUTS ── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+
+  @media (max-width: 900px) {
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+    .main { margin-left: 0; }
+    .section, .hero { padding: 40px 24px; }
+  }
+
+  /* ── ANALOGY CARDS ── */
+  .analogy-card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 24px;
+    border: 1px solid var(--gray-border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .analogy-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--purple-dark), var(--purple-light));
+  }
+
+  .analogy-icon {
+    font-size: 28px;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .analogy-card h4 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--black);
+    margin-bottom: 8px;
+  }
+
+  .analogy-card p { font-size: 13.5px; color: var(--gray-mid); line-height: 1.6; }
+
+  /* ── PROBLEM CARDS ── */
+  .problem-card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 24px;
+    border: 1px solid var(--gray-border);
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .problem-icon {
+    width: 40px; height: 40px;
+    background: var(--purple-light);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .problem-card h4 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--black);
+    margin-bottom: 6px;
+  }
+
+  .problem-card p { font-size: 13px; color: var(--gray-mid); line-height: 1.55; }
+
+  /* ── API CARDS ── */
+  .api-card {
+    background: var(--white);
+    border-radius: 16px;
+    border: 1px solid var(--gray-border);
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    transition: box-shadow 0.25s, transform 0.25s;
+  }
+
+  .api-card:hover {
+    box-shadow: 0 8px 32px rgba(184,128,229,0.2);
+    transform: translateY(-2px);
+  }
+
+  .api-card-header {
+    background: linear-gradient(135deg, var(--gray-dark) 0%, #2D1A4A 100%);
+    padding: 24px 24px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .api-card-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--purple), transparent);
+  }
+
+  .api-badge {
+    display: inline-block;
+    background: rgba(184,128,229,0.2);
+    border: 1px solid rgba(184,128,229,0.4);
+    border-radius: 6px;
+    padding: 3px 10px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--purple-light);
+    margin-bottom: 12px;
+  }
+
+  .api-card-header h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.3px;
+    margin-bottom: 8px;
+  }
+
+  .api-card-header p { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.55; }
+
+  .api-card-body { padding: 24px; }
+
+  .api-section-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--purple);
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .api-card-body p { font-size: 13.5px; color: var(--gray-mid); line-height: 1.6; margin-bottom: 16px; }
+
+  .tag-list { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+
+  .tag {
+    background: var(--purple-xlight);
+    color: var(--purple-dark);
+    border: 1px solid var(--purple-light);
+    border-radius: 100px;
+    padding: 3px 11px;
+    font-size: 11.5px;
+    font-weight: 500;
+  }
+
+  .benefit-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+
+  .benefit-list li {
+    display: flex;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--gray-mid);
+    align-items: flex-start;
+  }
+
+  .benefit-list li::before {
+    content: '✓';
+    color: var(--purple);
+    font-weight: 700;
+    margin-top: 1px;
+    flex-shrink: 0;
+  }
+
+  /* ── QUOTE / CALLOUT ── */
+  .callout {
+    background: var(--purple-xlight);
+    border-left: 4px solid var(--purple);
+    border-radius: 0 10px 10px 0;
+    padding: 18px 22px;
+    margin: 20px 0;
+  }
+
+  .callout.dark {
+    background: var(--gray-dark);
+    border-left-color: var(--purple);
+  }
+
+  .callout p { font-size: 14.5px; color: var(--gray-dark); font-style: italic; line-height: 1.6; }
+
+  .callout.dark p { color: rgba(255,255,255,0.8); }
+
+  .callout cite {
+    display: block;
+    margin-top: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--purple);
+    font-style: normal;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── TABLES ── */
+  .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--gray-border); }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+
+  thead tr { background: var(--gray-dark); }
+
+  thead th {
+    padding: 14px 16px;
+    text-align: left;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    white-space: nowrap;
+  }
+
+  thead th:first-child { color: var(--purple-light); }
+
+  tbody tr { border-bottom: 1px solid var(--gray-border); transition: background 0.15s; }
+
+  tbody tr:last-child { border-bottom: none; }
+
+  tbody tr:hover { background: var(--purple-xlight); }
+
+  td {
+    padding: 14px 16px;
+    vertical-align: top;
+    color: var(--gray-mid);
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+  td:first-child {
+    font-weight: 600;
+    color: var(--black);
+    font-size: 13.5px;
+  }
+
+  td .api-pill {
+    display: inline-block;
+    background: var(--purple-xlight);
+    color: var(--purple-dark);
+    border: 1px solid var(--purple-light);
+    border-radius: 6px;
+    padding: 2px 8px;
+    font-size: 11.5px;
+    font-weight: 600;
+    margin: 2px 2px 2px 0;
+    white-space: nowrap;
+  }
+
+  /* ── DISCOVERY QUESTIONS ── */
+  .question-block {
+    background: var(--white);
+    border: 1px solid var(--gray-border);
+    border-radius: 12px;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+
+  .question-block summary {
+    padding: 18px 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    list-style: none;
+    transition: background 0.15s;
+  }
+
+  .question-block summary:hover { background: var(--purple-xlight); }
+
+  .question-block summary::marker, .question-block summary::-webkit-details-marker { display: none; }
+
+  .q-num {
+    width: 28px; height: 28px;
+    background: var(--purple);
+    color: var(--white);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .q-text { font-size: 14px; font-weight: 500; color: var(--black); line-height: 1.45; padding-top: 4px; }
+
+  .q-chevron { margin-left: auto; color: var(--gray-text); font-size: 12px; padding-top: 6px; flex-shrink: 0; transition: transform 0.2s; }
+
+  details[open] .q-chevron { transform: rotate(180deg); }
+
+  .question-detail {
+    padding: 0 24px 20px 68px;
+    font-size: 13.5px;
+    color: var(--gray-mid);
+    line-height: 1.6;
+  }
+
+  .question-detail strong { color: var(--purple-dark); }
+
+  /* ── CATEGORY HEADER ── */
+  .cat-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 32px 0 16px;
+  }
+
+  .cat-header h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--black);
+  }
+
+  .cat-label {
+    background: var(--purple);
+    color: var(--white);
+    border-radius: 6px;
+    padding: 3px 10px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  /* ── FLOWCHART ── */
+  .flow-wrap {
+    background: var(--gray-dark);
+    border-radius: 16px;
+    padding: 36px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .flow-wrap::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 280px; height: 280px;
+    background: radial-gradient(circle, rgba(184,128,229,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .flow-node {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(184,128,229,0.3);
+    border-radius: 10px;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.85);
+    margin: 4px;
+  }
+
+  .flow-node.start {
+    background: var(--purple);
+    border-color: var(--purple);
+    color: var(--white);
+    font-weight: 700;
+  }
+
+  .flow-node.result {
+    background: rgba(184,128,229,0.2);
+    border-color: var(--purple);
+    color: var(--purple-light);
+    font-weight: 600;
+  }
+
+  .flow-node.decision {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.2);
+  }
+
+  .flow-arrow { color: var(--purple); font-size: 18px; margin: 0 4px; }
+
+  .flow-branch { padding-left: 32px; border-left: 1px dashed rgba(184,128,229,0.3); margin-left: 16px; margin-top: 8px; }
+
+  .flow-yes { color: #7EE787; font-size: 11px; font-weight: 600; letter-spacing: 1px; margin-right: 6px; }
+  .flow-no { color: #FF7B7B; font-size: 11px; font-weight: 600; letter-spacing: 1px; margin-right: 6px; }
+
+  .flow-row { display: flex; align-items: center; flex-wrap: wrap; margin: 6px 0; }
+
+  /* ── CHEAT SHEETS ── */
+  .cheat-card {
+    background: var(--white);
+    border-radius: 16px;
+    border: 1px solid var(--gray-border);
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+
+  .cheat-header {
+    background: linear-gradient(135deg, var(--purple-deep) 0%, var(--purple-dark) 100%);
+    padding: 28px 32px;
+    position: relative;
+  }
+
+  .cheat-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--purple-light);
+    opacity: 0.3;
+  }
+
+  .cheat-header h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.3px;
+  }
+
+  .cheat-header p { color: rgba(255,255,255,0.6); font-size: 13px; margin-top: 6px; }
+
+  .cheat-body { padding: 32px; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+
+  @media (max-width: 700px) { .cheat-body { grid-template-columns: 1fr; } }
+
+  .cheat-section h4 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--purple-dark);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--purple-light);
+  }
+
+  .cheat-section ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+
+  .cheat-section ul li {
+    font-size: 13.5px;
+    color: var(--gray-mid);
+    line-height: 1.5;
+    padding-left: 16px;
+    position: relative;
+  }
+
+  .cheat-section ul li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--purple);
+    font-weight: 700;
+  }
+
+  .objection-pair { margin-bottom: 16px; }
+
+  .objection-q {
+    background: #FFF3F3;
+    border-left: 3px solid #FF6B6B;
+    border-radius: 0 6px 6px 0;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: #C0392B;
+    font-style: italic;
+    margin-bottom: 6px;
+  }
+
+  .objection-a {
+    background: var(--purple-xlight);
+    border-left: 3px solid var(--purple);
+    border-radius: 0 6px 6px 0;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: var(--purple-deep);
+    line-height: 1.55;
+  }
+
+  /* ── FAQ ACCORDION ── */
+  .faq-item {
+    border: 1px solid var(--gray-border);
+    border-radius: 10px;
+    margin-bottom: 8px;
+    overflow: hidden;
+    background: var(--white);
+  }
+
+  .faq-item summary {
+    padding: 16px 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    list-style: none;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--black);
+    transition: background 0.15s;
+  }
+
+  .faq-item summary:hover { background: var(--purple-xlight); }
+  .faq-item summary::marker, .faq-item summary::-webkit-details-marker { display: none; }
+
+  .faq-chevron { color: var(--purple); font-size: 16px; flex-shrink: 0; transition: transform 0.2s; }
+  details[open] .faq-chevron { transform: rotate(180deg); }
+
+  .faq-answer {
+    padding: 0 20px 18px;
+    font-size: 13.5px;
+    color: var(--gray-mid);
+    line-height: 1.65;
+    border-top: 1px solid var(--gray-border);
+    padding-top: 14px;
+    margin-top: 0;
+  }
+
+  .faq-group-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--purple);
+    margin: 28px 0 12px;
+    padding: 8px 16px;
+    background: var(--purple-light);
+    border-radius: 6px;
+    display: inline-block;
+  }
+
+  /* ── CASE STUDIES ── */
+  .case-card {
+    background: var(--white);
+    border-radius: 16px;
+    border: 1px solid var(--gray-border);
+    overflow: hidden;
+    margin-bottom: 24px;
+    transition: box-shadow 0.2s;
+  }
+
+  .case-card:hover { box-shadow: 0 8px 32px rgba(184,128,229,0.15); }
+
+  .case-header {
+    background: var(--gray-dark);
+    padding: 24px 28px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    border-bottom: 2px solid var(--purple);
+  }
+
+  .case-num {
+    width: 44px; height: 44px;
+    background: var(--purple);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--white);
+    flex-shrink: 0;
+  }
+
+  .case-info { flex: 1; }
+
+  .case-info h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+
+  .case-info p { font-size: 12.5px; color: rgba(255,255,255,0.5); }
+
+  .case-apis { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+
+  .case-api-pill {
+    background: rgba(184,128,229,0.2);
+    border: 1px solid rgba(184,128,229,0.4);
+    color: var(--purple-light);
+    border-radius: 100px;
+    padding: 2px 10px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  .case-body { padding: 24px 28px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+
+  @media (max-width: 800px) { .case-body { grid-template-columns: 1fr; } }
+
+  .case-section-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray-text);
+    margin-bottom: 8px;
+  }
+
+  .case-body p { font-size: 13.5px; color: var(--gray-mid); line-height: 1.6; }
+
+  .outcome-box {
+    background: linear-gradient(135deg, var(--purple-xlight), #F0E4FF);
+    border: 1px solid var(--purple-light);
+    border-radius: 10px;
+    padding: 16px;
+  }
+
+  .outcome-box p { color: var(--purple-deep); font-weight: 500; }
+
+  /* ── MISTAKES SECTION ── */
+  .mistake-card {
+    background: var(--white);
+    border-radius: 16px;
+    border: 1px solid var(--gray-border);
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+
+  .mistake-header {
+    background: linear-gradient(90deg, #2D1A4A, #1E1E2E);
+    padding: 20px 28px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .mistake-badge {
+    background: #FF4444;
+    color: var(--white);
+    border-radius: 8px;
+    padding: 4px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .mistake-header h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--white);
+  }
+
+  .mistake-body { padding: 24px 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+  @media (max-width: 700px) { .mistake-body { grid-template-columns: 1fr; } }
+
+  .mistake-col h4 {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid;
+  }
+
+  .mistake-col.wrong h4 { color: #E53E3E; border-color: #FED7D7; }
+  .mistake-col.right h4 { color: #6B21C8; border-color: var(--purple-light); }
+
+  .mistake-col p { font-size: 13.5px; color: var(--gray-mid); line-height: 1.6; }
+
+  /* ── QUICK REF TABLE ── */
+  .quick-ref-table thead th { padding: 12px 14px; }
+  .quick-ref-table td { font-size: 13px; }
+  .quick-ref-table td:first-child { font-weight: 700; color: var(--purple-dark); }
+
+  /* ── BRIDGE DIAGRAM ── */
+  .bridge-diagram {
+    background: var(--gray-dark);
+    border-radius: 16px;
+    padding: 32px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    flex-wrap: wrap;
+    margin: 28px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .bridge-diagram::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--purple), transparent);
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  .bridge-box {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(184,128,229,0.2);
+    border-radius: 12px;
+    padding: 20px 24px;
+    text-align: center;
+    z-index: 1;
+    min-width: 160px;
+  }
+
+  .bridge-box .title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+
+  .bridge-box .sub { font-size: 11px; color: rgba(255,255,255,0.4); }
+
+  .bridge-center {
+    background: var(--purple);
+    border-color: var(--purple);
+  }
+
+  .bridge-center .title { color: var(--white); }
+  .bridge-center .sub { color: rgba(255,255,255,0.7); }
+
+  .bridge-arrow {
+    color: var(--purple);
+    font-size: 24px;
+    padding: 0 12px;
+    z-index: 1;
+  }
+
+  /* ── MEMORY JOGGER ── */
+  .memory-box {
+    background: linear-gradient(135deg, var(--gray-dark) 0%, #2D1A4A 100%);
+    border-radius: 16px;
+    padding: 32px 36px;
+    border: 1px solid rgba(184,128,229,0.2);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .memory-box::before {
+    content: '"';
+    position: absolute;
+    top: -20px; left: 20px;
+    font-size: 160px;
+    color: rgba(184,128,229,0.08);
+    font-family: Georgia, serif;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .memory-box p {
+    font-size: 17px;
+    color: var(--white);
+    line-height: 1.65;
+    font-style: italic;
+    position: relative;
+    z-index: 1;
+  }
+
+  .memory-box p strong { color: var(--purple); font-style: normal; }
+
+  /* ── UTILITY ── */
+  .divider {
+    height: 1px;
+    background: var(--gray-border);
+    margin: 32px 0;
+  }
+
+  .pill {
+    display: inline-block;
+    background: var(--purple-light);
+    color: var(--purple-deep);
+    border-radius: 100px;
+    padding: 2px 10px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .mt-24 { margin-top: 24px; }
+  .mt-32 { margin-top: 32px; }
+  .mb-12 { margin-bottom: 12px; }
+  .mb-20 { margin-bottom: 20px; }
+
+  .print-btn {
+    position: fixed;
+    bottom: 24px; right: 24px;
+    background: var(--purple);
+    color: var(--white);
+    border: none;
+    border-radius: 100px;
+    padding: 12px 22px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(184,128,229,0.4);
+    transition: all 0.2s;
+    z-index: 200;
+  }
+
+  .print-btn:hover {
+    background: var(--purple-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(184,128,229,0.5);
+  }
+
+  @media print {
+    .sidebar, .print-btn { display: none; }
+    .main { margin-left: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── SIDEBAR ── -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">me<span>Cash</span></div>
+    <div class="logo-sub">Sales Playbook 2025</div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Foundations</div>
+    <a class="nav-link active" href="#s1"><span class="nav-num">01</span>What is an API?</a>
+    <a class="nav-link" href="#s2"><span class="nav-num">02</span>Understanding meCash</a>
+    <div class="nav-section-label">The Products</div>
+    <a class="nav-link" href="#s3"><span class="nav-num">03</span>API Overview</a>
+    <a class="nav-link" href="#s4"><span class="nav-num">04</span>30 Customer Scenarios</a>
+    <a class="nav-link" href="#s5"><span class="nav-num">05</span>Industry Mapping</a>
+    <div class="nav-section-label">Sales Toolkit</div>
+    <a class="nav-link" href="#s6"><span class="nav-num">06</span>Discovery Questions</a>
+    <a class="nav-link" href="#s7"><span class="nav-num">07</span>API Flowchart</a>
+    <a class="nav-link" href="#s8"><span class="nav-num">08</span>Cheat Sheets</a>
+    <div class="nav-section-label">Intelligence</div>
+    <a class="nav-link" href="#s9"><span class="nav-num">09</span>Master FAQs</a>
+    <a class="nav-link" href="#s10"><span class="nav-num">10</span>Customer Stories</a>
+    <a class="nav-link" href="#s11"><span class="nav-num">11</span>Sales Mistakes</a>
+    <a class="nav-link" href="#s12"><span class="nav-num">12</span>Quick Reference</a>
+  </nav>
+  <div class="sidebar-footer">
+    Internal use only — <strong>meCash</strong> Sales Team
+  </div>
+</aside>
+
+<!-- ── MAIN ── -->
+<main class="main">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow">
+      <span class="dot"></span>
+      <span>Sales Enablement Playbook</span>
+    </div>
+    <h1>Sell the <span class="accent">financial bridge</span>,<br>not the plumbing.</h1>
+    <p>Your complete guide to understanding meCash APIs, diagnosing customer pain, and closing enterprise financial infrastructure deals across emerging markets.</p>
+    <div class="hero-meta">
+      <div class="hero-stat"><span class="num">8</span><span class="label">Core APIs</span></div>
+      <div class="hero-stat"><span class="num">30</span><span class="label">Customer Scenarios</span></div>
+      <div class="hero-stat"><span class="num">15</span><span class="label">Case Studies</span></div>
+      <div class="hero-stat"><span class="num">40</span><span class="label">Master FAQs</span></div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- ─── SECTION 1: INTRO / API ─── -->
+    <section class="section" id="s1">
+      <div class="section-header">
+        <div class="section-num">Section 01</div>
+        <div class="section-title-wrap">
+          <h2>The Non-Technical Guide to APIs</h2>
+          <p>You don't need to write code. You need to sound fluent in outcomes.</p>
+        </div>
+      </div>
+
+      <div class="callout dark">
+        <p>Your primary goal is not to write code, configure servers, or debug software. Your job is to <strong>uncover business bottlenecks</strong> and present meCash as the ultimate financial bridge.</p>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3 style="font-family:'Space Grotesk',sans-serif; font-size:19px; font-weight:700; margin-bottom:10px; color:var(--black);">What is an API?</h3>
+      <p style="color:var(--gray-mid); max-width:680px; line-height:1.7; margin-bottom:24px;">API stands for <strong>Application Programming Interface</strong> — a software messenger that allows two completely different computer systems to talk to each other, share data, and execute tasks automatically, without human intervention.</p>
+
+      <div class="bridge-diagram">
+        <div class="bridge-box">
+          <div class="title">Your Customer's App</div>
+          <div class="sub">The Dining Table</div>
+        </div>
+        <div class="bridge-arrow">⟷</div>
+        <div class="bridge-box bridge-center">
+          <div class="title">meCash API</div>
+          <div class="sub">The Waiter</div>
+        </div>
+        <div class="bridge-arrow">⟷</div>
+        <div class="bridge-box">
+          <div class="title">Global Banking Rail</div>
+          <div class="sub">The Kitchen</div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3 style="font-family:'Space Grotesk',sans-serif; font-size:19px; font-weight:700; margin-bottom:20px; color:var(--black);">4 Everyday Analogies to Use with Customers</h3>
+
+      <div class="grid-2">
+        <div class="analogy-card">
+          <span class="analogy-icon">🍽️</span>
+          <h4>The Restaurant Waiter</h4>
+          <p>You (the customer's app) sit at the table and give your order. The waiter (the API) takes it to the kitchen (the banking system) and brings your food back. You never need to know how the stove works.</p>
+        </div>
+        <div class="analogy-card">
+          <span class="analogy-icon">🔌</span>
+          <h4>The Universal Plug Adapter</h4>
+          <p>Different countries have different wall sockets. An API is the universal travel adapter that lets your specific appliance safely draw power from any electrical grid in the world.</p>
+        </div>
+        <div class="analogy-card">
+          <span class="analogy-icon">📦</span>
+          <h4>The Digital Post Office</h4>
+          <p>Instead of manually writing envelopes and licking stamps, an API is the high-speed conveyor belt connecting your office directly to the postal sorting facility — requests routed, tracked, and delivered instantly.</p>
+        </div>
+        <div class="analogy-card">
+          <span class="analogy-icon">🌐</span>
+          <h4>The UN Translator</h4>
+          <p>When your customer's accounting software (which speaks "Accounting") needs to talk to an African mobile money network (which speaks "Telecom"), the meCash API translates the request so both systems understand each other perfectly.</p>
+        </div>
+      </div>
+
+      <div class="mt-32"></div>
+      <h3 style="font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:700; margin-bottom:12px; color:var(--black);">Why Integrate APIs Instead of Building from Scratch?</h3>
+      <div class="grid-3 mt-24">
+        <div class="problem-card">
+          <div class="problem-icon">💰</div>
+          <div>
+            <h4>Regulatory Capital</h4>
+            <p>Millions of dollars in compliance licenses across multiple jurisdictions, upfront.</p>
+          </div>
+        </div>
+        <div class="problem-card">
+          <div class="problem-icon">🏦</div>
+          <div>
+            <h4>Bank Integrations</h4>
+            <p>Years of direct technical integration with dozens of central banks, commercial banks, and telecoms.</p>
+          </div>
+        </div>
+        <div class="problem-card">
+          <div class="problem-icon">🔒</div>
+          <div>
+            <h4>Engineering Teams</h4>
+            <p>Massive dedicated teams for security, fraud prevention, and server maintenance.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout mt-32">
+        <p>By integrating meCash APIs, a business gets instant access to billions of dollars in built-out financial infrastructure for a fraction of the cost — going live in <strong>days rather than decades</strong>.</p>
+      </div>
+
+      <div class="mt-32">
+        <h3 style="font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:700; margin-bottom:12px; color:var(--black);">The One-Paragraph Memory Jogger</h3>
+        <div class="memory-box">
+          <p>"An API is simply a <strong>digital bridge</strong> that connects our customer's software directly to the global banking system. Instead of hiring an army of accountants to manually check bank accounts and send wires, our API acts as an invisible digital assistant — instantly collecting money, moving funds, converting currencies, and updating balances in real time, so our customers can focus on <strong>growing their business</strong> rather than managing plumbing."</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── SECTION 2: UNDERSTANDING meCash ─── -->
+    <section class="section" id="s2">
+      <div class="section-header">
+        <div class="section-num">Section 02</div>
+        <div class="section-title-wrap">
+          <h2>Understanding meCash: The Business View</h2>
+          <p>Stop thinking of us as a "software company." We are Financial Infrastructure.</p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div>
+          <h3 style="font-family:'Space Grotesk',sans-serif; font-size:18px; font-weight:700; margin-bottom:12px; color:var(--black);">What is meCash?</h3>
+          <p style="color:var(--gray-mid); line-height:1.7;">meCash is an <strong>enterprise-grade payment and banking infrastructure platform</strong>. We provide the invisible digital rails that power modern commerce across emerging markets — specifically Africa — and connect them seamlessly to global financial networks. We allow any business, from an early-stage fintech app to a massive multinational airline, to embed banking, collection, and disbursement tools directly into their own products.</p>
+        </div>
+        <div>
+          <h3 style="font-family:'Space Grotesk',sans-serif; font-size:18px; font-weight:700; margin-bottom:12px; color:var(--black);">Why Businesses Choose meCash</h3>
+          <p style="color:var(--gray-mid); line-height:1.7; margin-bottom:12px;"><strong>"One Connection to Rule Them All."</strong> Instead of spending two years building dozens of fragile local bank integrations, a company integrates the meCash API once and immediately gains the ability to:</p>
+          <ul class="benefit-list">
+            <li>Accept payments via bank transfers, cards, and mobile money across dozens of countries</li>
+            <li>Hold funds securely in multi-currency digital wallets</li>
+            <li>Swap currencies instantly at locked-in wholesale FX rates</li>
+            <li>Send automated mass payouts to millions of accounts instantly</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+      <h3 style="font-family:'Space Grotesk',sans-serif; font-size:18px; font-weight:700; margin-bottom:20px; color:var(--black);">The 4 Problems meCash Solves</h3>
+
+      <div class="grid-2">
+        <div class="problem-card">
+          <div class="problem-icon">🗺️</div>
+          <div>
+            <h4>The Fragmentation Problem</h4>
+            <p>To operate across five African countries, businesses had to open local bank accounts in all five, negotiate separate contracts with MTN, Airtel, M-Pesa, and Vodafone, and build five completely different technical connections.</p>
+          </div>
+        </div>
+        <div class="problem-card">
+          <div class="problem-icon">📊</div>
+          <div>
+            <h4>The Reconciliation Nightmare</h4>
+            <p>When a business receives 10,000 bank transfers a day, finance teams spend weeks manually matching bank statement lines to customer invoices. Completely unscalable.</p>
+          </div>
+        </div>
+        <div class="problem-card">
+          <div class="problem-icon">⏳</div>
+          <div>
+            <h4>The Slow Settlement Trap</h4>
+            <p>Traditional cross-border SWIFT wires take 3–7 business days to clear, trapping vital working capital and exposing businesses to massive foreign exchange volatility.</p>
+          </div>
+        </div>
+        <div class="problem-card">
+          <div class="problem-icon">❌</div>
+          <div>
+            <h4>High Transaction Failure Rates</h4>
+            <p>Legacy banking infrastructure frequently experiences downtime, timeouts, and failed transactions — leading to lost sales and furious end-consumers.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+      <h3 style="font-family:'Space Grotesk',sans-serif; font-size:18px; font-weight:700; margin-bottom:16px; color:var(--black);">What Makes meCash Different?</h3>
+      <div class="grid-3">
+        <div class="card">
+          <h3>🔗 Deep Local Rail Connections</h3>
+          <p>Direct native integrations with local central clearing houses, primary commercial banks, and top-tier telecom operators — giving higher success rates and faster speeds than competitors.</p>
+        </div>
+        <div class="card">
+          <h3>📒 Automated Bookkeeping at Core</h3>
+          <p>Our APIs don't just move money — they attach rich transactional data to every penny. We solve the accounting problem alongside the payment problem.</p>
+        </div>
+        <div class="card">
+          <h3>💱 True Multi-Currency Architecture</h3>
+          <p>Unlike legacy processors that convert everything back to USD (charging double conversion fees), meCash natively supports local currencies alongside global majors.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── SECTION 3: API OVERVIEW ─── -->
+    <section class="section" id="s3">
+      <div class="section-header">
+        <div class="section-num">Section 03</div>
+        <div class="section-title-wrap">
+          <h2>Overview of Every meCash API</h2>
+          <p>Eight products. One integration. Infinite leverage.</p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+
+        <!-- WALLET API -->
+        <div class="api-card">
+          <div class="api-card-header">
+            <div class="api-badge">Core Infrastructure</div>
+            <h3>Wallet API</h3>
+            <p>Create, hold, and manage digital money accounts (wallets) inside any platform — like giving your software its own internal banking ledger.</p>
+          </div>
+          <div class="api-card-body">
+            <span class="api-section-label">Solves</span>
+            <p>Without this, companies maintain error-prone Excel sheets to track which user owns what balance. The Wallet API automates the entire ledger.</p>
+            <span class="api-section-label">Best For</span>
+            <div class="tag-list">
+              <span class="tag">Fintechs</span><span class="tag">Digital Banks</span><span class="tag">Investment Apps</span><span class="tag">Crypto Exchanges</span><span class="tag">Super Apps</span><span class="tag">Gig Platforms</span>
+            </div>
+            <span class="api-section-label">Key Benefits</span>
+            <ul class="benefit-list">
+              <li>Hold USD, NGN, KES, GBP simultaneously</li>
+              <li>Automated segregation of customer vs. corporate funds</li>
+              <li>Enables in-app digital balances, stored value, loyalty cashbacks</li>
+              <li>Generate millions of individual sub-wallets instantly</li>
+            </ul>
+            <div class="callout" style="margin-top:16px; margin-bottom:0;">
+              <p>💡 <strong>Analogy:</strong> Like a casino chip system — the casino knows exactly how many chips are in circulation at any second.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- QUOTE API -->
+        <div class="api-card">
+          <div class="api-card-header">
+            <div class="api-badge">FX & Currency</div>
+            <h3>Quote API</h3>
+            <p>Live guaranteed foreign exchange conversion rates that lock in the exact wholesale price for a set window of time.</p>
+          </div>
+          <div class="api-card-body">
+            <span class="api-section-label">Solves</span>
+            <p>Currency markets fluctuate every second. Without a rate lock, merchants lose profit margins to exchange rate swings between quoting and receiving payment.</p>
+            <span class="api-section-label">Best For</span>
+            <div class="tag-list">
+              <span class="tag">Remittance</span><span class="tag">Cross-Border E-Commerce</span><span class="tag">International Payroll</span><span class="tag">Travel Platforms</span>
+            </div>
+            <span class="api-section-label">Key Benefits</span>
+            <ul class="benefit-list">
+              <li>Lock in guaranteed interbank rates for up to 15 minutes</li>
+              <li>Zero FX slippage — meCash absorbs the volatility risk</li>
+              <li>Penny-perfect transparency at checkout</li>
+              <li>Wholesale rates — bypassing commercial bank markups</li>
+            </ul>
+            <div class="callout" style="margin-top:16px; margin-bottom:0;">
+              <p>💡 <strong>Analogy:</strong> Like "Hold this price for 24 hours" on a flight booking — you're guaranteed the rate even if prices change.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- PAYOUT API -->
+        <div class="api-card">
+          <div class="api-card-header">
+            <div class="api-badge">Disbursement</div>
+            <h3>Payout API</h3>
+            <p>An automated money-sending engine that instantly disburses individual payments to external bank accounts or mobile wallets globally.</p>
+          </div>
+          <div class="api-card-body">
+            <span class="api-section-label">Solves</span>
+            <p>Manual payout processes require finance staff to log into bank portals, enter account numbers one-by-one, and authorize transfers individually — agonizingly slow and error-prone.</p>
+            <span class="api-section-label">Best For</span>
+            <div class="tag-list">
+              <span class="tag">Ride-Hailing</span><span class="tag">Food Delivery</span><span class="tag">Betting</span><span class="tag">Freelance Marketplaces</span><span class="tag">Insurance Claims</span>
+            </div>
+            <span class="api-section-label">Key Benefits</span>
+            <ul class="benefit-list">
+              <li>95%+ of payouts settle in under 60 seconds, 24/7/365</li>
+              <li>Dual-rail: bank accounts AND mobile money wallets</li>
+              <li>Auto-detects invalid accounts before funds are lost</li>
+              <li>Enables "Instant Cashout" business models</li>
+            </ul>
+            <div class="callout" style="margin-top:16px; margin-bottom:0;">
+              <p>💡 <strong>Analogy:</strong> Like an automated ATM built inside your office — type a name, cash materializes in their account.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- BULK PAYOUT API -->
+        <div class="api-card">
+          <div class="api-card-header">
+            <div class="api-badge">Mass Disbursement</div>
+            <h3>Bulk Payout API</h3>
+            <p>An industrial-strength disbursement tool — dispatches thousands of individual payments simultaneously with a single batch command.</p>
+          </div>
+          <div class="api-card-body">
+            <span class="api-section-label">Solves</span>
+            <p>Sending 50,000 individual API calls sequentially could overload systems and take hours. Bulk Payout bundles them into one massively optimized batch.</p>
+            <span class="api-section-label">Best For</span>
+            <div class="tag-list">
+              <span class="tag">Payroll Software</span><span class="tag">Government Agencies</span><span class="tag">NGOs</span><span class="tag">Agri Co-ops</span><span class="tag">Affiliate Networks</span>
+            </div>
+            <span class="api-section-label">Key Benefits</span>
+            <ul class="benefit-list">
+              <li>Process up to 100,000 transactions per run</li>
+              <li>Fault-tolerant: one failed payment doesn't block the rest</li>
+              <li>Pre-validation scrubbing before a single cent moves</li>
+              <li>One clean consolidated report for 10,000+ transactions</li>
+            </ul>
+            <div class="callout" style="margin-top:16px; margin-bottom:0;">
+              <p>💡 <strong>Analogy:</strong> Like a corporate mailroom printing press — not one letter, but 100,000 simultaneously on an assembly line.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- VIRTUAL ACCOUNTS API -->
+        <div class="api-card">
+          <div class="api-card-header">
+            <div class="api-badge">Collection & Reconciliation</div>
+            <h3>Virtual Accounts API</h3>
+            <p>Unique, programmable digital bank account numbers — real-looking accounts that route funds instantly into a master wallet with full payer identification.</p>
+          </div>
+          <div class="api-card-body">
+            <span class="api-section-label">Static vs. Dynamic</span>
+            <p><strong>Static VA:</strong> Permanent account assigned forever to ONE customer (like a private P.O. Box). <strong>Dynamic VA:</strong> Temporary, self-destructing account tied to ONE shopping cart with a timer (like a coat-check ticket).</p>
+            <span class="api-section-label">Best For</span>
+            <div class="tag-list">
+              <span class="tag">B2B Wholesale</span><span class="tag">Real Estate</span><span class="tag">Schools</span><span class="tag">Lenders</span><span class="tag">Utilities</span><span class="tag">Crypto</span>
+            </div>
+            <span class="api-section-label">Key Benefits</span>
+            <ul class="benefit-list">
+              <li>100% automated reconciliation — no manual matching ever</li>
+              <li>Zero chargebacks (bank transfers are irreversible)</li>
+              <li>Displays your company's brand name in banking apps</li>
+              <li>Instantly rejects or flags wrong-amount transfers</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- MOBILE MONEY COLLECTION -->
+        <div class="api-card">
+          <div class="api-card-header">
+            <div class="api-badge">Mobile-First Collection</div>
+            <h3>Mobile Money Collection API</h3>
+            <p>Directly pull or receive funds from customer mobile wallets (M-Pesa, MTN MoMo, Airtel Money, Orange Money) across Africa.</p>
+          </div>
+          <div class="api-card-body">
+            <span class="api-section-label">Solves</span>
+            <p>In sub-Saharan Africa, mobile money is the primary currency. Businesses that only accept Visa/Mastercard are actively locking out up to 85% of their potential customers.</p>
+            <span class="api-section-label">Supported Networks</span>
+            <div class="tag-list">
+              <span class="tag">MTN MoMo</span><span class="tag">M-Pesa (KE/TZ)</span><span class="tag">Vodafone Cash</span><span class="tag">AirtelTigo</span><span class="tag">Orange Money</span><span class="tag">Wave</span>
+            </div>
+            <span class="api-section-label">Key Benefits</span>
+            <ul class="benefit-list">
+              <li>STK Push — secure PIN prompt directly on customer's phone</li>
+              <li>Works on basic $10 Nokia feature phones via USSD</li>
+              <li>No smartphone or internet connection required</li>
+              <li>Multi-country access via a single meCash contract</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- TRANSACTION API -->
+        <div class="api-card">
+          <div class="api-card-header">
+            <div class="api-badge">Data & Compliance</div>
+            <h3>Transaction API</h3>
+            <p>The master financial surveillance and data retrieval engine — real-time visibility, historical tracking, and rich reporting on every financial event.</p>
+          </div>
+          <div class="api-card-body">
+            <span class="api-section-label">Solves</span>
+            <p>When processing thousands of daily transactions, support teams, auditors, and CFOs need instant searchable access to payment history without digging through database logs.</p>
+            <span class="api-section-label">Best For</span>
+            <div class="tag-list">
+              <span class="tag">CFOs</span><span class="tag">Compliance Officers</span><span class="tag">Customer Support</span><span class="tag">Finance Controllers</span>
+            </div>
+            <span class="api-section-label">Key Benefits</span>
+            <ul class="benefit-list">
+              <li>Instant ticket resolution for customer support teams</li>
+              <li>7+ years of immutable, queryable transaction records</li>
+              <li>Filter by custom metadata, user IDs, or invoice tags</li>
+              <li>ERP integration-ready (SAP, Oracle, QuickBooks, Xero)</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- WEBHOOKS -->
+        <div class="api-card">
+          <div class="api-card-header">
+            <div class="api-badge">Real-Time Events</div>
+            <h3>Webhooks</h3>
+            <p>An automatic digital push notification that alerts your software the exact millisecond a financial event occurs — no polling required.</p>
+          </div>
+          <div class="api-card-body">
+            <span class="api-section-label">Polling vs. Webhooks</span>
+            <div class="callout" style="margin-bottom:16px;">
+              <p>❌ <strong>Polling:</strong> "Is my pizza ready? Is it ready? Is it ready?" — every 2 minutes, all day.<br/>✅ <strong>Webhooks:</strong> The shop texts you the exact second your driver pulls in.</p>
+            </div>
+            <span class="api-section-label">Best For</span>
+            <div class="tag-list">
+              <span class="tag">E-Commerce Fulfillment</span><span class="tag">Gaming & Betting</span><span class="tag">IoT & Smart Metering</span><span class="tag">Logistics</span><span class="tag">SaaS</span>
+            </div>
+            <span class="api-section-label">Key Benefits</span>
+            <ul class="benefit-list">
+              <li>Cryptographically signed — completely tamper-proof</li>
+              <li>Auto-retry for up to 72 hours if your server goes down</li>
+              <li>Eliminates wasteful polling server costs</li>
+              <li>Trigger instant downstream actions on confirmed payment</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ─── SECTION 4: 30 SCENARIOS ─── -->
+    <section class="section" id="s4">
+      <div class="section-header">
+        <div class="section-num">Section 04</div>
+        <div class="section-title-wrap">
+          <h2>30 Customer Scenarios</h2>
+          <p>When customers describe their pain, instantly map it to the right API.</p>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>When the Customer Says…</th>
+              <th>Business Type</th>
+              <th>Recommended API</th>
+              <th>Business Reason</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>"I want to pay my employees."</td><td>Software / Agency</td><td><span class="api-pill">Bulk Payout API</span></td><td>Dispatches thousands of salary payments concurrently with one batch command.</td></tr>
+            <tr><td>"I need customers to send money to me."</td><td>General Merchant</td><td><span class="api-pill">Virtual Accounts</span></td><td>Gives end-customers a secure bank account number to transfer funds into.</td></tr>
+            <tr><td>"I need to pay freelancers."</td><td>Gig Marketplace</td><td><span class="api-pill">Payout API</span></td><td>Pushes individual earnings outward to contractors' bank or mobile wallets instantly.</td></tr>
+            <tr><td>"My finance team spends two weeks matching bank statements to orders."</td><td>B2B Wholesale</td><td><span class="api-pill">Static Virtual Accounts</span></td><td>Assigns a permanent unique bank account to each buyer — deposits auto-identify the payer.</td></tr>
+            <tr><td>"We lose a fortune to exchange rate spikes between quoting and receiving payment."</td><td>Cross-Border Trader</td><td><span class="api-pill">Quote API</span></td><td>Locks in guaranteed wholesale FX rates for up to 15 minutes to secure margins.</td></tr>
+            <tr><td>"Our shoppers abandon carts when asked to type in their Visa card numbers."</td><td>E-Commerce</td><td><span class="api-pill">Mobile Money Collection</span></td><td>Triggers an instant "Enter PIN" prompt directly onto the shopper's phone via USSD.</td></tr>
+            <tr><td>"We want to let app users hold a digital balance and save up over time."</td><td>WealthTech</td><td><span class="api-pill">Wallet API</span></td><td>Creates programmatic digital ledgers to manage millions of customer balances safely.</td></tr>
+            <tr><td>"When customers pay electricity bills online, they want power back in seconds."</td><td>Utility / Smart Metering</td><td><span class="api-pill">Webhooks</span></td><td>Fires an instant notification to the utility server the exact millisecond money clears.</td></tr>
+            <tr><td>"We need African contractors paid to local M-Pesa, but we only hold USD."</td><td>International Enterprise</td><td><span class="api-pill">Quote API</span> <span class="api-pill">Payout API</span></td><td>Converts enterprise USD into local currencies and drops it into telco wallets.</td></tr>
+            <tr><td>"We need to issue instant refunds when shoppers return clothing."</td><td>Fashion E-Commerce</td><td><span class="api-pill">Payout API</span></td><td>Automatically returns exact purchase amounts directly to the customer's bank account.</td></tr>
+            <tr><td>"Our drivers want to tap a button and withdraw their daily earnings at midnight."</td><td>Ride-Hailing</td><td><span class="api-pill">Payout API</span></td><td>Connects app triggers directly to banking rails, disbursing funds 24/7/365.</td></tr>
+            <tr><td>"Players want to deposit, play instantly, and cash out winnings in seconds."</td><td>Sports Betting</td><td><span class="api-pill">Mobile Money Collection</span> <span class="api-pill">Payout API</span></td><td>Collects instant deposits via MoMo PIN prompts and pushes out winnings instantly.</td></tr>
+            <tr><td>"We distribute monthly cash aid to 40,000 unbanked refugees in rural Uganda."</td><td>International NGO</td><td><span class="api-pill">Bulk Payout API</span></td><td>Batches 40,000 aid payments and routes them to feature-phone mobile money accounts.</td></tr>
+            <tr><td>"Our agents spend all day just telling customers if their transfer arrived."</td><td>Consumer Service App</td><td><span class="api-pill">Transaction API</span></td><td>Plugs live transactional tracking directly into the customer support team's dashboard.</td></tr>
+            <tr><td>"We want temporary payment codes for one-off purchases that expire in 30 minutes."</td><td>Ticketing / Events</td><td><span class="api-pill">Dynamic Virtual Accounts</span></td><td>Generates disposable bank account numbers tied to a timer and specific shopping cart.</td></tr>
+            <tr><td>"We need users to maintain both a Sterling and Naira account side by side."</td><td>Neo-Bank / Fintech</td><td><span class="api-pill">Wallet API</span></td><td>Natively generates segregated multi-currency sub-wallets under a master umbrella account.</td></tr>
+            <tr><td>"Half our school parents forget to write their child's name on deposit slips."</td><td>Educational Institution</td><td><span class="api-pill">Static Virtual Accounts</span></td><td>Every student gets a permanent unique account — parents can never send anonymous funds.</td></tr>
+            <tr><td>"When a flight is delayed, we want to send the claim payout to their bank automatically."</td><td>InsurTech</td><td><span class="api-pill">Webhooks</span> <span class="api-pill">Payout API</span></td><td>Flight data triggers a Webhook which instantly fires the Payout API to disburse the claim.</td></tr>
+            <tr><td>"We manage 500 rentals — tracking who's late is driving property managers insane."</td><td>Real Estate / PropTech</td><td><span class="api-pill">Static Virtual Accounts</span></td><td>Each apartment unit gets its own dedicated virtual bank account number.</td></tr>
+            <tr><td>"5,000 social media influencers need to get paid commission every Friday morning."</td><td>Affiliate Marketing</td><td><span class="api-pill">Bulk Payout API</span></td><td>Dispatches thousands of micro-commissions across banking and mobile money rails concurrently.</td></tr>
+            <tr><td>"Users pool spare change to buy fractional real estate."</td><td>Micro-Investment App</td><td><span class="api-pill">Wallet API</span></td><td>Captures micro-deposits, updates individual user ledger balances, sweeps to master accounts.</td></tr>
+            <tr><td>"Our hospital can't figure out which department earned what revenue."</td><td>Healthcare Provider</td><td><span class="api-pill">Static Virtual Accounts</span></td><td>Assigns dedicated virtual accounts to specific billing departments for pristine revenue auditing.</td></tr>
+            <tr><td>"We want to hold seat reservations for 12 hours while protecting against currency shifts."</td><td>Airlines & Travel</td><td><span class="api-pill">Quote API</span></td><td>Generates locked-in FX quotes that guarantee ticket margins during extended booking windows.</td></tr>
+            <tr><td>"We collect USD from US employers and pay developers in local African currencies."</td><td>Remote Talent Marketplace</td><td><span class="api-pill">Quote API</span> <span class="api-pill">Bulk Payout API</span></td><td>Collects hard currency, locks live wholesale conversion rates, mass-disburses locally.</td></tr>
+            <tr><td>"Our ERP needs to auto-generate weekly cash-flow reports without manual data entry."</td><td>Enterprise Finance</td><td><span class="api-pill">Transaction API</span></td><td>Feeds live categorized transaction logs directly into enterprise accounting software.</td></tr>
+            <tr><td>"Users want to wire fiat into our crypto exchange and see buying power instantly."</td><td>Crypto / Web3</td><td><span class="api-pill">Static Virtual Accounts</span> <span class="api-pill">Webhooks</span></td><td>User wires into VA; Webhook alerts exchange to credit their fiat wallet instantly.</td></tr>
+            <tr><td>"Money needs to move instantly between rural crop buyers and urban sellers."</td><td>Agri-Marketplace</td><td><span class="api-pill">Wallet API</span> <span class="api-pill">Payout API</span></td><td>Holds buyer funds in escrow wallets; pushes payouts to farmers upon delivery confirmation.</td></tr>
+            <tr><td>"We want players to buy $0.50 digital armor using their telecom airtime."</td><td>Gaming / Entertainment</td><td><span class="api-pill">Mobile Money Collection</span></td><td>Processes instant low-fee micro-collections where credit card fees would destroy margins.</td></tr>
+            <tr><td>"We need transparent ledgers showing how much each medical fundraising campaign raised."</td><td>Crowdfunding</td><td><span class="api-pill">Wallet API</span></td><td>Spins up dedicated sub-wallets for each fundraising campaign for absolute fund transparency.</td></tr>
+            <tr><td>"We collect payments for 10,000 corner shops and settle them every evening."</td><td>Merchant Aggregator</td><td><span class="api-pill">Virtual Accounts</span> <span class="api-pill">Bulk Payout API</span></td><td>Collects via VAs, pools funds, executes automated batch settlements to shop owners at close of business.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ─── SECTION 5: INDUSTRY MAPPING ─── -->
+    <section class="section" id="s5">
+      <div class="section-header">
+        <div class="section-num">Section 05</div>
+        <div class="section-title-wrap">
+          <h2>Industry Mapping</h2>
+          <p>Speak the exact language of your buyer's industry.</p>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Industry</th>
+              <th>Primary Pain</th>
+              <th>Recommended APIs</th>
+              <th>Strategic Positioning</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Fintech Apps</td><td>Core banking too slow and expensive to build from scratch</td><td><span class="api-pill">Wallet API</span> <span class="api-pill">Virtual Accounts</span> <span class="api-pill">Payout API</span></td><td>"We provide the complete 'Bank-in-a-Box' backend."</td></tr>
+            <tr><td>Lending / Credit</td><td>Friction in collecting repayments + slow loan disbursement</td><td><span class="api-pill">Payout API</span> <span class="api-pill">Mobile Money Collection</span> <span class="api-pill">Virtual Accounts</span></td><td>Disburse approved loans instantly; auto-debit repayments via MoMo prompts.</td></tr>
+            <tr><td>Payroll & HR</td><td>Moving money to thousands across fragmented African banking/telco networks</td><td><span class="api-pill">Bulk Payout API</span> <span class="api-pill">Quote API</span></td><td>"Upload one spreadsheet. Drop salaries into 5,000 accounts simultaneously."</td></tr>
+            <tr><td>Insurance</td><td>Claims take weeks; collecting premiums via cards constantly fails</td><td><span class="api-pill">Webhooks</span> <span class="api-pill">Payout API</span> <span class="api-pill">Virtual Accounts</span></td><td>Collect recurring premiums via VAs; become an 'Instant Payout' insurer on claims.</td></tr>
+            <tr><td>Savings Apps</td><td>Managing micro-deposits from thousands creates impossible accounting headaches</td><td><span class="api-pill">Wallet API</span> <span class="api-pill">Mobile Money Collection</span></td><td>Let users push spare change from MoMo wallets into goal-based savings ledgers.</td></tr>
+            <tr><td>Investment Platforms</td><td>Local currency must be instantly converted to hard currency to buy global assets</td><td><span class="api-pill">Quote API</span> <span class="api-pill">Wallet API</span></td><td>Lock in real-time wholesale FX so users can swap local currency into USD instantly.</td></tr>
+            <tr><td>Marketplaces</td><td>Buyers won't pay until goods arrive; sellers won't ship until they're paid</td><td><span class="api-pill">Wallet API</span> <span class="api-pill">Payout API</span></td><td>Create programmatic escrow accounts; trigger automated payout on delivery confirmation.</td></tr>
+            <tr><td>E-Commerce</td><td>Massive cart abandonment due to low-success credit card gateways</td><td><span class="api-pill">Mobile Money Collection</span> <span class="api-pill">Dynamic Virtual Accounts</span></td><td>Give African consumers payment methods they trust — MoMo PIN prompts and bank transfers.</td></tr>
+            <tr><td>Travel & Airlines</td><td>Ticket value loss from currency fluctuations during multi-hour booking holds</td><td><span class="api-pill">Quote API</span> <span class="api-pill">Dynamic Virtual Accounts</span></td><td>Lock in guaranteed currency quotes; accept high-value payments via secure bank transfers.</td></tr>
+            <tr><td>Gaming & Betting</td><td>Slow deposits kill betting momentum; slow payouts kill platform trust</td><td><span class="api-pill">Mobile Money Collection</span> <span class="api-pill">Payout API</span></td><td>Pull deposits in 3 seconds via MoMo; push winnings out after the final whistle.</td></tr>
+            <tr><td>Crypto & Web3</td><td>Getting fiat into/out of crypto ecosystems is heavily restricted and broken</td><td><span class="api-pill">Virtual Accounts</span> <span class="api-pill">Payout API</span></td><td>Permanent fiat on-ramps via Virtual Accounts; instant cash-outs to local bank accounts.</td></tr>
+            <tr><td>NGOs & Relief</td><td>Distributing physical cash to rural, unbanked populations is dangerous and slow</td><td><span class="api-pill">Bulk Payout API</span></td><td>Beam digital funds to thousands of feature phones simultaneously with zero cash risk.</td></tr>
+            <tr><td>Schools & Education</td><td>Anonymous bank wire deposits from parents create total bursar chaos</td><td><span class="api-pill">Static Virtual Accounts</span></td><td>Every student gets a permanent VA — payment instantly identifies which student paid.</td></tr>
+            <tr><td>Hospitals & Healthcare</td><td>Fragmented billing across pharmacy, lab, and consultation leads to missing revenue</td><td><span class="api-pill">Static Virtual Accounts</span> <span class="api-pill">Webhooks</span></td><td>Assign VAs to departments; Webhook triggers printing test results when lab payment clears.</td></tr>
+            <tr><td>Utilities & Billers</td><td>Disconnect between bill payment and turning service (electricity/water) back on</td><td><span class="api-pill">Virtual Accounts</span> <span class="api-pill">Webhooks</span></td><td>When customer pays into their utility VA, our Webhook triggers smart valve to restore service.</td></tr>
+            <tr><td>Ride-Hailing</td><td>Driver churn because platforms hold earnings for 7–14 days</td><td><span class="api-pill">Payout API</span></td><td>"Instant Daily Cashout" — press a button at shift end, fares go to mobile wallet.</td></tr>
+            <tr><td>Logistics & Delivery</td><td>Cash-on-delivery is dangerous for drivers; creates massive reconciliation loss</td><td><span class="api-pill">Dynamic Virtual Accounts</span></td><td>Eliminate physical cash; hand over parcel the moment the Webhook fires on payment.</td></tr>
+            <tr><td>Remittance</td><td>High fees and slow last-mile distribution to emerging market recipients</td><td><span class="api-pill">Quote API</span> <span class="api-pill">Payout API</span></td><td>Capture diaspora funds, lock the exact payout rate, disburse to local bank/MoMo in seconds.</td></tr>
+            <tr><td>B2B Platforms</td><td>Invoice settlement takes days via SWIFT, trapping small business working capital</td><td><span class="api-pill">Virtual Accounts</span> <span class="api-pill">Quote API</span></td><td>Settle cross-border invoices instantly over local rails at locked-in wholesale FX rates.</td></tr>
+            <tr><td>Merchant Aggregators</td><td>Collecting for thousands of merchants requires complex sub-ledger splitting</td><td><span class="api-pill">Wallet API</span> <span class="api-pill">Bulk Payout API</span></td><td>Maintain sub-wallets for 10,000 merchants; trigger zero-fee bulk settlements every night.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ─── SECTION 6: DISCOVERY QUESTIONS ─── -->
+    <section class="section" id="s6">
+      <div class="section-header">
+        <div class="section-num">Section 06</div>
+        <div class="section-title-wrap">
+          <h2>Customer Discovery Questions</h2>
+          <p>Amateurs pitch products. Masters ask brilliant questions and let customers realize their own operations are broken.</p>
+        </div>
+      </div>
+
+      <div class="callout" style="margin-bottom:32px;">
+        <p><strong>The Discovery Framework:</strong> Uncover Current Flow → Identify the Pain / Cost → Expose the Scalability Trap</p>
+      </div>
+
+      <!-- Category A -->
+      <div class="cat-header">
+        <span class="cat-label">Category A</span>
+        <h3>Inflow & Collection — Finding the "Getting Paid" Friction</h3>
+      </div>
+      <details class="question-block"><summary><span class="q-num">1</span><span class="q-text">"Walk me through the exact journey of a customer paying you today — from the moment they decide to buy to the moment your bank confirms the cash."</span><span class="q-chevron">▼</span></summary><div class="question-detail"><strong>Why ask this:</strong> Forces them to map out their own friction. You are looking for manual verification steps, human interventions, and delays in the process.</div></details>
+      <details class="question-block"><summary><span class="q-num">2</span><span class="q-text">"What percentage of your customers currently drop out or abandon their purchase at your payment checkout screen?"</span><span class="q-chevron">▼</span></summary><div class="question-detail"><strong>Why ask this:</strong> Exposes poor conversion rates caused by relying solely on credit card gateways in mobile-first markets. Leads to Mobile Money Collection pitch.</div></details>
+      <details class="question-block"><summary><span class="q-num">3</span><span class="q-text">"When customers pay you via standard bank transfers, how do your staff actually figure out which customer sent which deposit?"</span><span class="q-chevron">▼</span></summary><div class="question-detail"><strong>Why ask this:</strong> Instantly uncovers the massive manual reconciliation nightmare that leads directly to pitching Virtual Accounts.</div></details>
+      <details class="question-block"><summary><span class="q-num">4</span><span class="q-text">"How frequently do your customers make typos in their payment reference numbers, and how much customer service time is wasted hunting down those 'lost' payments?"</span><span class="q-chevron">▼</span></summary><div class="question-detail"><strong>Why ask this:</strong> Quantifies the human cost of unreferenced payments — makes the Virtual Accounts value proposition impossible to ignore.</div></details>
+      <details class="question-block"><summary><span class="q-num">5</span><span class="q-text">"Are you currently turning away mass-market consumers because they want to pay with M-Pesa, MTN MoMo, or Orange Money, but you only accept Visa/Mastercard?"</span><span class="q-chevron">▼</span></summary><div class="question-detail"><strong>Why ask this:</strong> Exposes a massive blind spot in their Total Addressable Market (TAM). In markets like Ghana and Uganda, card penetration is under 15%.</div></details>
+      <details class="question-block"><summary><span class="q-num">6</span><span class="q-text">"What is your average ticket size, and how much of your profit margin is currently being eaten alive by standard percentage-based credit card processing fees?"</span><span class="q-chevron">▼</span></summary><div class="question-detail"><strong>Why ask this:</strong> Positions Mobile Money Collection or Bank Transfers as a massive cost-reduction play — fixed low fees vs. high card percentages.</div></details>
+
+      <!-- Category B -->
+      <div class="cat-header">
+        <span class="cat-label">Category B</span>
+        <h3>Outflow & Disbursements — Finding the "Paying Out" Friction</h3>
+      </div>
+      <details class="question-block"><summary><span class="q-num">7</span><span class="q-text">"When you need to pay out 500 vendors, contractors, or employees, what is the exact step-by-step process your finance manager goes through?"</span><span class="q-chevron">▼</span></summary><div class="question-detail"><strong>Why ask this:</strong> Uncovers manual bank portal usage, token passing, and extreme administrative slowness. Leads directly to Bulk Payout API pitch.</div></details>
+      <details class="question-block"><summary><span class="q-num">8</span><span class="q-text">"How many hours or days does your team spend executing your monthly payroll or vendor settlement runs?"</span><span class="q-chevron">▼</span></summary><div class="question-detail"><strong>Why ask this:</strong> Translates administrative headache directly into wasted financial expense — salaries paid to staff just to type numbers into a bank portal.</div></details>
+      <details class="question-block"><summary><span class="q-num">9</span><span class="q-text">"What happens when your staff accidentally types the wrong account number during a payout run? How long does it take to recover those trapped funds?"</span><span class="q-chevron">▼</span></summary><div class="question-detail"><strong>Why ask this:</strong> Highlights the critical lack of automated account pre-validation — and the dangerous manual errors it enables.</div></details>
+      <details class="question-block"><summary><span class="q-num">10</span><span class="q-text">"If a gig worker or seller on your platform demands to withdraw their earnings at 11:00 PM on a Saturday night, can your current system settle them instantly?"</span><span class="q-chevron">▼</span></summary><div class="question-detail"><strong>Why ask this:</strong> Uncovers the inability to operate a 24/7 real-time business model. Leads to Payout API. Connects to driver churn narrative.</div></details>
+      <details class="question-block"><summary><span class="q-num">11</span><span class="q-text">"How do you handle mass payout failures when local bank networks experience temporary downtime or timeouts?"</span><span class="q-chevron">▼</span></summary><div class="question-detail"><strong>Why ask this:</strong> Exposes their lack of automated retry logic and multi-rail fallback redundancy. Positions meCash's Intelligent Multi-Rail Routing.</div></details>
+      <details class="question-block"><summary><span class="q-num">12</span><span class="q-text">"Are your contractors constantly complaining or churning because your payment cycles take one to two weeks to reach their accounts?"</span><span class="q-chevron">▼</span></summary><div class="question-detail"><strong>Why ask this:</strong> Connects slow disbursement rails directly to high operational churn — a P&L impact the CEO and COO care deeply about.</div></details>
+
+      <!-- Category C -->
+      <div class="cat-header">
+        <span class="cat-label">Category C</span>
+        <h3>Reconciliation & Accounting — Finding the Back-Office Nightmare</h3>
+      </div>
+      <details class="question-block"><summary><span class="q-num">13</span><span class="q-text">"How many full-time accounting employees do you currently have dedicated solely to staring at bank statements and updating spreadsheets?"</span><span class="q-chevron">▼</span></summary><div class="question-detail"><strong>Why ask this:</strong> Directly exposes unnecessary corporate overhead that can be fully automated via our APIs. Quantifies the ROI immediately.</div></details>
+      <details class="question-block"><summary><span class="q-num">14</span><span class="q-text">"When an auditor asks to see the pristine transaction lifecycle of order #5541 from capture to final settlement, how long does it take your team to pull that report?"</span><span class="q-chevron">▼</span></summary><div class="question-detail"><strong>Why ask this:</strong> Tests their back-office compliance readiness. Leads directly to Transaction API pitch for CFOs and Compliance Officers.</div></details>
+      <details class="question-block"><summary><span class="q-num">15</span><span class="q-text">"How often do you ship goods or turn on digital subscriptions before actually confirming the money is safely in your bank account?"</span><span class="q-chevron">▼</span></summary><div class="question-detail"><strong>Why ask this:</strong> Exposes massive credit risk and fraud exposure caused by slow settlement capture. Leads to Webhooks pitch.</div></details>
+      <details class="question-block"><summary><span class="q-num">16</span><span class="q-text">"Are you currently holding customer balances or escrow funds in your master operational bank account mixed in with your company's rent and salary money?"</span><span class="q-chevron">▼</span></summary><div class="question-detail"><strong>Why ask this:</strong> Uncovers a major regulatory compliance violation that can be fixed instantly via Wallet API. CFOs go pale when they hear this question.</div></details>
+      <details class="question-block"><summary><span class="q-num">17</span><span class="q-text">"What is your current process for handling customer refund requests, and how long does a customer typically wait to get their cash back?"</span><span class="q-chevron">▼</span></summary><div class="question-detail"><strong>Why ask this:</strong> Highlights slow back-office operations that are actively damaging end-consumer brand trust and NPS scores.</div></details>
+      <details class="question-block"><summary><span class="q-num">18</span><span class="q-text">"If your business volume suddenly 10x'd tomorrow morning, at what exact point does your current accounting and reconciliation process completely break down?"</span><span class="q-chevron">▼</span></summary><div class="question-detail"><strong>Why ask this:</strong> The ultimate scalability question. Forces the prospect to realize manual human processes cannot scale — and they know it.</div></details>
+
+      <!-- Category D -->
+      <div class="cat-header">
+        <span class="cat-label">Category D</span>
+        <h3>Foreign Exchange & Cross-Border — Finding the Currency Leaks</h3>
+      </div>
+      <details class="question-block"><summary><span class="q-num">19</span><span class="q-text">"In how many different countries do you currently collect revenue, and in what currency do you actually need to settle your business expenses?"</span><span class="q-chevron">▼</span></summary><div class="question-detail"><strong>Why ask this:</strong> Maps out their cross-border currency flows and exposes multi-currency conversion costs hidden in their P&L.</div></details>
+      <details class="question-block"><summary><span class="q-num">20</span><span class="q-text">"Walk me through your current process for converting local African currencies into hard currency like USD or GBP to pay overseas suppliers."</span><span class="q-chevron">▼</span></summary><div class="question-detail"><strong>Why ask this:</strong> Uncovers reliance on expensive, slow legacy correspondent banks or volatile black-market brokers. Leads directly to Quote API.</div></details>
+      <details class="question-block"><summary><span class="q-num">21</span><span class="q-text">"How much money did your business write off as 'FX Losses' on your balance sheet last year due to unpredictable exchange rate shifts?"</span><span class="q-chevron">▼</span></summary><div class="question-detail"><strong>Why ask this:</strong> Quantifies the exact, measurable pain of currency volatility slippage. Gives you a hard dollar number to justify the Quote API ROI.</div></details>
+      <details class="question-block"><summary><span class="q-num">22</span><span class="q-text">"When you show a foreign customer a price in their local currency, how do you protect yourself if the exchange rate drops drastically before they finish checking out?"</span><span class="q-chevron">▼</span></summary><div class="question-detail"><strong>Why ask this:</strong> Exposes unhedged currency checkout risk. Leads directly to pitching the 15-minute price lock of the Quote API.</div></details>
+      <details class="question-block"><summary><span class="q-num">23</span><span class="q-text">"Are your existing payment processors secretly double-converting your local currency transactions into USD and back, charging you hidden spread fees both ways?"</span><span class="q-chevron">▼</span></summary><div class="question-detail"><strong>Why ask this:</strong> Educates the buyer on how legacy aggregators extract margin, positioning meCash's native multi-currency architecture as the solution.</div></details>
+      <details class="question-block"><summary><span class="q-num">24</span><span class="q-text">"How many days does vital working capital sit frozen in transit while waiting for traditional international SWIFT wire transfers to clear?"</span><span class="q-chevron">▼</span></summary><div class="question-detail"><strong>Why ask this:</strong> Contrasts the agonizing slowness of SWIFT (3–7 days) with meCash's instant local rail settlements. Working capital velocity is a CEO-level concern.</div></details>
+
+      <!-- Category E -->
+      <div class="cat-header">
+        <span class="cat-label">Category E</span>
+        <h3>Scale, Tech & Infrastructure — Finding the Plumbing Friction</h3>
+      </div>
+      <details class="question-block"><summary><span class="q-num">25</span><span class="q-text">"How many separate contracts, compliance procedures, and technical integrations do you currently manage across different banks and telecom operators?"</span><span class="q-chevron">▼</span></summary><div class="question-detail"><strong>Why ask this:</strong> Highlights the total exhaustion of managing fragmented infrastructure. Positions meCash's "One Integration" value proposition.</div></details>
+      <details class="question-block"><summary><span class="q-num">26</span><span class="q-text">"When local banking clearinghouses or telco networks go down for maintenance, what happens to your platform's checkout?"</span><span class="q-chevron">▼</span></summary><div class="question-detail"><strong>Why ask this:</strong> Exposes single-point-of-failure vulnerabilities. meCash provides intelligent auto-routing across redundant backup rails.</div></details>
+      <details class="question-block"><summary><span class="q-num">27</span><span class="q-text">"How often do your software engineers get pulled away from building new features just to fix broken payment connections or investigate missing webhooks?"</span><span class="q-chevron">▼</span></summary><div class="question-detail"><strong>Why ask this:</strong> Quantifies the massive engineering opportunity cost of building in-house financial plumbing instead of shipping product.</div></details>
+      <details class="question-block"><summary><span class="q-num">28</span><span class="q-text">"What is your current server cost for continuously polling payment gateways asking if transactions have succeeded?"</span><span class="q-chevron">▼</span></summary><div class="question-detail"><strong>Why ask this:</strong> A highly sophisticated technical pain point that makes engineering leads immediately fall in love with our Webhooks solution.</div></details>
+      <details class="question-block"><summary><span class="q-num">29</span><span class="q-text">"How fast can your current infrastructure spin up 100,000 new, branded customer deposit accounts if you launch a new stored-value product tomorrow?"</span><span class="q-chevron">▼</span></summary><div class="question-detail"><strong>Why ask this:</strong> Tests their backend agility and time-to-market. Leads directly to Wallet API + Virtual Accounts pitch.</div></details>
+      <details class="question-block"><summary><span class="q-num">30</span><span class="q-text">"When you expand into a new African market next quarter, how many months of banking negotiations and regulatory setup are factored into your launch timeline?"</span><span class="q-chevron">▼</span></summary><div class="question-detail"><strong>Why ask this:</strong> Contrasts their 6–12 month legacy expansion plan with meCash's 48-hour instant market activation capability.</div></details>
+
+    </section>
+
+    <!-- ─── SECTION 7: FLOWCHART ─── -->
+    <section class="section" id="s7">
+      <div class="section-header">
+        <div class="section-num">Section 07</div>
+        <div class="section-title-wrap">
+          <h2>API Recommendation Flowchart</h2>
+          <p>When you're deep in a discovery conversation, use this decision tree to navigate instantly to the correct API combination.</p>
+        </div>
+      </div>
+
+      <div class="flow-wrap">
+        <div class="flow-row"><span class="flow-node start">▶ START: What does the business need?</span></div>
+
+        <div style="margin:20px 0; display:flex; gap:40px; flex-wrap:wrap;">
+
+          <div style="flex:1; min-width:220px;">
+            <div class="flow-row"><span class="flow-node decision">📥 RECEIVE money from customers?</span></div>
+            <div class="flow-branch">
+              <div class="flow-row"><span class="flow-yes">YES →</span><span class="flow-node decision">Mobile wallet preferred?</span></div>
+              <div class="flow-branch">
+                <div class="flow-row"><span class="flow-yes">YES →</span><span class="flow-node result">Mobile Money Collection API</span></div>
+                <div class="flow-row"><span class="flow-no">NO →</span><span class="flow-node decision">Need auto-matching of deposits?</span></div>
+                <div class="flow-branch">
+                  <div class="flow-row"><span class="flow-yes">YES →</span><span class="flow-node decision">Permanent recurring accounts?</span></div>
+                  <div class="flow-branch">
+                    <div class="flow-row"><span class="flow-yes">YES →</span><span class="flow-node result">Static Virtual Accounts API</span></div>
+                    <div class="flow-row"><span class="flow-no">NO →</span><span class="flow-node result">Dynamic Virtual Accounts API</span></div>
+                  </div>
+                  <div class="flow-row"><span class="flow-no">NO →</span><span class="flow-node result">Standard Bank Checkout + Webhooks</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="flex:1; min-width:220px;">
+            <div class="flow-row"><span class="flow-node decision">📤 SEND money outward?</span></div>
+            <div class="flow-branch">
+              <div class="flow-row"><span class="flow-yes">YES →</span><span class="flow-node decision">Thousands at the same time?</span></div>
+              <div class="flow-branch">
+                <div class="flow-row"><span class="flow-yes">YES →</span><span class="flow-node decision">Convert currencies first?</span></div>
+                <div class="flow-branch">
+                  <div class="flow-row"><span class="flow-yes">YES →</span><span class="flow-node result">Quote API + Bulk Payout API</span></div>
+                  <div class="flow-row"><span class="flow-no">NO →</span><span class="flow-node result">Bulk Payout API</span></div>
+                </div>
+                <div class="flow-row"><span class="flow-no">NO →</span><span class="flow-node result">Payout API</span></div>
+              </div>
+            </div>
+
+            <div style="margin-top:20px;">
+              <div class="flow-row"><span class="flow-node decision">🏦 HOLD internal user balances?</span></div>
+              <div class="flow-branch">
+                <div class="flow-row"><span class="flow-yes">YES →</span><span class="flow-node decision">Multiple currencies?</span></div>
+                <div class="flow-branch">
+                  <div class="flow-row"><span class="flow-yes">YES →</span><span class="flow-node result">Multi-Currency Wallet API</span></div>
+                  <div class="flow-row"><span class="flow-no">NO →</span><span class="flow-node result">Standard Wallet API</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top:20px;">
+              <div class="flow-row"><span class="flow-node decision">📊 TRACK history and reporting?</span></div>
+              <div class="flow-branch">
+                <div class="flow-row"><span class="flow-yes">YES →</span><span class="flow-node result">Transaction API</span></div>
+                <div class="flow-row"><span class="flow-no">NO →</span><span class="flow-node" style="border-color:rgba(255,200,0,0.4); color:rgba(255,200,0,0.8);">Re-qualify the lead: why are we talking?</span></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── SECTION 8: CHEAT SHEETS ─── -->
+    <section class="section" id="s8">
+      <div class="section-header">
+        <div class="section-num">Section 08</div>
+        <div class="section-title-wrap">
+          <h2>Sales Cheat Sheets</h2>
+          <p>One card per API. Everything you need to walk into any meeting.</p>
+        </div>
+      </div>
+
+      <!-- WALLET API CHEAT -->
+      <div class="cheat-card">
+        <div class="cheat-header">
+          <h3>Wallet API</h3>
+          <p>Spins up secure, programmatic digital ledgers — hold and track stored value across multiple currencies instantly.</p>
+        </div>
+        <div class="cheat-body">
+          <div class="cheat-section">
+            <h4>Who Needs It</h4>
+            <ul><li>Fintechs, Digital Neo-Banks</li><li>Micro-Investment Apps, Crypto Exchanges</li><li>Gig Economy Platforms, Stored-Value Super Apps</li></ul>
+          </div>
+          <div class="cheat-section">
+            <h4>Main Selling Points</h4>
+            <ul><li>"Bank-in-a-Box": Launch a digital wallet in days, not years</li><li>Multi-Currency Native: Hold local African currencies + global majors</li><li>Automated Bookkeeping: No messy internal Excel balance sheets</li></ul>
+          </div>
+          <div class="cheat-section" style="grid-column: 1 / -1;">
+            <h4>Key Objection &amp; Rebuttal</h4>
+            <div class="objection-pair">
+              <div class="objection-q">❝ We can just track balances in our own SQL database. ❞</div>
+              <div class="objection-a">You can, until an audit happens or a code bug accidentally credits a user $10,000 from your operational bank account. Our API enforces double-entry, cryptographically balanced ledger security ring-fenced at Tier-1 commercial banks.</div>
+            </div>
+          </div>
+          <div class="cheat-section">
+            <h4>Top 3 Discovery Questions</h4>
+            <ul>
+              <li>Are your accountants maintaining messy spreadsheets to track individual user deposit balances?</li>
+              <li>How quickly could your engineering team launch a multi-currency stored-value account in your existing app?</li>
+              <li>Are you currently mixing customer deposit funds inside your main operational corporate bank account?</li>
+            </ul>
+          </div>
+          <div class="cheat-section">
+            <h4>Cross-Sell Opportunities</h4>
+            <ul><li><strong>Virtual Accounts API:</strong> Give every user wallet its own unique bank account number</li><li><strong>Payout API:</strong> Let users tap to instantly withdraw wallet balance to real-world bank account</li></ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- QUOTE API CHEAT -->
+      <div class="cheat-card">
+        <div class="cheat-header">
+          <h3>Quote API</h3>
+          <p>Real-time guaranteed FX conversion rates locked in for up to 15 minutes — zero currency slippage risk.</p>
+        </div>
+        <div class="cheat-body">
+          <div class="cheat-section">
+            <h4>Who Needs It</h4>
+            <ul><li>Remittance Companies</li><li>Cross-Border Importers / Exporters</li><li>International Payroll Software, Travel Marketplaces</li></ul>
+          </div>
+          <div class="cheat-section">
+            <h4>Main Selling Points</h4>
+            <ul><li>Zero Currency Slippage: We absorb 100% of FX market volatility risk</li><li>Wholesale Interbank Rates: Bypass expensive commercial bank markups</li><li>Total Transparency: Penny-perfect payout shown before customer hits "Send"</li></ul>
+          </div>
+          <div class="cheat-section" style="grid-column: 1 / -1;">
+            <h4>Key Objection &amp; Rebuttal</h4>
+            <div class="objection-pair">
+              <div class="objection-q">❝ We already use our commercial bank for FX conversions. ❞</div>
+              <div class="objection-a">Traditional banks charge up to a 5% hidden spread markup and take two days to clear the wire, exposing you to massive exchange shifts. We give you live interbank rates with instant execution.</div>
+            </div>
+          </div>
+          <div class="cheat-section">
+            <h4>Top 3 Discovery Questions</h4>
+            <ul>
+              <li>How much money did your business write off as FX slippage losses on your balance sheet last year?</li>
+              <li>Can you guarantee the exact final payout amount to the penny before a customer pays?</li>
+              <li>Are your processors secretly double-converting transactions through USD and charging two spread markups?</li>
+            </ul>
+          </div>
+          <div class="cheat-section">
+            <h4>Cross-Sell Opportunities</h4>
+            <ul><li><strong>Payout / Bulk Payout API:</strong> The second the FX quote is locked, trigger Payout to drop funds instantly into the foreign beneficiary's account</li></ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAYOUT API CHEAT -->
+      <div class="cheat-card">
+        <div class="cheat-header">
+          <h3>Payout API</h3>
+          <p>Automated outbound money-moving engine — push individual payments to bank accounts or mobile wallets in seconds.</p>
+        </div>
+        <div class="cheat-body">
+          <div class="cheat-section">
+            <h4>Who Needs It</h4>
+            <ul><li>Ride-Hailing Apps, Food Delivery Platforms</li><li>Betting &amp; Gaming Companies</li><li>E-Commerce Stores (refunds), InsurTechs (claim payouts)</li></ul>
+          </div>
+          <div class="cheat-section">
+            <h4>Main Selling Points</h4>
+            <ul><li>Instant Gratification: Settle contractors instantly 24/7/365</li><li>Zero Manual Errors: Replaces humans typing account numbers into slow portals</li><li>Dual-Rail Reach: Both bank accounts and mobile money wallets via one API</li></ul>
+          </div>
+          <div class="cheat-section" style="grid-column: 1 / -1;">
+            <h4>Key Objection &amp; Rebuttal</h4>
+            <div class="objection-pair">
+              <div class="objection-q">❝ We just upload payout files to our corporate banking portal twice a week. It works fine. ❞</div>
+              <div class="objection-a">It works fine for your finance manager, but your gig workers and sellers hate waiting 3 days for their money. Platforms that offer "Instant Daily Cashout" see a 40% drop in worker churn.</div>
+            </div>
+          </div>
+          <div class="cheat-section">
+            <h4>Top 3 Discovery Questions</h4>
+            <ul>
+              <li>What is the exact manual process your finance team goes through when a contractor requests an earnings cashout?</li>
+              <li>How many worker complaints do you get every week regarding delayed payments over weekends or banking holidays?</li>
+              <li>What happens when an employee accidentally types the wrong destination account number during a transfer run?</li>
+            </ul>
+          </div>
+          <div class="cheat-section">
+            <h4>Cross-Sell Opportunities</h4>
+            <ul><li><strong>Webhooks:</strong> Trigger instant SMS or push notification to the user the exact millisecond the Payout API successfully confirms the deposit</li></ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- BULK PAYOUT CHEAT -->
+      <div class="cheat-card">
+        <div class="cheat-header">
+          <h3>Bulk Payout API</h3>
+          <p>Industrial-strength mass-disbursement — thousands of validated payments dispatched concurrently in one batch command.</p>
+        </div>
+        <div class="cheat-body">
+          <div class="cheat-section">
+            <h4>Who Needs It</h4>
+            <ul><li>Payroll Software Providers, Government Relief Agencies</li><li>Large Agricultural Co-ops, Enterprise Supply Chains</li><li>Affiliate Marketing Networks</li></ul>
+          </div>
+          <div class="cheat-section">
+            <h4>Main Selling Points</h4>
+            <ul><li>Extreme Efficiency: Days of manual disbursement into a 5-minute task</li><li>Pre-Validation Scrubbing: All account numbers verified before a cent moves</li><li>Consolidated Reporting: One perfect audit report covering 10,000+ transactions</li></ul>
+          </div>
+          <div class="cheat-section" style="grid-column: 1 / -1;">
+            <h4>Key Objection &amp; Rebuttal</h4>
+            <div class="objection-pair">
+              <div class="objection-q">❝ When our batch file has one bad account number, our corporate bank portal fails the entire batch run. ❞</div>
+              <div class="objection-a">That is exactly why you need meCash. Our bulk engine is fault-tolerant — the 9,999 good payments execute instantly, and the 1 failed payment is cleanly isolated for your team to correct without blocking anything.</div>
+            </div>
+          </div>
+          <div class="cheat-section">
+            <h4>Top 3 Discovery Questions</h4>
+            <ul>
+              <li>How many manual hours does your accounting team lose every month executing massive payroll or vendor settlement runs?</li>
+              <li>How do you handle mass payment runs to unbanked workers in rural areas who only have mobile money numbers?</li>
+              <li>What is your current transaction fee cost when sending thousands of individual bank wires every month?</li>
+            </ul>
+          </div>
+          <div class="cheat-section">
+            <h4>Cross-Sell Opportunities</h4>
+            <ul><li><strong>Quote API:</strong> If running an international payroll (e.g., paying Kenyan developers from a US entity), call Quote API first to auto-convert the USD batch into Shillings instantly</li></ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIRTUAL ACCOUNTS CHEAT -->
+      <div class="cheat-card">
+        <div class="cheat-header">
+          <h3>Virtual Accounts API (Static &amp; Dynamic)</h3>
+          <p>Programmable digital bank account numbers that route incoming transfers with full payer tracking — zero manual reconciliation.</p>
+        </div>
+        <div class="cheat-body">
+          <div class="cheat-section">
+            <h4>Who Needs It</h4>
+            <ul><li>B2B Wholesale Suppliers, Real Estate Rent Collectors</li><li>Schools &amp; Universities, Hospital Networks</li><li>Utilities, Crypto Exchanges, High-Value E-Commerce</li></ul>
+          </div>
+          <div class="cheat-section">
+            <h4>Main Selling Points</h4>
+            <ul><li>100% Automated Reconciliation: Finance never looks at a bank statement to match invoices again</li><li>Zero Chargebacks: Bank transfers are irreversible — eliminate credit card fraud entirely</li><li>Mass-Market Trust: Customers pay via their familiar everyday banking app</li></ul>
+          </div>
+          <div class="cheat-section" style="grid-column: 1 / -1;">
+            <h4>Key Objection &amp; Rebuttal</h4>
+            <div class="objection-pair">
+              <div class="objection-q">❝ Why can't we just give all our customers our main corporate bank account number? ❞</div>
+              <div class="objection-a">Because when 50 customers named "John" deposit $100 into your corporate account on the same day with blank reference codes, your accounting department descends into total chaos. Virtual accounts make every incoming wire self-identifying, automatically.</div>
+            </div>
+          </div>
+          <div class="cheat-section">
+            <h4>Top 3 Discovery Questions</h4>
+            <ul>
+              <li>How many manual hours does your finance team spend every month matching bank deposit lines to open customer invoices?</li>
+              <li>How often do your customers forget to write their invoice reference number on their bank wire deposit slips?</li>
+              <li>How much money are you currently losing to credit card fraud, chargeback penalties, and failed card payment attempts?</li>
+            </ul>
+          </div>
+          <div class="cheat-section">
+            <h4>Cross-Sell Opportunities</h4>
+            <ul><li><strong>Webhooks:</strong> The exact millisecond a customer transfers money into their Virtual Account, fire a Webhook to instantly turn on their digital subscription or release their shipment</li></ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- MOBILE MONEY CHEAT -->
+      <div class="cheat-card">
+        <div class="cheat-header">
+          <h3>Mobile Money Collection API</h3>
+          <p>Direct "Enter PIN" payment prompts pushed to customer phones — instant funds from MoMo wallets across Africa.</p>
+        </div>
+        <div class="cheat-body">
+          <div class="cheat-section">
+            <h4>Who Needs It</h4>
+            <ul><li>Consumer E-Commerce Stores, Sports Betting Apps</li><li>Digital Content &amp; Media Streamers</li><li>EdTech Platforms, Transit &amp; Ticketing Apps</li></ul>
+          </div>
+          <div class="cheat-section">
+            <h4>Main Selling Points</h4>
+            <ul><li>Unlock the Unbanked: Reach 80%+ of African consumers without credit cards</li><li>Frictionless Checkout: Phone number → PIN on phone → order complete</li><li>Multi-Country Access: MTN, M-Pesa, Airtel, Orange, Wave via one contract</li></ul>
+          </div>
+          <div class="cheat-section" style="grid-column: 1 / -1;">
+            <h4>Key Objection &amp; Rebuttal</h4>
+            <div class="objection-pair">
+              <div class="objection-q">❝ We already have a Visa/Mastercard checkout gateway. ❞</div>
+              <div class="objection-a">In markets like Ghana, Kenya, and Uganda, credit card penetration is under 15%. If you only accept cards, you are actively turning away 85 out of every 100 potential paying customers who hold their wealth in mobile money.</div>
+            </div>
+          </div>
+          <div class="cheat-section">
+            <h4>Top 3 Discovery Questions</h4>
+            <ul>
+              <li>What percentage of your potential African online shoppers are currently abandoning their carts at your payment screen?</li>
+              <li>How many different telecom operators across Africa would you have to negotiate individual contracts with to build your own mobile money rail?</li>
+              <li>Are your margins suffering from high credit card gateway failure rates and chargeback fees?</li>
+            </ul>
+          </div>
+          <div class="cheat-section">
+            <h4>Cross-Sell Opportunities</h4>
+            <ul><li><strong>Payout API:</strong> If a mobile money consumer wants a refund or to cash out earnings, push money straight back into their mobile wallet instantly</li></ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- TRANSACTION API CHEAT -->
+      <div class="cheat-card">
+        <div class="cheat-header">
+          <h3>Transaction API</h3>
+          <p>Master financial surveillance engine — real-time tracking, historical search, and exportable compliance-ready reporting.</p>
+        </div>
+        <div class="cheat-body">
+          <div class="cheat-section">
+            <h4>Who Needs It</h4>
+            <ul><li>CFOs, Financial Controllers, Compliance Officers</li><li>Operations Leads and Customer Support Teams</li><li>Every meCash merchant — this is universal infrastructure</li></ul>
+          </div>
+          <div class="cheat-section">
+            <h4>Main Selling Points</h4>
+            <ul><li>Instant Support Resolution: Search live ledger statuses to solve tickets in seconds</li><li>Pristine Compliance Audit Trails: Immutable exportable logs for regulators</li><li>ERP Integration: Feed live data into SAP, Oracle, QuickBooks, or Xero</li></ul>
+          </div>
+          <div class="cheat-section" style="grid-column: 1 / -1;">
+            <h4>Key Objection &amp; Rebuttal</h4>
+            <div class="objection-pair">
+              <div class="objection-q">❝ We can just look at our main dashboard to see total earnings. ❞</div>
+              <div class="objection-a">A summary dashboard doesn't help when a central bank compliance auditor demands to see the exact timestamp, fee breakdown, and multi-rail routing path of a specific cross-border transaction from three months ago. This API gives your CFO total data supremacy.</div>
+            </div>
+          </div>
+          <div class="cheat-section">
+            <h4>Top 3 Discovery Questions</h4>
+            <ul>
+              <li>When a customer calls support claiming their payment failed, how long does it take your agent to investigate and resolve the ticket?</li>
+              <li>How do you currently feed categorized banking transaction logs into your main corporate ERP or accounting software?</li>
+              <li>How painful and expensive was your last financial compliance audit?</li>
+            </ul>
+          </div>
+          <div class="cheat-section">
+            <h4>Cross-Sell Opportunities</h4>
+            <ul><li><strong>All meCash APIs:</strong> The Transaction API is the fundamental oversight glue that makes every other money-moving API safe and audit-ready</li></ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- WEBHOOKS CHEAT -->
+      <div class="cheat-card">
+        <div class="cheat-header">
+          <h3>Webhooks</h3>
+          <p>Automated push-notification system — fires an electronic message to your server the exact millisecond a financial event succeeds.</p>
+        </div>
+        <div class="cheat-body">
+          <div class="cheat-section">
+            <h4>Who Needs It</h4>
+            <ul><li>E-Commerce Fulfillment Software</li><li>Online Gaming Platforms, Logistics Fleet Dispatchers</li><li>IoT / Utility Metering Companies, SaaS Platforms</li></ul>
+          </div>
+          <div class="cheat-section">
+            <h4>Main Selling Points</h4>
+            <ul><li>Instant Automation: Release goods or restore electricity the exact millisecond cash clears</li><li>Stop Server Crashing: Eliminates wasteful polling that drives up AWS cloud bills</li><li>Guaranteed Delivery: Auto-retry for up to 72 hours even if your server goes down</li></ul>
+          </div>
+          <div class="cheat-section" style="grid-column: 1 / -1;">
+            <h4>Key Objection &amp; Rebuttal</h4>
+            <div class="objection-pair">
+              <div class="objection-q">❝ We can just write a script to check payment statuses every minute. ❞</div>
+              <div class="objection-a">That's called polling. If you process 10,000 payments a day, polling our servers every minute generates 14.4 million useless database calls daily, ballooning your cloud hosting costs and slowing down your app. Webhooks sit silently until the money clears.</div>
+            </div>
+          </div>
+          <div class="cheat-section">
+            <h4>Top 3 Discovery Questions</h4>
+            <ul>
+              <li>How much money are you spending on cloud server costs just to constantly poll payment gateways for transaction updates?</li>
+              <li>How long does a customer wait after paying their bill before your software actually updates their dashboard and restores their service?</li>
+              <li>What happens to missing customer orders if your website server experiences a 10-minute outage right during a checkout spike?</li>
+            </ul>
+          </div>
+          <div class="cheat-section">
+            <h4>Cross-Sell Opportunities</h4>
+            <ul><li><strong>Virtual Accounts API:</strong> Combine Webhooks with Dynamic Virtual Accounts to power an ultra-secure, completely touchless, instant bank-transfer e-commerce checkout flow</li></ul>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ─── SECTION 9: FAQs ─── -->
+    <section class="section" id="s9">
+      <div class="section-header">
+        <div class="section-num">Section 09</div>
+        <div class="section-title-wrap">
+          <h2>Master 40 FAQs</h2>
+          <p>Conversational, sharp answers to the questions prospects fire at you. Memorize these.</p>
+        </div>
+      </div>
+
+      <div class="faq-group-label">General &amp; Technical Basics</div>
+      <details class="faq-item"><summary>What exactly is an API?<span class="faq-chevron">▼</span></summary><div class="faq-answer">Think of an API as an invisible digital waiter. It takes requests from your customer's software, delivers them securely to the global banking kitchen, and brings the confirmed money or data right back to your app instantly.</div></details>
+      <details class="faq-item"><summary>Do our customers need developers to use meCash?<span class="faq-chevron">▼</span></summary><div class="faq-answer">To integrate our raw APIs into a custom application, yes, they need software engineers. However, for non-technical businesses, we provide a ready-to-use web dashboard where finance managers can manually create wallets, send bulk payouts, and view reports with zero coding required.</div></details>
+      <details class="faq-item"><summary>Can multiple meCash APIs be combined?<span class="faq-chevron">▼</span></summary><div class="faq-answer">Absolutely — that's where the magic happens. Most enterprise clients stack them: Mobile Money Collection to capture funds, Wallet API to hold them, Quote API to swap currencies, and Bulk Payout API to pay vendors simultaneously.</div></details>
+      <details class="faq-item"><summary>Can a business buy and use only one meCash API?<span class="faq-chevron">▼</span></summary><div class="faq-answer">Yes. Our platform is completely modular. A massive enterprise that already has their own banking setup but desperately needs our Bulk Payout API for African payroll can integrate just that single endpoint without touching anything else.</div></details>
+      <details class="faq-item"><summary>Which API is the easiest to start with?<span class="faq-chevron">▼</span></summary><div class="faq-answer">The Virtual Accounts API. You can generate a static bank account number inside our web dashboard in 30 seconds and hand it to your largest B2B buyer to start receiving automated, self-identifying bank wire transfers immediately.</div></details>
+      <details class="faq-item"><summary>Are APIs secure? Can hackers steal money through them?<span class="faq-chevron">▼</span></summary><div class="faq-answer">meCash APIs are built with bank-grade security. Every request must pass through TLS 1.3 cryptographic encryption, utilize rolling two-factor secret bearer tokens, and validate against strict IP-whitelisting rules. A hacker cannot simply "guess" an API command.</div></details>
+      <details class="faq-item"><summary>What is a "Sandbox" and why do developers ask for it?<span class="faq-chevron">▼</span></summary><div class="faq-answer">A Sandbox is a safe, simulated testing playground. We give developers fake digital money and fake account numbers so they can test their code against our APIs to make sure everything works perfectly before going live with real money.</div></details>
+      <details class="faq-item"><summary>How long does a standard technical integration take?<span class="faq-chevron">▼</span></summary><div class="faq-answer">A competent software engineer can review our documentation, connect to our Sandbox, execute a test payment run, and be ready to push live to production in under 48 hours.</div></details>
+
+      <div class="faq-group-label">Product Capabilities &amp; Scenarios</div>
+      <details class="faq-item"><summary>When should I recommend Virtual Accounts over standard Bank Transfers?<span class="faq-chevron">▼</span></summary><div class="faq-answer">When the customer complains about reconciliation. If they receive 50 bank transfers a day and their accounting team is tearing their hair out trying to figure out which invoice was paid, immediately pitch Virtual Accounts.</div></details>
+      <details class="faq-item"><summary>When should I recommend the Wallet API?<span class="faq-chevron">▼</span></summary><div class="faq-answer">Whenever a platform wants users to maintain an internal digital cash balance — like a betting app, a savings goal app, or an in-app gig worker earnings ledger — rather than forcing a real-world bank transfer every single time.</div></details>
+      <details class="faq-item"><summary>What is the exact difference between the Payout API and the Bulk Payout API?<span class="faq-chevron">▼</span></summary><div class="faq-answer"><strong>Payout API:</strong> Sends one payment at a time triggered by individual events (e.g., a shopper clicks "Request Refund"). <strong>Bulk Payout API:</strong> Sends thousands of payments concurrently from a single batch command (e.g., executing monthly salary runs for 5,000 staff).</div></details>
+      <details class="faq-item"><summary>What is the difference between Static and Dynamic Virtual Accounts?<span class="faq-chevron">▼</span></summary><div class="faq-answer"><strong>Static VA:</strong> A permanent account assigned forever to ONE loyal customer (like a dedicated P.O. Box). <strong>Dynamic VA:</strong> A temporary account created for ONE specific online checkout that self-destructs after 20 minutes (like a coat-check ticket).</div></details>
+      <details class="faq-item"><summary>What countries' mobile money networks does meCash support?<span class="faq-chevron">▼</span></summary><div class="faq-answer">We provide native access across dominant African telecom corridors including Ghana (MTN, Vodafone, AirtelTigo), Kenya (M-Pesa), Uganda (MTN, Airtel), Ivory Coast &amp; Senegal (MTN, Orange, Wave), Nigeria, and more added continuously.</div></details>
+      <details class="faq-item"><summary>What happens if a customer transfers the wrong amount into a Dynamic Virtual Account?<span class="faq-chevron">▼</span></summary><div class="faq-answer">Our API is fully programmable. You can configure the rules: the system can automatically reject and bounce underpayments back to the sender instantly, or accept the cash and trigger an "Incomplete Payment" notification to your support team.</div></details>
+      <details class="faq-item"><summary>Can meCash APIs handle real-time currency conversions?<span class="faq-chevron">▼</span></summary><div class="faq-answer">Yes. Our Quote API taps directly into live interbank wholesale FX markets, showing you the exact conversion rate and locking that price in for up to 15 minutes to eliminate currency volatility risk entirely.</div></details>
+      <details class="faq-item"><summary>What is a Webhook and why do customers need it?<span class="faq-chevron">▼</span></summary><div class="faq-answer">A Webhook is an automated push notification. Instead of your software constantly asking our servers "Did the payment arrive yet?" (which crashes servers), meCash fires an instant electronic alert to your system the exact millisecond the money successfully clears.</div></details>
+      <details class="faq-item"><summary>Can our customers' end-users see the meCash brand name during checkout?<span class="faq-chevron">▼</span></summary><div class="faq-answer">No. meCash operates as an invisible, white-label financial infrastructure. When your customer issues a Virtual Account or triggers a mobile money PIN prompt, it displays your customer's brand name, building 100% brand equity for them.</div></details>
+      <details class="faq-item"><summary>Does meCash actually hold physical cash inside its software?<span class="faq-chevron">▼</span></summary><div class="faq-answer">No software holds physical cash. meCash provides the intelligent software ledger that tracks the exact pennies, while the physical funds are securely safeguarded inside highly regulated, ring-fenced master trust accounts at Tier-1 commercial central banks.</div></details>
+
+      <div class="faq-group-label">Operations, Failures &amp; Edge Cases</div>
+      <details class="faq-item"><summary>What happens if an API payout transfer fails due to a local bank network outage?<span class="faq-chevron">▼</span></summary><div class="faq-answer">Our API safely traps the failure, instantly refunds the exact capital back into your meCash operational wallet, and updates your dashboard with a clear error code. Zero money is lost.</div></details>
+      <details class="faq-item"><summary>How fast do Payout transfers actually arrive in beneficiary accounts?<span class="faq-chevron">▼</span></summary><div class="faq-answer">Over 95% of our disbursements across local African banking and mobile money rails settle into the recipient's account in under 60 seconds, 24/7/365.</div></details>
+      <details class="faq-item"><summary>What happens if an employee uploads a Bulk Payout file with duplicate payments?<span class="faq-chevron">▼</span></summary><div class="faq-answer">Our Bulk Payout engine features intelligent cryptographic file-deduplication scrubbing. If it detects identical payment requests submitted within a short timeframe, it freezes the batch and flags an alert to prevent double-paying your staff.</div></details>
+      <details class="faq-item"><summary>Can a customer cancel an API payout request after hitting send?<span class="faq-chevron">▼</span></summary><div class="faq-answer">Because local rail settlement occurs in mere seconds, API payouts are effectively irreversible once dispatched. However, if a payout is scheduled for a future batch date, it can be cleanly cancelled via the API up until the moment of processing.</div></details>
+      <details class="faq-item"><summary>What happens if the Quote API 15-minute lock window expires?<span class="faq-chevron">▼</span></summary><div class="faq-answer">The locked quote simply self-destructs safely. If the user attempts to complete the checkout after 15 minutes, the software instantly calls the API to generate a fresh quote reflecting the updated live market exchange rate.</div></details>
+      <details class="faq-item"><summary>If a customer's website server goes down, do they lose their Webhook notifications?<span class="faq-chevron">▼</span></summary><div class="faq-answer">No. meCash maintains an intelligent Webhook queue. If your server fails to answer our digital doorbell, our system will systematically retry sending the payment notification at increasing intervals for up to 72 hours until your servers come back online.</div></details>
+      <details class="faq-item"><summary>How do customers' finance teams reconcile their meCash account balances?<span class="faq-chevron">▼</span></summary><div class="faq-answer">They use the Transaction API or our web dashboard to export pristine, categorized ledger logs that drop cleanly into standard corporate accounting software like QuickBooks, SAP, Oracle, or Xero.</div></details>
+      <details class="faq-item"><summary>Can meCash handle high-velocity micro-transactions like a $0.10 gaming purchase?<span class="faq-chevron">▼</span></summary><div class="faq-answer">Yes. Standard credit card gateways charge a fixed $0.30 fee per swipe, which completely destroys micro-transaction models. By utilizing our Mobile Money Collection API or local account transfers, fractional fees make capturing $0.10 micro-payments highly profitable.</div></details>
+      <details class="faq-item"><summary>How does meCash prevent money laundering (AML) across its API rails?<span class="faq-chevron">▼</span></summary><div class="faq-answer">Every transaction runs through automated real-time AML surveillance, global sanctions database scrubbing (OFAC/UN lists), and AI-driven velocity anti-fraud filters before clearing.</div></details>
+      <details class="faq-item"><summary>What is "Polling" and why should sales reps teach customers to stop doing it?<span class="faq-chevron">▼</span></summary><div class="faq-answer">Polling is writing code that asks meCash "Is it done yet?" every two seconds. It wastes massive server hosting money and slows down systems. Pitching Webhooks fixes this entirely and proves to the prospect that you are a trusted expert architectural advisor.</div></details>
+
+      <div class="faq-group-label">Pricing, Billing &amp; Contracts</div>
+      <details class="faq-item"><summary>How does meCash make money on these APIs?<span class="faq-chevron">▼</span></summary><div class="faq-answer">We monetize via three transparent models: (1) a small fixed transaction fee per successful push/pull; (2) a fractional percentage markup inside wholesale interbank FX quotes; (3) monthly SaaS platform maintenance tiers for massive enterprise volume limits.</div></details>
+      <details class="faq-item"><summary>Are there setup fees or monthly minimums?<span class="faq-chevron">▼</span></summary><div class="faq-answer">For standard mid-market merchants, we operate a pure "Pay-As-You-Go" transactional model with zero setup fees. For massive multi-national enterprises requiring custom bank rail routing and dedicated account managers, we structure customized annual contracts.</div></details>
+      <details class="faq-item"><summary>Why are mobile money and bank transfer processing fees cheaper than credit cards?<span class="faq-chevron">▼</span></summary><div class="faq-answer">Credit card transactions pay three hungry middlemen: the issuing bank, the acquiring bank, and the card network (Visa/Mastercard). meCash connects directly to local central clearing houses and telecom switches, bypassing middlemen to pass massive cost savings directly to our merchants.</div></details>
+      <details class="faq-item"><summary>Does the customer need to sign different legal contracts for every African country?<span class="faq-chevron">▼</span></summary><div class="faq-answer">No — that is our master differentiator. A merchant signs one unified Master Services Agreement with meCash, instantly unlocking legal and technical collection and payout capabilities across dozens of emerging market countries.</div></details>
+      <details class="faq-item"><summary>How does meCash invoice the merchant for API usage fees?<span class="faq-chevron">▼</span></summary><div class="faq-answer">Our system natively operates on "Net Settlement" — we automatically deduct our fractional transaction fee instantly from the clearing funds before settling the master remaining balance into the merchant's wallet. No paper bills.</div></details>
+      <details class="faq-item"><summary>Can a customer negotiate volume discounts as their API traffic scales?<span class="faq-chevron">▼</span></summary><div class="faq-answer">Absolutely. We operate tiered volume pricing. If a gig marketplace grows from 1,000 payouts a month to 500,000 payouts a month, our unit economics drop drastically and we pass those volume tier discounts directly to the client.</div></details>
+      <details class="faq-item"><summary>Who pays the transaction fee: the merchant or the end-consumer?<span class="faq-chevron">▼</span></summary><div class="faq-answer">Our API configuration gives the merchant absolute control over fee logic. They can absorb the fee as a cost of doing business (encouraging higher checkout conversions), or programmatically pass the transaction fee onto the end-consumer at checkout.</div></details>
+      <details class="faq-item"><summary>What happens if a merchant disputes a transaction fee?<span class="faq-chevron">▼</span></summary><div class="faq-answer">Because our Transaction API attaches an exact, cryptographically verifiable fee breakdown to every single payment ID, fee disputes are resolved instantly by simply looking at the immutable ledger log. Absolute transparency.</div></details>
+
+      <div class="faq-group-label">Competitive Positioning</div>
+      <details class="faq-item"><summary>How is meCash different from legacy payment processors like Stripe or PayPal?<span class="faq-chevron">▼</span></summary><div class="faq-answer">Stripe and PayPal were built for Western credit card markets. In Africa, they rely on expensive third-party aggregators, convert local currencies back into USD (charging massive double FX spreads), and suffer high failure rates. meCash is natively built on deep local banking and telco rails across emerging markets.</div></details>
+      <details class="faq-item"><summary>Why shouldn't a large enterprise just build direct API connections to banks themselves?<span class="faq-chevron">▼</span></summary><div class="faq-answer">To build direct bank connections across five African countries requires hiring local legal compliance teams, depositing millions in escrow capital, enduring two years of central bank bureaucracy, and maintaining five completely different fragile software codebases. meCash gives them all five countries in one afternoon via a single API.</div></details>
+      <details class="faq-item"><summary>What gives meCash higher transaction success rates than local competitors?<span class="faq-chevron">▼</span></summary><div class="faq-answer">Competitors often route through single, fragile banking pipes. When Bank X goes down, their merchants crash. meCash operates Intelligent Multi-Rail Routing — if our primary clearing bank experiences downtime, our API instantly re-routes across redundant backup banking pipes in milliseconds.</div></details>
+      <details class="faq-item"><summary>How do I summarize meCash's ultimate value proposition in one sentence?<span class="faq-chevron">▼</span></summary><div class="faq-answer">"meCash provides the singular, enterprise-grade financial infrastructure connection that allows any business to effortlessly capture, hold, convert, and disburse money across emerging markets and the globe — without building internal banking plumbing."</div></details>
+
+    </section>
+
+    <!-- ─── SECTION 10: CASE STUDIES ─── -->
+    <section class="section" id="s10">
+      <div class="section-header">
+        <div class="section-num">Section 10</div>
+        <div class="section-title-wrap">
+          <h2>15 Real Customer Stories</h2>
+          <p>When a prospect asks "Who else in my industry is doing this?" — don't recite specs. Tell a high-stakes business story.</p>
+        </div>
+      </div>
+
+      <div class="case-card"><div class="case-header"><div class="case-num">01</div><div class="case-info"><h3>"KariGo" — Pan-African Ride-Hailing Challenger</h3><p>40,000 gig drivers across Nigeria, Ghana, and Kenya</p><div class="case-apis"><span class="case-api-pill">Payout API</span><span class="case-api-pill">Multi-Currency Wallet API</span></div></div></div><div class="case-body"><div><p class="case-section-label">THE PROBLEM</p><p>Drivers waited 7–10 business days for the European finance team to manually wire weekly earnings. Drivers couldn't afford daily fuel and were defecting to rival apps.</p></div><div><p class="case-section-label">THE SOLUTION</p><p>KariGo integrated the Payout API directly into their driver mobile app as a "Instant Fuel Cashout" button — press at 2:00 AM, money arrives in MTN MoMo or M-Pesa in 4 seconds.</p></div><div><div class="outcome-box"><p class="case-section-label">THE OUTCOME</p><p>Driver defection rates plummeted by <strong>58%</strong> in the first two months. The app became a competitive advantage in driver recruitment.</p></div></div></div></div>
+
+      <div class="case-card"><div class="case-header"><div class="case-num">02</div><div class="case-info"><h3>"SokoBuy" — West African Cross-Border E-Commerce Giant</h3><p>Online marketplace selling electronics from London/Dubai to Ghana &amp; Nigeria</p><div class="case-apis"><span class="case-api-pill">Quote API</span><span class="case-api-pill">Dynamic Virtual Accounts</span></div></div></div><div class="case-body"><div><p class="case-section-label">THE PROBLEM</p><p>Currency volatility leaks. By the time Ghanaian Cedis converted to British Pounds 3 days later to pay London suppliers, the Cedi had devalued by 6% — wiping out the entire profit margin.</p></div><div><p class="case-section-label">THE SOLUTION</p><p>Quote API embedded directly into checkout — when a shopper views a laptop, a guaranteed interbank FX rate is locked for 15 minutes. Shopper pays via Dynamic VA; meCash instantly executes the guaranteed swap to Sterling.</p></div><div><div class="outcome-box"><p class="case-section-label">THE OUTCOME</p><p>FX slippage losses dropped to <strong>absolute zero</strong> overnight, saving SokoBuy <strong>$140,000 quarterly</strong>.</p></div></div></div></div>
+
+      <div class="case-card"><div class="case-header"><div class="case-num">03</div><div class="case-info"><h3>"FarmPay Co-op" — Rural East African Agri-Aggregator</h3><p>85,000 smallholder maize and coffee farmers across Kenya and Tanzania</p><div class="case-apis"><span class="case-api-pill">Bulk Payout API</span><span class="case-api-pill">Mobile Money Collection</span></div></div></div><div class="case-body"><div><p class="case-section-label">THE PROBLEM</p><p>Regional managers traveled deep into rural villages carrying duffel bags stuffed with millions of Shillings in physical cash. Two managers were violently robbed at gunpoint.</p></div><div><p class="case-section-label">THE SOLUTION</p><p>Head bursar in Nairobi uploads one CSV with 85,000 farmer names, phone numbers, and crop weights and hits "Execute." Bulk Payout dispatches the entire batch concurrently.</p></div><div><div class="outcome-box"><p class="case-section-label">THE OUTCOME</p><p>Within 10 minutes, <strong>85,000 distinct M-Pesa deposits</strong> arrive on feature phones of farmers standing in their fields. 100% physical cash security achieved.</p></div></div></div></div>
+
+      <div class="case-card"><div class="case-header"><div class="case-num">04</div><div class="case-info"><h3>"Naija Homes" — High-Volume Residential PropTech</h3><p>12,000 middle-income residential apartment rentals across Lagos and Abuja</p><div class="case-apis"><span class="case-api-pill">Static Virtual Accounts</span><span class="case-api-pill">Transaction API</span></div></div></div><div class="case-body"><div><p class="case-section-label">THE PROBLEM</p><p>12,000 individual bank wire transfers arrived into one corporate account. Because tenants rarely wrote apartment numbers on deposit slips, six accountants spent three weeks every month calling tenants begging for paper receipts.</p></div><div><p class="case-section-label">THE SOLUTION</p><p>12,000 unique virtual bank account numbers permanently assigned to each apartment unit. When rent arrives, meCash instantly updates the ERP: "Rent received on Unit #4B. Mark as paid."</p></div><div><div class="outcome-box"><p class="case-section-label">THE OUTCOME</p><p>Manual accounting reconciliation dropped from <strong>21 days to 0 seconds</strong>.</p></div></div></div></div>
+
+      <div class="case-card"><div class="case-header"><div class="case-num">05</div><div class="case-info"><h3>"BetLion Africa" — High-Velocity Sports Gaming Platform</h3><p>Premier live sports betting app operating in Uganda and Ghana</p><div class="case-apis"><span class="case-api-pill">Mobile Money Collection API</span><span class="case-api-pill">Webhooks</span></div></div></div><div class="case-body"><div><p class="case-section-label">THE PROBLEM</p><p>In-play live betting was completely broken. Traditional card processing was too slow or failed, and standard bank transfers took 2 hours to reflect. The match was over before the bet registered.</p></div><div><p class="case-section-label">THE SOLUTION</p><p>Mobile Money Collection fires a secure USSD pop-up directly to the user's phone. User types their 4-digit MoMo PIN; meCash captures the cash and fires a Webhook to BetLion's server in milliseconds.</p></div><div><div class="outcome-box"><p class="case-section-label">THE OUTCOME</p><p>User betting balance updates in <strong>3.5 seconds</strong>. BetLion's in-play live betting revenue surged by <strong>310%</strong>.</p></div></div></div></div>
+
+      <div class="case-card"><div class="case-header"><div class="case-num">06</div><div class="case-info"><h3>"AfriCover" — Micro-Health InsurTech</h3><p>$2/month health insurance for informal market traders across West Africa</p><div class="case-apis"><span class="case-api-pill">Static Virtual Accounts</span><span class="case-api-pill">Payout API</span><span class="case-api-pill">Webhooks</span></div></div></div><div class="case-body"><div><p class="case-section-label">THE PROBLEM</p><p>High policy lapse rates — informal workers had no credit cards and walking to a bank to wire $2 monthly was too much friction. Medical claims took four weeks of paperwork to pay out.</p></div><div><p class="case-section-label">THE SOLUTION</p><p>Each trader gets a dedicated Static VA for effortless $2 premium wires. When a clinic verifies a medical bill, the Payout API automatically pushes the $50 claim to the trader's mobile wallet.</p></div><div><div class="outcome-box"><p class="case-section-label">THE OUTCOME</p><p>Medical claim cash pushed into trader's wallet <strong>while they're still sitting in the hospital waiting room</strong>. Absolute consumer brand trust established.</p></div></div></div></div>
+
+      <div class="case-card"><div class="case-header"><div class="case-num">07</div><div class="case-info"><h3>"SaveUp Kenya" — Goal-Based Micro-Savings App</h3><p>250,000 university students depositing daily amounts to save for laptops or tuition</p><div class="case-apis"><span class="case-api-pill">Wallet API</span><span class="case-api-pill">Mobile Money Collection</span></div></div></div><div class="case-body"><div><p class="case-section-label">THE PROBLEM</p><p>All 250,000 students' micro-savings were pooled in one giant corporate bank account. A software glitch scrambled their internal SQL tracking database — nobody knew who owned what cash, nearly resulting in their regulatory license being revoked.</p></div><div><p class="case-section-label">THE SOLUTION</p><p>Wallet API instantly generated 250,000 segregated, cryptographically secure digital sub-wallets. When a student deposits $0.50 via MoMo push, the API directly credits their specific digital pocket.</p></div><div><div class="outcome-box"><p class="case-section-label">THE OUTCOME</p><p>100% regulatory compliant. Auditing expenses dropped by <strong>75%</strong>.</p></div></div></div></div>
+
+      <div class="case-card"><div class="case-header"><div class="case-num">08</div><div class="case-info"><h3>"GlobalDevs" — Remote African Engineering Talent Network</h3><p>Elite software engineers in Nigeria and Rwanda matched with Silicon Valley tech startups</p><div class="case-apis"><span class="case-api-pill">Quote API</span><span class="case-api-pill">Bulk Payout API</span></div></div></div><div class="case-body"><div><p class="case-section-label">THE PROBLEM</p><p>US employers paid in USD via SWIFT wires. A messy 5-day correspondent banking nightmare converted Dollars into Naira and Rwandan Francs. Developers lost up to 8% of salaries to intermediate bank wire spread fees.</p></div><div><p class="case-section-label">THE SOLUTION</p><p>USD wired into master meCash account. On the 25th, Quote API converts the USD pool into NGN and RWF at guaranteed interbank wholesale rates, immediately triggering Bulk Payout API.</p></div><div><div class="outcome-box"><p class="case-section-label">THE OUTCOME</p><p>Developers receive full salaries into local bank accounts in minutes with <strong>zero intermediary bank fees</strong>.</p></div></div></div></div>
+
+      <div class="case-card"><div class="case-header"><div class="case-num">09</div><div class="case-info"><h3>"SwiftLogistics" — Last-Mile Courier Fleet</h3><p>3,000 delivery motorcycles across urban centers in Ivory Coast and Senegal</p><div class="case-apis"><span class="case-api-pill">Dynamic Virtual Accounts</span><span class="case-api-pill">Webhooks</span></div></div></div><div class="case-body"><div><p class="case-section-label">THE PROBLEM</p><p>Drivers finishing shifts with pockets full of physical cash were frequently mugged. Drivers spent two hours at the end of every exhausting shift standing in line at dispatch depots for human cashiers to count dirty money.</p></div><div><p class="case-section-label">THE SOLUTION</p><p>Driver's app generates a unique Dynamic VA or MoMo QR code on arrival. Consumer does instant bank transfer. The exact millisecond meCash captures the cash, a Webhook fires to the driver's phone: "Payment Cleared! Hand over the package."</p></div><div><div class="outcome-box"><p class="case-section-label">THE OUTCOME</p><p>Drivers now finish shifts instantly and ride straight home. <strong>Zero physical cash in the fleet</strong>.</p></div></div></div></div>
+
+      <div class="case-card"><div class="case-header"><div class="case-num">10</div><div class="case-info"><h3>"AfriStream" — Pan-African Music &amp; Video Platform</h3><p>4 million subscribers across ten African countries</p><div class="case-apis"><span class="case-api-pill">Webhooks</span><span class="case-api-pill">Mobile Money Collection</span></div></div></div><div class="case-body"><div><p class="case-section-label">THE PROBLEM</p><p>Legacy payment aggregator used slow "polling" — checking for payment success every 15 minutes. Users would pay to renew subscriptions, but their app stayed locked for 15 minutes, causing furious refund demand floods.</p></div><div><p class="case-section-label">THE SOLUTION</p><p>Replaced polling architecture with meCash Webhooks. The exact millisecond a user types their MoMo PIN, meCash fires a doorbell directly to AfriStream's core server — streaming access unlocked in 400 milliseconds.</p></div><div><div class="outcome-box"><p class="case-section-label">THE OUTCOME</p><p>Customer support ticket volume collapsed by <strong>82%</strong>.</p></div></div></div></div>
+
+      <div class="case-card"><div class="case-header"><div class="case-num">11</div><div class="case-info"><h3>"SolarGrid Africa" — Pay-As-You-Go Solar Provider</h3><p>150,000 low-income households in rural Uganda with home solar panels</p><div class="case-apis"><span class="case-api-pill">Static Virtual Accounts</span><span class="case-api-pill">Webhooks</span></div></div></div><div class="case-body"><div><p class="case-section-label">THE PROBLEM</p><p>Customers must pay $15/month to keep solar panels active. The legacy system required humans to look at bank deposits and manually type unlock codes into an SMS gateway — 24-hour human delay left families sitting in the dark even after they had paid.</p></div><div><p class="case-section-label">THE SOLUTION</p><p>Every solar kit assigned a unique Static VA number printed right on the battery box. When a farmer transfers $15 via USSD, meCash fires a Webhook that instantly beams an IoT satellite unlock command to the solar panel.</p></div><div><div class="outcome-box"><p class="case-section-label">THE OUTCOME</p><p>Lights come back on in <strong>5 seconds</strong>. Totally touchless operations. Zero human intervention required.</p></div></div></div></div>
+
+      <div class="case-card"><div class="case-header"><div class="case-num">12</div><div class="case-info"><h3>"TradeEscrow" — B2B Wholesale Commodity Marketplace</h3><p>Timber and agricultural commodity buyers in North Africa, sellers in Central Africa</p><div class="case-apis"><span class="case-api-pill">Wallet API</span><span class="case-api-pill">Payout API</span><span class="case-api-pill">Virtual Accounts</span></div></div></div><div class="case-body"><div><p class="case-section-label">THE PROBLEM</p><p>Classic trust deadlock — a Moroccan buyer wanted $50,000 of timber from Cameroon. Buyer refused to wire upfront out of fear of no shipment. Mill refused to load ships until cash was in their bank. Deals paralyzed.</p></div><div><p class="case-section-label">THE SOLUTION</p><p>Wallet API spins up a dedicated escrow sub-wallet. Moroccan buyer wires $50,000 into a secure Virtual Account — funds locked in meCash escrow. When shipping manifest is digitally uploaded and verified, Payout API sweeps funds to the mill instantly.</p></div><div><div class="outcome-box"><p class="case-section-label">THE OUTCOME</p><p>Deal velocity surged by <strong>400%</strong>. Both sides trust the platform as a neutral financial arbiter.</p></div></div></div></div>
+
+      <div class="case-card"><div class="case-header"><div class="case-num">13</div><div class="case-info"><h3>"LendWell" — Pan-African Consumer Micro-Lender</h3><p>30-day micro-loans ($20–$100) to consumers across Ghana and Nigeria</p><div class="case-apis"><span class="case-api-pill">Payout API</span><span class="case-api-pill">Mobile Money Collection</span><span class="case-api-pill">Transaction API</span></div></div></div><div class="case-body"><div><p class="case-section-label">THE PROBLEM</p><p>Even if LendWell's AI approved a loan instantly, traditional banking rails took 24 hours to push cash to the user. Customer service had zero visibility over repayment clearing cycles, leading to massive borrower frustration.</p></div><div><p class="case-section-label">THE SOLUTION</p><p>Approved loans disbursed in seconds directly to borrower mobile wallets via Payout API. When borrowers repay via MoMo push prompts, customer service uses Transaction API to verify live ledger clearing statuses in real time.</p></div><div><div class="outcome-box"><p class="case-section-label">THE OUTCOME</p><p>Default rates dropped by <strong>19%</strong> due to effortless repayment prompts and instant disbursement trust.</p></div></div></div></div>
+
+      <div class="case-card"><div class="case-header"><div class="case-num">14</div><div class="case-info"><h3>"EduFinance Africa" — Multi-Campus School Management Platform</h3><p>Accounting and tuition management software for 400 private schools in Nigeria</p><div class="case-apis"><span class="case-api-pill">Static Virtual Accounts</span><span class="case-api-pill">Webhooks</span></div></div></div><div class="case-body"><div><p class="case-section-label">THE PROBLEM</p><p>Tens of thousands of parents deposited cash at commercial banks and handed school bursars greasy paper deposit slips. Bursars spent weeks cross-referencing — parents whose deposits were mislaid faced their children being turned away at school gates.</p></div><div><p class="case-section-label">THE SOLUTION</p><p>When a school signs up, EduFinance calls meCash to instantly generate permanent individual virtual bank accounts for every enrolled student. Parents wire funds directly into their child's branded account number.</p></div><div><div class="outcome-box"><p class="case-section-label">THE OUTCOME</p><p>Bursar's dashboard updates instantly. <strong>Total administrative bliss</strong> — no paper slips, no manual cross-referencing, no embarrassed children at school gates.</p></div></div></div></div>
+
+      <div class="case-card"><div class="case-header"><div class="case-num">15</div><div class="case-info"><h3>"PaySplitter" — High-Volume Retail Merchant Aggregator</h3><p>POS software for 15,000 small retail merchants, restaurants, and corner grocers across Lagos</p><div class="case-apis"><span class="case-api-pill">Virtual Accounts</span><span class="case-api-pill">Wallet API</span><span class="case-api-pill">Bulk Payout API</span></div></div></div><div class="case-body"><div><p class="case-section-label">THE PROBLEM</p><p>Traditional card aggregators held capital for 3 days and charged 2.5%. PaySplitter's finance team calculated sub-merchant splits manually and executed 15,000 distinct manual bank wires every single week.</p></div><div><p class="case-section-label">THE SOLUTION</p><p>Dedicated Virtual Accounts assigned to each merchant POS terminal. Incoming cash flows into internal merchant sub-wallets via Wallet API. Every night at 11:00 PM, Bulk Payout API sweeps accumulated balances into all 15,000 merchant bank accounts automatically.</p></div><div><div class="outcome-box"><p class="case-section-label">THE OUTCOME</p><p>Entire settlement process runs at <strong>a fraction of traditional card processing costs</strong> with zero manual intervention.</p></div></div></div></div>
+
+    </section>
+
+    <!-- ─── SECTION 11: SALES MISTAKES ─── -->
+    <section class="section" id="s11">
+      <div class="section-header">
+        <div class="section-num">Section 11</div>
+        <div class="section-title-wrap">
+          <h2>Common Sales Mistakes (And How to Avoid Them)</h2>
+          <p>Study these 6 fatal mistakes. Every one of them is deal-killing.</p>
+        </div>
+      </div>
+
+      <div class="mistake-card"><div class="mistake-header"><span class="mistake-badge">Mistake 1</span><h3>Recommending APIs Way Too Quickly</h3></div><div class="mistake-body"><div class="mistake-col wrong"><h4>❌ What Amateurs Do</h4><p>The prospect says "We are an e-commerce company" and you immediately interrupt: "Fantastic! You need our Mobile Money Collection API and our Dynamic Virtual Accounts! Let me show you the pricing!" — You have diagnosed without examining.</p></div><div class="mistake-col right"><h4>✓ What Masters Do</h4><p>Enforce the <strong>"3-Question Rule."</strong> Never mention a single meCash product name until you have asked at least three deep discovery questions about their current workflow, their manual accounting hours lost, and their operational bottlenecks.</p></div></div></div>
+
+      <div class="mistake-card"><div class="mistake-header"><span class="mistake-badge">Mistake 2</span><h3>Using Developer Jargon with Business Buyers</h3></div><div class="mistake-body"><div class="mistake-col wrong"><h4>❌ What Amateurs Do</h4><p>Sitting across from a 55-year-old CFO and saying: "Our RESTful JSON endpoints utilize HMAC-SHA256 cryptographic webhook signatures with asynchronous idempotent polling fallbacks." The CFO nods blankly, feels intimidated, and stops answering your calls.</p></div><div class="mistake-col right"><h4>✓ What Masters Do</h4><p>Speak pure <strong>Business English</strong>. Instead of "Webhook," say "Instant electronic push notification." Instead of "Idempotent keys," say "Double-charge prevention scrubbing." Use the restaurant waiter, universal travel adapter, and digital post office analogies effortlessly.</p></div></div></div>
+
+      <div class="mistake-card"><div class="mistake-header"><span class="mistake-badge">Mistake 3</span><h3>Talking About "Endpoints" Instead of "Business Value"</h3></div><div class="mistake-body"><div class="mistake-col wrong"><h4>❌ What Amateurs Do</h4><p>Opening your presentation deck with a slide detailing API response schemas, status codes (200 OK, 400 Bad Request), and server uptime stats. You are selling the shovel, not the gold.</p></div><div class="mistake-col right"><h4>✓ What Masters Do</h4><p><strong>Always attach monetary or operational value.</strong> Don't say "Our Bulk Payout API processes 10,000 transactions at once." Say "Our Bulk Payout API will allow your finance manager to run your entire multi-country monthly payroll in 5 minutes, freeing up two weeks of her time for strategic tax planning."</p></div></div></div>
+
+      <div class="mistake-card"><div class="mistake-header"><span class="mistake-badge">Mistake 4</span><h3>Selling "Features" Instead of "Solving Problems"</h3></div><div class="mistake-body"><div class="mistake-col wrong"><h4>❌ What Amateurs Do</h4><p>Aggressively listing capabilities: "We have multi-currency wallets! We have 15-minute FX locks! We connect to five African telcos!" Features are noise unless they connect directly to an existing wound the customer is feeling.</p></div><div class="mistake-col right"><h4>✓ What Masters Do</h4><p><strong>Mirror their exact pain.</strong> Take the words the prospect used during discovery and feed them back attached to your solution. If they said "Our accountants hate matching anonymous wire transfers," say: "You mentioned your accountants are losing their minds matching anonymous wires — that exact wound is why we built Static Virtual Accounts."</p></div></div></div>
+
+      <div class="mistake-card"><div class="mistake-header"><span class="mistake-badge">Mistake 5</span><h3>Failing to Uncover the Back-Office Accounting Pain</h3></div><div class="mistake-body"><div class="mistake-col wrong"><h4>❌ What Amateurs Do</h4><p>Successfully convincing the product manager that the checkout flow is beautiful. They agree to buy. But two weeks later, the deal completely stalls and dies in the finance department because the CFO realizes your API doesn't generate clean bookkeeping reports.</p></div><div class="mistake-col right"><h4>✓ What Masters Do</h4><p><strong>Always ask to involve Finance early.</strong> During discovery, explicitly ask: "When your software captures these payments, how does your finance team actually pull the audit trails to drop into your ERP software?" Pitch the Transaction API alongside collection tools to prove you solve the bookkeeping headache too.</p></div></div></div>
+
+      <div class="mistake-card"><div class="mistake-header"><span class="mistake-badge">Mistake 6</span><h3>Bashing Competitors Instead of Educating</h3></div><div class="mistake-body"><div class="mistake-col wrong"><h4>❌ What Amateurs Do</h4><p>The prospect says "We are currently using Stripe." The amateur rep says: "Stripe is terrible in Africa! They are super expensive and fail all the time! You should fire them immediately!" — This makes you look insecure, arrogant, and potentially insults someone who personally chose Stripe.</p></div><div class="mistake-col right"><h4>✓ What Masters Do</h4><p>Use the <strong>"Compliment &amp; Elevate"</strong> technique. "Stripe is a world-class platform — their developer documentation is incredible. However, because their architecture was built for Western credit card networks, in emerging markets they are forced to route through third-party middlemen and double-convert currencies, eating your margins. We built natively on local banking clearinghouses."</p></div></div></div>
+
+    </section>
+
+    <!-- ─── SECTION 12: QUICK REFERENCE ─── -->
+    <section class="section" id="s12">
+      <div class="section-header">
+        <div class="section-num">Section 12</div>
+        <div class="section-title-wrap">
+          <h2>Quick Reference Guide</h2>
+          <p>Review this for 5 minutes before walking into any customer discovery meeting.</p>
+        </div>
+      </div>
+
+      <div class="callout dark" style="margin-bottom:32px;">
+        <p>Print this. Laminate it. Review it in your car before every meeting.</p>
+      </div>
+
+      <div class="table-wrap">
+        <table class="quick-ref-table">
+          <thead>
+            <tr>
+              <th>API</th>
+              <th>Ideal Customer Profile</th>
+              <th>One-Line Plain English</th>
+              <th>Classic Home Run Use Case</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Wallet API</td>
+              <td>Fintechs, Digital Banks, Investment Apps, Gig Marketplaces, Super Apps</td>
+              <td>Gives your software its own internal digital banking ledger to hold and track user balances across multiple currencies</td>
+              <td>Letting users of a savings or stock-trading app maintain stable digital cash balances inside their dashboard without daily bank transfers</td>
+            </tr>
+            <tr>
+              <td>Quote API</td>
+              <td>Remittance Platforms, Cross-Border Importers/Exporters, International Payroll</td>
+              <td>Guarantees exact exchange rates between currencies and locks in wholesale pricing for up to 15 minutes</td>
+              <td>Protecting an online merchant from losing their profit margin to sudden currency market crashes during checkout</td>
+            </tr>
+            <tr>
+              <td>Payout API</td>
+              <td>Ride-Hailing Apps, Delivery Platforms, Sports Betting, E-Commerce (refunds)</td>
+              <td>Automated outbound engine that pushes individual payments to external bank accounts or mobile wallets instantly</td>
+              <td>Letting a gig economy driver press "Instant Cashout" at midnight to withdraw daily tips directly to their mobile money account</td>
+            </tr>
+            <tr>
+              <td>Bulk Payout API</td>
+              <td>Payroll Software, Government Agencies, Agricultural Co-ops, Affiliate Networks</td>
+              <td>Industrial disbursement tool that dispatches thousands of validated payments concurrently with one batch command</td>
+              <td>Uploading one spreadsheet to execute monthly salary runs for 5,000 employees across four countries in 5 minutes</td>
+            </tr>
+            <tr>
+              <td>Static Virtual Accounts</td>
+              <td>B2B Wholesalers, Real Estate, Schools, Universities, Hospital Networks</td>
+              <td>Permanent unique virtual bank account assigned forever to one customer — all their deposits self-identify automatically</td>
+              <td>Assigning dedicated virtual bank accounts to 500 apartment units so property managers instantly know which tenant paid their rent</td>
+            </tr>
+            <tr>
+              <td>Dynamic Virtual Accounts</td>
+              <td>High-Value E-Commerce, Event Ticketing, Non-Refundable Checkouts</td>
+              <td>Temporary disposable bank account number tied to a timer and one specific online shopping cart that self-destructs after 20 minutes</td>
+              <td>Eliminating credit card chargebacks and fraud by giving shoppers an instant "Pay via Bank Transfer" checkout option</td>
+            </tr>
+            <tr>
+              <td>Mobile Money Collection</td>
+              <td>Consumer E-Commerce, Sports Betting, Digital Media, Transit Apps</td>
+              <td>Pushes a secure "Enter PIN" payment prompt directly onto an end-consumer's mobile phone, pulling funds instantly from telecom wallets</td>
+              <td>Unlocking mass-market African consumers to buy online goods instantly using their M-Pesa or MTN MoMo balances</td>
+            </tr>
+            <tr>
+              <td>Transaction API</td>
+              <td>CFOs, Financial Controllers, Compliance Officers, Customer Support Leads</td>
+              <td>Master surveillance engine for tracking, searching, filtering, and exporting rich historical payment lifecycle reports</td>
+              <td>Giving customer service agents live visibility over transaction statuses so they can resolve payment disputes in seconds instead of hours</td>
+            </tr>
+            <tr>
+              <td>Webhooks</td>
+              <td>E-Commerce Fulfillment, Gaming, Logistics, IoT / Utility Metering, SaaS</td>
+              <td>Automated push notification that fires an electronic message to your server the exact millisecond a financial event succeeds</td>
+              <td>Unlocking a user's streaming subscription or restoring a customer's electricity the instant their payment clears — no polling, no delays</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mt-32">
+        <div class="memory-box">
+          <p>"meCash provides the <strong>singular, enterprise-grade financial infrastructure connection</strong> that allows any business to effortlessly capture, hold, convert, and disburse money across emerging markets and the globe — without building internal banking plumbing."</p>
+        </div>
+      </div>
+
+    </section>
+
+  </div><!-- /content -->
+</main>
+
+<button class="print-btn" onclick="window.print()">🖨️ Print Playbook</button>
+
+<script>
+  // Highlight active sidebar link on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = '#' + entry.target.id;
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -75% 0px' });
+
+  sections.forEach(section => observer.observe(section));
+</script>
+
+</body>
+</html>
