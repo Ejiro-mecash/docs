@@ -143,6 +143,7 @@
           {
             "group": "Ramp",
             "icon": "arrows-rotate",
+            "tag": "coming soon",
             "pages": [
               "ramp-docs/about-ramp",
               "ramp-docs/supported-assets"
@@ -177,8 +178,7 @@
                   "webhook/collection-webhook",
                   "webhook/virtualaccount-creation-webhook",
                   "webhook/virtualaccount-webhook",
-                  "webhook/usd-virtualaccount-webhook",
-                  "webhook/ramp-webhook"
+                  "webhook/usd-virtualaccount-webhook"
                 ]
               },
               {
@@ -257,24 +257,6 @@
               "virtual-account/get-virtual-account"
             ]
           },
-          /*
-          COMMENTED CODE UNTILL RAMP IS TESTED BY QA.
-          {
-            "group": "Ramp",
-            "icon": "arrows-rotate",
-            "pages": [
-              "quote-ramp/get-all-wallets",
-              "quote-ramp/get-wallet",
-              "quote-ramp/get-wallet-balance",
-              "quote-ramp/create-quote-crypto",
-              "quote-ramp/create-quote-offramp",
-              "quote-ramp/get-quote-crypto",
-              "quote-ramp/get-quote-offramp",
-              "quote-ramp/get-gas-fee",
-              "quote-ramp/create-transaction",
-              "quote-ramp/get-transaction"
-            ]
-          },*/
           {
             "group": "Miscellaneous",
             "icon": "toolbox",

@@ -1,0 +1,35 @@
+---
+title: "Rate Limits"
+description: "Understand the API rate limits and how to handle them."
+icon: gauge
+---
+
+To ensure high availability and prevent abuse, the meCash API enforces rate limits on all incoming requests. 
+
+## Default Limits
+
+By default, API requests are limited to:
+- **100 requests per minute** per workspace API key.
+
+If you exceed this limit, the API will respond with an HTTP `429 Too Many Requests` status code. 
+
+## Handling Rate Limits (HTTP 429)
+
+When a rate limit is exceeded, the API returns a structured error response:
+
+```json
+{
+  "status": "error",
+  "message": "Rate limit exceeded. Maximum 100 requests/minute allowed."
+}
+```
+
+### Best Practices
+
+- **Implement Retry Logic**: If you receive a `429` error, your application should pause and retry the request after a short delay (e.g., exponential backoff).
+- **Batch Processing**: Where possible, use batch endpoints like [Bulk Payouts](/payout-docs/bulk-payout) to reduce the number of API calls you make.
+- **Webhooks**: Rely on [webhooks](/webhook/payout-webhook) for status updates rather than aggressively polling our API.
+
+## Higher Throughput
+
+Enterprise users with high transaction volumes can request increased rate limits. If your use case requires a higher throughput tier (e.g., 500 or 1000 requests/minute), please contact [support@me-cash.com](mailto:support@me-cash.com).

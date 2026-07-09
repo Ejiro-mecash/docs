@@ -5,7 +5,7 @@ title: '🇳🇬 NGN Payout'
 This endpoint allows you to **send payouts in Nigerian Naira (NGN)** to recipients in **Nigeria**. The request must include the recipient's details, payment method, and a valid `quoteId`.
 
 ## Endpoint
-**POST:** `{{baseURL}}/v2/payout`
+**POST:** `https://sandboxapi.me-cash.com/v2/payout`
 
 ## Request Details
 
@@ -23,7 +23,7 @@ Include these headers in your request:
 
 <CodeGroup>
 ```bash cURL
-curl --location --request POST '{{baseURL}}/v2/payout' \
+curl --location --request POST 'https://sandboxapi.me-cash.com/v2/payout' \
 --header 'x-api-key: YOUR_API_KEY' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -45,7 +45,7 @@ curl --location --request POST '{{baseURL}}/v2/payout' \
 }'
 ```
 ```javascript JavaScript
-const url = '{{baseURL}}/v2/payout';
+const url = 'https://sandboxapi.me-cash.com/v2/payout';
 
 const options = {
   method: 'POST',
@@ -86,7 +86,7 @@ fetch(url, options)
 ```python Python
 import requests
 
-url = "{{baseURL}}/v2/payout"
+url = "https://sandboxapi.me-cash.com/v2/payout"
 
 payload = {
     "remark": "Testing",
@@ -122,7 +122,7 @@ except requests.exceptions.RequestException as e:
 ```javascript Node.js
 const axios = require('axios');
 
-const url = '{{baseURL}}/v2/payout';
+const url = 'https://sandboxapi.me-cash.com/v2/payout';
 
 const data = {
   remark: 'Testing',

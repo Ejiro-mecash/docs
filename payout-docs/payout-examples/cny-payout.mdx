@@ -8,7 +8,7 @@ This endpoint allows you to process payouts in **Chinese Yuan (CNY)** to recipie
 
 ## Endpoint
 
-**POST:** `{{baseURL}}/v2/payout`
+**POST:** `https://sandboxapi.me-cash.com/v2/payout`
 
 ---
 
@@ -44,7 +44,7 @@ Use `BANK_TRANSFER` for payouts to Chinese bank accounts.
 
 <CodeGroup>
 ```bash cURL
-curl --location --request POST '{{baseURL}}/v2/payout' \
+curl --location --request POST 'https://sandboxapi.me-cash.com/v2/payout' \
 --header 'x-api-key: YOUR_API_KEY' \
 --header 'Content-Type: application/json' \
 --data '{
@@ -79,7 +79,7 @@ curl --location --request POST '{{baseURL}}/v2/payout' \
 }'
 ```
 ```javascript JavaScript (Fetch)
-const url = '{{baseURL}}/v2/payout';
+const url = 'https://sandboxapi.me-cash.com/v2/payout';
 
 const options = {
   method: 'POST',
@@ -134,7 +134,7 @@ fetch(url, options)
 import requests
 import json
 
-url = "{{baseURL}}/v2/payout"
+url = "https://sandboxapi.me-cash.com/v2/payout"
 
 payload = {
     "recipient": {

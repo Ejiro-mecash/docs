@@ -1,0 +1,31 @@
+---
+title: "API Versioning"
+description: "How meCash handles API versioning and upgrades."
+icon: code-branch
+---
+
+The meCash API is versioned to ensure backward compatibility and a predictable upgrade path for developers. The version number is included directly in the base URL path (e.g., `/v1/` or `/v2/`).
+
+## Current Versions
+
+We currently support the following API versions:
+
+- **v1**: The stable API for core resources such as Wallets, Transactions, and Bulk Payouts.
+- **v2**: The latest stable version specifically for **Payouts**. 
+
+### Payout API (v1 to v2 Migration)
+
+The `POST /v1/payout` endpoint has been deprecated and replaced by `POST /v2/payout`. 
+
+If you are still using the v1 endpoint, you should plan to migrate to v2. The v2 endpoint introduces stricter validation, improved error handling, and support for additional payment channels like SWIFT variants. 
+
+#### Migration Steps for Payouts
+1. **Update the Endpoint URL**: Change your request path from `/v1/payout` to `/v2/payout`.
+2. **Quote Requirement**: Ensure that you generate a quote via `POST /v1/quote` and provide the `quoteId` in your v2 payout request body.
+3. **Handle New Enum Variants**: If you process USD payouts, note that the generic `SWIFT` payment channel has been split into `SWIFT_CUSTOMER`, `SWIFT_SHARED`, and `SWIFT_BENEFICIARY`.
+
+## Deprecation Policy
+
+When an API version is scheduled for deprecation, we will provide **at least 6 months** of advance notice before the endpoints are sunset. 
+
+Stay informed by subscribing to the [Release Notes](/release-notes-api) to track upcoming changes, deprecations, and new feature rollouts.

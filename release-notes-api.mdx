@@ -18,6 +18,36 @@ Stay on top of API changes that could impact your integration. Each entry notes 
 
 ## API Platform
 
+<Accordion title="June 2026 — Version v1.x (Status: Live)">
+  **New Features**
+
+  - **EUR recipient enhancements**: Added support for specifying destination countries when creating EUR recipients, improving coverage across supported European payout corridors.
+  - **Recipient management APIs**: Introduced support for creating, retrieving, and managing saved recipients for repeat transfers.
+  - **Sender information support**: Added sender address book capabilities to simplify recurring international payment requests.
+  - **USD wallet funding details**: Enhanced wallet APIs to return funding instructions for USD wallets.
+
+  **Enhancements**
+
+  - **Transaction details enrichment**: Expanded transaction responses to include additional source account information and payment metadata.
+  - **Validation improvements**: Standardized validation rules and error responses across recipient, sender, and transaction endpoints.
+  - **Phone number validation**: Improved backend validation to reject invalid phone number formats before processing requests.
+  - **EUR transfer support**: Extended validation and processing for supported EUR destinations.
+  - **Performance improvements**: Optimized transaction processing and API response times across several payment flows.
+
+  **Bug Fixes**
+
+  - Fixed an issue that caused errors when processing EUR recipient requests.
+  - Fixed delayed retrieval of USD transaction details.
+  - Fixed missing funding account information in USD and EUR wallet responses.
+  - Fixed source account information returning empty values in transaction responses.
+  - Fixed a USD to CNY exchange rate issue that could result in server errors.
+  - Fixed refund processing issues affecting USD transactions.
+  - Fixed OTP validation failures during transaction confirmation.
+  - Resolved several API stability and performance issues across transaction and payout endpoints.
+
+  **Action needed:** No integration changes are required. These updates are backward compatible with existing API integrations.
+</Accordion>
+
 <AccordionGroup>
   <Accordion title="May 2026 — Version v1.x (Status: Live)">
     **New Features**
@@ -37,7 +67,7 @@ Stay on top of API changes that could impact your integration. Each entry notes 
     - Choose `SWIFT_SHARED` if transfer charges should be deducted from the beneficiary's received amount.
     - Choose `SWIFT_BENEFICIARY` if the beneficiary should bear all transfer charges.
 
-    **Action needed:** Update your payout request payloads to use `SWIFT_CUSTOMER`, `SWIFT_SHARED`, or `SWIFT_BENEFICIARY` in place of the deprecated `SWIFT` value. No other fields change — recipient account details, sender details, and quote request format remain identical.
+    **Action needed:** Update your payout request payloads to use `SWIFT_CUSTOMER`, `SWIFT_SHARED`, or `SWIFT_BENEFICIARY` in place of the deprecated `SWIFT` value for USD Transactions. No other fields change — recipient account details, sender details, and quote request format remain identical.
   </Accordion>
 
   <Accordion title="March 2026 — Version v1.x (Status: Live)">

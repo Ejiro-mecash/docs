@@ -7,7 +7,11 @@ tag: new
 
 The **meCash Bulk Payout API** lets you disburse funds to multiple beneficiaries in a single API request. Instead of sending individual transfer requests, you submit a batch of payout orders — ideal for payroll, vendor payments, commissions, and mass disbursements.
 
-<Tip>Each order within a bulk payout is processed independently. If one transfer fails validation, the remaining valid transfers still execute.</Tip>
+<Tip>
+  **Environment Note:** The endpoints in this guide use the Sandbox URL (`https://sandboxapi.me-cash.com`). In Production, replace `sandboxapi` with `api` (`https://api.me-cash.com`).
+
+  Each order within a bulk payout is processed independently. If one transfer fails validation, the remaining valid transfers still execute.
+</Tip>
 
 ## Bulk payout lifecycle
 
@@ -41,7 +45,7 @@ Send all payout orders in one request to `POST /v1/bulk/payout`. Each item inclu
 <Tabs>
   <Tab title="Request">
     ```bash cURL
-    curl --location 'https://{{BaseURL}}/v1/bulk/payout' \
+    curl --location 'https://sandboxapi.me-cash.com/v1/bulk/payout' \
     --header 'Content-Type: application/json' \
     --header 'x-api-key: YOUR_API_KEY' \
     --data '{
@@ -130,7 +134,7 @@ Poll for results using the `batchId` returned from Step 1. This is useful if you
 <Tabs>
   <Tab title="Request">
     ```bash cURL
-    curl --location 'https://{{BaseURL}}/v1/bulk/payout/{{batchId}}/status' \
+    curl --location 'https://sandboxapi.me-cash.com/v1/bulk/payout/{{batchId}}/status' \
     --header 'Content-Type: application/json' \
     --header 'x-api-key: YOUR_API_KEY'
     ```

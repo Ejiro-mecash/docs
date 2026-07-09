@@ -1,0 +1,49 @@
+---
+title: "Pagination"
+description: "Learn how to fetch large datasets using pagination."
+icon: list-ol
+---
+
+When fetching a collection of resources (such as transactions or wallets), the meCash API uses cursor-based or offset-based pagination to limit the size of the response and improve performance. 
+
+## Request Parameters
+
+When listing resources, you can control the output using the following query parameters:
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `page` | Integer | `1` | The page number you want to retrieve. |
+| `limit` | Integer | `20` | The maximum number of records to return in a single page (Max: `100`). |
+
+### Example Request
+
+```bash
+curl --request GET 'https://api.me-cash.com/v1/transaction?page=2&limit=50' \
+  --header 'x-api-key: YOUR_API_KEY'
+```
+
+## Response Structure
+
+Paginated endpoints will include a `meta` or `pagination` object in the response to help you navigate through the pages.
+
+```json
+{
+  "status": "success",
+  "data": [
+    // Array of resources...
+  ],
+  "meta": {
+    "currentPage": 2,
+    "totalPages": 15,
+    "pageSize": 50,
+    "totalRecords": 750,
+    "hasNextPage": true,
+    "hasPreviousPage": true
+  }
+}
+```
+
+### Best Practices
+
+- **Use the metadata:** Always rely on `hasNextPage` or `totalPages` to determine if you need to fetch more data, rather than guessing based on the length of the returned array.
+- **Set a reasonable limit:** A higher limit reduces the number of API calls, but it increases the response payload size and latency. Find a balance that works for your application's memory constraints.

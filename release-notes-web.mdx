@@ -12,6 +12,76 @@ Use these notes to keep your internal runbooks, training materials, and embedded
 
 ## Web Dashboard
 
+<Accordion title="June 2026 — Web App Release (Status: Live)">
+  **New Features**
+
+  - **EUR recipient support**: Added destination country selection when creating new recipients for EUR transfers.
+  - **Recipient management**: You can now save and delete recipients directly from the dashboard for faster repeat transfers.
+  - **Sender address book**: Added support for saving sender information, making repeat international transfers quicker.
+  - **USD wallet funding details**: Added dedicated funding instructions for USD wallets to simplify inbound transfers.
+
+  **Enhancements**
+
+  - **Transaction details improvements**: Expanded transaction details to display additional source account information and payment metadata.
+  - **Validation improvements**: Standardized validation messages and form behaviour across the dashboard for a more consistent experience.
+  - **Phone number validation**: Improved phone number validation to prevent invalid entries during onboarding and transactions.
+  - **Quote and transfer experience**: Refined quote generation and transfer flows to improve usability and reduce user errors.
+  - **EUR transfer support**: Expanded configuration and validation for supported EUR destinations.
+  - **UI refinements**: Improved layout consistency and responsiveness across transaction and wallet pages.
+
+  **Bug Fixes**
+
+  - Fixed an issue where selecting **EUR** could cause application errors during recipient creation.
+  - Fixed delayed loading of USD transaction details.
+  - Fixed missing account details for USD and EUR wallet funding.
+  - Fixed source account information displaying as **N/A** on transaction details.
+  - Fixed a USD to CNY exchange rate issue that could result in server errors.
+  - Fixed refund processing issues affecting USD transactions.
+  - Fixed OTP validation failures during transaction confirmation.
+  - Fixed country display issues for supported EUR destinations.
+  - Resolved several UI inconsistencies and performance issues across the dashboard.
+</Accordion>
+
+<Accordion title="May 2026 — Version v1.x (Status: Live)">
+  **New Features**
+
+  - **USD SWIFT sender support**: Added support for submitting sender information when initiating USD SWIFT payouts, enabling integrations to process transfers on behalf of another sender where required.
+  - **Intermediary bank support**: Added support for an optional **Intermediary Bank SWIFT Code** field in USD SWIFT payout requests, improving compatibility with international banking networks.
+  - **Expanded payout routes**: Added support for additional international payout corridors, increasing global payment coverage.
+
+  **Enhancements**
+
+  - **Recipient validation improvements**: Enhanced validation for international recipient details to improve payout success rates while supporting a wider range of account formats.
+  - **Payout processing improvements**: Optimized backend processing for USD SWIFT transfers to improve reliability and performance.
+  - **Error handling improvements**: Refined validation responses to provide clearer feedback for invalid payout requests.
+
+  **Bug Fixes**
+
+  - Fixed issues affecting USD SWIFT payout processing for certain banking routes.
+  - Fixed validation issues that prevented some valid recipient account details from being accepted.
+  - Resolved backend stability issues that could affect international payout processing.
+
+  **Action needed:** No integration changes are required. These updates are backward compatible with existing API integrations.
+</Accordion>
+
+
+<Accordion title="April 2026 — Web App Release (Status: Live)">
+  **New Features**
+
+  - **USD SWIFT sender support**: Added support for capturing sender information during USD SWIFT payouts, enabling businesses to send international transfers on behalf of themselves or another sender.
+
+  **Enhancements**
+
+  - **SWIFT payout experience**: Improved the USD SWIFT payout workflow to support additional sender information requirements for international transfers.
+  - **Validation improvements**: Refined backend and form validation for international payout requests to improve submission success rates.
+
+  **Bug Fixes**
+
+  - Fixed validation issues affecting some international payout requests.
+  - Resolved minor UI and stability issues across the Send Money experience.
+</Accordion>
+
+
 <AccordionGroup>
   <Accordion title="March 2026 — Web App Release (Status: Live)">
     **New Features**

@@ -466,26 +466,23 @@
           {
             "type": "object",
             "required": [
-              "name",
+              "firstName",
+              "lastName",
               "type",
               "address"
             ],
             "properties": {
-              "name": {
-                "type": "string",
-                "description": "Registered name of the recipient (business or individual)."
-              },
               "type": {
                 "$ref": "#/components/schemas/RecipientType",
                 "description": "Recipient type; align with the actual customer profile (e.g. `BUSINESS`)."
               },
               "firstName": {
                 "type": "string",
-                "description": "Recipient's first name (optional when `name` is supplied)."
+                "description": "Recipient's first name."
               },
               "lastName": {
                 "type": "string",
-                "description": "Recipient's last name (optional when `name` is supplied)."
+                "description": "Recipient's last name."
               },
               "address": {
                 "type": "string",
@@ -494,32 +491,40 @@
               "account": {
                 "type": "object",
                 "required": [
-                  "iban",
-                  "swiftCode"
+                  "bankName",
+                  "bankCountry",
+                  "address",
+                  "swiftCode",
+                  "accountNumber",
+                  "iban"
                 ],
                 "properties": {
-                  "iban": {
-                    "type": "string",
-                    "description": "Explicit IBAN field when provided separately from accountNumber.",
-                    "example": "DE89370400440532013000"
-                  },
-                  "swiftCode": {
-                    "type": "string",
-                    "description": "The SWIFT/BIC code for the bank.",
-                    "example": "DEUTDEFF"
-                  },
-                  "accountNumber": {
-                    "type": "string",
-                    "description": "The International Bank Account Number (IBAN).",
-                    "example": "DE89370400440532013000"
-                  },
                   "bankName": {
                     "type": "string",
-                    "description": "Name of the bank, e.g Deutsche Bank"
+                    "description": "Name of the bank, e.g Adria Bank"
+                  },
+                  "bankCountry": {
+                    "type": "string",
+                    "description": "The two-letter ISO country code of the recipient's bank."
                   },
                   "address": {
                     "type": "string",
                     "description": "The bank's physical address."
+                  },
+                  "swiftCode": {
+                    "type": "string",
+                    "description": "The SWIFT/BIC code for the bank.",
+                    "example": "3456765"
+                  },
+                  "accountNumber": {
+                    "type": "string",
+                    "description": "The recipient's local bank account number.",
+                    "example": "34567876545"
+                  },
+                  "iban": {
+                    "type": "string",
+                    "description": "The recipient's International Bank Account Number (IBAN).",
+                    "example": "123454"
                   }
                 }
               }

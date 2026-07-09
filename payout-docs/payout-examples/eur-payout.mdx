@@ -5,7 +5,7 @@ title: '🇪🇺 EUR Payout'
 This endpoint allows you to send payouts in **Euros (EUR)** to recipients in any **SEPA country** (e.g., Germany, France, Spain).
 
 ## Endpoint
-**POST:** `{{baseURL}}/v2/payout`
+**POST:** `https://sandboxapi.me-cash.com/v2/payout`
 
 ## Request Details
 
@@ -25,32 +25,32 @@ Here are examples of how to make a EUR payout request in different languages.
 
 <CodeGroup>
 ```bash cURL
-curl --location --request POST '{{baseURL}}/v2/payout' \
+curl --location --request POST 'https://sandboxapi.me-cash.com/v2/payout' \
 --header 'x-api-key: YOUR_API_KEY' \
 --header 'Content-Type: application/json' \
 --data '{
-  "quoteId": "a4f7b2c1-ef14-4999-906b-xxxxxxxxxxxxx",
+  "recipient": {
+    "firstName": "John",
+    "lastName": "James",
+    "address": "12 main",
+    "type": "BUSINESS",
+    "account": {
+      "bankName": "Adria Bank",
+      "bankCountry": "AU",
+      "address": "15 Red street",
+      "swiftCode": "3456765",
+      "accountNumber": "34567876545",
+      "iban": "123454"
+    },
+    "paymentChannel": "BANK_TRANSFER"
+  },
+  "quoteId": "c8182a2b-bc22-4323-8efc-a36f9ce6c4f0",
   "reason": "Gift",
-  "invoice": "4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx",
-  "remark": "Testing",
-  "name": "Sam James",
-  "address": "12 street",
-  "type": "BUSINESS",
-  "country": "DE",
-  "currency": "EUR",
-  "paymentChannel": "BANK_TRANSFER",
-  "stored": true,
-  "account": {
-    "iban": "DE89XXXXXXXX3000",
-    "swiftCode": "SWIFT2346",
-    "accountNumber": "566432*********",
-    "bankName": "Best Bank",
-    "address": "12 brown"
-  }
+  "remark": "test"
 }'
 ```
 ```javascript JavaScript (Fetch)
-const url = '{{baseURL}}/v2/payout';
+const url = 'https://sandboxapi.me-cash.com/v2/payout';
 
 const options = {
   method: 'POST',
@@ -59,24 +59,24 @@ const options = {
     'x-api-key': 'YOUR_API_KEY'
   },
   body: JSON.stringify({
-    quoteId: "a4f7b2c1-ef14-4999-906b-xxxxxxxxxxxxx",
+    recipient: {
+      firstName: "John",
+      lastName: "James",
+      address: "12 main",
+      type: "BUSINESS",
+      account: {
+        bankName: "Adria Bank",
+        bankCountry: "AU",
+        address: "15 Red street",
+        swiftCode: "3456765",
+        accountNumber: "34567876545",
+        iban: "123454"
+      },
+      paymentChannel: "BANK_TRANSFER"
+    },
+    quoteId: "c8182a2b-bc22-4323-8efc-a36f9ce6c4f0",
     reason: "Gift",
-    invoice: "4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx",
-    remark: "Testing",
-    name: "Sam James",
-    address: "12 street",
-    type: "BUSINESS",
-    country: "DE",
-    currency: "EUR",
-    paymentChannel: "BANK_TRANSFER",
-    stored: true,
-    account: {
-      iban: "DE89XXXXXXXX3000",
-      swiftCode: "SWIFT2346",
-      accountNumber: "566432*********",
-      bankName: "Best Bank",
-      address: "12 brown"
-    }
+    remark: "test"
   })
 };
 
@@ -95,27 +95,27 @@ fetch(url, options)
 import requests
 import json
 
-url = "{{baseURL}}/v2/payout"
+url = "https://sandboxapi.me-cash.com/v2/payout"
 
 payload = {
-    "quoteId": "a4f7b2c1-ef14-4999-906b-xxxxxxxxxxxxx",
+    "recipient": {
+        "firstName": "John",
+        "lastName": "James",
+        "address": "12 main",
+        "type": "BUSINESS",
+        "account": {
+            "bankName": "Adria Bank",
+            "bankCountry": "AU",
+            "address": "15 Red street",
+            "swiftCode": "3456765",
+            "accountNumber": "34567876545",
+            "iban": "123454"
+        },
+        "paymentChannel": "BANK_TRANSFER"
+    },
+    "quoteId": "c8182a2b-bc22-4323-8efc-a36f9ce6c4f0",
     "reason": "Gift",
-    "invoice": "4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx",
-    "remark": "Testing",
-    "name": "Sam James",
-    "address": "12 street",
-    "type": "BUSINESS",
-    "country": "DE",
-    "currency": "EUR",
-    "paymentChannel": "BANK_TRANSFER",
-    "stored": True,
-    "account": {
-        "iban": "DE89XXXXXXXX3000",
-        "swiftCode": "SWIFT2346",
-        "accountNumber": "566432*********",
-        "bankName": "Best Bank",
-        "address": "12 brown"
-    }
+    "remark": "test"
 }
 
 headers = {
@@ -135,27 +135,27 @@ except requests.exceptions.RequestException as e:
 ```javascript Node.js (Axios)
 const axios = require('axios');
 
-const url = '{{baseURL}}/v2/payout';
+const url = 'https://sandboxapi.me-cash.com/v2/payout';
 
 const data = {
-  quoteId: "a4f7b2c1-ef14-4999-906b-xxxxxxxxxxxxx",
+  recipient: {
+    firstName: "John",
+    lastName: "James",
+    address: "12 main",
+    type: "BUSINESS",
+    account: {
+      bankName: "Adria Bank",
+      bankCountry: "AU",
+      address: "15 Red street",
+      swiftCode: "3456765",
+      accountNumber: "34567876545",
+      iban: "123454"
+    },
+    paymentChannel: "BANK_TRANSFER"
+  },
+  quoteId: "c8182a2b-bc22-4323-8efc-a36f9ce6c4f0",
   reason: "Gift",
-  invoice: "4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx",
-  remark: "Testing",
-  name: "Sam James",
-  address: "12 street",
-  type: "BUSINESS",
-  country: "DE",
-  currency: "EUR",
-  paymentChannel: "BANK_TRANSFER",
-  stored: true,
-  account: {
-    iban: "DE89XXXXXXXX3000",
-    swiftCode: "SWIFT2346",
-    accountNumber: "566432*********",
-    bankName: "Best Bank",
-    address: "12 brown"
-  }
+  remark: "test"
 };
 
 const config = {
@@ -185,21 +185,20 @@ The following fields are required when making a **EUR payout request**.
 | :--- | :--- | :--- | :--- |
 | `quoteId` | String | The unique ID of the quote for this payout. | ✅ Yes |
 | `reason` | String | The purpose of the transfer (e.g., `Payment for services`). | ✅ Yes |
-| `invoice` | String | Optional identifier for the invoice (returned from file upload). | ❌ No |
 | `remark` | String | An optional, additional note about the transaction. | ✅ Yes |
-| `name` | String | The full name of the recipient. | ✅ Yes |
-| `address` | String | The recipient's residential or business address. | ✅ Yes |
-| `type` | String | The type of recipient. Enum: `INDIVIDUAL`, `BUSINESS`. | ✅ Yes |
-| `country` | String | The recipient's two-letter ISO country code (e.g., `DE`). | ✅ Yes |
-| `currency` | String | The ISO currency code. Must be `EUR`. | ✅ Yes |
-| `paymentChannel` | String | The payment method. Must be `BANK_TRANSFER` for EUR payouts. | ✅ Yes |
-| `stored` | Boolean | A flag indicating whether to save the recipient for future use. | ✅ Yes |
-| `account` | Object | An object containing the recipient's bank account details. | ✅ Yes |
-| `account.iban` | String | The recipient's International Bank Account Number (IBAN). | ✅ Yes |
-| `account.swiftCode` | String | The Bank Identifier Code (SWIFT/BIC). | ✅ Yes |
-| `account.accountNumber` | String | The recipient's local bank account number. | ✅ Yes |
-| `account.bankName` | String | The name of the recipient's bank. | ✅ Yes |
-| `account.address` | String | The address of the recipient's bank branch. | ✅ Yes |
+| `recipient` | Object | An object containing the recipient's details. | ✅ Yes |
+| `recipient.firstName` | String | The first name of the recipient. | ✅ Yes |
+| `recipient.lastName` | String | The last name of the recipient. | ✅ Yes |
+| `recipient.address` | String | The recipient's residential or business address. | ✅ Yes |
+| `recipient.type` | String | The type of recipient. Enum: `INDIVIDUAL`, `BUSINESS`. | ✅ Yes |
+| `recipient.paymentChannel` | String | The payment method. Must be `BANK_TRANSFER` for EUR payouts. | ✅ Yes |
+| `recipient.account` | Object | An object containing the recipient's bank account details. | ✅ Yes |
+| `recipient.account.bankName` | String | The name of the recipient's bank. | ✅ Yes |
+| `recipient.account.bankCountry` | String | The two-letter ISO country code of the recipient's bank. | ✅ Yes |
+| `recipient.account.address` | String | The address of the recipient's bank branch. | ✅ Yes |
+| `recipient.account.swiftCode` | String | The Bank Identifier Code (SWIFT/BIC). | ✅ Yes |
+| `recipient.account.accountNumber` | String | The recipient's local bank account number. | ✅ Yes |
+| `recipient.account.iban` | String | The recipient's International Bank Account Number (IBAN). | ✅ Yes |
 
 ---
 
@@ -214,13 +213,12 @@ If the payout is successfully created, the API returns the following response:
   "data": {
     "id": "b2c3d4e5-f6a7-8901-bcde-f1234567890a",
     "reason": "Gift",
-    "invoice": "4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx",
-    "remark": "Testing",
+    "remark": "test",
     "referenceNumber": "EUPAYOUT98765",
     "type": "SEND",
     "state": "COMPLETED",
     "quote": {
-      "id": "a4f7b2c1-ef14-4999-906b-xxxxxxxxxxxxx",
+      "id": "c8182a2b-bc22-4323-8efc-a36f9ce6c4f0",
       "source": {
         "currency": "USD",
         "country": "US",
@@ -228,7 +226,7 @@ If the payout is successfully created, the API returns the following response:
       },
       "target": {
         "currency": "EUR",
-        "country": "DE",
+        "country": "AU",
         "amount": 100
       },
       "rate": 0.9216,
@@ -237,19 +235,21 @@ If the payout is successfully created, the API returns the following response:
       }
     },
     "recipient": {
-      "name": "Sam James",
-      "address": "12 street",
+      "firstName": "John",
+      "lastName": "James",
+      "address": "12 main",
       "type": "BUSINESS",
       "account": {
-        "iban": "DE89XXXXXXXX3000",
-        "swiftCode": "SWIFT2346",
-        "accountNumber": "566...765",
-        "bankName": "Best Bank",
-        "address": "12 brown"
+        "bankName": "Adria Bank",
+        "bankCountry": "AU",
+        "address": "15 Red street",
+        "swiftCode": "3456765",
+        "accountNumber": "34567876545",
+        "iban": "123454"
       },
       "paymentChannel": "BANK_TRANSFER",
       "currency": "EUR",
-      "country": "DE"
+      "country": "AU"
     },
     "created": "2025-09-19T10:15:30.123456Z",
     "processed": "2025-09-19T10:16:45.789101Z"
@@ -270,7 +270,6 @@ This section explains each field returned in a successful response.
 | `data`                             | Object | A container for all the transaction data.                       |
 | `data.id`                          | String | The unique identifier for this payout transaction.              |
 | `data.remark`                      | String | The remark or note that was provided in the request.            |
-| `data.invoice`                     | String | Optional identifier for the invoice provided in the request.    |
 | `data.reason`                      | String | The reason for the payout provided in the request.              |
 | `data.referenceNumber`             | String | A unique reference number generated for the payout.             |
 | `data.type`                        | String | The type of transaction, e.g., `SEND`.                          |
@@ -286,13 +285,16 @@ This section explains each field returned in a successful response.
 | `data.quote.rate`                  | Number | The exchange rate applied to the transaction.                   |
 | `data.quote.fee.amount`            | Number | The transaction fee, in the source currency.                    |
 | `data.recipient`                   | Object | Details of the recipient.                                       |
-| `data.recipient.name`              | String | The full name of the recipient.                                 |
 | `data.recipient.firstName`         | String | The first name of the recipient.                                |
 | `data.recipient.lastName`          | String | The last name of the recipient.                                 |
-| `data.recipient.relationship`      | String | The sender's relationship to the recipient.                     |
-| `data.recipient.type`              | String | The type of recipient entity, e.g., `BANK`.                     |
+| `data.recipient.address`           | String | The address of the recipient.                                   |
+| `data.recipient.type`              | String | The type of recipient entity, e.g., `BUSINESS`.                 |
+| `data.recipient.account.bankName`  | String | The name of the recipient's bank.                               |
+| `data.recipient.account.bankCountry` | String | The country code of the recipient's bank.                       |
+| `data.recipient.account.address`   | String | The address of the recipient's bank.                            |
+| `data.recipient.account.swiftCode` | String | The recipient's Bank Identifier Code (SWIFT).                   |
+| `data.recipient.account.accountNumber` | String | The recipient's account number.                                 |
 | `data.recipient.account.iban`      | String | The recipient's International Bank Account Number.              |
-| `data.recipient.account.bic`       | String | The recipient's Bank Identifier Code (SWIFT).                   |
 | `data.recipient.paymentChannel`    | String | The payment method used, e.g., `BANK_TRANSFER`.                 |
 | `data.recipient.currency`          | String | The currency received by the recipient.                         |
 | `data.recipient.country`           | String | The country of the recipient.                                   |

@@ -12,6 +12,72 @@ Monitor mobile changes so you can plan app store releases, regression testing, a
 
 ## Mobile SDKs
 
+<Accordion title="June 2026 — Mobile Release (Status: Live)">
+  **New Features**
+
+  - **EU recipient support**: Added destination country selection when creating new recipients for EUR transfers.
+  - **Recipient management**: Users can now save and delete recipients directly from the mobile app.
+  - **Sender address book**: Added an address book to save sender information for faster repeat transactions.
+  - **USD wallet funding support**: Added wallet funding details for USD wallets to improve the funding experience.
+
+  **Enhancements**
+
+  - **Transaction details**: Expanded transaction details to display additional source account information and more payment metadata.
+  - **Validation consistency**: Standardized validation messages and error styling across the app for a more consistent user experience.
+  - **Phone number validation**: Limited phone number input to the maximum valid length to prevent invalid entries.
+  - **Progress indicator improvements**: Improved the Send Money progress bar for better alignment and consistency throughout the flow.
+  - **Wallet experience**: Improved wallet display and account information across supported currencies.
+  - **Country coverage**: Expanded EUR regional configuration and country support for eligible transfers.
+
+  **Bug Fixes**
+
+  - Fixed an issue where selecting **EUR** could cause the app to crash.
+  - Fixed delayed loading of USD transaction details.
+  - Fixed missing account details for EUR wallets.
+  - Fixed source account details displaying as **N/A** on transaction details.
+  - Fixed a USD to CNY exchange rate issue that could return server errors.
+  - Fixed refund transactions that caused the app to crash for USD users.
+  - Fixed issues where invalid OTP errors occurred during transaction confirmation.
+  - Fixed country display issues for supported EUR destinations.
+  - Fixed progress bar alignment issues on the USD sender information screen.
+  - Improved app stability and resolved several minor UI and performance issues.
+</Accordion>
+
+<Accordion title="May 2026 — Mobile Release (Status: Live)">
+  **New Features**
+
+  - **USD SWIFT sender support**: Added support for entering sender information when initiating USD SWIFT transfers, allowing users to send payments on behalf of themselves or another sender where required.
+  - **Intermediary bank support**: Added an optional **Intermediary Bank SWIFT Code** field for USD SWIFT payouts to support more international payment routes.
+  - **Expanded payout corridors**: Added support for additional international payout destinations, increasing global payment coverage.
+
+  **Enhancements**
+
+  - **Recipient validation improvements**: Improved recipient validation to support a wider range of international account formats while reducing submission errors.
+  - **Transfer experience improvements**: Refined the send money flow to provide a smoother experience for USD international transfers.
+  - **Performance improvements**: Optimized transaction processing and improved overall app responsiveness during payment initiation.
+
+  **Bug Fixes**
+
+  - Fixed issues affecting USD SWIFT payout processing for certain recipient routes.
+  - Fixed validation issues that prevented some valid international account details from being accepted.
+  - Resolved several UI inconsistencies and stability issues to improve the overall mobile experience.
+</Accordion>
+
+<Accordion title="April 2026 — Mobile Release (Status: Live)">
+  **New Features**
+
+  - **Flexible USD SWIFT sender details**: Added support for sending USD SWIFT transfers on behalf of yourself or another sender by allowing custom sender information during payment initiation.
+
+  **Enhancements**
+
+  - **SWIFT transfer experience**: Improved the USD SWIFT payment flow to better support international transfer requirements and sender information validation.
+
+  **Bug Fixes**
+
+  - No customer-facing bug fixes were included in this release.
+</Accordion>
+
+
 <AccordionGroup>
   <Accordion title="March 2026 — Mobile Release (Status: Live)">
     **New Features**
