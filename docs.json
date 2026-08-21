@@ -143,10 +143,20 @@
           {
             "group": "Ramp",
             "icon": "arrows-rotate",
-            "tag": "coming soon",
+            "tag": "new",
             "pages": [
-              "ramp-docs/about-ramp",
-              "ramp-docs/supported-assets"
+              "ramp-docs/ramp-api-overview",
+              "ramp-docs/supported-assets",
+              {
+                "group": "Ramp Quote API",
+                "icon": "calculator",
+                "pages": [
+                  "ramp-docs/ramp-quote-crypto",
+                  "ramp-docs/ramp-quote-offramp",
+                  "ramp-docs/ramp-quote-onramp"
+                ]
+              },
+              "ramp-payout/ramp-payout"
             ]
           },
           {
@@ -255,6 +265,19 @@
               "virtual-account/virtual-account-transaction-id",
               "virtual-account/fund-virtual-account",
               "virtual-account/get-virtual-account"
+            ]
+          },
+          {
+            "group": "Ramp",
+            "icon": "arrows-rotate",
+            "tag": "new",
+            "pages": [
+              "quote-ramp/get-all-wallets",
+              "quote-ramp/get-wallet",
+              "quote-ramp/get-wallet-balance",
+              "quote-ramp/get-quote-crypto",
+              "quote-ramp/get-quote-offramp",
+              "ramp-payout/create-ramp-payout"
             ]
           },
           {

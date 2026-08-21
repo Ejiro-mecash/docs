@@ -4,10 +4,6 @@ description: "Initiate a crypto-to-fiat (offramp) or crypto-to-crypto transactio
 openapi: post /v1/ramp/order
 ---
 
-<Warning>
-  🚧 **The Ramp API is currently under construction.** Endpoints and features described here are subject to change. Do not use in production until this notice is removed.
-</Warning>
-
 ## Create Transaction
 
 This endpoint executes a transaction (either off-ramp to fiat or crypto-to-crypto transfer) using a previously generated `quoteId`.
@@ -92,7 +88,7 @@ curl --location '{{baseURL}}/v1/ramp/order' \
 --data '{
     "recipient": {
         "symbol": "USDC",
-        "blockchain": "MATIC-AMOY",
+        "blockchain": "MATIC",
         "address": "0xd62acd62fdb155afaa5d12c6caf01119d413dfd9"
     },
     "quoteId": "59628a6c-3d05-406a-ad39-77f92b09137c",
@@ -104,7 +100,7 @@ curl --location '{{baseURL}}/v1/ramp/order' \
 const payload = {
   recipient: {
     symbol: "USDC",
-    blockchain: "MATIC-AMOY",
+    blockchain: "MATIC",
     address: "0xd62acd62fdb155afaa5d12c6caf01119d413dfd9"
   },
   quoteId: "59628a6c-3d05-406a-ad39-77f92b09137c",
@@ -167,7 +163,7 @@ fetch('{{baseURL}}/v1/ramp/order', {
                 "network": {
                     "id": "f8fc48ff-81e6-4b5f-9a70-44fb744e3572",
                     "name": "Polygon Amoy",
-                    "blockchain": "MATIC-AMOY"
+                    "blockchain": "MATIC"
                 }
             },
             "target": {
@@ -223,14 +219,14 @@ fetch('{{baseURL}}/v1/ramp/order', {
             "source": {
                 "currency": "USDC",
                 "symbol": "USDC",
-                "blockchain": "MATIC-AMOY",
+                "blockchain": "MATIC",
                 "type": "CRYPTOCURRENCY",
                 "amount": 2
             },
             "target": {
                 "currency": "USDC",
                 "symbol": "USDC",
-                "blockchain": "MATIC-AMOY",
+                "blockchain": "MATIC",
                 "type": "CRYPTOCURRENCY",
                 "amount": 2
             },
@@ -252,7 +248,7 @@ fetch('{{baseURL}}/v1/ramp/order', {
             "network": {
                 "id": "f8fc48ff-81e6-4b5f-9a70-44fb744e3572",
                 "name": "USDC",
-                "blockchain": "MATIC-AMOY"
+                "blockchain": "MATIC"
             }
         },
         "created": "2025-06-04T12:04:00.817316767"

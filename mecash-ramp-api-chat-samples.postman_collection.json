@@ -1,0 +1,357 @@
+{
+  "info": {
+    "name": "meCash Ramp API - Sandbox Chat Samples",
+    "description": "Built directly from the sandbox test payloads shared in chat (Olowofela, 20/08/2026). Uses POST {{baseURL}}/v2/ramp/payout for transactions - this differs from the /v1/ramp/order endpoint documented in the mdx docs collection. Saved example responses are attached to each request from the original chat output.\n\nSetup:\n1. Set collection variable api_key\n2. Run the 3 quote requests first - test scripts save each returned quoteId\n3. Run the payout requests - they pull the saved quoteId automatically",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseURL",
+      "value": "https://sandboxapi.me-cash.com"
+    },
+    {
+      "key": "api_key",
+      "value": ""
+    },
+    {
+      "key": "crypto_quote_id",
+      "value": ""
+    },
+    {
+      "key": "offramp_quote_id",
+      "value": ""
+    },
+    {
+      "key": "onramp_quote_id",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Quote - Crypto to Crypto (USDC to USDC)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "x-api-key",
+            "value": "{{api_key}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"paymentChannel\": \"BANK_TRANSFER\",\n    \"source\": {\n        \"amount\": 2,\n        \"symbol\": \"USDC\",\n        \"blockchain\": \"MATIC\"\n    },\n    \"target\": {\n        \"symbol\": \"USDC\",\n        \"blockchain\": \"MATIC\"\n    },\n    \"feeLevel\": {\n        \"type\": \"MEDIUM\"\n    },\n    \"recipient\": {\n        \"address\": \"0xd62acd62fdb155afaa5d12c6caf01119d413dfd9\"\n    }\n}"
+        },
+        "url": {
+          "raw": "{{baseURL}}/v1/ramp/quote",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "v1",
+            "ramp",
+            "quote"
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const body = pm.response.json();",
+              "if (body && body.data && body.data.id) {",
+              "    pm.collectionVariables.set('crypto_quote_id', body.data.id);",
+              "}"
+            ]
+          }
+        }
+      ],
+      "response": [
+        {
+          "name": "Sample Success 200",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-api-key",
+                "value": "{{api_key}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseURL}}/v1/ramp/quote",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "v1",
+                "ramp",
+                "quote"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"paymentChannel\": \"BANK_TRANSFER\",\n    \"source\": {\n        \"amount\": 2,\n        \"symbol\": \"USDC\",\n        \"blockchain\": \"MATIC\"\n    },\n    \"target\": {\n        \"symbol\": \"USDC\",\n        \"blockchain\": \"MATIC\"\n    },\n    \"feeLevel\": {\n        \"type\": \"MEDIUM\"\n    },\n    \"recipient\": {\n        \"address\": \"0xd62acd62fdb155afaa5d12c6caf01119d413dfd9\"\n    }\n}"
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n    \"message\": \"quote successfully created\",\n    \"status\": \"success\",\n    \"data\": {\n        \"id\": \"318f21d8-2dd1-4321-b218-881fbdb64484\",\n        \"source\": {\n            \"currency\": \"USDC\",\n            \"symbol\": \"USDC\",\n            \"blockchain\": \"MATIC\",\n            \"amount\": 2,\n            \"type\": \"CRYPTOCURRENCY\"\n        },\n        \"target\": {\n            \"currency\": \"USDC\",\n            \"symbol\": \"USDC\",\n            \"blockchain\": \"MATIC\",\n            \"amount\": 2,\n            \"type\": \"CRYPTOCURRENCY\"\n        },\n        \"quoteCurrency\": \"USDC\",\n        \"rate\": 1,\n        \"fee\": {\n            \"symbol\": \"USDC\",\n            \"amount\": 2,\n            \"gas\": {}\n        },\n        \"rules\": [\n            {\n                \"category\": \"LIMIT\",\n                \"appliedCurrency\": \"USDC\",\n                \"transaction\": {\n                    \"minimum\": 0.01,\n                    \"maximum\": 2000\n                },\n                \"invoice\": 300\n            }\n        ],\n        \"summary\": {\n            \"total\": 3.25\n        },\n        \"settlement\": \"100 hrs\"\n    }\n}"
+        }
+      ]
+    },
+    {
+      "name": "2. Quote - Offramp (USDC to NGN)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "x-api-key",
+            "value": "{{api_key}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"paymentChannel\": \"BANK_TRANSFER\",\n    \"source\": {\n        \"amount\": 2,\n        \"symbol\": \"USDC\",\n        \"blockchain\": \"MATIC\"\n    },\n    \"target\": {\n        \"country\": \"NG\",\n        \"currency\": \"NGN\"\n    }\n}"
+        },
+        "url": {
+          "raw": "{{baseURL}}/v1/ramp/quote",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "v1",
+            "ramp",
+            "quote"
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const body = pm.response.json();",
+              "if (body && body.data && body.data.id) {",
+              "    pm.collectionVariables.set('offramp_quote_id', body.data.id);",
+              "}"
+            ]
+          }
+        }
+      ],
+      "response": [
+        {
+          "name": "Sample Success 200",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-api-key",
+                "value": "{{api_key}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseURL}}/v1/ramp/quote",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "v1",
+                "ramp",
+                "quote"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"paymentChannel\": \"BANK_TRANSFER\",\n    \"source\": {\n        \"amount\": 2,\n        \"symbol\": \"USDC\",\n        \"blockchain\": \"MATIC\"\n    },\n    \"target\": {\n        \"country\": \"NG\",\n        \"currency\": \"NGN\"\n    }\n}"
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n    \"message\": \"quote successfully created\",\n    \"status\": \"success\",\n    \"data\": {\n        \"id\": \"108e2f2d-be85-4a49-93c8-333dd5746124\",\n        \"source\": {\n            \"currency\": \"USDC\",\n            \"symbol\": \"USDC\",\n            \"blockchain\": \"MATIC\",\n            \"amount\": 2,\n            \"type\": \"CRYPTOCURRENCY\"\n        },\n        \"target\": {\n            \"currency\": \"NGN\",\n            \"country\": \"NG\",\n            \"amount\": 3020,\n            \"type\": \"FIAT\"\n        },\n        \"quoteCurrency\": \"NGN\",\n        \"rate\": 1510,\n        \"fee\": {\n            \"symbol\": \"USDC\",\n            \"amount\": 2,\n            \"gas\": {}\n        },\n        \"rules\": [\n            {\n                \"category\": \"LIMIT\",\n                \"appliedCurrency\": \"NGN\",\n                \"appliedCountry\": \"NG\",\n                \"transaction\": {\n                    \"minimum\": 100,\n                    \"maximum\": 1000000\n                },\n                \"invoice\": 500000\n            }\n        ],\n        \"summary\": {\n            \"total\": 2.0002\n        },\n        \"settlement\": \"30 Mins\"\n    }\n}"
+        }
+      ]
+    },
+    {
+      "name": "3. Quote - Onramp (NGN to USDT)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "x-api-key",
+            "value": "{{api_key}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"paymentChannel\": \"BANK_TRANSFER\",\n    \"source\": {\n        \"amount\": 20000,\n        \"country\": \"NG\",\n        \"currency\": \"NGN\"\n    },\n    \"target\": {\n        \"symbol\": \"USDT\",\n        \"blockchain\": \"MATIC\"\n    },\n    \"feeLevel\": {\n        \"type\": \"MEDIUM\"\n    },\n    \"recipient\": {\n        \"address\": \"0xd62acd62fdb155afaa5d12c6caf01119d413dfd9\",\n        \"network\": {\n            \"blockchain\": \"MATIC\",\n            \"tokenStandard\": \"ERC20\"\n        }\n    }\n}"
+        },
+        "url": {
+          "raw": "{{baseURL}}/v1/ramp/quote",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "v1",
+            "ramp",
+            "quote"
+          ]
+        },
+        "description": "NOTE: original chat paste of this payload was missing its opening brace - fixed here."
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const body = pm.response.json();",
+              "if (body && body.data && body.data.id) {",
+              "    pm.collectionVariables.set('onramp_quote_id', body.data.id);",
+              "}"
+            ]
+          }
+        }
+      ],
+      "response": [
+        {
+          "name": "Sample Success 200",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-api-key",
+                "value": "{{api_key}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseURL}}/v1/ramp/quote",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "v1",
+                "ramp",
+                "quote"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"paymentChannel\": \"BANK_TRANSFER\",\n    \"source\": {\n        \"amount\": 20000,\n        \"country\": \"NG\",\n        \"currency\": \"NGN\"\n    },\n    \"target\": {\n        \"symbol\": \"USDT\",\n        \"blockchain\": \"MATIC\"\n    },\n    \"feeLevel\": {\n        \"type\": \"MEDIUM\"\n    },\n    \"recipient\": {\n        \"address\": \"0xd62acd62fdb155afaa5d12c6caf01119d413dfd9\",\n        \"network\": {\n            \"blockchain\": \"MATIC\",\n            \"tokenStandard\": \"ERC20\"\n        }\n    }\n}"
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n    \"message\": \"quote successfully created\",\n    \"status\": \"success\",\n    \"data\": {\n        \"id\": \"b7e166bf-9f58-479d-8867-f655a47334d5\",\n        \"source\": {\n            \"currency\": \"NGN\",\n            \"country\": \"NG\",\n            \"amount\": 20000,\n            \"type\": \"FIAT\"\n        },\n        \"target\": {\n            \"currency\": \"Tether\",\n            \"symbol\": \"USDT\",\n            \"blockchain\": \"MATIC\",\n            \"amount\": 13.33,\n            \"type\": \"CRYPTOCURRENCY\"\n        },\n        \"quoteCurrency\": \"NGN\",\n        \"rate\": 1500,\n        \"fee\": {\n            \"amount\": 20000,\n            \"gas\": {}\n        },\n        \"rules\": [\n            {\n                \"category\": \"LIMIT\",\n                \"appliedCurrency\": \"Tether\",\n                \"transaction\": {\n                    \"minimum\": 1,\n                    \"maximum\": 10000\n                },\n                \"invoice\": 10000\n            }\n        ],\n        \"summary\": {\n            \"total\": 20000\n        },\n        \"settlement\": \"Same Day\"\n    }\n}"
+        }
+      ]
+    },
+    {
+      "name": "4. Payout - Crypto / Onramp",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "x-api-key",
+            "value": "{{api_key}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"recipient\": {\n        \"address\": \"0xd62acd62fdb155afaa5d12c6caf01119d413dfd9\",\n        \"blockchain\": \"MATIC\"\n    },\n    \"quoteId\": \"{{crypto_quote_id}}\",\n    \"reason\": \"Gift\",\n    \"remark\": \"Checking\"\n}"
+        },
+        "url": {
+          "raw": "{{baseURL}}/v2/ramp/payout",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "v2",
+            "ramp",
+            "payout"
+          ]
+        },
+        "description": "Uses {{crypto_quote_id}} saved from request 1. Run request 1 first.\n\nNote: original chat sample used quoteId 24e858c1-e3ac-46dc-8f7c-5e70e53e98aa, which doesn't match the quote created in request 1 above (318f21d8...) - likely from a separate test run. This request substitutes the live chained quoteId instead."
+      }
+    },
+    {
+      "name": "5. Payout - Offramp (Bank Transfer)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "x-api-key",
+            "value": "{{api_key}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"recipient\": {\n        \"name\": \"Pastor Bright\",\n        \"account\": {\n            \"bankName\": \"Access Bank\",\n            \"sortCode\": \"045\",\n            \"accountNumber\": \"0690000032\"\n        },\n        \"paymentChannel\": \"BANK_TRANSFER\",\n        \"currency\": \"NGN\",\n        \"country\": \"NG\"\n    },\n    \"quoteId\": \"{{offramp_quote_id}}\",\n    \"reason\": \"Gift\",\n    \"remark\": \"Checking\"\n}"
+        },
+        "url": {
+          "raw": "{{baseURL}}/v2/ramp/payout",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "v2",
+            "ramp",
+            "payout"
+          ]
+        },
+        "description": "Uses {{offramp_quote_id}} saved from request 2. Run request 2 first.\n\nNote: original chat sample used quoteId 01fab733-ac3c-4292-9276-ec258b740ae6, which doesn't match the quote created in request 2 above (108e2f2d...) - likely from a separate test run. This request substitutes the live chained quoteId instead."
+      }
+    }
+  ]
+}

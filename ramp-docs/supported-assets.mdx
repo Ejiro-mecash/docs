@@ -4,10 +4,6 @@ description: 'Reference matrix of supported cryptocurrencies, blockchain network
 icon: coins
 ---
 
-<Warning>
-  🚧 **The Ramp API is currently under construction.** Endpoints and features described here are subject to change. Do not use in production until this notice is removed.
-</Warning>
-
 Use this matrix to confirm your source cryptocurrency, target network or fiat currency, and applicable limits before building your Ramp integration.
 
 ---
@@ -19,11 +15,11 @@ The Ramp API accepts the following tokens as source assets. Each token is identi
 | **Token** | **Symbol** | **Blockchain** | **Blockchain ID** |
 |-----------|------------|----------------|-------------------|
 | USD Coin | `USDC` | Ethereum (ERC-20) | `ETH` |
-| USD Coin | `USDC` | Polygon | `MATIC` / `MATIC-AMOY` (Sandbox) |
+| USD Coin | `USDC` | Polygon | `MATIC` / `MATIC` (Sandbox) |
 | Tether | `USDT` | Ethereum (ERC-20) | `ETH` |
-| Tether | `USDT` | Polygon | `MATIC` / `MATIC-AMOY` (Sandbox) |
+| Tether | `USDT` | Polygon | `MATIC` / `MATIC` (Sandbox) |
 | Ether | `ETH` | Ethereum (ERC-20) | `ETH` |
-| Polygon | `POL` | Polygon | `MATIC` / `MATIC-AMOY` (Sandbox) |
+| Polygon | `POL` | Polygon | `MATIC` / `MATIC` (Sandbox) |
 
 <Warning>
   Always send assets on the correct network. Sending a token on an unsupported or mismatched network will result in **permanent loss of funds**. meCash cannot recover assets sent to the wrong network.

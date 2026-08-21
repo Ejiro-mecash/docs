@@ -3000,7 +3000,7 @@
               },
               "blockchain": {
                 "type": "string",
-                "example": "MATIC-AMOY"
+                "example": "MATIC"
               }
             }
           },
@@ -3054,7 +3054,7 @@
               },
               "blockchain": {
                 "type": "string",
-                "example": "MATIC-AMOY"
+                "example": "MATIC"
               }
             }
           },
@@ -3071,7 +3071,7 @@
               },
               "blockchain": {
                 "type": "string",
-                "example": "MATIC-AMOY"
+                "example": "MATIC"
               }
             }
           },
@@ -3153,7 +3153,7 @@
                       },
                       "blockchain": {
                         "type": "string",
-                        "example": "MATIC-AMOY"
+                        "example": "MATIC"
                       }
                     }
                   }
@@ -3262,7 +3262,7 @@
                   },
                   "blockchain": {
                     "type": "string",
-                    "example": "MATIC-AMOY"
+                    "example": "MATIC"
                   },
                   "type": {
                     "type": "string",
@@ -3287,7 +3287,7 @@
                   },
                   "blockchain": {
                     "type": "string",
-                    "example": "MATIC-AMOY"
+                    "example": "MATIC"
                   },
                   "type": {
                     "type": "string",
@@ -3418,7 +3418,7 @@
                           },
                           "blockchain": {
                             "type": "string",
-                            "example": "MATIC-AMOY"
+                            "example": "MATIC"
                           }
                         }
                       }
@@ -3584,7 +3584,7 @@
                       },
                       "blockchain": {
                         "type": "string",
-                        "example": "MATIC-AMOY"
+                        "example": "MATIC"
                       },
                       "type": {
                         "type": "string",
@@ -3609,7 +3609,7 @@
                       },
                       "blockchain": {
                         "type": "string",
-                        "example": "MATIC-AMOY"
+                        "example": "MATIC"
                       },
                       "type": {
                         "type": "string",
@@ -3684,7 +3684,7 @@
                       },
                       "blockchain": {
                         "type": "string",
-                        "example": "MATIC-AMOY"
+                        "example": "MATIC"
                       }
                     }
                   }
@@ -6502,7 +6502,7 @@
                         },
                         "blockChain": {
                           "type": "string",
-                          "example": "MATIC-AMOY"
+                          "example": "MATIC"
                         }
                       }
                     }
@@ -6573,7 +6573,7 @@
                         },
                         "blockchain": {
                           "type": "string",
-                          "example": "MATIC-AMOY"
+                          "example": "MATIC"
                         }
                       }
                     }
@@ -6728,7 +6728,7 @@
                   },
                   "blockchain": {
                     "type": "string",
-                    "example": "MATIC-AMOY"
+                    "example": "MATIC"
                   },
                   "recipient": {
                     "type": "object",
@@ -6776,7 +6776,7 @@
                         },
                         "blockchain": {
                           "type": "string",
-                          "example": "MATIC-AMOY"
+                          "example": "MATIC"
                         },
                         "gas": {
                           "type": "object",

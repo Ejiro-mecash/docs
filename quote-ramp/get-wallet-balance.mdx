@@ -3,10 +3,6 @@ title: "Get Wallet Balance"
 openapi: get /v1/ramp/wallet/{walletId}/balance
 ---
 
-<Warning>
-  🚧 **The Ramp API is currently under construction.** Endpoints and features described here are subject to change. Do not use in production until this notice is removed.
-</Warning>
-
 This endpoint retrieves the token balances (including available and pending balances) for a specific cryptocurrency wallet.
 
 ---
@@ -104,7 +100,7 @@ axios.get(`{{baseURL}}/v1/ramp/wallet/${walletId}/balance`, {
                 "decimals": 6,
                 "balance": 115,
                 "pendingBalance": 112.5113391,
-                "blockChain": "MATIC-AMOY"
+                "blockChain": "MATIC"
             }
         ]
     }
@@ -126,7 +122,7 @@ axios.get(`{{baseURL}}/v1/ramp/wallet/${walletId}/balance`, {
 | `data.token[].decimals` | number   | Decimal places used by the token.                       |
 | `data.token[].balance`  | number   | Available balance of the token in the wallet.           |
 | `data.token[].pendingBalance` | number | Pending/unconfirmed balance of the token.            |
-| `data.token[].blockChain` | string | Blockchain network (e.g., `"MATIC-AMOY"`, `"ETH"`).    |
+| `data.token[].blockChain` | string | Blockchain network (e.g., `"MATIC"`, `"ETH"`).    |
 
 ---
 
