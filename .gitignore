@@ -2,3 +2,6 @@
 *.log
 .agent/
 .gemini/
+.env
+.env.*
+!.env.example

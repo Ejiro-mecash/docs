@@ -1,6 +1,6 @@
 ---
 title: 'Ramp Payout'
-description: 'Execute a ramp transaction (crypto-to-crypto, offramp to bank, or onramp to wallet) by using the 'quoteId'.'
+description: 'Execute a ramp transaction (crypto-to-crypto, offramp to bank, or onramp to wallet) by using the quoteId.'
 icon: paper-plane
 ---
 
@@ -155,7 +155,7 @@ payload = {
         "address": "0xd62acd62fdb155afaa5d12c6caf01119d413dfd9",
         "blockchain": "MATIC",
     },
-    "quoteId": "318f21d8-2dd1-4321-b218-881fbdb64484",
+    "quoteId": "318f21d8-2dd1-4321-b218-xxxxxxxxxx",
     "reason": "Gift",
     "remark": "Checking",
 }
@@ -172,7 +172,7 @@ axios.post('{{baseURL}}/v2/ramp/payout', {
     address: '0xd62acd62fdb155afaa5d12c6caf01119d413dfd9',
     blockchain: 'MATIC'
   },
-  quoteId: '318f21d8-2dd1-4321-b218-881fbdb64484',
+  quoteId: '318f21d8-2dd1-4321-b218-xxxxxxxxxx',
   reason: 'Gift',
   remark: 'Checking'
 }, {
@@ -212,7 +212,7 @@ curl --request POST '{{baseURL}}/v2/ramp/payout' \
         "currency": "NGN",
         "country": "NG"
     },
-    "quoteId": "108e2f2d-be85-4a49-93c8-333dd5746124",
+    "quoteId": "108e2f2d-be85-4a49-93c8-xxxxxxxxxxxx",
     "reason": "Gift",
     "remark": "Checking"
   }'
@@ -230,7 +230,7 @@ const payload = {
     currency: 'NGN',
     country: 'NG'
   },
-  quoteId: '108e2f2d-be85-4a49-93c8-333dd5746124',
+  quoteId: '108e2f2d-be85-4a49-93c8-xxxxxxxxxxxx',
   reason: 'Gift',
   remark: 'Checking'
 };
@@ -270,7 +270,7 @@ payload = {
         "currency": "NGN",
         "country": "NG",
     },
-    "quoteId": "108e2f2d-be85-4a49-93c8-333dd5746124",
+    "quoteId": "108e2f2d-be85-4a49-93c8-xxxxxxxxxxxx",
     "reason": "Gift",
     "remark": "Checking",
 }
@@ -294,7 +294,7 @@ axios.post('{{baseURL}}/v2/ramp/payout', {
     currency: 'NGN',
     country: 'NG'
   },
-  quoteId: '108e2f2d-be85-4a49-93c8-333dd5746124',
+  quoteId: '108e2f2d-be85-4a49-93c8-xxxxxxxxxxxx',
   reason: 'Gift',
   remark: 'Checking'
 }, {
