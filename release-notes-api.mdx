@@ -18,6 +18,29 @@ Stay on top of API changes that could impact your integration. Each entry notes 
 
 ## API Platform
 
+<Accordion title="August 2026 — Version v1.x (Status: Live)">
+  **New Features**
+
+  - **Wallet capabilities**: Added support for USD wallet capabilities.
+  - **Instant wallets**: Wallet availability can now indicate whether a wallet is instant.
+
+  **Enhancements**
+
+  - **Duplicate transactions**: Improved transaction handling to prevent duplicate transactions.
+  - **CAD recipients**: Improved CAD recipient creation for both Bank Transfer and SWIFT beneficiaries.
+  - **Bank country**: Improved destination bank country handling for SWIFT and Bank Transfer transactions.
+  - **POBO**: Standardized "Myself" sender information across payout routes.
+  - **Account name**: Improved account name handling so the account name provided in a request is displayed correctly.
+  - **Error responses**: Improved error messaging and validation for clearer API responses.
+
+  **Bug Fixes**
+
+  - Fixed an issue with sender address information that could cause payout requests to fail.
+  - Fixed an issue that could prevent USD SWIFT payouts from being submitted when using "Others" as the sender information.
+  - Fixed an issue where wallet transaction data was not being returned correctly.
+  - Fixed an issue where transaction values were not displaying correctly in API reports.
+</Accordion>
+
 <Accordion title="June 2026 — Version v1.x (Status: Live)">
   **New Features**
 
