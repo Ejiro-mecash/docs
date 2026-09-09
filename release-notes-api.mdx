@@ -41,6 +41,26 @@ Stay on top of API changes that could impact your integration. Each entry notes 
   - Fixed an issue where transaction values were not displaying correctly in API reports.
 </Accordion>
 
+<Accordion title="July 2026 — Version v1.x (Status: Live)">
+  **New Features**
+
+  - **Wallet capabilities**: Added API support for USD wallet capabilities.
+  - **Multi-currency payments**: Improved handling of incoming foreign-currency payments into USD master accounts, automatically routing funds to the appropriate currency wallet.
+
+  **Enhancements**
+
+  - **Destination country**: Added destination country information to recipient creation for supported international transfers.
+  - **Account Number / IBAN**: Recipient creation now accepts either an account number or IBAN, providing greater flexibility for international payouts.
+  - **Dynamic payout forms**: Introduced a more flexible payout form structure that supports different recipient requirements across payout routes.
+  - **EUR payouts**: Updated EUR payout fields to provide a more consistent experience with existing payout routes.
+  - **API response codes**: Improved API responses with standardized response codes for more consistent error handling.
+  - **Wallet details**: Improved wallet account-detail handling for supported currencies.
+
+  **Bug Fixes**
+
+  - Fixed an issue causing USD-to-CNY payout requests to return errors.
+</Accordion>
+
 <Accordion title="June 2026 — Version v1.x (Status: Live)">
   **New Features**
 
