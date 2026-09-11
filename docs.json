@@ -275,6 +275,8 @@
               "quote-ramp/get-all-wallets",
               "quote-ramp/get-wallet",
               "quote-ramp/get-wallet-balance",
+              "quote-ramp/create-quote-crypto",
+              "quote-ramp/create-quote-offramp",
               "quote-ramp/get-quote-crypto",
               "quote-ramp/get-quote-offramp",
               "ramp-payout/create-ramp-payout"
