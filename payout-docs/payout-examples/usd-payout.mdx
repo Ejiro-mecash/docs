@@ -77,7 +77,8 @@ curl --location --request POST 'https://sandboxapi.me-cash.com/v2/payout' \
       "line1": "12 main st"
     },
     "mobileNumber": "+234872******",
-    "occupation": "HEALTHCARE"
+    "occupation": "HEALTHCARE",
+    "type": "BUSINESS"
   },
   "paymentChannel": "SWIFT_CUSTOMER",
   "currency": "USD",
@@ -120,7 +121,8 @@ const options = {
         line1: "12 main st"
       },
       mobileNumber: "+234872******",
-      occupation: "HEALTHCARE"
+      occupation: "HEALTHCARE",
+      type: "BUSINESS"
     },
     paymentChannel: "SWIFT_CUSTOMER",
     currency: "USD",
@@ -172,7 +174,8 @@ payload = {
             "line1": "12 main st"
         },
         "mobileNumber": "+234872******",
-        "occupation": "HEALTHCARE"
+        "occupation": "HEALTHCARE",
+        "type": "BUSINESS"
     },
     "paymentChannel": "SWIFT_CUSTOMER",
     "currency": "USD",
@@ -221,7 +224,7 @@ except requests.exceptions.HTTPError as err:
 | `recipient.nickName`                | String  | A nickname or alias for the recipient.                                      | ❔ No    |
 | `recipient.gender`                  | String  | Gender of the recipient. Enum: `M`, `F`.                                    | ❔ No    |
 | `recipient.occupation`              | String  | The recipient's occupation or profession.                                   | ❔ No    |
-| `recipient.type`                    | String  | The type of recipient. Enum: `INDIVIDUAL`, `BUSINESS`.                      | ✅ Yes   |
+| `recipient.type`                    | String  | The type of recipient. Enum: `INDIVIDUAL`, `PERSON`, `BUSINESS`.            | ✅ Yes   |
 | `recipient.account`                 | Object  | An object containing the recipient's bank account details.                  | ✅ Yes   |
 | `recipient.account.accountNumber`   | String  | The recipient's bank account number.                                        | ✅ Yes   |
 | `recipient.account.swiftCode`       | String  | The SWIFT/BIC code of the recipient's bank.                                 | ✅ Yes   |
@@ -236,12 +239,7 @@ except requests.exceptions.HTTPError as err:
 | `sender.address.line1`              | String  | The first line of the sender's address.                                     | ✅ Yes   |
 | `sender.mobileNumber`               | String  | The sender's mobile number in international format (e.g., `+234...`).       | ✅ Yes   |
 | `sender.occupation`                 | String  | The sender's occupation or industry (e.g., `HEALTHCARE`).                   | ✅ Yes   |
-| `sender.name`                       | String  | The full name of the sender.                                                | ✅ Yes   |
-| `sender.icNumber`                   | String  | The IC number of the sender.                                                | ✅ Yes   |
-| `sender.nationality`                | String  | The ISO nationality code of the sender.                                     | ✅ Yes   |
-| `sender.address`                    | String  | The address of the sender.                                                  | ✅ Yes   |
-| `sender.mobileNumber`               | String  | The phone number of the sender.                                             | ✅ Yes   |
-| `sender.occupation`                 | String  | The occupation of the sender.                                               | ✅ Yes   |
+| `sender.type`                       | String  | The type of sender. Enum: `INDIVIDUAL`, `PERSON`, `BUSINESS`.               | ✅ Yes   |
 
 </Tab>
 </Tabs>
@@ -312,7 +310,8 @@ If the payout is successfully created, the API returns the following response:
                 "line1": "12 main st"
             },
             "mobileNumber": "+234872272808",
-            "occupation": "HEALTHCARE"
+            "occupation": "HEALTHCARE",
+            "type": "BUSINESS"
         },
         "created": "2026-04-23T18:06:41.022734019Z",
         "processed": "2026-04-23T18:06:41.022734019Z"
@@ -349,7 +348,7 @@ If the payout is successfully created, the API returns the following response:
 | `data.recipient.name`              | String | The full name of the recipient.                                 |
 | `data.recipient.nickName`          | String | Recipient's nickname.                                           |
 | `data.recipient.gender`            | String | Gender (`M` or `F`).                                            |
-| `data.recipient.type`              | String | The type of recipient entity, e.g., `BUSINESS`.                 |
+| `data.recipient.type`              | String | The type of recipient entity (`INDIVIDUAL`, `PERSON`, `BUSINESS`). |
 | `data.recipient.account.bankName`  | String | Name of the recipient's bank.                                   |
 | `data.recipient.account.accountNumber` | String | Recipient's bank account number.                            |
 | `data.recipient.account.swiftCode` | String | SWIFT/BIC code of the bank.                                     |
@@ -360,6 +359,7 @@ If the payout is successfully created, the API returns the following response:
 | `data.sender.address.line1`        | String | Primary address line of the sender.                             |
 | `data.sender.mobileNumber`         | String | International mobile number of the sender.                      |
 | `data.sender.occupation`           | String | Occupation of the sender.                                       |
+| `data.sender.type`                 | String | Type of the sender.                                             |
 | `data.created`                     | String | ISO 8601 timestamp of when the transaction was created.         |
 | `data.processed`                   | String | ISO 8601 timestamp of when the transaction was processed.       |
 ---

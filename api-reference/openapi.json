@@ -252,8 +252,114 @@
         "description": "The type of recipient.",
         "enum": [
           "INDIVIDUAL",
+          "PERSON",
           "BUSINESS"
         ]
+      },
+      "SenderType": {
+        "type": "string",
+        "description": "The type of sender.",
+        "enum": [
+          "INDIVIDUAL",
+          "PERSON",
+          "BUSINESS"
+        ]
+      },
+      "UsdSwiftSender": {
+        "title": "USD SWIFT Sender",
+        "description": "Sender details for a USD SWIFT payout.",
+        "type": "object",
+        "required": [
+          "name",
+          "icNumber",
+          "nationality",
+          "address",
+          "mobileNumber",
+          "occupation"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The full name of the sender or business."
+          },
+          "type": {
+            "$ref": "#/components/schemas/SenderType"
+          },
+          "icNumber": {
+            "type": "string",
+            "description": "The sender's identification/IC number."
+          },
+          "nationality": {
+            "type": "string",
+            "description": "The sender's two-letter ISO nationality code."
+          },
+          "address": {
+            "type": "object",
+            "properties": {
+              "line1": {
+                "type": "string",
+                "description": "The first line of the sender's address."
+              }
+            },
+            "required": ["line1"]
+          },
+          "mobileNumber": {
+            "type": "string",
+            "description": "The sender's mobile number in international format."
+          },
+          "occupation": {
+            "type": "string",
+            "description": "The sender's occupation or industry."
+          }
+        }
+      },
+      "EurSender": {
+        "title": "EUR Sender",
+        "description": "Sender details for a EUR payout.",
+        "type": "object",
+        "required": [
+          "name",
+          "type",
+          "relationship",
+          "nationality",
+          "address",
+          "occupation"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The full name of the sender or business."
+          },
+          "type": {
+            "$ref": "#/components/schemas/SenderType"
+          },
+          "dateOfIncorporation": {
+            "type": "string",
+            "description": "The incorporation date of the business (ISO 8601 format)."
+          },
+          "relationship": {
+            "type": "string",
+            "description": "The sender's relationship to the account."
+          },
+          "nationality": {
+            "type": "string",
+            "description": "The sender's two-letter ISO nationality code."
+          },
+          "address": {
+            "type": "object",
+            "properties": {
+              "line1": {
+                "type": "string",
+                "description": "The first line of the sender's address."
+              }
+            },
+            "required": ["line1"]
+          },
+          "occupation": {
+            "type": "string",
+            "description": "The sender's occupation or industry."
+          }
+        }
       },
       "SourceOfFunds": {
         "type": "string",
@@ -365,9 +471,6 @@
           "occupation"
         ],
         "properties": {
-          "paymentChannel": {
-            "$ref": "#/components/schemas/PaymentChannel"
-          },
           "currency": {
             "$ref": "#/components/schemas/CurrencyCode"
           },
@@ -459,78 +562,85 @@
       "EurRecipient": {
         "title": "EUR Payout",
         "description": "Recipient details for a payout within Europe (EUR).",
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/BaseRecipient"
+        "type": "object",
+        "required": [
+          "firstName",
+          "lastName",
+          "type",
+          "address",
+          "currency",
+          "country",
+          "account"
+        ],
+        "properties": {
+          "currency": {
+            "$ref": "#/components/schemas/CurrencyCode"
           },
-          {
+          "country": {
+            "$ref": "#/components/schemas/CountryCode"
+          },
+          "stored": {
+            "type": "boolean",
+            "description": "Whether the recipient details should be saved in the address book.",
+            "default": false
+          },
+          "type": {
+            "$ref": "#/components/schemas/RecipientType",
+            "description": "Recipient type; align with the actual customer profile (e.g. `BUSINESS`)."
+          },
+          "firstName": {
+            "type": "string",
+            "description": "Recipient's first name."
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Recipient's last name."
+          },
+          "address": {
+            "type": "string",
+            "description": "Mailing address of the recipient; required for EUR payouts."
+          },
+          "account": {
             "type": "object",
             "required": [
-              "firstName",
-              "lastName",
-              "type",
-              "address"
+              "bankName",
+              "bankCountry",
+              "address",
+              "swiftCode",
+              "accountNumber",
+              "iban"
             ],
             "properties": {
-              "type": {
-                "$ref": "#/components/schemas/RecipientType",
-                "description": "Recipient type; align with the actual customer profile (e.g. `BUSINESS`)."
-              },
-              "firstName": {
+              "bankName": {
                 "type": "string",
-                "description": "Recipient's first name."
+                "description": "Name of the bank, e.g Adria Bank"
               },
-              "lastName": {
+              "bankCountry": {
                 "type": "string",
-                "description": "Recipient's last name."
+                "description": "The two-letter ISO country code of the recipient's bank."
               },
               "address": {
                 "type": "string",
-                "description": "Mailing address of the recipient; required for EUR payouts."
+                "description": "The bank's physical address."
               },
-              "account": {
-                "type": "object",
-                "required": [
-                  "bankName",
-                  "bankCountry",
-                  "address",
-                  "swiftCode",
-                  "accountNumber",
-                  "iban"
-                ],
-                "properties": {
-                  "bankName": {
-                    "type": "string",
-                    "description": "Name of the bank, e.g Adria Bank"
-                  },
-                  "bankCountry": {
-                    "type": "string",
-                    "description": "The two-letter ISO country code of the recipient's bank."
-                  },
-                  "address": {
-                    "type": "string",
-                    "description": "The bank's physical address."
-                  },
-                  "swiftCode": {
-                    "type": "string",
-                    "description": "The SWIFT/BIC code for the bank.",
-                    "example": "3456765"
-                  },
-                  "accountNumber": {
-                    "type": "string",
-                    "description": "The recipient's local bank account number.",
-                    "example": "34567876545"
-                  },
-                  "iban": {
-                    "type": "string",
-                    "description": "The recipient's International Bank Account Number (IBAN).",
-                    "example": "123454"
-                  }
-                }
+              "swiftCode": {
+                "type": "string",
+                "description": "The SWIFT/BIC code for the bank.",
+                "example": "3456765"
+              },
+              "accountNumber": {
+                "type": "string",
+                "description": "The recipient's local bank account number.",
+                "example": "34567876545"
+              },
+              "iban": {
+                "type": "string",
+                "description": "The recipient's International Bank Account Number (IBAN).",
+                "example": "123454"
               }
             }
           }
-        ]
+        }
       },
       "GbpRecipient": {
         "title": "GBP Payout",
@@ -1170,7 +1280,18 @@
           },
           {
             "type": "object",
+            "required": [
+              "recipient",
+              "sender",
+              "paymentChannel"
+            ],
             "properties": {
+              "paymentChannel": {
+                "$ref": "#/components/schemas/PaymentChannel"
+              },
+              "sender": {
+                "$ref": "#/components/schemas/UsdSwiftSender"
+              },
               "recipient": {
                 "$ref": "#/components/schemas/UsdSwiftRecipient"
               }
@@ -1187,7 +1308,18 @@
           },
           {
             "type": "object",
+            "required": [
+              "recipient",
+              "sender",
+              "paymentChannel"
+            ],
             "properties": {
+              "paymentChannel": {
+                "$ref": "#/components/schemas/PaymentChannel"
+              },
+              "sender": {
+                "$ref": "#/components/schemas/EurSender"
+              },
               "recipient": {
                 "$ref": "#/components/schemas/EurRecipient"
               }

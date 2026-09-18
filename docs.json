@@ -108,6 +108,7 @@
               "payout-docs/payout",
               "payout-docs/supported-payouts",
               "payout-docs/bulk-payout",
+              "payout-docs/pay-on-behalf-of",
               {
                 "group": "Payout Examples",
                 "tag": "new",
