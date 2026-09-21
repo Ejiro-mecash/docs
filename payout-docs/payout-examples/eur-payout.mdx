@@ -40,23 +40,14 @@ Include these headers in your request:
 
 ## Sample Requests
 
+<Tabs>
+  <Tab title="INDIVIDUAL">
 <CodeGroup>
 ```bash cURL
 curl --location --request POST 'https://sandboxapi.me-cash.com/v2/payout' \
 --header 'x-api-key: YOUR_API_KEY' \
 --header 'Content-Type: application/json' \
 --data '{
-  "sender": {
-    "name": "Jane James",
-    "type": "BUSINESS",
-    "dateOfIncorporation": "2026-07-02",
-    "relationship": "Self",
-    "nationality": "NG",
-    "address": {
-      "line1": "12 main"
-    },
-    "occupation": "Employee"
-  },
   "recipient": {
     "name": "James",
     "nickName": "Jam",
@@ -75,12 +66,26 @@ curl --location --request POST 'https://sandboxapi.me-cash.com/v2/payout' \
     "currency": "EUR",
     "country": "EU"
   },
+  "sender": {
+    "type": "PERSON",
+    "name": "Jane James",
+    "idNumber": "A123456",
+    "dateOfBirth": "2000-12-12",
+    "relationship": "Friend",
+    "gender": "F",
+    "nationality": "NG",
+    "address": "12 Main Street",
+    "mobileNumber": "080993773777",
+    "occupation": "Employee"
+  },
   "paymentChannel": "BANK_TRANSFER",
+  "currency": "EUR",
   "quoteId": "12f4e439-e000-436b-9706-98c4fc2b0486",
   "reason": "Gift",
   "remark": "test"
 }'
 ```
+
 ```javascript JavaScript (Fetch)
 const url = 'https://sandboxapi.me-cash.com/v2/payout';
 
@@ -91,40 +96,42 @@ const options = {
     'x-api-key': 'YOUR_API_KEY'
   },
   body: JSON.stringify({
-    sender: {
-      name: "Jane James",
-      type: "BUSINESS",
-      dateOfIncorporation: "2026-07-02",
-      relationship: "Self",
-      nationality: "NG",
-      address: {
-        line1: "12 main"
-      },
-      occupation: "Employee"
+  "recipient": {
+    "name": "James",
+    "nickName": "Jam",
+    "gender": "M",
+    "occupation": "Employee",
+    "type": "BUSINESS",
+    "account": {
+      "bankCountry": "US",
+      "sortCode": "02196",
+      "swiftCode": "133444",
+      "intermediarySwiftCode": "",
+      "bankCity": "New York",
+      "accountNumber": "123454354",
+      "bankName": "Ally Financial"
     },
-    recipient: {
-      name: "James",
-      nickName: "Jam",
-      gender: "M",
-      occupation: "Employee",
-      type: "BUSINESS",
-      account: {
-        bankCountry: "US",
-        sortCode: "02196",
-        swiftCode: "133444",
-        intermediarySwiftCode: "",
-        bankCity: "New York",
-        accountNumber: "123454354",
-        bankName: "Ally Financial"
-      },
-      currency: "EUR",
-      country: "EU"
-    },
-    paymentChannel: "BANK_TRANSFER",
-    quoteId: "12f4e439-e000-436b-9706-98c4fc2b0486",
-    reason: "Gift",
-    remark: "test"
-  })
+    "currency": "EUR",
+    "country": "EU"
+  },
+  "sender": {
+    "type": "PERSON",
+    "name": "Jane James",
+    "idNumber": "A123456",
+    "dateOfBirth": "2000-12-12",
+    "relationship": "Friend",
+    "gender": "F",
+    "nationality": "NG",
+    "address": "12 Main Street",
+    "mobileNumber": "080993773777",
+    "occupation": "Employee"
+  },
+  "paymentChannel": "BANK_TRANSFER",
+  "currency": "EUR",
+  "quoteId": "12f4e439-e000-436b-9706-98c4fc2b0486",
+  "reason": "Gift",
+  "remark": "test"
+})
 };
 
 fetch(url, options)
@@ -145,17 +152,6 @@ import json
 url = "https://sandboxapi.me-cash.com/v2/payout"
 
 payload = {
-    "sender": {
-        "name": "Jane James",
-        "type": "BUSINESS",
-        "dateOfIncorporation": "2026-07-02",
-        "relationship": "Self",
-        "nationality": "NG",
-        "address": {
-            "line1": "12 main"
-        },
-        "occupation": "Employee"
-    },
     "recipient": {
         "name": "James",
         "nickName": "Jam",
@@ -174,7 +170,20 @@ payload = {
         "currency": "EUR",
         "country": "EU"
     },
+    "sender": {
+        "type": "PERSON",
+        "name": "Jane James",
+        "idNumber": "A123456",
+        "dateOfBirth": "2000-12-12",
+        "relationship": "Friend",
+        "gender": "F",
+        "nationality": "NG",
+        "address": "12 Main Street",
+        "mobileNumber": "080993773777",
+        "occupation": "Employee"
+    },
     "paymentChannel": "BANK_TRANSFER",
+    "currency": "EUR",
     "quoteId": "12f4e439-e000-436b-9706-98c4fc2b0486",
     "reason": "Gift",
     "remark": "test"
@@ -193,6 +202,170 @@ except requests.exceptions.HTTPError as err:
     print(f"HTTP Error: {err}")
 ```
 </CodeGroup>
+  </Tab>
+  <Tab title="BUSINESS">
+<CodeGroup>
+```bash cURL
+curl --location --request POST 'https://sandboxapi.me-cash.com/v2/payout' \
+--header 'x-api-key: YOUR_API_KEY' \
+--header 'Content-Type: application/json' \
+--data '{
+  "recipient": {
+    "name": "James",
+    "nickName": "Jam",
+    "gender": "M",
+    "occupation": "Employee",
+    "type": "BUSINESS",
+    "account": {
+      "bankCountry": "US",
+      "sortCode": "02196",
+      "swiftCode": "133444",
+      "intermediarySwiftCode": "",
+      "bankCity": "New York",
+      "accountNumber": "123454354",
+      "bankName": "Ally Financial"
+    },
+    "currency": "EUR",
+    "country": "EU"
+  },
+  "sender": {
+    "type": "BUSINESS",
+    "name": "ABC Limited",
+    "dateOfIncorporation": "2026-07-02",
+    "relationship": "Business Partner",
+    "icNumber": "12345",
+    "nationality": "NG",
+    "address": {
+      "line1": "12 Main Street"
+    },
+    "occupation": "Employee"
+  },
+  "paymentChannel": "BANK_TRANSFER",
+  "currency": "EUR",
+  "quoteId": "12f4e439-e000-436b-9706-98c4fc2b0486",
+  "reason": "Gift",
+  "remark": "test"
+}'
+```
+
+```javascript JavaScript (Fetch)
+const url = 'https://sandboxapi.me-cash.com/v2/payout';
+
+const options = {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'x-api-key': 'YOUR_API_KEY'
+  },
+  body: JSON.stringify({
+  "recipient": {
+    "name": "James",
+    "nickName": "Jam",
+    "gender": "M",
+    "occupation": "Employee",
+    "type": "BUSINESS",
+    "account": {
+      "bankCountry": "US",
+      "sortCode": "02196",
+      "swiftCode": "133444",
+      "intermediarySwiftCode": "",
+      "bankCity": "New York",
+      "accountNumber": "123454354",
+      "bankName": "Ally Financial"
+    },
+    "currency": "EUR",
+    "country": "EU"
+  },
+  "sender": {
+    "type": "BUSINESS",
+    "name": "ABC Limited",
+    "dateOfIncorporation": "2026-07-02",
+    "relationship": "Business Partner",
+    "icNumber": "12345",
+    "nationality": "NG",
+    "address": {
+      "line1": "12 Main Street"
+    },
+    "occupation": "Employee"
+  },
+  "paymentChannel": "BANK_TRANSFER",
+  "currency": "EUR",
+  "quoteId": "12f4e439-e000-436b-9706-98c4fc2b0486",
+  "reason": "Gift",
+  "remark": "test"
+})
+};
+
+fetch(url, options)
+  .then(res => {
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+    return res.json();
+  })
+  .then(data => console.log(data))
+  .catch(error => console.error('Error:', error));
+```
+
+```python Python (Requests)
+import requests
+import json
+
+url = "https://sandboxapi.me-cash.com/v2/payout"
+
+payload = {
+    "recipient": {
+        "name": "James",
+        "nickName": "Jam",
+        "gender": "M",
+        "occupation": "Employee",
+        "type": "BUSINESS",
+        "account": {
+            "bankCountry": "US",
+            "sortCode": "02196",
+            "swiftCode": "133444",
+            "intermediarySwiftCode": "",
+            "bankCity": "New York",
+            "accountNumber": "123454354",
+            "bankName": "Ally Financial"
+        },
+        "currency": "EUR",
+        "country": "EU"
+    },
+    "sender": {
+        "type": "BUSINESS",
+        "name": "ABC Limited",
+        "dateOfIncorporation": "2026-07-02",
+        "relationship": "Business Partner",
+        "icNumber": "12345",
+        "nationality": "NG",
+        "address": {
+            "line1": "12 Main Street"
+        },
+        "occupation": "Employee"
+    },
+    "paymentChannel": "BANK_TRANSFER",
+    "currency": "EUR",
+    "quoteId": "12f4e439-e000-436b-9706-98c4fc2b0486",
+    "reason": "Gift",
+    "remark": "test"
+}
+
+headers = {
+    "x-api-key": "YOUR_API_KEY",
+    "Content-Type": "application/json"
+}
+
+try:
+    response = requests.post(url, headers=headers, data=json.dumps(payload))
+    response.raise_for_status()
+    print(response.json())
+except requests.exceptions.HTTPError as err:
+    print(f"HTTP Error: {err}")
+```
+</CodeGroup>
+  </Tab>
+</Tabs>
 
 ---
 

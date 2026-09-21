@@ -40,14 +40,7 @@ Include these headers in your request:
 ## Sample Requests
 
 <Tabs>
-
-
-<Tab title="SWIFT_CUSTOMER">
-
-Use `SWIFT_CUSTOMER` when the **sender bears all transfer charges**. Replace `paymentChannel` with `SWIFT_SHARED` if charges should be split with the beneficiary, or `SWIFT_BENEFICIARY` if the beneficiary bears all charges.
-
-<Note>All SWIFT channels use identical request fields — only the `paymentChannel` value changes.</Note>
-
+  <Tab title="INDIVIDUAL">
 <CodeGroup>
 ```bash cURL
 curl --location --request POST 'https://sandboxapi.me-cash.com/v2/payout' \
@@ -70,24 +63,25 @@ curl --location --request POST 'https://sandboxapi.me-cash.com/v2/payout' \
     }
   },
   "sender": {
-    "name": "Test Limited",
-    "icNumber": "96671******",
+    "type": "PERSON",
+    "name": "Jane James",
+    "idNumber": "A123456",
+    "dateOfBirth": "2000-12-12",
+    "relationship": "Friend",
+    "gender": "F",
     "nationality": "NG",
-    "address": {
-      "line1": "12 main st"
-    },
-    "mobileNumber": "+234872******",
-    "occupation": "HEALTHCARE",
-    "type": "BUSINESS"
+    "address": "12 Main Street",
+    "mobileNumber": "080993773777",
+    "occupation": "Employee"
   },
   "paymentChannel": "SWIFT_CUSTOMER",
   "currency": "USD",
   "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
   "reason": "Gift",
-  "invoice": "4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx",
   "remark": "Testing"
 }'
 ```
+
 ```javascript JavaScript (Fetch)
 const url = 'https://sandboxapi.me-cash.com/v2/payout';
 
@@ -98,39 +92,39 @@ const options = {
     'x-api-key': 'YOUR_API_KEY'
   },
   body: JSON.stringify({
-    recipient: {
-      name: "James Wilson",
-      nickName: "Blue",
-      gender: "M",
-      occupation: "business entrepreneur",
-      type: "BUSINESS",
-      account: {
-        sortCode: "02090",
-        swiftCode: "GTBINGLA",
-        bankCity: "Atlanta",
-        accountNumber: "885406******",
-        bankName: "DBS Bank Limited",
-        intermediarySwiftCode: "CHASUS33XXX"
-      }
-    },
-    sender: {
-      name: "Test Limited",
-      icNumber: "96671******",
-      nationality: "NG",
-      address: {
-        line1: "12 main st"
-      },
-      mobileNumber: "+234872******",
-      occupation: "HEALTHCARE",
-      type: "BUSINESS"
-    },
-    paymentChannel: "SWIFT_CUSTOMER",
-    currency: "USD",
-    quoteId: "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
-    reason: "Gift",
-    invoice: "4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx",
-    remark: "Testing"
-  })
+  "recipient": {
+    "name": "James Wilson",
+    "nickName": "Blue",
+    "gender": "M",
+    "occupation": "business entrepreneur",
+    "type": "BUSINESS",
+    "account": {
+      "sortCode": "02090",
+      "swiftCode": "GTBINGLA",
+      "bankCity": "Atlanta",
+      "accountNumber": "885406******",
+      "bankName": "DBS Bank Limited",
+      "intermediarySwiftCode": "CHASUS33XXX"
+    }
+  },
+  "sender": {
+    "type": "PERSON",
+    "name": "Jane James",
+    "idNumber": "A123456",
+    "dateOfBirth": "2000-12-12",
+    "relationship": "Friend",
+    "gender": "F",
+    "nationality": "NG",
+    "address": "12 Main Street",
+    "mobileNumber": "080993773777",
+    "occupation": "Employee"
+  },
+  "paymentChannel": "SWIFT_CUSTOMER",
+  "currency": "USD",
+  "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
+  "reason": "Gift",
+  "remark": "Testing"
+})
 };
 
 fetch(url, options)
@@ -167,21 +161,21 @@ payload = {
         }
     },
     "sender": {
-        "name": "Test Limited",
-        "icNumber": "96671******",
+        "type": "PERSON",
+        "name": "Jane James",
+        "idNumber": "A123456",
+        "dateOfBirth": "2000-12-12",
+        "relationship": "Friend",
+        "gender": "F",
         "nationality": "NG",
-        "address": {
-            "line1": "12 main st"
-        },
-        "mobileNumber": "+234872******",
-        "occupation": "HEALTHCARE",
-        "type": "BUSINESS"
+        "address": "12 Main Street",
+        "mobileNumber": "080993773777",
+        "occupation": "Employee"
     },
     "paymentChannel": "SWIFT_CUSTOMER",
     "currency": "USD",
     "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
     "reason": "Gift",
-    "invoice": "4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx",
     "remark": "Testing"
 }
 
@@ -198,8 +192,160 @@ except requests.exceptions.HTTPError as err:
     print(f"HTTP Error: {err}")
 ```
 </CodeGroup>
+  </Tab>
+  <Tab title="BUSINESS">
+<CodeGroup>
+```bash cURL
+curl --location --request POST 'https://sandboxapi.me-cash.com/v2/payout' \
+--header 'x-api-key: YOUR_API_KEY' \
+--header 'Content-Type: application/json' \
+--data '{
+  "recipient": {
+    "name": "James Wilson",
+    "nickName": "Blue",
+    "gender": "M",
+    "occupation": "business entrepreneur",
+    "type": "BUSINESS",
+    "account": {
+      "sortCode": "02090",
+      "swiftCode": "GTBINGLA",
+      "bankCity": "Atlanta",
+      "accountNumber": "885406******",
+      "bankName": "DBS Bank Limited",
+      "intermediarySwiftCode": "CHASUS33XXX"
+    }
+  },
+  "sender": {
+    "type": "BUSINESS",
+    "name": "ABC Limited",
+    "dateOfIncorporation": "2026-07-02",
+    "relationship": "Business Partner",
+    "icNumber": "12345",
+    "nationality": "NG",
+    "address": {
+      "line1": "12 Main Street"
+    },
+    "occupation": "Employee"
+  },
+  "paymentChannel": "SWIFT_CUSTOMER",
+  "currency": "USD",
+  "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
+  "reason": "Gift",
+  "remark": "Testing"
+}'
+```
 
-</Tab>
+```javascript JavaScript (Fetch)
+const url = 'https://sandboxapi.me-cash.com/v2/payout';
+
+const options = {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'x-api-key': 'YOUR_API_KEY'
+  },
+  body: JSON.stringify({
+  "recipient": {
+    "name": "James Wilson",
+    "nickName": "Blue",
+    "gender": "M",
+    "occupation": "business entrepreneur",
+    "type": "BUSINESS",
+    "account": {
+      "sortCode": "02090",
+      "swiftCode": "GTBINGLA",
+      "bankCity": "Atlanta",
+      "accountNumber": "885406******",
+      "bankName": "DBS Bank Limited",
+      "intermediarySwiftCode": "CHASUS33XXX"
+    }
+  },
+  "sender": {
+    "type": "BUSINESS",
+    "name": "ABC Limited",
+    "dateOfIncorporation": "2026-07-02",
+    "relationship": "Business Partner",
+    "icNumber": "12345",
+    "nationality": "NG",
+    "address": {
+      "line1": "12 Main Street"
+    },
+    "occupation": "Employee"
+  },
+  "paymentChannel": "SWIFT_CUSTOMER",
+  "currency": "USD",
+  "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
+  "reason": "Gift",
+  "remark": "Testing"
+})
+};
+
+fetch(url, options)
+  .then(res => {
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+    return res.json();
+  })
+  .then(data => console.log(data))
+  .catch(error => console.error('Error:', error));
+```
+
+```python Python (Requests)
+import requests
+import json
+
+url = "https://sandboxapi.me-cash.com/v2/payout"
+
+payload = {
+    "recipient": {
+        "name": "James Wilson",
+        "nickName": "Blue",
+        "gender": "M",
+        "occupation": "business entrepreneur",
+        "type": "BUSINESS",
+        "account": {
+            "sortCode": "02090",
+            "swiftCode": "GTBINGLA",
+            "bankCity": "Atlanta",
+            "accountNumber": "885406******",
+            "bankName": "DBS Bank Limited",
+            "intermediarySwiftCode": "CHASUS33XXX"
+        }
+    },
+    "sender": {
+        "type": "BUSINESS",
+        "name": "ABC Limited",
+        "dateOfIncorporation": "2026-07-02",
+        "relationship": "Business Partner",
+        "icNumber": "12345",
+        "nationality": "NG",
+        "address": {
+            "line1": "12 Main Street"
+        },
+        "occupation": "Employee"
+    },
+    "paymentChannel": "SWIFT_CUSTOMER",
+    "currency": "USD",
+    "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
+    "reason": "Gift",
+    "remark": "Testing"
+}
+
+headers = {
+    "x-api-key": "YOUR_API_KEY",
+    "Content-Type": "application/json"
+}
+
+try:
+    response = requests.post(url, headers=headers, data=json.dumps(payload))
+    response.raise_for_status()
+    print(response.json())
+except requests.exceptions.HTTPError as err:
+    print(f"HTTP Error: {err}")
+```
+</CodeGroup>
+  </Tab>
 </Tabs>
 
 ---
@@ -207,41 +353,312 @@ except requests.exceptions.HTTPError as err:
 ### Request Body Breakdown
 
 <Tabs>
+  <Tab title="INDIVIDUAL">
+<CodeGroup>
+```bash cURL
+curl --location --request POST 'https://sandboxapi.me-cash.com/v2/payout' \
+--header 'x-api-key: YOUR_API_KEY' \
+--header 'Content-Type: application/json' \
+--data '{
+  "recipient": {
+    "name": "James Wilson",
+    "nickName": "Blue",
+    "gender": "M",
+    "occupation": "business entrepreneur",
+    "type": "BUSINESS",
+    "account": {
+      "sortCode": "02090",
+      "swiftCode": "GTBINGLA",
+      "bankCity": "Atlanta",
+      "accountNumber": "885406******",
+      "bankName": "DBS Bank Limited",
+      "intermediarySwiftCode": "CHASUS33XXX"
+    }
+  },
+  "sender": {
+    "type": "PERSON",
+    "name": "Jane James",
+    "idNumber": "A123456",
+    "dateOfBirth": "2000-12-12",
+    "relationship": "Friend",
+    "gender": "F",
+    "nationality": "NG",
+    "address": "12 Main Street",
+    "mobileNumber": "080993773777",
+    "occupation": "Employee"
+  },
+  "paymentChannel": "SWIFT_CUSTOMER",
+  "currency": "USD",
+  "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
+  "reason": "Gift",
+  "remark": "Testing"
+}'
+```
 
+```javascript JavaScript (Fetch)
+const url = 'https://sandboxapi.me-cash.com/v2/payout';
 
-<Tab title="SWIFT Fields">
+const options = {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'x-api-key': 'YOUR_API_KEY'
+  },
+  body: JSON.stringify({
+  "recipient": {
+    "name": "James Wilson",
+    "nickName": "Blue",
+    "gender": "M",
+    "occupation": "business entrepreneur",
+    "type": "BUSINESS",
+    "account": {
+      "sortCode": "02090",
+      "swiftCode": "GTBINGLA",
+      "bankCity": "Atlanta",
+      "accountNumber": "885406******",
+      "bankName": "DBS Bank Limited",
+      "intermediarySwiftCode": "CHASUS33XXX"
+    }
+  },
+  "sender": {
+    "type": "PERSON",
+    "name": "Jane James",
+    "idNumber": "A123456",
+    "dateOfBirth": "2000-12-12",
+    "relationship": "Friend",
+    "gender": "F",
+    "nationality": "NG",
+    "address": "12 Main Street",
+    "mobileNumber": "080993773777",
+    "occupation": "Employee"
+  },
+  "paymentChannel": "SWIFT_CUSTOMER",
+  "currency": "USD",
+  "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
+  "reason": "Gift",
+  "remark": "Testing"
+})
+};
 
-| **Field** | **Type** | **Description** | **Required** |
-| :---------------------------------- | :------ | :-------------------------------------------------------------------------- | :------- |
-| `paymentChannel`                    | String  | The SWIFT channel to use. `SWIFT_CUSTOMER` — sender bears all charges; `SWIFT_SHARED` — charges split; `SWIFT_BENEFICIARY` — beneficiary bears all charges. | ✅ Yes   |
-| `currency`                          | String  | The ISO currency code. Must be `USD`.                                       | ✅ Yes   |
-| `quoteId`                           | String  | The unique ID of the quote for this payout.                                 | ✅ Yes   |
-| `reason`                            | String  | The purpose of the transfer (e.g., `Gift`, `Payment for services`).         | ✅ Yes   |
-| `invoice`                           | String  | Optional identifier for the invoice (returned from file upload).            | ❔ No    |
-| `remark`                            | String  | An optional, additional note about the transaction.                         | ❔ No    |
-| `recipient`                         | Object  | An object containing all details about the person receiving the funds.      | ✅ Yes   |
-| `recipient.name`                    | String  | The full name of the recipient or business.                                 | ✅ Yes   |
-| `recipient.nickName`                | String  | A nickname or alias for the recipient.                                      | ❔ No    |
-| `recipient.gender`                  | String  | Gender of the recipient. Enum: `M`, `F`.                                    | ❔ No    |
-| `recipient.occupation`              | String  | The recipient's occupation or profession.                                   | ❔ No    |
-| `recipient.type`                    | String  | The type of recipient. Enum: `INDIVIDUAL`, `PERSON`, `BUSINESS`.            | ✅ Yes   |
-| `recipient.account`                 | Object  | An object containing the recipient's bank account details.                  | ✅ Yes   |
-| `recipient.account.accountNumber`   | String  | The recipient's bank account number.                                        | ✅ Yes   |
-| `recipient.account.swiftCode`       | String  | The SWIFT/BIC code of the recipient's bank.                                 | ✅ Yes   |
-| `recipient.account.sortCode`        | String  | The bank sort code.                                                         | ❔ No    |
-| `recipient.account.bankName`        | String  | The name of the recipient's bank.                                           | ✅ Yes   |
-| `recipient.account.bankCity`        | String  | The city where the bank is located.                                         | ❔ No    |
-| `sender`                            | Object  | An object containing details about the person initiating the transfer.      | ✅ Yes   |
-| `sender.name`                       | String  | The full name of the sender or business.                                    | ✅ Yes   |
-| `sender.icNumber`                   | String  | The sender's identification/IC number.                                      | ✅ Yes   |
-| `sender.nationality`                | String  | The sender's two-letter ISO nationality code (e.g., `NG`).                  | ✅ Yes   |
-| `sender.address`                    | Object  | An object containing the sender's address details.                          | ✅ Yes   |
-| `sender.address.line1`              | String  | The first line of the sender's address.                                     | ✅ Yes   |
-| `sender.mobileNumber`               | String  | The sender's mobile number in international format (e.g., `+234...`).       | ✅ Yes   |
-| `sender.occupation`                 | String  | The sender's occupation or industry (e.g., `HEALTHCARE`).                   | ✅ Yes   |
-| `sender.type`                       | String  | The type of sender. Enum: `INDIVIDUAL`, `PERSON`, `BUSINESS`.               | ✅ Yes   |
+fetch(url, options)
+  .then(res => {
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+    return res.json();
+  })
+  .then(data => console.log(data))
+  .catch(error => console.error('Error:', error));
+```
 
-</Tab>
+```python Python (Requests)
+import requests
+import json
+
+url = "https://sandboxapi.me-cash.com/v2/payout"
+
+payload = {
+    "recipient": {
+        "name": "James Wilson",
+        "nickName": "Blue",
+        "gender": "M",
+        "occupation": "business entrepreneur",
+        "type": "BUSINESS",
+        "account": {
+            "sortCode": "02090",
+            "swiftCode": "GTBINGLA",
+            "bankCity": "Atlanta",
+            "accountNumber": "885406******",
+            "bankName": "DBS Bank Limited",
+            "intermediarySwiftCode": "CHASUS33XXX"
+        }
+    },
+    "sender": {
+        "type": "PERSON",
+        "name": "Jane James",
+        "idNumber": "A123456",
+        "dateOfBirth": "2000-12-12",
+        "relationship": "Friend",
+        "gender": "F",
+        "nationality": "NG",
+        "address": "12 Main Street",
+        "mobileNumber": "080993773777",
+        "occupation": "Employee"
+    },
+    "paymentChannel": "SWIFT_CUSTOMER",
+    "currency": "USD",
+    "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
+    "reason": "Gift",
+    "remark": "Testing"
+}
+
+headers = {
+    "x-api-key": "YOUR_API_KEY",
+    "Content-Type": "application/json"
+}
+
+try:
+    response = requests.post(url, headers=headers, data=json.dumps(payload))
+    response.raise_for_status()
+    print(response.json())
+except requests.exceptions.HTTPError as err:
+    print(f"HTTP Error: {err}")
+```
+</CodeGroup>
+  </Tab>
+  <Tab title="BUSINESS">
+<CodeGroup>
+```bash cURL
+curl --location --request POST 'https://sandboxapi.me-cash.com/v2/payout' \
+--header 'x-api-key: YOUR_API_KEY' \
+--header 'Content-Type: application/json' \
+--data '{
+  "recipient": {
+    "name": "James Wilson",
+    "nickName": "Blue",
+    "gender": "M",
+    "occupation": "business entrepreneur",
+    "type": "BUSINESS",
+    "account": {
+      "sortCode": "02090",
+      "swiftCode": "GTBINGLA",
+      "bankCity": "Atlanta",
+      "accountNumber": "885406******",
+      "bankName": "DBS Bank Limited",
+      "intermediarySwiftCode": "CHASUS33XXX"
+    }
+  },
+  "sender": {
+    "type": "BUSINESS",
+    "name": "ABC Limited",
+    "dateOfIncorporation": "2026-07-02",
+    "relationship": "Business Partner",
+    "icNumber": "12345",
+    "nationality": "NG",
+    "address": {
+      "line1": "12 Main Street"
+    },
+    "occupation": "Employee"
+  },
+  "paymentChannel": "SWIFT_CUSTOMER",
+  "currency": "USD",
+  "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
+  "reason": "Gift",
+  "remark": "Testing"
+}'
+```
+
+```javascript JavaScript (Fetch)
+const url = 'https://sandboxapi.me-cash.com/v2/payout';
+
+const options = {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'x-api-key': 'YOUR_API_KEY'
+  },
+  body: JSON.stringify({
+  "recipient": {
+    "name": "James Wilson",
+    "nickName": "Blue",
+    "gender": "M",
+    "occupation": "business entrepreneur",
+    "type": "BUSINESS",
+    "account": {
+      "sortCode": "02090",
+      "swiftCode": "GTBINGLA",
+      "bankCity": "Atlanta",
+      "accountNumber": "885406******",
+      "bankName": "DBS Bank Limited",
+      "intermediarySwiftCode": "CHASUS33XXX"
+    }
+  },
+  "sender": {
+    "type": "BUSINESS",
+    "name": "ABC Limited",
+    "dateOfIncorporation": "2026-07-02",
+    "relationship": "Business Partner",
+    "icNumber": "12345",
+    "nationality": "NG",
+    "address": {
+      "line1": "12 Main Street"
+    },
+    "occupation": "Employee"
+  },
+  "paymentChannel": "SWIFT_CUSTOMER",
+  "currency": "USD",
+  "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
+  "reason": "Gift",
+  "remark": "Testing"
+})
+};
+
+fetch(url, options)
+  .then(res => {
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+    return res.json();
+  })
+  .then(data => console.log(data))
+  .catch(error => console.error('Error:', error));
+```
+
+```python Python (Requests)
+import requests
+import json
+
+url = "https://sandboxapi.me-cash.com/v2/payout"
+
+payload = {
+    "recipient": {
+        "name": "James Wilson",
+        "nickName": "Blue",
+        "gender": "M",
+        "occupation": "business entrepreneur",
+        "type": "BUSINESS",
+        "account": {
+            "sortCode": "02090",
+            "swiftCode": "GTBINGLA",
+            "bankCity": "Atlanta",
+            "accountNumber": "885406******",
+            "bankName": "DBS Bank Limited",
+            "intermediarySwiftCode": "CHASUS33XXX"
+        }
+    },
+    "sender": {
+        "type": "BUSINESS",
+        "name": "ABC Limited",
+        "dateOfIncorporation": "2026-07-02",
+        "relationship": "Business Partner",
+        "icNumber": "12345",
+        "nationality": "NG",
+        "address": {
+            "line1": "12 Main Street"
+        },
+        "occupation": "Employee"
+    },
+    "paymentChannel": "SWIFT_CUSTOMER",
+    "currency": "USD",
+    "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
+    "reason": "Gift",
+    "remark": "Testing"
+}
+
+headers = {
+    "x-api-key": "YOUR_API_KEY",
+    "Content-Type": "application/json"
+}
+
+try:
+    response = requests.post(url, headers=headers, data=json.dumps(payload))
+    response.raise_for_status()
+    print(response.json())
+except requests.exceptions.HTTPError as err:
+    print(f"HTTP Error: {err}")
+```
+</CodeGroup>
+  </Tab>
 </Tabs>
 
 ---

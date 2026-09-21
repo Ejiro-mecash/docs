@@ -389,7 +389,7 @@
     "/ask-ai-floating-widget.js"
   ],
   "banner": {
-    "content": "🚀 **New Feature:** Bulk Payouts! Send funds to multiple beneficiaries in a single request. [Check the guide](/payout-docs/bulk-payout)",
+    "content": "🚀 **Major Update:** USD and EUR payouts just got an upgrade! You can now make 'Pay on Behalf Of' transfers directly through our platform. [Check it out here](/payout-docs/pay-on-behalf-of)",
     "dismissible": true
   },
   "contextual": {

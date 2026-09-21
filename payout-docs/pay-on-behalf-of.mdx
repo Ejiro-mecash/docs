@@ -114,22 +114,25 @@ To initiate a POBO payout, you must link an active Quote to the transaction and 
 
 ### Example: USD POBO (SWIFT)
 
+<Tabs>
+  <Tab title="INDIVIDUAL">
 ```json
 {
   "quoteId": "12f4e439-e000-436b-9706-98c4fc2b0486",
-  "reason": "BUSINESS_INVOICE",
+  "reason": "FAMILY_SUPPORT",
   "paymentChannel": "SWIFT_CUSTOMER",
   "currency": "USD",
   "sender": {
-    "name": "Acme Corp",
-    "type": "BUSINESS",
-    "icNumber": "96671733919",
+    "type": "PERSON",
+    "name": "Jane James",
+    "idNumber": "A123456",
+    "dateOfBirth": "2000-12-12",
+    "relationship": "Friend",
+    "gender": "F",
     "nationality": "NG",
-    "mobileNumber": "+234872272808",
-    "occupation": "SOFTWARE",
-    "address": {
-      "line1": "12 Tech Lane"
-    }
+    "address": "12 Main Street",
+    "mobileNumber": "080993773777",
+    "occupation": "Employee"
   },
   "recipient": {
     "name": "Jane Smith",
@@ -142,24 +145,61 @@ To initiate a POBO payout, you must link an active Quote to the transaction and 
   }
 }
 ```
+  </Tab>
+  <Tab title="BUSINESS">
+```json
+{
+  "quoteId": "12f4e439-e000-436b-9706-98c4fc2b0486",
+  "reason": "BUSINESS_INVOICE",
+  "paymentChannel": "SWIFT_CUSTOMER",
+  "currency": "USD",
+  "sender": {
+    "type": "BUSINESS",
+    "name": "ABC Limited",
+    "dateOfIncorporation": "2026-07-02",
+    "relationship": "Business Partner",
+    "icNumber": "12345",
+    "nationality": "NG",
+    "address": {
+      "line1": "12 Main Street"
+    },
+    "occupation": "Employee"
+  },
+  "recipient": {
+    "name": "Jane Smith",
+    "type": "PERSON",
+    "account": {
+      "bankName": "Chase Bank",
+      "accountNumber": "857362910",
+      "swiftCode": "CHASUS33XXX"
+    }
+  }
+}
+```
+  </Tab>
+</Tabs>
 
 ### Example: EUR POBO (SEPA)
 
+<Tabs>
+  <Tab title="INDIVIDUAL">
 ```json
 {
   "quoteId": "59b19e8-8a00-4d59-9970-13f56",
-  "reason": "Gift",
+  "reason": "FAMILY_SUPPORT",
   "paymentChannel": "BANK_TRANSFER",
   "currency": "EUR",
   "sender": {
-    "name": "John Doe",
-    "type": "INDIVIDUAL",
-    "relationship": "Self",
+    "type": "PERSON",
+    "name": "Jane James",
+    "idNumber": "A123456",
+    "dateOfBirth": "2000-12-12",
+    "relationship": "Friend",
+    "gender": "F",
     "nationality": "NG",
-    "occupation": "Engineer",
-    "address": {
-      "line1": "45 Lagos Road"
-    }
+    "address": "12 Main Street",
+    "mobileNumber": "080993773777",
+    "occupation": "Employee"
   },
   "recipient": {
     "name": "Euro Trading LLC",
@@ -174,6 +214,41 @@ To initiate a POBO payout, you must link an active Quote to the transaction and 
   }
 }
 ```
+  </Tab>
+  <Tab title="BUSINESS">
+```json
+{
+  "quoteId": "59b19e8-8a00-4d59-9970-13f56",
+  "reason": "BUSINESS_INVOICE",
+  "paymentChannel": "BANK_TRANSFER",
+  "currency": "EUR",
+  "sender": {
+    "type": "BUSINESS",
+    "name": "ABC Limited",
+    "dateOfIncorporation": "2026-07-02",
+    "relationship": "Business Partner",
+    "icNumber": "12345",
+    "nationality": "NG",
+    "address": {
+      "line1": "12 Main Street"
+    },
+    "occupation": "Employee"
+  },
+  "recipient": {
+    "name": "Euro Trading LLC",
+    "type": "BUSINESS",
+    "country": "EU",
+    "account": {
+      "bankName": "Deutsche Bank",
+      "bankCountry": "DE",
+      "accountNumber": "123454354",
+      "swiftCode": "DEUTDEDBXXX"
+    }
+  }
+}
+```
+  </Tab>
+</Tabs>
 
 ---
 
