@@ -19,7 +19,7 @@ EUR payouts support `BANK_TRANSFER` as well as SWIFT-based payment channels.
 | **Channel** | **Description** |
 | :---------- | :-------------- |
 | `BANK_TRANSFER` | Standard bank transfer to the recipient's account. |
-| `SWIFT_CUSTOMER` | The sending customer bears all SWIFT transfer charges. |
+| `SWIFT_OUR` | The sending customer bears all SWIFT transfer charges. |
 | `SWIFT_SHARED` | SWIFT transfer charges are shared between sender and beneficiary. |
 | `SWIFT_BENEFICIARY` | The beneficiary bears all SWIFT transfer charges. |
 
@@ -373,7 +373,7 @@ except requests.exceptions.HTTPError as err:
 
 | **Field** | **Type** | **Description** | **Required** |
 | :---------------------------------- | :------ | :-------------------------------------------------------------------------- | :------- |
-| `paymentChannel`                    | String  | The payment method. E.g., `BANK_TRANSFER`, `SWIFT_SHARED`, `SWIFT_CUSTOMER`. | ✅ Yes   |
+| `paymentChannel`                    | String  | The payment method. E.g., `BANK_TRANSFER`, `SWIFT_SHARED`, `SWIFT_OUR`. | ✅ Yes   |
 | `quoteId`                           | String  | The unique ID of the quote for this payout.                                 | ✅ Yes   |
 | `reason`                            | String  | The purpose of the transfer (e.g., `Gift`, `Payment for services`).         | ✅ Yes   |
 | `remark`                            | String  | An optional, additional note about the transaction.                         | ❔ No    |

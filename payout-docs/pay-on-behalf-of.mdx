@@ -98,7 +98,7 @@ For SWIFT payouts (USD and optionally EUR), you must specify who bears the trans
 
 | Channel             | Charge Bearer | Description                                                                                        |
 | :------------------ | :------------ | :------------------------------------------------------------------------------------------------- |
-| `SWIFT_CUSTOMER`    | Sender        | The sender bears all transfer charges. Your platform absorbs the full cost of the transfer.        |
+| `SWIFT_OUR`    | Sender        | The sender bears all transfer charges. Your platform absorbs the full cost of the transfer.        |
 | `SWIFT_SHARED`      | Both parties  | Charges are shared. The beneficiary receives a net amount after their portion of fees is deducted. |
 | `SWIFT_BENEFICIARY` | Beneficiary   | The beneficiary bears all transfer charges.                                                        |
 
@@ -120,7 +120,7 @@ To initiate a POBO payout, you must link an active Quote to the transaction and 
 {
   "quoteId": "12f4e439-e000-436b-9706-98c4fc2b0486",
   "reason": "FAMILY_SUPPORT",
-  "paymentChannel": "SWIFT_CUSTOMER",
+  "paymentChannel": "SWIFT_OUR",
   "currency": "USD",
   "sender": {
     "type": "PERSON",
@@ -151,7 +151,7 @@ To initiate a POBO payout, you must link an active Quote to the transaction and 
 {
   "quoteId": "12f4e439-e000-436b-9706-98c4fc2b0486",
   "reason": "BUSINESS_INVOICE",
-  "paymentChannel": "SWIFT_CUSTOMER",
+  "paymentChannel": "SWIFT_OUR",
   "currency": "USD",
   "sender": {
     "type": "BUSINESS",

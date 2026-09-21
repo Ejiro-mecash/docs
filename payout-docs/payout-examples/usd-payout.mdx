@@ -18,7 +18,7 @@ USD payouts support three SWIFT-based payment channels. All use the same recipie
 
 | **Channel** | **Charge Bearer** | **Description** |
 | :---------- | :---------------- | :-------------- |
-| `SWIFT_CUSTOMER` | Sender | The sending customer bears all transfer charges. |
+| `SWIFT_OUR` | Sender | The sending customer bears all transfer charges. |
 | `SWIFT_SHARED` | Both parties | Transfer charges are shared between sender and beneficiary. |
 | `SWIFT_BENEFICIARY` | Beneficiary | The beneficiary bears all transfer charges. |
 
@@ -74,7 +74,7 @@ curl --location --request POST 'https://sandboxapi.me-cash.com/v2/payout' \
     "mobileNumber": "080993773777",
     "occupation": "Employee"
   },
-  "paymentChannel": "SWIFT_CUSTOMER",
+  "paymentChannel": "SWIFT_OUR",
   "currency": "USD",
   "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
   "reason": "Gift",
@@ -119,7 +119,7 @@ const options = {
     "mobileNumber": "080993773777",
     "occupation": "Employee"
   },
-  "paymentChannel": "SWIFT_CUSTOMER",
+  "paymentChannel": "SWIFT_OUR",
   "currency": "USD",
   "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
   "reason": "Gift",
@@ -172,7 +172,7 @@ payload = {
         "mobileNumber": "080993773777",
         "occupation": "Employee"
     },
-    "paymentChannel": "SWIFT_CUSTOMER",
+    "paymentChannel": "SWIFT_OUR",
     "currency": "USD",
     "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
     "reason": "Gift",
@@ -227,7 +227,7 @@ curl --location --request POST 'https://sandboxapi.me-cash.com/v2/payout' \
     },
     "occupation": "Employee"
   },
-  "paymentChannel": "SWIFT_CUSTOMER",
+  "paymentChannel": "SWIFT_OUR",
   "currency": "USD",
   "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
   "reason": "Gift",
@@ -272,7 +272,7 @@ const options = {
     },
     "occupation": "Employee"
   },
-  "paymentChannel": "SWIFT_CUSTOMER",
+  "paymentChannel": "SWIFT_OUR",
   "currency": "USD",
   "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
   "reason": "Gift",
@@ -325,7 +325,7 @@ payload = {
         },
         "occupation": "Employee"
     },
-    "paymentChannel": "SWIFT_CUSTOMER",
+    "paymentChannel": "SWIFT_OUR",
     "currency": "USD",
     "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
     "reason": "Gift",
@@ -387,7 +387,7 @@ curl --location --request POST 'https://sandboxapi.me-cash.com/v2/payout' \
     "mobileNumber": "080993773777",
     "occupation": "Employee"
   },
-  "paymentChannel": "SWIFT_CUSTOMER",
+  "paymentChannel": "SWIFT_OUR",
   "currency": "USD",
   "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
   "reason": "Gift",
@@ -432,7 +432,7 @@ const options = {
     "mobileNumber": "080993773777",
     "occupation": "Employee"
   },
-  "paymentChannel": "SWIFT_CUSTOMER",
+  "paymentChannel": "SWIFT_OUR",
   "currency": "USD",
   "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
   "reason": "Gift",
@@ -485,7 +485,7 @@ payload = {
         "mobileNumber": "080993773777",
         "occupation": "Employee"
     },
-    "paymentChannel": "SWIFT_CUSTOMER",
+    "paymentChannel": "SWIFT_OUR",
     "currency": "USD",
     "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
     "reason": "Gift",
@@ -540,7 +540,7 @@ curl --location --request POST 'https://sandboxapi.me-cash.com/v2/payout' \
     },
     "occupation": "Employee"
   },
-  "paymentChannel": "SWIFT_CUSTOMER",
+  "paymentChannel": "SWIFT_OUR",
   "currency": "USD",
   "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
   "reason": "Gift",
@@ -585,7 +585,7 @@ const options = {
     },
     "occupation": "Employee"
   },
-  "paymentChannel": "SWIFT_CUSTOMER",
+  "paymentChannel": "SWIFT_OUR",
   "currency": "USD",
   "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
   "reason": "Gift",
@@ -638,7 +638,7 @@ payload = {
         },
         "occupation": "Employee"
     },
-    "paymentChannel": "SWIFT_CUSTOMER",
+    "paymentChannel": "SWIFT_OUR",
     "currency": "USD",
     "quoteId": "859b19e8-8a00-4d59-9970-xxxxxxxxxxxxx",
     "reason": "Gift",
@@ -683,7 +683,7 @@ If the payout is successfully created, the API returns the following response:
         "state": "PENDING",
         "quote": {
             "id": "4da9d52d-618b-4683-b408-8844d1b520cd",
-            "paymentChannel": "SWIFT_CUSTOMER",
+            "paymentChannel": "SWIFT_OUR",
             "source": {
                 "currency": "USD",
                 "country": "US",
@@ -751,7 +751,7 @@ If the payout is successfully created, the API returns the following response:
 | `data.type`                        | String | The type of transaction, e.g., `SEND`.                          |
 | `data.state`                       | String | The current state of the payout (`PENDING`, `COMPLETED`, etc.). |
 | `data.quote.id`                    | String | The unique ID of the quote used for the transaction.            |
-| `data.quote.paymentChannel`        | String | The payment channel used (e.g., `SWIFT_CUSTOMER`, `SWIFT_SHARED`, `SWIFT_BENEFICIARY`). |
+| `data.quote.paymentChannel`        | String | The payment channel used (e.g., `SWIFT_OUR`, `SWIFT_SHARED`, `SWIFT_BENEFICIARY`). |
 | `data.quote.source.currency`       | String | Source currency code.                                           |
 | `data.quote.source.amount`         | Number | Total source amount before fees.                                |
 | `data.quote.target.currency`       | String | Destination currency code.                                      |
@@ -809,7 +809,7 @@ The payout transaction can have one of the following states:
 ## **Best Practices**
 ✅ Ensure `quoteId` is valid and linked to an existing quote.  
 ✅ Confirm that the recipient's **bank account number** and **bank code** are correct.  
-✅ Use `SWIFT_CUSTOMER` when the sender bears all transfer charges, `SWIFT_SHARED` when charges are split, or `SWIFT_BENEFICIARY` when the beneficiary bears all charges.  
+✅ Use `SWIFT_OUR` when the sender bears all transfer charges, `SWIFT_SHARED` when charges are split, or `SWIFT_BENEFICIARY` when the beneficiary bears all charges.  
 ✅ Use a valid API key in the headers.  
 ✅ Handle error responses correctly in your integration.  
 
