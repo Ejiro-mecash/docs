@@ -12,6 +12,38 @@ Use these notes to keep your internal runbooks, training materials, and embedded
 
 ## Web Dashboard
 
+<Accordion title="September 2026 — Web App Release (Status: Live)">
+  **Wallets**
+
+  - **Wallet Swap**: Added currency swap functionality, allowing users to exchange supported currencies within their wallets.
+  - **Wallet Information**: Improved wallet balance and currency information across the dashboard.
+  - **Currency Display**: Fixed missing currency flags for supported currencies.
+  - **NGN Wallet Creation**: Fixed an issue affecting NGN wallet creation for customers with hyphenated names.
+
+  **Send Money & Payouts**
+
+  - **Recipient Bank Details**: Improved recipient bank information handling, including support for sort codes where required.
+  - **EUR Payouts**: EUR payout responses now include the recipient bank country, providing additional information for tracking and reconciliation.
+  - **Sender Information**: Improved sender type display so transactions using the user's own details are correctly identified as **Self** rather than **Individual**.
+  - **Transaction Amounts**: Fixed an issue where the receiver amount field could clear or display an incorrect amount when selected.
+  - **Sort Code Validation**: Improved handling of sort codes to reduce transaction errors caused by incorrect bank information.
+
+  **Payment Links**
+
+  - **USD Payment Links**: Improved payment channel availability for USD Payment Links.
+
+  **Business Verification & Account Management**
+
+  - **KYB Uploads**: Fixed an issue that could prevent businesses from continuing onboarding after uploading verification documents.
+  - **Team Members**: Resolved an issue that could cause the Team Members page to crash.
+  - **Onboarding**: Improved the reliability of business onboarding and verification flows.
+
+  **Crypto**
+
+  - **Transaction Explorer**: Crypto transaction hashes can now correctly open the relevant block explorer instead of redirecting back to the same page.
+  - **Crypto Transactions**: Improved the crypto transaction experience and navigation.
+</Accordion>
+
 <Accordion title="August 2026 — Web App Release (Status: Live)">
   **New Features**
 

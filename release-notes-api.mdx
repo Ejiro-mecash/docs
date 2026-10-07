@@ -18,6 +18,29 @@ Stay on top of API changes that could impact your integration. Each entry notes 
 
 ## API Platform
 
+<Accordion title="September 2026 — Version v1.x (Status: Live)">
+  **Payouts & Recipients**
+
+  - **EUR Payouts**: EUR payout responses now include the recipient's bank country.
+  - **Recipient Bank Details**: Improved recipient bank information handling, including sort-code support for applicable banks.
+  - **KES Transfers**: Updated Kenya country-code handling to use the appropriate international phone-code format.
+  - **Transaction Reliability**: Fixed production issues that could result in invalid sort-code errors during transactions.
+  - **Sender Type**: Improved sender information handling so `SELF` is represented consistently instead of being incorrectly identified as `Individual`.
+
+  **RAMP**
+
+  - **RAMP Quotes**: Fixed an issue where quote creation was unavailable, improving the RAMP transaction flow.
+
+  **Currency Exchange**
+
+  - **Currency Swap**: Improved the currency swap response to provide transaction fee and processing-time information correctly.
+  - **Exchange Rate Display**: Corrected exchange-rate labeling to make the direction of the rate clearer.
+
+  **API Compatibility**
+
+  - **API Endpoints & Payloads**: Updated the available API endpoint and payload structures to reflect the current API and improve compatibility as older endpoints are deprecated.
+</Accordion>
+
 <Accordion title="August 2026 — Version v1.x (Status: Live)">
   **New Features**
 

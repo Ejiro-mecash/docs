@@ -20,6 +20,29 @@ Stay on top of changes that could impact your integration. Each section lists th
   
   ## API Platform
 
+  ### September 2026 — Version v1.x (Status: Live)
+
+  **Payouts & Recipients**
+
+  - **EUR Payouts** — EUR payout responses now include the recipient's bank country.
+  - **Recipient Bank Details** — Improved recipient bank information handling, including sort-code support for applicable banks.
+  - **KES Transfers** — Updated Kenya country-code handling to use the appropriate international phone-code format.
+  - **Transaction Reliability** — Fixed production issues that could result in invalid sort-code errors during transactions.
+  - **Sender Type** — Improved sender information handling so `SELF` is represented consistently instead of being incorrectly identified as `Individual`.
+
+  **RAMP**
+
+  - **RAMP Quotes** — Fixed an issue where quote creation was unavailable, improving the RAMP transaction flow.
+
+  **Currency Exchange**
+
+  - **Currency Swap** — Improved the currency swap response to provide transaction fee and processing-time information correctly.
+  - **Exchange Rate Display** — Corrected exchange-rate labeling to make the direction of the rate clearer.
+
+  **API Compatibility**
+
+  - **API Endpoints & Payloads** — Updated the available API endpoint and payload structures to reflect the current API and improve compatibility as older endpoints are deprecated.
+
   ### August 2026 — Version v1.x (Status: Live)
 
   **New features**
@@ -91,6 +114,38 @@ Stay on top of changes that could impact your integration. Each section lists th
   
   ## Web Dashboard
   
+  ### September 2026 — Web App Release (Status: Live)
+
+  **Wallets**
+
+  - **Wallet Swap** — Added currency swap functionality, allowing users to exchange supported currencies within their wallets.
+  - **Wallet Information** — Improved wallet balance and currency information across the dashboard.
+  - **Currency Display** — Fixed missing currency flags for supported currencies.
+  - **NGN Wallet Creation** — Fixed an issue affecting NGN wallet creation for customers with hyphenated names.
+
+  **Send Money & Payouts**
+
+  - **Recipient Bank Details** — Improved recipient bank information handling, including support for sort codes where required.
+  - **EUR Payouts** — EUR payout responses now include the recipient bank country, providing additional information for tracking and reconciliation.
+  - **Sender Information** — Improved sender type display so transactions using the user's own details are correctly identified as **Self** rather than **Individual**.
+  - **Transaction Amounts** — Fixed an issue where the receiver amount field could clear or display an incorrect amount when selected.
+  - **Sort Code Validation** — Improved handling of sort codes to reduce transaction errors caused by incorrect bank information.
+
+  **Payment Links**
+
+  - **USD Payment Links** — Improved payment channel availability for USD Payment Links.
+
+  **Business Verification & Account Management**
+
+  - **KYB Uploads** — Fixed an issue that could prevent businesses from continuing onboarding after uploading verification documents.
+  - **Team Members** — Resolved an issue that could cause the Team Members page to crash.
+  - **Onboarding** — Improved the reliability of business onboarding and verification flows.
+
+  **Crypto**
+
+  - **Transaction Explorer** — Crypto transaction hashes can now correctly open the relevant block explorer instead of redirecting back to the same page.
+  - **Crypto Transactions** — Improved the crypto transaction experience and navigation.
+
   ### August 2026 — Web App Release (Status: Live)
 
   **New features**
@@ -238,6 +293,25 @@ Stay on top of changes that could impact your integration. Each section lists th
   
   ## Mobile SDKs
   
+  ### September 2026 — Mobile Release (Status: Live)
+
+  **Mobile Experience**
+
+  - **Mobile App Redesign** — Introduced an updated mobile experience with a refreshed interface and improved navigation.
+  - **Updated Onboarding** — Improved the mobile onboarding experience to make account setup clearer and easier to complete.
+  - **Forgot Password** — Added password recovery so users can reset their password directly from the mobile app.
+  - **Recipient Management** — Users can now save and delete recipients for faster repeat transfers.
+  - **Send Money Calculator** — Updated the default amount displayed in the Send Money calculator for a smoother transfer experience.
+  - **Transaction Details** — Improved the transaction details view, including clearer display of the amount debited.
+  - **Bank Details** — Improved recipient bank information handling, including support for sort codes where required.
+  - **Mobile Stability** — Resolved several issues affecting the mobile experience and improved overall reliability.
+
+  **Wallets & Funding**
+
+  - **GBP Wallet Funding** — Improved the GBP wallet funding experience and corrected the display of available Pay by Bank options.
+  - **NGN Wallet Creation** — Fixed an issue that could prevent NGN wallet creation for customers with hyphenated names.
+  - **Currency Display** — Fixed missing currency flags for supported currencies, including AUD, HKD, JPY, and NZD.
+
   ### August 2026 — Mobile Release (Status: Live)
 
   **New features**

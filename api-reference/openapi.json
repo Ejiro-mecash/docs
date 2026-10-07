@@ -2963,64 +2963,42 @@
       "BulkPayoutResponseData": {
         "type": "object",
         "properties": {
-          "bulkReference": {
+          "batchId": {
             "type": "string",
-            "description": "A unique reference for the entire bulk payout request.",
-            "example": "00a5478d-272a-4be0-8c77-d85be1ec5ea8"
+            "format": "uuid",
+            "description": "Unique identifier for the created bulk payout batch. Use this value with the Fetch Batch Status endpoint.",
+            "example": "76c41591-4040-4908-abac-77609769e385"
           },
-          "status": {
+          "referenceNo": {
             "type": "string",
-            "example": "SUCCESS"
+            "description": "Reference number associated with the batch.",
+            "example": "SUUSBGMHIHVVW"
           },
-          "totalRequested": {
-            "type": "integer",
-            "description": "Total number of payout orders submitted.",
-            "example": 2
-          },
-          "successfulCount": {
-            "type": "integer",
-            "description": "Number of orders successfully accepted for processing.",
-            "example": 2
-          },
-          "failedCount": {
-            "type": "integer",
-            "description": "Number of orders that failed validation.",
-            "example": 0
-          },
-          "totalAmount": {
-            "type": "number",
-            "description": "Total source amount for all successful orders.",
-            "example": 350.5
-          },
-          "totalFees": {
-            "type": "number",
-            "description": "Total fees for all successful orders.",
-            "example": 400.0
-          },
-          "orders": {
-            "type": "array",
-            "description": "List of processed payout orders. Successful orders return full payout details, while failed ones may return just a failureReason.",
-            "items": {
-              "oneOf": [
-                {
-                  "$ref": "#/components/schemas/Payout"
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "failureReason": {
-                      "type": "string",
-                      "example": "Recipient name mismatch"
-                    }
-                  }
-                }
-              ]
-            }
-          },
-          "createdAt": {
+          "timestamp": {
             "type": "string",
             "format": "date-time",
-            "example": "2026-03-25T10:50:07.810009313Z"
+            "description": "ISO 8601 timestamp of when the batch was created.",
+            "example": "2026-10-07T09:53:24.573586779Z"
+          },
+          "batchTotal": {
+            "type": "integer",
+            "description": "Total number of payout items submitted in the batch.",
+            "example": 4
+          },
+          "totalSuccessful": {
+            "type": "integer",
+            "description": "Number of payouts that have completed successfully at the time of the response.",
+            "example": 0
+          },
+          "totalFailed": {
+            "type": "integer",
+            "description": "Number of payouts that have failed at the time of the response.",
+            "example": 0
+          },
+          "totalPending": {
+            "type": "integer",
+            "description": "Number of payouts still pending at the time of the response.",
+            "example": 4
           }
         }
       },
@@ -4760,7 +4738,7 @@
         }
       },
       "BulkPayoutCreatedSuccess": {
-        "description": "Bulk payout submitted successfully.",
+        "description": "Bulk payout batch created successfully. The batch is queued for asynchronous processing.",
         "content": {
           "application/json": {
             "schema": {
@@ -4768,7 +4746,7 @@
               "properties": {
                 "message": {
                   "type": "string",
-                  "example": "bulk payout queued"
+                  "example": "Batch Created"
                 },
                 "status": {
                   "type": "string",
@@ -4780,111 +4758,16 @@
               }
             },
             "example": {
-              "message": "bulk order processed",
+              "message": "Batch Created",
               "status": "success",
               "data": {
-                "bulkReference": "00a5478d-272a-4be0-8c77-d85be1ec5ea8",
-                "status": "SUCCESS",
-                "totalRequested": 2,
-                "successfulCount": 2,
-                "failedCount": 0,
-                "totalAmount": 350.5,
-                "totalFees": 400.0,
-                "orders": [
-                  {
-                    "id": "77250b66-9bb7-4d5a-a634-0b16659959fe",
-                    "remark": "payment 1",
-                    "reason": "Gift",
-                    "referenceNumber": "IE8YGOSWDG9HN",
-                    "type": "SEND",
-                    "state": "PENDING",
-                    "quote": {
-                      "id": "4be1d423-e2eb-437d-8223-16cfcb308195",
-                      "paymentChannel": "BANK_TRANSFER",
-                      "source": {
-                        "currency": "NGN",
-                        "country": "NG",
-                        "amount": 250.5
-                      },
-                      "target": {
-                        "currency": "NGN",
-                        "country": "NG",
-                        "amount": 250.5
-                      },
-                      "rate": 1.0,
-                      "fee": {
-                        "amount": 200.0,
-                        "stampDuty": 0
-                      },
-                      "summary": {
-                        "total": 450.5
-                      },
-                      "settlement": "30 Mins",
-                      "quoteCurrency": "NGN"
-                    },
-                    "recipient": {
-                      "name": "NNOROM UZOMA CHUKWUDI",
-                      "account": {
-                        "bankName": "FCMB",
-                        "sortCode": "214",
-                        "accountNumber": "2483520014"
-                      },
-                      "paymentChannel": "BANK_TRANSFER",
-                      "currency": "NGN",
-                      "country": "NG"
-                    },
-                    "created": "2026-03-25T10:50:06.115252622Z",
-                    "processed": "2026-03-25T10:50:06.115252622Z",
-                    "bulkReference": "00a5478d-272a-4be0-8c77-d85be1ec5ea8"
-                  },
-                  {
-                    "id": "17f755c3-f7fc-4ab5-b076-c3f3eb912155",
-                    "remark": "payment 2",
-                    "reason": "Gift",
-                    "referenceNumber": "AXZYRRN5PBDIO",
-                    "type": "SEND",
-                    "state": "PENDING",
-                    "quote": {
-                      "id": "cf132126-af1c-4fd7-b924-427826a34b64",
-                      "paymentChannel": "BANK_TRANSFER",
-                      "source": {
-                        "currency": "NGN",
-                        "country": "NG",
-                        "amount": 100.0
-                      },
-                      "target": {
-                        "currency": "NGN",
-                        "country": "NG",
-                        "amount": 100.0
-                      },
-                      "rate": 1.0,
-                      "fee": {
-                        "amount": 200.0,
-                        "stampDuty": 0
-                      },
-                      "summary": {
-                        "total": 300.0
-                      },
-                      "settlement": "30 Mins",
-                      "quoteCurrency": "NGN"
-                    },
-                    "recipient": {
-                      "name": "NNOROM UZOMA CHUKWUDI",
-                      "account": {
-                        "bankName": "FCMB",
-                        "sortCode": "214",
-                        "accountNumber": "2483520014"
-                      },
-                      "paymentChannel": "BANK_TRANSFER",
-                      "currency": "NGN",
-                      "country": "NG"
-                    },
-                    "created": "2026-03-25T10:50:07.309355914Z",
-                    "processed": "2026-03-25T10:50:07.309355914Z",
-                    "bulkReference": "00a5478d-272a-4be0-8c77-d85be1ec5ea8"
-                  }
-                ],
-                "createdAt": "2026-03-25T10:50:07.810009313Z"
+                "batchId": "76c41591-4040-4908-abac-77609769e385",
+                "referenceNo": "SUUSBGMHIHVVW",
+                "timestamp": "2026-10-07T09:53:24.573586779Z",
+                "batchTotal": 4,
+                "totalSuccessful": 0,
+                "totalFailed": 0,
+                "totalPending": 4
               }
             }
           }

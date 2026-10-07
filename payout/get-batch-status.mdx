@@ -4,5 +4,5 @@ description: 'Retrieve the processing status and results of a bulk payout batch.
 openapi: get /v1/bulk/payout/{batchId}/status
 ---
 
-This endpoint allows you to check the realtime status of a previously submitted bulk payout batch using its `batchId`.
+Use the `batchId` returned by the [Create Bulk Payout](/payout/create-bulk-payout) endpoint to retrieve the current processing status of the batch and the status of each individual payout within it.
 

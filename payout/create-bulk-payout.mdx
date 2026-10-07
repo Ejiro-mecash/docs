@@ -3,12 +3,40 @@ title: 'Create Bulk Payout'
 openapi: post /v1/bulk/payout
 ---
 
-<Info>This API is still under construction.</Info>
+Submitting a bulk payout queues the batch for asynchronous processing. The endpoint does not wait for individual payouts to complete. It returns a `batchId` immediately after the batch is accepted.
+
+Use the `batchId` with the [Fetch Batch Status](/payout/get-batch-status) endpoint to monitor processing and retrieve individual payout results.
+
+## Response fields
+
+| **Field** | **Type** | **Description** |
+|-----------|----------|-----------------|
+| `message` | String | Confirmation that the batch was created. |
+| `status` | String | API-level response status (`success` or `failed`). |
+| `data.batchId` | String | Unique identifier for the created bulk payout batch. Pass this to Fetch Batch Status. |
+| `data.referenceNo` | String | Reference number associated with the batch. |
+| `data.timestamp` | String | ISO 8601 timestamp of when the batch was created. |
+| `data.batchTotal` | Number | Total number of payout items submitted in the batch. |
+| `data.totalSuccessful` | Number | Number of payouts that have completed successfully at the time of the response. |
+| `data.totalFailed` | Number | Number of payouts that have failed at the time of the response. |
+| `data.totalPending` | Number | Number of payouts still pending at the time of the response. |
+
+For a newly created batch, `totalSuccessful`, `totalFailed`, and `totalPending` reflect the state at creation time. Payouts are settled asynchronously, so these counts change as the batch processes.
+
+## Check the batch status
+
+After creating a bulk payout, use the returned `batchId` to monitor the batch and retrieve the status of individual payouts.
+
+Pass `data.batchId` from the response above to the [Fetch Batch Status](/payout/get-batch-status) endpoint:
+
+```
+GET /v1/bulk/payout/{batchId}/status
+```
 
 ## Error responses
 
 | **Status** | **Message** | **What it means** | **How to fix** |
-|--------|---------|---------------|-----------|
+|--------|---------|---------------|-----------| 
 | 400 | `Insufficient wallet balance for transaction` | Wallet balance cannot cover the total payout amount plus fees. | Top up the wallet or reduce the number of orders before retrying. |
 | 400 | `Quotes only last for 10 minutes` | One or more referenced quotes expired before submission. | Generate fresh bulk quotes and submit the payout immediately. |
 | 400 | `Invalid country or currency ISO code` | Unsupported country/currency combination in a recipient. | Use corridor-supported ISO codes for both quote and recipient data. |
