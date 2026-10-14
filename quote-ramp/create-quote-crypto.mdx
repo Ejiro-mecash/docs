@@ -19,7 +19,7 @@ openapi: post /v1/ramp/quote
 | **Header** | **Value** | **Required** | **Description** |
 |--------------|--------------------|----------|----------------------------------------|
 | `Content-Type` | `application/json` | Yes      | Specifies that the request body is JSON.|
-| `x-api-key`    | `YOUR_API_KEY`       | Yes      | API key for authentication.             |
+| `x-api-key`    | `API_KEY_HERE`       | Yes      | API key for authentication.             |
 
 ---
 
@@ -28,7 +28,7 @@ openapi: post /v1/ramp/quote
 <CodeGroup>
 ```bash cURL
 curl --location '{{baseURL}}/v1/ramp/quote' \
---header 'x-api-key: YOUR_API_KEY' \
+--header 'x-api-key: API_KEY_HERE' \
 --header 'Content-Type: application/json' \
 --data '{
     "source": {
@@ -71,7 +71,7 @@ fetch('{{baseURL}}/v1/ramp/quote', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
-    'x-api-key': 'YOUR_API_KEY'
+    'x-api-key': 'API_KEY_HERE'
   },
   body: JSON.stringify(quoteDetails)
 })
@@ -104,7 +104,7 @@ payload = {
 }
 
 headers = {
-    "x-api-key": "YOUR_API_KEY",
+    "x-api-key": "API_KEY_HERE",
     "Content-Type": "application/json"
 }
 
@@ -134,7 +134,7 @@ const quoteDetails = {
 
 axios.post('{{baseURL}}/v1/ramp/quote', quoteDetails, {
   headers: {
-    'x-api-key': 'YOUR_API_KEY',
+    'x-api-key': 'API_KEY_HERE',
     'Content-Type': 'application/json'
   }
 })

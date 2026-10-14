@@ -67,8 +67,7 @@
               "account-creation",
               "authentication",
               "ip-whitelisting",
-              "environments",
-              "webhook/webhook"
+              "environments"
             ]
           }
         ]
@@ -109,6 +108,8 @@
               "payout-docs/supported-payouts",
               "payout-docs/bulk-payout",
               "payout-docs/pay-on-behalf-of",
+              "get-bank-api",
+              "account-enquiry",
               {
                 "group": "Payout Examples",
                 "tag": "new",
@@ -253,8 +254,7 @@
             "icon": "users",
             "tag": "new",
             "pages": [
-              "payout/create-bulk-payout",
-              "payout/get-batch-status"
+              "payout/create-bulk-payout"
             ]
           },
           {

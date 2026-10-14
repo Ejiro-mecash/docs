@@ -26,7 +26,7 @@ This endpoint fetches the complete details of a previously created crypto-to-cry
 | **Header** | **Value** | **Required** |
 |----------------|--------------------|----------|
 | `Content-Type` | `application/json` | Yes      |
-| `x-api-key`    | `YOUR_API_KEY`        | Yes      |
+| `x-api-key`    | `API_KEY_HERE`        | Yes      |
 
 ---
 
@@ -45,7 +45,7 @@ This example shows how to retrieve the details of a specific ramp quote using it
 ```bash cURL
 # Replace YOUR_QUOTE_ID with the actual ID of the quote
 curl --location --request GET '{{appUrl}}/v1/ramp/quote/YOUR_QUOTE_ID' \
---header 'x-api-key: YOUR_API_KEY' \
+--header 'x-api-key: API_KEY_HERE' \
 --header 'Content-Type: application/json'
 ```
 ```js JavaScript (fetch)
@@ -55,7 +55,7 @@ fetch(`{{appUrl}}/v1/ramp/quote/${quoteId}`, {
   method: 'GET',
   headers: {
     'Content-Type': 'application/json',
-    'x-api-key': 'YOUR_API_KEY'
+    'x-api-key': 'API_KEY_HERE'
   }
 })
 .then(res => res.json())
@@ -71,7 +71,7 @@ quote_id = "YOUR_QUOTE_ID"
 url = f"{{appUrl}}/v1/ramp/quote/{quote_id}"
 
 headers = {
-    "x-api-key": "YOUR_API_KEY",
+    "x-api-key": "API_KEY_HERE",
     "Content-Type": "application/json"
 }
 
@@ -85,7 +85,7 @@ const quoteId = 'YOUR_QUOTE_ID'; // Replace with the actual quote ID
 
 axios.get(`{{appUrl}}/v1/ramp/quote/${quoteId}`, {
   headers: {
-    'x-api-key': 'YOUR_API_KEY',
+    'x-api-key': 'API_KEY_HERE',
     'Content-Type': 'application/json'
   }
 }).then(response => {

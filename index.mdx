@@ -39,28 +39,31 @@ icon: compass
     </div>
   </section>
 
-  {/* ── TRUSTED METRICS ── */}
+  {/* ── PLATFORM FACTS ──
+      Only facts that can be verified from the docs. Add numeric stats (corridor count, uptime SLA)
+      back here once they are confirmed and sourced. */}
   <section style={{ borderTop: '1px solid var(--border-color, #e5e7eb)', borderBottom: '1px solid var(--border-color, #e5e7eb)', background: 'var(--bg-muted, rgba(0,0,0,0.02))', borderRadius: '16px', padding: '2rem 2.5rem' }}>
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1.5rem', textAlign: 'center' }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1.5rem', textAlign: 'center' }}>
       <div>
-        <p style={{ fontSize: '2rem', fontWeight: '700', background: 'linear-gradient(to right, #7c3aed, #8b5cf6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', margin: '0 0 4px' }}>150+</p>
-        <p style={{ fontSize: '0.875rem', color: 'var(--text-muted, #6b7280)', margin: 0 }}>Payout Corridors</p>
+        <p style={{ fontSize: '2rem', fontWeight: '700', background: 'linear-gradient(to right, #7c3aed, #8b5cf6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', margin: '0 0 4px' }}>REST</p>
+        <p style={{ fontSize: '0.875rem', color: 'var(--text-muted, #6b7280)', margin: 0 }}>API with predictable responses</p>
       </div>
       <div>
-        <p style={{ fontSize: '2rem', fontWeight: '700', margin: '0 0 4px' }}>REST</p>
-        <p style={{ fontSize: '0.875rem', color: 'var(--text-muted, #6b7280)', margin: 0 }}>API Architecture</p>
+        <p style={{ fontSize: '2rem', fontWeight: '700', margin: '0 0 4px' }}>Sandbox</p>
+        <p style={{ fontSize: '0.875rem', color: 'var(--text-muted, #6b7280)', margin: 0 }}>Test every flow before go-live</p>
       </div>
       <div>
-        <p style={{ fontSize: '2rem', fontWeight: '700', margin: '0 0 4px' }}>⚡ Fast</p>
-        <p style={{ fontSize: '0.875rem', color: 'var(--text-muted, #6b7280)', margin: 0 }}>Reliable Webhooks</p>
+        <p style={{ fontSize: '2rem', fontWeight: '700', margin: '0 0 4px' }}>Webhooks</p>
+        <p style={{ fontSize: '0.875rem', color: 'var(--text-muted, #6b7280)', margin: 0 }}>Real-time payout status events</p>
       </div>
       <div>
-        <p style={{ fontSize: '2rem', fontWeight: '700', color: '#16a34a', margin: '0 0 4px' }}>99.9%</p>
-        <p style={{ fontSize: '0.875rem', color: 'var(--text-muted, #6b7280)', margin: 0 }}>Uptime SLA</p>
+        <p style={{ fontSize: '2rem', fontWeight: '700', color: '#16a34a', margin: '0 0 4px' }}>Multi-currency</p>
+        <p style={{ fontSize: '0.875rem', color: 'var(--text-muted, #6b7280)', margin: 0 }}>Wallets, quotes and payouts</p>
       </div>
     </div>
   </section>
 
+  {/* ── GET STARTED ── */}
   <section>
     <h2 className="section-title centered">
       Navigate the Docs
@@ -81,54 +84,7 @@ icon: compass
     </CardGroup>
   </section>
 
-  {/* ── API PREVIEW ── */}
-  <section style={{ background: 'var(--bg-muted, rgba(0,0,0,0.02))', border: '1px solid var(--border-color, #e5e7eb)', borderRadius: '20px', padding: '2.5rem 3rem' }}>
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-      <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-        <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10b981', display: 'inline-block' }}></span>
-        <span style={{ fontSize: '0.75rem', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.05em', color: '#059669' }}>Quick Integration</span>
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'row', gap: '3rem', alignItems: 'flex-start', flexWrap: 'wrap' }}>
-        <div style={{ flex: '1', minWidth: '260px' }}>
-          <h2 style={{ fontSize: '1.75rem', fontWeight: '700', margin: '0 0 1rem' }}>Ship in hours, not weeks.</h2>
-          <p style={{ color: 'var(--text-muted, #6b7280)', lineHeight: '1.7', marginBottom: '1.5rem' }}>
-            A clean REST API with predictable responses, real code examples in 12+ languages, and a sandbox you can hit immediately.
-          </p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
-              <span style={{ fontSize: '1rem' }}>✅</span>
-              <div>
-                <p style={{ fontWeight: '600', margin: '0 0 2px', fontSize: '0.9rem' }}>Instant Sandbox Access</p>
-                <p style={{ color: 'var(--text-muted, #6b7280)', margin: 0, fontSize: '0.85rem' }}>Test every endpoint with zero risk before going live.</p>
-              </div>
-            </div>
-            <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
-              <span style={{ fontSize: '1rem' }}>✅</span>
-              <div>
-                <p style={{ fontWeight: '600', margin: '0 0 2px', fontSize: '0.9rem' }}>Webhook-First Architecture</p>
-                <p style={{ color: 'var(--text-muted, #6b7280)', margin: 0, fontSize: '0.85rem' }}>Real-time notifications for every state change.</p>
-              </div>
-            </div>
-            <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
-              <span style={{ fontSize: '1rem' }}>✅</span>
-              <div>
-                <p style={{ fontWeight: '600', margin: '0 0 2px', fontSize: '0.9rem' }}>Interactive Playground</p>
-                <p style={{ color: 'var(--text-muted, #6b7280)', margin: 0, fontSize: '0.85rem' }}>Try requests directly from the docs — no Postman needed.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div style={{ flex: '1', minWidth: '260px' }}>
-          <img
-            src="public/hero-api-response.png"
-            alt="200 OK Payout Completed API Response"
-            style={{ width: '100%', borderRadius: '14px', boxShadow: '0 8px 32px rgba(0,0,0,0.10)', border: '1px solid var(--border-color, #e5e7eb)', display: 'block' }}
-          />
-        </div>
-      </div>
-    </div>
-  </section>
-
+  {/* ── USE CASES ── */}
   <section>
     <h2 className="section-title centered">
       Launch a Use Case
@@ -143,20 +99,113 @@ icon: compass
       <Card title="Send Payouts" icon="money-bill-transfer" href="/payout-docs/payout">
         Orchestrate bank transfers and mobile money payouts with detailed, corridor-specific recipes.
       </Card>
-      <Card
-        title="Collect via Virtual Accounts"
-        icon="building-columns"
-        href="/virtual-accounts-docs/about-virtual-account"
-      >
-        Spin up static or dynamic collection accounts, automate notifications, and reconcile deposits seamlessly.
-      </Card>
       <Card title="Bulk Payouts" icon="users" href="/payout-docs/bulk-payout">
         Disburse funds to multiple beneficiaries in a single request, manage batch results, and automate high-volume transfers.
+      </Card>
+      <Card title="Pay on Behalf Of (POBO)" icon="user" href="/payout-docs/pay-on-behalf-of">
+        Send cross-border USD and EUR payouts on behalf of your customers, with the sender and recipient details compliance requires.
+      </Card>
+      <Card title="Collect via Virtual Accounts" icon="building-columns" href="/virtual-accounts-docs/about-virtual-account">
+        Spin up static or dynamic collection accounts, automate notifications, and reconcile deposits seamlessly.
+      </Card>
+      <Card title="Mobile Money Collections" icon="mobile-screen" href="/wallet-docs/mobile-money-collections">
+        Look up mobile money operators and initiate wallet funding through the Collection endpoints.
+      </Card>
+      <Card title="On-Ramp and Off-Ramp" icon="arrow-right-arrow-left" href="/ramp-docs/ramp-api-overview">
+        Move between crypto and fiat with crypto-to-crypto, off-ramp, and on-ramp flows.
       </Card>
     </CardGroup>
   </section>
 
-<section>
+  {/* ── QUICK INTEGRATION ── */}
+  <section style={{ background: 'var(--bg-muted, rgba(0,0,0,0.02))', border: '1px solid var(--border-color, #e5e7eb)', borderRadius: '20px', padding: '2.5rem 3rem' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+      <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+        <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10b981', display: 'inline-block' }}></span>
+        <span style={{ fontSize: '0.75rem', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.05em', color: '#059669' }}>Quick Integration</span>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'row', gap: '3rem', alignItems: 'flex-start', flexWrap: 'wrap' }}>
+        <div style={{ flex: '1', minWidth: '260px' }}>
+          <h2 style={{ fontSize: '1.75rem', fontWeight: '700', margin: '0 0 1rem' }}>Ship in hours, not weeks.</h2>
+          <p style={{ color: 'var(--text-muted, #6b7280)', lineHeight: '1.7', marginBottom: '1.5rem' }}>
+            A clean REST API with predictable responses, code examples in cURL, JavaScript, and Python, and a sandbox you can hit immediately.
+          </p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
+              <Icon icon="circle-check" color="#16a34a" size={18} />
+              <div>
+                <p style={{ fontWeight: '600', margin: '0 0 2px', fontSize: '0.9rem' }}>Instant Sandbox Access</p>
+                <p style={{ color: 'var(--text-muted, #6b7280)', margin: 0, fontSize: '0.85rem' }}>Test every endpoint with zero risk before going live.</p>
+              </div>
+            </div>
+            <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
+              <Icon icon="circle-check" color="#16a34a" size={18} />
+              <div>
+                <p style={{ fontWeight: '600', margin: '0 0 2px', fontSize: '0.9rem' }}>Webhook-First Architecture</p>
+                <p style={{ color: 'var(--text-muted, #6b7280)', margin: 0, fontSize: '0.85rem' }}>Real-time notifications for every state change.</p>
+              </div>
+            </div>
+            <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
+              <Icon icon="circle-check" color="#16a34a" size={18} />
+              <div>
+                <p style={{ fontWeight: '600', margin: '0 0 2px', fontSize: '0.9rem' }}>Interactive Playground</p>
+                <p style={{ color: 'var(--text-muted, #6b7280)', margin: 0, fontSize: '0.85rem' }}>Try requests directly from the docs — no Postman needed.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style={{ flex: '1', minWidth: '260px' }}>
+
+```json Example response (200 OK, trimmed)
+{
+  "message": "transaction created successfully",
+  "status": "success",
+  "data": {
+    "id": "274fd8a4-38f1-43c9-bf74-ae7744a0dba5",
+    "referenceNumber": "0XCGU0EYFEK0Y",
+    "type": "SEND",
+    "state": "PENDING",
+    "quote": {
+      "paymentChannel": "SWIFT_OUR",
+      "source": { "currency": "USD", "amount": 10.00 },
+      "target": { "currency": "USD", "amount": 10.00 }
+    },
+    "created": "2026-04-23T18:06:41.022734019Z"
+  }
+}
+```
+
+          <p style={{ color: 'var(--text-muted, #6b7280)', fontSize: '0.85rem', margin: '0.75rem 0 0' }}>
+            A new payout starts as <code>PENDING</code>. Track it with webhooks. See the <a href="/payout-docs/payout-examples/usd-payout">full USD payout example</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ── BUILD WITH CONFIDENCE ── */}
+  <section>
+    <h2 className="section-title centered">
+      Build with Confidence
+    </h2>
+    <CardGroup cols={2}>
+      <Card title="Webhooks" icon="webhook" href="/webhook/webhook">
+        Subscribe to payout events and verify signatures so your system always knows the final state.
+      </Card>
+      <Card title="Supported Payout Routes" icon="globe" href="/payout-docs/supported-payouts">
+        Check corridors, currencies, and payment channels before you build.
+      </Card>
+      <Card title="Troubleshooting" icon="wrench" href="/troubleshooting">
+        Diagnose common errors and failed requests quickly.
+      </Card>
+      <Card title="Release Notes" icon="clock-rotate-left" href="/release-notes-api">
+        See what changed in the API, web app, and mobile app.
+      </Card>
+    </CardGroup>
+  </section>
+
+  {/* ── SUPPORT ── */}
+  <section>
     <h2 className="section-title centered">
       Need a Hand?
     </h2>
@@ -212,4 +261,4 @@ icon: compass
   >
     Ask AI
   </biel-button>
-</div>
+</div>       

@@ -14,7 +14,7 @@ Use this endpoint to look up the latest data for a static or dynamic virtual acc
 
 | **Header** | **Description** | **Required** | **Example** |
 |--------|-------------|----------|---------|
-| `x-api-key` | Workspace API key for authentication. | ✅ Yes | `YOUR_API_KEY` |
+| `x-api-key` | Workspace API key for authentication. | ✅ Yes | `API_KEY_HERE` |
 | `Content-Type` | Media type of the request. | Optional | `application/json` |
 
 ## Path parameters
@@ -32,7 +32,7 @@ Use this endpoint to look up the latest data for a static or dynamic virtual acc
 <CodeGroup>
 ```bash cURL
 curl --request GET '{{baseURL}}/v1/virtual-account/30fe4022-09da-46fb-bafa-xxxxxxxxxxxxx' \
-  --header 'x-api-key: YOUR_API_KEY'
+  --header 'x-api-key: API_KEY_HERE'
 ```
 ```js JavaScript (fetch)
 const virtualAccountId = '30fe4022-09da-46fb-bafa-xxxxxxxxxxxxx';
@@ -40,7 +40,7 @@ const virtualAccountId = '30fe4022-09da-46fb-bafa-xxxxxxxxxxxxx';
 fetch(`{{baseURL}}/v1/virtual-account/${virtualAccountId}`, {
   method: 'GET',
   headers: {
-    'x-api-key': 'YOUR_API_KEY'
+    'x-api-key': 'API_KEY_HERE'
   }
 })
   .then((res) => {
@@ -59,7 +59,7 @@ import requests
 virtual_account_id = "30fe4022-09da-46fb-bafa-xxxxxxxxxxxxx"
 url = f"{{baseURL}}/v1/virtual-account/{virtual_account_id}"
 headers = {
-    "x-api-key": "YOUR_API_KEY"
+    "x-api-key": "API_KEY_HERE"
 }
 
 response = requests.get(url, headers=headers, timeout=30)
@@ -73,7 +73,7 @@ const virtualAccountId = '30fe4022-09da-46fb-bafa-xxxxxxxxxxxxx';
 
 axios.get(`{{baseURL}}/v1/virtual-account/${virtualAccountId}`, {
   headers: {
-    'x-api-key': 'YOUR_API_KEY'
+    'x-api-key': 'API_KEY_HERE'
   },
   timeout: 30000
 })

@@ -20,7 +20,7 @@ Use this endpoint to fetch the wallet that corresponds to a currency and country
 
 | **Header** | **Type** | **Description** | **Required** | **Example** |
 |--------|------|-------------|----------|---------|
-| `x-api-key` | String | Your meCash API key used for authentication. | ✅ Yes | `YOUR_API_KEY` |
+| `x-api-key` | String | Your meCash API key used for authentication. | ✅ Yes | `API_KEY_HERE` |
 | `Content-Type` | String | Indicates the media type of the request. | ✅ Yes | `application/json` |
 
 ## Request examples
@@ -28,7 +28,7 @@ Use this endpoint to fetch the wallet that corresponds to a currency and country
 <CodeGroup>
 ```bash cURL
 curl --request GET '{{baseURL}}/v1/wallet?currency=NGN&country=NG' \
-  --header 'x-api-key: YOUR_API_KEY' \
+  --header 'x-api-key: API_KEY_HERE' \
   --header 'Content-Type: application/json'
 ```
 ```js JavaScript (fetch)
@@ -37,7 +37,7 @@ const params = new URLSearchParams({ currency: 'NGN', country: 'NG' });
 fetch(`{{baseURL}}/v1/wallet?${params.toString()}`, {
   method: 'GET',
   headers: {
-    'x-api-key': 'YOUR_API_KEY',
+    'x-api-key': 'API_KEY_HERE',
     'Content-Type': 'application/json'
   }
 })
@@ -57,7 +57,7 @@ import requests
 url = "{{baseURL}}/v1/wallet"
 params = {"currency": "NGN", "country": "NG"}
 headers = {
-    "x-api-key": "YOUR_API_KEY",
+    "x-api-key": "API_KEY_HERE",
     "Content-Type": "application/json",
 }
 
@@ -71,7 +71,7 @@ const axios = require('axios');
 axios.get('{{baseURL}}/v1/wallet', {
   params: { currency: 'NGN', country: 'NG' },
   headers: {
-    'x-api-key': 'YOUR_API_KEY',
+    'x-api-key': 'API_KEY_HERE',
     'Content-Type': 'application/json'
   },
   timeout: 30000

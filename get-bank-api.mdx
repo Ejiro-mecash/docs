@@ -1,37 +1,79 @@
-## Get Bank List 
+---
+title: "Get Bank List"
+description: "Retrieve the list of supported banks for any supported country and currency."
+icon: "building-columns"
+---
 
-This API endpoint retrieves a list of banks available in Nigeria (`country=NG`) using the Nigerian Naira (`currency=NGN`).
+Use this endpoint to retrieve the banks available for a given **country** and **currency** pair. It is not limited to Nigeria: it works for every country we support, so you can look up banks for any destination before creating a payout.
+
+The list you get back depends on the two query parameters you send:
+
+- `currency`: the currency you want to send.
+- `country`: the country where the destination bank is located.
 
 ## Endpoint
 
-**`GET`** `{baseurl}/v1/bank?currency=NGN&country=NG`
+**`GET`** `{baseurl}/v1/bank?currency={currency}&country={country}`
 
+## Currency and country combinations
 
-## Request Example
+Currency and country are independent, so you can send a currency to a bank in any supported country. For example:
 
-``` sh copy
-curl --location 'http://{baseurl}/v1/bank?currency=NGN&country=NG' \
---header 'x-api-key: API_KEY:YOUR_API_KEY'
+| **You want to send** | **To a bank in** | **`currency`** | **`country`** |
+| :------------------- | :--------------- | :------------- | :------------ |
+| Nigerian Naira       | Nigeria          | `NGN`          | `NG`          |
+| US Dollars           | South Africa     | `USD`          | `ZA`          |
+| US Dollars           | France           | `USD`          | `FR`          |
+| Euros                | France           | `EUR`          | `FR`          |
+| Euros                | United States    | `EUR`          | `US`          |
+
+<Note>
+  Use two-letter ISO country codes (for example `NG`, `ZA`, `FR`, `US`) and three-letter currency codes (for example `NGN`, `USD`, `EUR`). Only currency and country combinations that we support will return banks.
+</Note>
+
+## Request example
+
+### Naira to a bank in Nigeria
+
+```sh
+curl --location '{baseurl}/v1/bank?currency=NGN&country=NG' \
+--header 'x-api-key: API_KEY:API_KEY_HERE'
+```
+
+### US Dollars to a bank in South Africa
+
+```sh
+curl --location '{baseurl}/v1/bank?currency=USD&country=ZA' \
+--header 'x-api-key: API_KEY:API_KEY_HERE'
+```
+
+### Euros to a bank in France
+
+```sh
+curl --location '{baseurl}/v1/bank?currency=EUR&country=FR' \
+--header 'x-api-key: API_KEY:API_KEY_HERE'
 ```
 
 ### Headers
 
-| **Header Name** | **Value** | **Required** | **Description** |
-| :------------ | :-------------- | :------- | :---------------------------------- |
-| `X-API-KEY`    | `x-api-key`  | Yes      | API key for authentication          |
+| **Header Name** | **Value**             | **Required** | **Description**            |
+| :-------------- | :-------------------- | :----------- | :------------------------- |
+| `x-api-key`     | `API_KEY:API_KEY_HERE` | Yes          | API key for authentication |
 
-### Query Parameters
+### Query parameters
 
-| **Parameter** | **Value** | **Required** | **Description** |
-| :-------- | :---- | :------- | :------------------------------------- |
-| `currency` | `NGN` | Yes      | Currency code (Nigerian Naira)         |
-| `country`  | `NG`  | Yes      | Country code (Nigeria)                 |
+| **Parameter** | **Example** | **Required** | **Description**                                                  |
+| :------------ | :---------- | :----------- | :--------------------------------------------------------------- |
+| `currency`    | `USD`       | Yes          | Currency you want to send (for example `NGN`, `USD`, `EUR`)      |
+| `country`     | `ZA`        | Yes          | Country of the destination bank (for example `NG`, `ZA`, `FR`)   |
 
+## Successful response (200 OK)
 
+For example, to get banks in South Africa for USD payouts:
 
-## Successful Response (200 OK)
-
-
+```
+GET https://api.me-cash.com/v1/bank?country=ZA&currency=USD
+```
 
 ```json
 {
@@ -39,30 +81,52 @@ curl --location 'http://{baseurl}/v1/bank?currency=NGN&country=NG' \
   "status": "success",
   "data": [
     {
-      "bankName": "Page MFBank",
-      "sortCode": "561",
-      "country": null
-    },
-    {
-      "bankName": "Stanbic Mobile Money",
-      "sortCode": "304",
-      "country": null
+      "bankName": "NEDBANK LIMITED",
+      "sortCode": "04127",
+      "swiftCode": "NEDSZAJJXXX"
     }
-    // ...additional banks
   ]
 }
 ```
-## Error Responses
 
-| **Status Code** | **Description** | **Response Body Example** |
-| :---------- | :---------------------------------------------- | :----------------------------- |
-| `401`       | Occurs if the API key is missing or invalid.    | "Invalid API key"              |
-| `400`       | Occurs if any required query parameter is missing or invalid. | "Missing required parameter: country" |
+The response above is shortened to one bank. The `data` array contains every bank available for the country and currency you requested.
 
+### Response fields
 
+<ResponseField name="message" type="string">
+  Human-readable result of the request.
+</ResponseField>
 
+<ResponseField name="status" type="string">
+  Status of the request, for example `success`.
+</ResponseField>
 
+<ResponseField name="data" type="array">
+  List of banks available for the requested country and currency.
 
+  <Expandable title="bank properties">
+    <ResponseField name="bankName" type="string">
+      Name of the bank.
+    </ResponseField>
 
+    <ResponseField name="sortCode" type="string">
+      Bank code. Use this value as the `sortCode` when verifying an account or creating a payout.
+    </ResponseField>
 
+    <ResponseField name="swiftCode" type="string">
+      SWIFT/BIC code of the bank. Example: `NEDSZAJJXXX`.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
 
+## Error responses
+
+| **Status Code** | **Description**                                               | **Response Body Example**             |
+| :-------------- | :------------------------------------------------------------ | :------------------------------------ |
+| `401`           | The API key is missing or invalid.                            | "Invalid API key"                     |
+| `400`           | A required query parameter is missing or invalid.             | "Missing required parameter: country" |
+
+## Related
+
+- **Account Enquiry**: verify an account name using a bank's `sortCode`.
+- **Create Payout**: send funds after selecting a bank.

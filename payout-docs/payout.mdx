@@ -48,29 +48,40 @@ sequenceDiagram
 ## Payout API Routes
 
 <CardGroup cols={3}>
-  <Card title="🇳🇬 NGN → 🇳🇬 NGN" href="/payout-docs/payout-examples/ngn-ngn-example">
+  <Card title="🇳🇬 NGN Payout" href="/payout-docs/payout-examples/ngn-payout">
     Local-to-local naira payout with BVN checks and instant settlement.
   </Card>
-  <Card title="🇳🇬 NGN → 🇺🇸 USD" href="/payout-docs/payout-examples/ngn-usd-example">
-    Send naira to a US bank, covering FX, fees, and compliance steps.
+  <Card title="🇺🇸 USD Payout" href="/payout-docs/payout-examples/usd-payout">
+    Send US Dollars to a US bank account globally.
+  </Card> 
+  <Card title="🇪🇺 EUR Payout" href="/payout-docs/payout-examples/eur-payout">
+    Move Euros to a EUR bank account globally.
   </Card>
-  <Card title="🇳🇬 NGN → 🇪🇺 EUR" href="/payout-docs/payout-examples/ngn-eur-example">
-    Move NGN funds into a euro account and handle required documents.
+  <Card title="🇬🇧 GBP Payout" href="/payout-docs/payout-examples/gbp-payout">
+    Send Great British Pounds to a UK bank account globally.  
   </Card>
-  <Card title="🇳🇬 NGN → 🇬🇧 GBP" href="/payout-docs/payout-examples/ngn-gbp-example">
-    Walk through payouts to the UK and sort-code validation basics.
+  <Card title="🇨🇦 CAD Payout" href="/payout-docs/payout-examples/cad-payout">
+    Send Canadian Dollar to a Canadian bank account globally.
   </Card>
-  <Card title="🇳🇬 NGN → 🇨🇦 CAD" href="/payout-docs/payout-examples/ngn-cad-example">
-    Route NGN disbursements to Canada either via bank transfer or Interac.
+  <Card title="🇲🇼 MWK Payout" href="/payout-docs/payout-examples/mwk-payout">
+    Send Malawian Kwacha to a Malawian bank account.
   </Card>
-  <Card title="🇲🇼 MWK → 🇲🇼 MWK" href="/payout-docs/payout-examples/mwk-mwk-example">
-    Run domestic Malawi payouts and reuse saved recipients easily.
+  <Card title="🇷🇼 RWF Payout" href="/payout-docs/payout-examples/rwf-payout">
+    Send Rwandan Franc to a Rwandan bank account globally. 
   </Card>
+  <Card title=" 🇨🇳 CNY Payout" href="/payout-docs/payout-examples/cny-payout">
+    Send Chinese Yuan to a Chinese bank account globally.  
+  </Card>
+  <Card title=" 🇻🇳 VND Payout" href="/payout-docs/payout-examples/vnd-payout">
+    Send Vietnamese Dong to a Vietnamese bank account globally.  
+  </Card>
+
 </CardGroup>
 
 ## Next steps
 
 - Create a payout with [`POST /v2/payout`](/payout-docs/create-payout).
 - **Send to multiple recipients at once** with the [`Bulk Payout API`](/payout-docs/bulk-payout) — ideal for payroll, vendor payments, and mass disbursements.
+- Get bank list
 - Explore corridor-specific payloads with the example cards above or jump straight to the [`payout docs examples`](/payout-docs/payout-examples/ngn-usd-example).
-- Monitor disbursement states using the [`Get Transaction API`](/transaction-docs/get-transaction).
+- Monitor disbursement states using the [`Get Transaction API`](/transaction-docs/get-transaction). 

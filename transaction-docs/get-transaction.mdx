@@ -14,7 +14,7 @@ This endpoint is used to inspect the current state of a payout or quote conversi
 
 | **Header** | **Description** | **Required** | **Example** |
 |--------|-------------|----------|---------|
-| `x-api-key` | Workspace API key for authentication. | ✅ Yes | `YOUR_API_KEY` |
+| `x-api-key` | Workspace API key for authentication. | ✅ Yes | `API_KEY_HERE` |
 | `Content-Type` | Media type of the request. | ✅ Yes | `application/json` |
 
 ## Request examples
@@ -22,7 +22,7 @@ This endpoint is used to inspect the current state of a payout or quote conversi
 <CodeGroup>
 ```bash cURL
 curl --request GET '{{baseURL}}/v1/transaction/8c684c17-ef91-4133-a624-xxxxxxxxxxxxx' \
-  --header 'x-api-key: YOUR_API_KEY' \
+  --header 'x-api-key: API_KEY_HERE' \
   --header 'Content-Type: application/json'
 ```
 ```js JavaScript (fetch)
@@ -31,7 +31,7 @@ const transactionId = '8c684c17-ef91-4133-a624-xxxxxxxxxxxxx';
 fetch(`{{baseURL}}/v1/transaction/${transactionId}`, {
   method: 'GET',
   headers: {
-    'x-api-key': 'YOUR_API_KEY',
+    'x-api-key': 'API_KEY_HERE',
     'Content-Type': 'application/json'
   }
 })
@@ -51,7 +51,7 @@ import requests
 transaction_id = "8c684c17-ef91-4133-a624-xxxxxxxxxxxxx"
 url = f"{{baseURL}}/v1/transaction/{transaction_id}"
 headers = {
-    "x-api-key": "YOUR_API_KEY",
+    "x-api-key": "API_KEY_HERE",
     "Content-Type": "application/json",
 }
 
@@ -66,7 +66,7 @@ const transactionId = '8c684c17-ef91-4133-a624-xxxxxxxxxxxxx';
 
 axios.get(`{{baseURL}}/v1/transaction/${transactionId}`, {
   headers: {
-    'x-api-key': 'YOUR_API_KEY',
+    'x-api-key': 'API_KEY_HERE',
     'Content-Type': 'application/json'
   },
   timeout: 30000

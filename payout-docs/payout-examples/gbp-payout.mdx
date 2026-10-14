@@ -2,7 +2,7 @@
 title: '🇬🇧 GBP Payout'
 ---
 
-This endpoint allows you to process payouts in **British Pounds (GBP)** to recipients with a UK bank account via Bank Transfer.
+This endpoint allows you to process payouts in **British Pounds (GBP)** to recipients globally with a UK bank account except sanctioned countries and entities.
 
 ---
 
@@ -21,7 +21,7 @@ Include these headers in your request:
 | **Header** | **Value** | **Required** |
 | :------------- | :----------------- | :------- |
 | `Content-Type` | `application/json` | ✅ Yes   |
-| `x-api-key`    | `YOUR_API_KEY`     | ✅ Yes   |
+| `x-api-key`    | `API_KEY_HERE`     | ✅ Yes   |
 
 ---
 
@@ -32,7 +32,7 @@ Here are examples of how to make a GBP payout request in different languages.
 <CodeGroup>
 ```bash cURL
 curl --location --request POST 'https://sandboxapi.me-cash.com/v2/payout' \
---header 'x-api-key: YOUR_API_KEY' \
+--header 'x-api-key: API_KEY_HERE' \
 --header 'Content-Type: application/json' \
 --data '{
   "recipient": {
@@ -63,7 +63,7 @@ const options = {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
-    'x-api-key': 'YOUR_API_KEY'
+    'x-api-key': 'API_KEY_HERE'
   },
   body: JSON.stringify({
     recipient: {
@@ -123,7 +123,7 @@ payload = {
 }
 
 headers = {
-    "x-api-key": "YOUR_API_KEY",
+    "x-api-key": "API_KEY_HERE",
     "Content-Type": "application/json"
 }
 
@@ -160,7 +160,7 @@ const data = {
 const config = {
   headers: {
     'Content-Type': 'application/json',
-    'x-api-key': 'YOUR_API_KEY'
+    'x-api-key': 'API_KEY_HERE'
   }
 };
 

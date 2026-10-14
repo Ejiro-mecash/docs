@@ -21,7 +21,7 @@ Use this endpoint to generate a quote for onramp transactions — converting fia
 | **Header** | **Value** | **Required** | **Description** |
 |---|---|---|---|
 | `Content-Type` | `application/json` | Yes | Specifies that the request body is JSON. |
-| `x-api-key` | `YOUR_API_KEY` | Yes | API key for authentication. |
+| `x-api-key` | `API_KEY_HERE` | Yes | API key for authentication. |
 
 ---
 
@@ -78,7 +78,7 @@ Use this endpoint to generate a quote for onramp transactions — converting fia
 <CodeGroup>
 ```bash cURL
 curl --request POST '{{baseURL}}/v1/ramp/quote' \
-  --header 'x-api-key: YOUR_API_KEY' \
+  --header 'x-api-key: API_KEY_HERE' \
   --header 'Content-Type: application/json' \
   --data '{
     "paymentChannel": "BANK_TRANSFER",
@@ -130,7 +130,7 @@ const payload = {
 fetch('{{baseURL}}/v1/ramp/quote', {
   method: 'POST',
   headers: {
-    'x-api-key': 'YOUR_API_KEY',
+    'x-api-key': 'API_KEY_HERE',
     'Content-Type': 'application/json'
   },
   body: JSON.stringify(payload)
@@ -147,7 +147,7 @@ import requests
 
 url = "{{baseURL}}/v1/ramp/quote"
 headers = {
-    "x-api-key": "YOUR_API_KEY",
+    "x-api-key": "API_KEY_HERE",
     "Content-Type": "application/json",
 }
 payload = {
@@ -203,7 +203,7 @@ axios.post('{{baseURL}}/v1/ramp/quote', {
   }
 }, {
   headers: {
-    'x-api-key': 'YOUR_API_KEY',
+    'x-api-key': 'API_KEY_HERE',
     'Content-Type': 'application/json'
   },
   timeout: 30000

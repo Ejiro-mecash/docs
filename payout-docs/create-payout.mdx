@@ -20,7 +20,7 @@ The code examples below mirror the corridors covered in our payout guides. Selec
 
 | Header | Description | Required | Example |
 |--------|-------------|----------|---------|
-| `x-api-key` | Workspace API key for authentication. | ✅ Yes | `YOUR_API_KEY` |
+| `x-api-key` | Workspace API key for authentication. | ✅ Yes | `API_KEY_HERE` |
 | `Content-Type` | Media type of the request body. | ✅ Yes | `application/json` |
 
 ## Request body
@@ -68,7 +68,7 @@ Depending on the corridor and channel, additional fields (such as mobile wallet 
 <CodeGroup>
 ```bash cURL
 curl --request POST 'https://sandboxapi.me-cash.com/v2/payout' \
-  --header 'x-api-key: YOUR_API_KEY' \
+  --header 'x-api-key: API_KEY_HERE' \
   --header 'Content-Type: application/json' \
   --data '{
     "recipient": {
@@ -110,7 +110,7 @@ const payload = {
 fetch('https://sandboxapi.me-cash.com/v2/payout', {
   method: 'POST',
   headers: {
-    'x-api-key': 'YOUR_API_KEY',
+    'x-api-key': 'API_KEY_HERE',
     'Content-Type': 'application/json'
   },
   body: JSON.stringify(payload)
@@ -130,7 +130,7 @@ import requests
 
 url = "https://sandboxapi.me-cash.com/v2/payout"
 headers = {
-    "x-api-key": "YOUR_API_KEY",
+    "x-api-key": "API_KEY_HERE",
     "Content-Type": "application/json",
 }
 payload = {
@@ -176,7 +176,7 @@ axios.post('https://sandboxapi.me-cash.com/v2/payout', {
   remark: ''
 }, {
   headers: {
-    'x-api-key': 'YOUR_API_KEY',
+    'x-api-key': 'API_KEY_HERE',
     'Content-Type': 'application/json'
   },
   timeout: 30000

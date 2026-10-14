@@ -47,7 +47,7 @@ Send all payout orders in one request to `POST /v1/bulk/payout`. Each item inclu
     ```bash cURL
     curl --location 'https://sandboxapi.me-cash.com/v1/bulk/payout' \
     --header 'Content-Type: application/json' \
-    --header 'x-api-key: YOUR_API_KEY' \
+    --header 'x-api-key: API_KEY_HERE' \
     --data '{
         "items": [
             {
@@ -136,7 +136,7 @@ Poll for results using the `batchId` returned from Step 1. This is useful if you
     ```bash cURL
     curl --location 'https://sandboxapi.me-cash.com/v1/bulk/payout/{{batchId}}/status' \
     --header 'Content-Type: application/json' \
-    --header 'x-api-key: YOUR_API_KEY'
+    --header 'x-api-key: API_KEY_HERE'
     ```
   </Tab>
   <Tab title="Response (200)">

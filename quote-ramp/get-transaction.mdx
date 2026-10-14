@@ -19,7 +19,7 @@ This endpoint fetches the complete details of a specific Ramp transaction (eithe
 | **Header** | **Value** | **Required** | **Description** |
 |--------------|--------------------|----------|----------------------------------------|
 | `Content-Type` | `application/json` | Yes      | Specifies that the request body is JSON.|
-| `x-api-key`    | `YOUR_API_KEY`       | Yes      | API key for authentication.             |
+| `x-api-key`    | `API_KEY_HERE`       | Yes      | API key for authentication.             |
 
 ---
 
@@ -37,7 +37,7 @@ This endpoint fetches the complete details of a specific Ramp transaction (eithe
 ```bash cURL
 # Replace YOUR_TRANSACTION_ID with the actual transaction ID
 curl --location '{{baseURL}}/v1/ramp/transaction/YOUR_TRANSACTION_ID' \
---header 'x-api-key: YOUR_API_KEY' \
+--header 'x-api-key: API_KEY_HERE' \
 --header 'Content-Type: application/json'
 ```
 ```js JavaScript (fetch)
@@ -46,7 +46,7 @@ fetch(`{{baseURL}}/v1/ramp/transaction/${transactionId}`, {
   method: 'GET',
   headers: {
     'Content-Type': 'application/json',
-    'x-api-key': 'YOUR_API_KEY'
+    'x-api-key': 'API_KEY_HERE'
   }
 })
 .then(res => res.json())
@@ -59,7 +59,7 @@ import requests
 transaction_id = "YOUR_TRANSACTION_ID"
 url = f"{{baseURL}}/v1/ramp/transaction/{transaction_id}"
 headers = {
-    "x-api-key": "YOUR_API_KEY",
+    "x-api-key": "API_KEY_HERE",
     "Content-Type": "application/json"
 }
 
@@ -72,7 +72,7 @@ const axios = require('axios');
 const transactionId = 'YOUR_TRANSACTION_ID';
 axios.get(`{{baseURL}}/v1/ramp/transaction/${transactionId}`, {
   headers: {
-    'x-api-key': 'YOUR_API_KEY',
+    'x-api-key': 'API_KEY_HERE',
     'Content-Type': 'application/json'
   }
 })

@@ -17,7 +17,7 @@ This endpoint retrieves the token balances (including available and pending bala
 | **Header** | **Value** | **Required** | **Description** |
 |--------------|--------------------|----------|----------------------------------------|
 | `Content-Type` | `application/json` | Yes      | Specifies that the request body is JSON.|
-| `x-api-key`    | `YOUR_API_KEY`       | Yes      | API key for authentication.             |
+| `x-api-key`    | `API_KEY_HERE`       | Yes      | API key for authentication.             |
 
 ---
 
@@ -35,7 +35,7 @@ This endpoint retrieves the token balances (including available and pending bala
 ```bash cURL
 # Replace YOUR_WALLET_ID with the actual wallet ID
 curl --location '{{baseURL}}/v1/ramp/wallet/YOUR_WALLET_ID/balance' \
---header 'x-api-key: YOUR_API_KEY' \
+--header 'x-api-key: API_KEY_HERE' \
 --header 'Content-Type: application/json'
 ```
 ```js JavaScript (fetch)
@@ -44,7 +44,7 @@ fetch(`{{baseURL}}/v1/ramp/wallet/${walletId}/balance`, {
   method: 'GET',
   headers: {
     'Content-Type': 'application/json',
-    'x-api-key': 'YOUR_API_KEY'
+    'x-api-key': 'API_KEY_HERE'
   }
 })
 .then(res => res.json())
@@ -57,7 +57,7 @@ import requests
 wallet_id = "YOUR_WALLET_ID"
 url = f"{{baseURL}}/v1/ramp/wallet/{wallet_id}/balance"
 headers = {
-    "x-api-key": "YOUR_API_KEY",
+    "x-api-key": "API_KEY_HERE",
     "Content-Type": "application/json"
 }
 
@@ -70,7 +70,7 @@ const axios = require('axios');
 const walletId = 'YOUR_WALLET_ID';
 axios.get(`{{baseURL}}/v1/ramp/wallet/${walletId}/balance`, {
   headers: {
-    'x-api-key': 'YOUR_API_KEY',
+    'x-api-key': 'API_KEY_HERE',
     'Content-Type': 'application/json'
   }
 })

@@ -1,0 +1,111 @@
+---
+title: "Account Enquiry"
+description: "Verify a bank account holder's name before initiating a payout."
+icon: "address-book"
+---
+
+Use the Account Enquiry endpoint to confirm the **account name** associated with a bank account number and sort code before sending a payout. This helps prevent failed transfers and misdirected funds.
+
+## When to use it
+
+- **Before every payout** — validate that the destination account name matches your intended recipient.
+- **During onboarding** — confirm a customer's bank details when saving them for later use.
+- **Fraud checks** — detect mismatches between user-submitted details and the bank's records.
+
+## Required details
+
+You must provide:
+
+| Field | Description | Example |
+| --- | --- | --- |
+| `currency` | Currency of the destination account | `NGN` |
+| `country` | Two-letter country code | `NG` |
+| `account.accountNumber` | Bank account number to enquire about | `0690000032` |
+| `account.sortCode` | Bank sort code (bank code) | `044` |
+
+## Example request
+
+```bash
+curl --request POST \
+  --url https://sandboxapi.me-cash.com/v1/account/enquiry \
+  --header 'Authorization: Bearer <YOUR_API_KEY>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "currency": "NGN",
+    "country": "NG",
+    "account": {
+      "accountNumber": "0690000032",
+      "sortCode": "044"
+    }
+  }'
+```
+
+## Example response
+
+```json
+{
+  "accountNumber": "0690000032",
+  "accountName": "JOHN DOE",
+  "bankName": "ACCESS BANK NIGERIA",
+  "sortCode": "044",
+  "currency": "NGN",
+  "country": "NG"
+}
+```
+
+## Field reference
+
+### Request — `CreateAccountEnquiryRequest`
+
+<ParamField body="currency" type="string" required>
+  Currency code of the destination account (e.g. `NGN`).
+</ParamField>
+
+<ParamField body="country" type="string" required>
+  Two-letter ISO country code (e.g. `NG`).
+</ParamField>
+
+<ParamField body="account" type="object" required>
+  Object containing the bank account details to verify.
+
+  <Expandable title="account properties">
+    <ParamField body="accountNumber" type="string" required>
+      Bank account number to enquire about.
+    </ParamField>
+
+    <ParamField body="sortCode" type="string" required>
+      Bank sort code (bank code).
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+### Response — `AccountEnquiry`
+
+<ResponseField name="accountNumber" type="string">
+  The account number that was queried. Example: `0690000032`.
+</ResponseField>
+
+<ResponseField name="accountName" type="string">
+  Registered name of the account holder. Example: `JOHN DOE`.
+</ResponseField>
+
+<ResponseField name="bankName" type="string">
+  Name of the bank that owns the account. Example: `ACCESS BANK NIGERIA`.
+</ResponseField>
+
+<ResponseField name="sortCode" type="string">
+  Sort code of the bank. Example: `044`.
+</ResponseField>
+
+<ResponseField name="currency" type="string">
+  Currency code of the account. Example: `NGN`.
+</ResponseField>
+
+<ResponseField name="country" type="string">
+  Country code of the account. Example: `NG`.
+</ResponseField>
+
+## Related
+
+- **Create Payout** — send funds after verifying the account.
+- **Bank List** — retrieve supported banks and sort codes.

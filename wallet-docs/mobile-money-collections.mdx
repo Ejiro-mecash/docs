@@ -30,7 +30,7 @@ This Endpoint is optional for Kenyan Mobile Money Collections.
 ```bash cURL
 curl --location '{{baseURL}}/v1/mobileMoneyOperator?country=MW&currency=MWK' \
 --header 'Content-Type: application/json' \
---header 'x-api-key: YOUR_API_KEY'
+--header 'x-api-key: API_KEY_HERE'
 ```
 </CodeGroup>
 
@@ -81,7 +81,7 @@ Once you have the network details, you can initiate a collection request. This w
 ```bash cURL
 curl --location '{{baseURL}}/v1/funding' \
 --header 'Content-Type: application/json' \
---header 'x-api-key: YOUR_API_KEY' \
+--header 'x-api-key: API_KEY_HERE' \
 --data '{
     "currency":"MWK",
     "country":"MW",

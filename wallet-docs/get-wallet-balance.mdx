@@ -23,7 +23,7 @@ Use this endpoint to retrieve the available balance for a wallet you previously 
 
 | **Header** | **Type** | **Description** | **Required** | **Example** |
 |--------|------|-------------|----------|---------|
-| `x-api-key` | String | Your meCash API key for authentication. | ✅ Yes | `YOUR_API_KEY` |
+| `x-api-key` | String | Your meCash API key for authentication. | ✅ Yes | `API_KEY_HERE` |
 | `Content-Type` | String | Media type of the request. | ✅ Yes | `application/json` |
 
 ## Request examples
@@ -31,7 +31,7 @@ Use this endpoint to retrieve the available balance for a wallet you previously 
 <CodeGroup>
 ```bash cURL
 curl --request GET '{{baseURL}}/v1/wallet/739d7131-d523-49ui-8524-xxxxxxxxxx/balance' \
-  --header 'x-api-key: YOUR_API_KEY' \
+  --header 'x-api-key: API_KEY_HERE' \
   --header 'Content-Type: application/json'
 ```
 ```js JavaScript (fetch)
@@ -40,7 +40,7 @@ const walletId = '739d7131-d523-49ui-8524-xxxxxxxxxx';
 fetch(`{{baseURL}}/v1/wallet/${walletId}/balance`, {
   method: 'GET',
   headers: {
-    'x-api-key': 'YOUR_API_KEY',
+    'x-api-key': 'API_KEY_HERE',
     'Content-Type': 'application/json'
   }
 })
@@ -60,7 +60,7 @@ import requests
 wallet_id = "739d7131-d523-49ui-8524-xxxxxxxxxx"
 url = f"{{baseURL}}/v1/wallet/{wallet_id}/balance"
 headers = {
-    "x-api-key": "YOUR_API_KEY",
+    "x-api-key": "API_KEY_HERE",
     "Content-Type": "application/json",
 }
 
@@ -75,7 +75,7 @@ const walletId = '739d7131-d523-49ui-8524-xxxxxxxxxx';
 
 axios.get(`{{baseURL}}/v1/wallet/${walletId}/balance`, {
   headers: {
-    'x-api-key': 'YOUR_API_KEY',
+    'x-api-key': 'API_KEY_HERE',
     'Content-Type': 'application/json'
   },
   timeout: 30000
