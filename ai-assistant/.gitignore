@@ -1,0 +1,4 @@
+node_modules/
+lib/docs-index.ts
+.vercel/
+.env*

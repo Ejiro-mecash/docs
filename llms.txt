@@ -55,7 +55,6 @@ Crypto-to-fiat (Off-Ramp) and crypto-to-crypto deposits/withdrawals.
 - **[Pay to China](/pay-china.mdx)**: Specialized guide for payments to Chinese bank accounts and wallets.
 - **[Payment Links](/payment-links.mdx)**: Create shareable links to collect payments easily.
 - **[API Testing Guide](/api-testing.mdx)**: Best practices for testing in Sandbox.
-- **[Ask AI](/ask-ai.mdx)**: Interactive AI-powered documentation assistant.
 
 ## Support & Community
 
