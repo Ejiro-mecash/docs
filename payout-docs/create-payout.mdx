@@ -4,7 +4,7 @@ title: 'Create Payout API'
 
 Use this endpoint to disburse funds to a beneficiary. The payout consumes an existing quote, validates the beneficiary, and queues the transfer for settlement.
 
-The code examples below mirror the corridors covered in our payout guides. Select the appropriate `recipient` payload to match your payout use case, or browse the dedicated [payout examples](/payout-docs/payout-examples/ngn-ngn-example) for a full walkthrough.
+The code examples below mirror the corridors covered in our payout guides. Select the appropriate `recipient` payload to match your payout use case, or browse the dedicated [payout examples](/payout-docs/payout-examples) for a full walkthrough.
 
 ## Endpoint
 
@@ -61,7 +61,7 @@ The code examples below mirror the corridors covered in our payout guides. Selec
 | `invoice` | String | Optional identifier for the invoice (returned from file upload endpoint). | ❌ No | `4b9b6d30-a2ed-421a-bd69-xxxxxxxxxxxx` |
 | `remark` | String | Additional comments or reference. | Optional | `September utilities` |
 
-Depending on the corridor and channel, additional fields (such as mobile wallet metadata or address information) may be required. Refer to the route-specific examples in [`payout docs examples`](/payout-docs/payout-examples/ngn-usd-example).
+Depending on the corridor and channel, additional fields (such as mobile wallet metadata or address information) may be required. Refer to the route-specific examples in [`payout docs examples`](/payout-docs/payout-examples).
 
 ## Request examples
 
