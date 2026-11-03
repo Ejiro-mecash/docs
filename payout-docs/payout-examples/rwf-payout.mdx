@@ -2,13 +2,16 @@
 title: '🇷🇼 RWF Payout'
 ---
 
-This endpoint allows you to process payouts in **Rwandan Franc (RWF)** to recipients in Rwanda using mobile money or bank transfers.
+This endpoint allows you to process payouts in **Rwandan Franc (RWF)** to recipients in Rwanda using mobile money networks (e.g., MTN MoMo Rwanda, Airtel Money).
 
 ---
 
 ## Endpoint
 
-**POST:** `https://sandboxapi.me-cash.com/v2/payout`
+| **Environment** | **Base URL** | **Method** |
+| :--- | :--- | :--- |
+| **Production** | `https://api.me-cash.com/v2/payout` | `POST` |
+| **Sandbox** | `https://sandboxapi.me-cash.com/v2/payout` | `POST` |
 
 ---
 
@@ -18,8 +21,7 @@ RWF payouts support the following payment channel:
 
 | **Channel** | **Description** | **Use Case** |
 | :---------- | :-------------- | :----------- |
-| `MOBILE_WALLET` | Mobile Money transfers (e.g., MTN MoMo) | Instant transfers to mobile wallets |
-
+| `MOBILE_MONEY` | Mobile Money transfers (e.g., MTN MoMo, Airtel Money) | Instant transfers directly to recipient mobile wallets |
 
 ---
 
@@ -32,6 +34,7 @@ Include these headers in your request:
 | **Header** | **Value** | **Required** |
 | :------------- | :----------------- | :------- |
 | `Content-Type` | `application/json` | ✅ Yes   |
+| `Accept`       | `application/json` | ✅ Yes   |
 | `x-api-key`    | `API_KEY_HERE`     | ✅ Yes   |
 
 ---
@@ -39,51 +42,54 @@ Include these headers in your request:
 ## Sample Requests
 
 <Tabs>
-<Tab title="MOBILE_WALLET">
+<Tab title="MOBILE_MONEY">
 
-Use `MOBILE_WALLET` for instant transfers to Rwandan mobile money providers like MTN.
+Use `MOBILE_MONEY` for instant disbursements to Rwandan mobile money subscribers (such as MTN MoMo).
 
 <CodeGroup>
 ```bash cURL
-curl --location --request POST 'https://sandboxapi.me-cash.com/v2/payout' \
+curl --location --request POST 'https://api.me-cash.com/v2/payout' \
 --header 'x-api-key: API_KEY_HERE' \
 --header 'Content-Type: application/json' \
+--header 'Accept: application/json' \
 --data '{
-    "remark": "Testing",
-    "reason": "Refund",
-    "quoteId": "7c8eb365-285c-4b75-bcc8-xxxxxxxx",
+    "remark": "Instant withdrawal",
+    "reason": "Other",
+    "quoteId": "c75ca56d-f5a7-48f0-85df-xxxxxxxxxxxx",
     "recipient": {
-       "name": "Ejiro Dare",
+        "name": "Jean Paul Mugisha",
         "account": {
-            "accountNumber": "+25079137xxxx",
+            "accountNumber": "+25079322XXXX",
             "mobileProvider": "MTN_MOMO_RWA"
         },
-        "paymentChannel": "MOBILE_WALLET",
+        "paymentChannel": "MOBILE_MONEY",
         "currency": "RWF",
         "country": "RW"
     }
 }'
 ```
+
 ```javascript JavaScript (Fetch)
-const url = 'https://sandboxapi.me-cash.com/v2/payout';
+const url = 'https://api.me-cash.com/v2/payout';
 
 const options = {
   method: 'POST',
   headers: {
+    'x-api-key': 'API_KEY_HERE',
     'Content-Type': 'application/json',
-    'x-api-key': 'API_KEY_HERE'
+    'Accept': 'application/json'
   },
   body: JSON.stringify({
-    remark: "Testing",
-    reason: "Refund",
-    quoteId: "7c8eb365-285c-4b75-bcc8-xxxxxxxx",
+    remark: "Instant withdrawal",
+    reason: "Other",
+    quoteId: "c75ca56d-f5a7-48f0-85df-xxxxxxxxxxxx",
     recipient: {
-      name: "Ejiro Dare",
+      name: "Jean Paul Mugisha",
       account: {
-        accountNumber: "+25079137xxxx",
+        accountNumber: "+25079322XXXX",
         mobileProvider: "MTN_MOMO_RWA"
       },
-      paymentChannel: "MOBILE_WALLET",
+      paymentChannel: "MOBILE_MONEY",
       currency: "RWF",
       country: "RW"
     }
@@ -105,19 +111,19 @@ fetch(url, options)
 import requests
 import json
 
-url = "https://sandboxapi.me-cash.com/v2/payout"
+url = "https://api.me-cash.com/v2/payout"
 
 payload = {
-    "remark": "Testing",
-    "reason": "Refund",
-    "quoteId": "7c8eb365-285c-4b75-bcc8-xxxxxxxx",
+    "remark": "Instant withdrawal",
+    "reason": "Other",
+    "quoteId": "c75ca56d-f5a7-48f0-85df-xxxxxxxxxxxx",
     "recipient": {
-        "name": "Ejiro Dare",
+        "name": "Jean Paul Mugisha",
         "account": {
-            "accountNumber": "+25079137xxxx",
+            "accountNumber": "+25079322XXXX",
             "mobileProvider": "MTN_MOMO_RWA"
         },
-        "paymentChannel": "MOBILE_WALLET",
+        "paymentChannel": "MOBILE_MONEY",
         "currency": "RWF",
         "country": "RW"
     }
@@ -125,15 +131,54 @@ payload = {
 
 headers = {
     "x-api-key": "API_KEY_HERE",
-    "Content-Type": "application/json"
+    "Content-Type": "application/json",
+    "Accept": "application/json"
 }
 
 try:
-    response = requests.post(url, headers=headers, data=json.dumps(payload))
+    response = requests.post(url, headers=headers, json=payload)
     response.raise_for_status()
     print(response.json())
 except requests.exceptions.HTTPError as err:
     print(f"HTTP Error: {err}")
+```
+
+```javascript Node.js (Axios)
+const axios = require('axios');
+
+const url = 'https://api.me-cash.com/v2/payout';
+
+const data = {
+  remark: 'Instant withdrawal',
+  reason: 'Other',
+  quoteId: 'c75ca56d-f5a7-48f0-85df-xxxxxxxxxxxx',
+  recipient: {
+    name: 'Jean Paul Mugisha',
+    account: {
+      accountNumber: '+25079322XXXX',
+      mobileProvider: 'MTN_MOMO_RWA'
+    },
+    paymentChannel: 'MOBILE_MONEY',
+    currency: 'RWF',
+    country: 'RW'
+  }
+};
+
+const config = {
+  headers: {
+    'x-api-key': 'API_KEY_HERE',
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
+  }
+};
+
+axios.post(url, data, config)
+  .then(response => {
+    console.log(response.data);
+  })
+  .catch(error => {
+    console.error('Error:', error.response ? error.response.data : error.message);
+  });
 ```
 </CodeGroup>
 
@@ -146,110 +191,142 @@ except requests.exceptions.HTTPError as err:
 
 | **Field** | **Type** | **Description** | **Required** |
 | :---------------------------------- | :------ | :-------------------------------------------------------------------------- | :------- |
-| `quoteId` | String | The unique ID of the quote for this payout. | ✅ Yes |
-| `reason` | String | The purpose of the transfer. | ✅ Yes |
-| `remark` | String | An optional, additional note about the transaction. | ❔ No |
+| `quoteId` | String | The unique ID of the quote for this payout generated via the [Quote API](/quote-docs/create-quote). | ✅ Yes |
+| `reason` | String | The purpose of the transfer (e.g., `Other`, `Salary`, `Services`). | ✅ Yes |
+| `remark` | String | An optional, additional note or description for the transaction. | ❔ No |
 | `recipient` | Object | An object containing all details about the beneficiary. | ✅ Yes |
-| `recipient.name` | String | The full name of the recipient. | ✅ Yes |
-| `recipient.account` | Object | An object containing the recipient's account details. | ✅ Yes |
-| `recipient.account.accountNumber` | String | The recipient's mobile money number or bank account number. | ✅ Yes |
-| `recipient.account.mobileProvider` | String | The mobile money provider code (e.g., `MTN_MOMO_RWA`). See [Get Mobile Networks](/collection/get-mobile-money-operators) for a list of supported codes. | ✅ Yes (for Mobile Wallet) |
-| `recipient.paymentChannel` | String | The payment method. Enum: `MOBILE_WALLET`, `BANK_TRANSFER`. | ✅ Yes |
-| `recipient.currency` | String | The ISO currency code. Must be `RWF`. | ✅ Yes |
+| `recipient.name` | String | The full name of the recipient registered on the mobile money line. | ✅ Yes |
+| `recipient.account` | Object | An object containing the recipient's mobile money account details. | ✅ Yes |
+| `recipient.account.accountNumber` | String | The recipient's mobile money phone number in international format (e.g., `+25079322XXXX`). | ✅ Yes |
+| `recipient.account.mobileProvider` | String | The mobile money provider code (e.g., `MTN_MOMO_RWA`). See [Get Mobile Networks](/collection/get-mobile-money-operators) for supported codes. | ✅ Yes |
+| `recipient.paymentChannel` | String | The payment method. Must be `MOBILE_MONEY`. | ✅ Yes |
+| `recipient.currency` | String | The destination ISO currency code. Must be `RWF`. | ✅ Yes |
 | `recipient.country` | String | The recipient's two-letter ISO country code. Must be `RW`. | ✅ Yes |
 
 <Tip>
-To retrieve the correct `mobileProvider` codes for different countries and networks, use the [Get Mobile Networks](/collection/get-mobile-money-operators) endpoint.
+To retrieve the list of supported `mobileProvider` codes for different countries and networks, query the [Get Mobile Networks](/collection/get-mobile-money-operators) endpoint.
 </Tip>
 
 ---
 
 ## Success Response (200 OK)
 
-If the payout is successfully created, the API returns the following response:
+When the payout request is successfully validated and queued, the API returns a `200 OK` response with a `payout.pending` event:
 
 ```json copy
 {
-    "message": "transaction created successfully",
-    "status": "success",
-    "data": {
-        "id": "5bab8c78-d3c1-4f91-88fd-6e81700aa97f",
-        "remark": "Testing",
-        "reason": "Refund",
-        "referenceNumber": "009H8DYVZES86",
-        "type": "SEND",
-        "state": "PENDING",
-        "quote": {
-            "id": "7c8eb365-285c-4b75-bcc8-xxxxxxxx",
-            "paymentChannel": "MOBILE_MONEY",
-            "source": {
-                "currency": "RWF",
-                "country": "RW",
-                "amount": 50.00
-            },
-            "target": {
-                "currency": "RWF",
-                "country": "RW",
-                "amount": 50.00
-            },
-            "rate": 1.000000000000,
-            "fee": {
-                "amount": 0.6000,
-                "stampDuty": 0.00
-            },
-            "summary": {
-                "total": 50.60
-            },
-            "settlement": "Instant",
-            "quoteCurrency": "RWF"
-        },
-        "recipient": {
-            "name": "Ejiro Dare",
-            "account": {
-                "accountNumber": "+25079137xxxx",
-                "mobileProvider": "MTN_MOMO_RWA"
-            }
-        },
-        "created": "2026-05-08T15:05:09.040129870Z",
-        "processed": "2026-05-08T15:05:09.040129870Z"
-    }
+  "event": "payout.pending",
+  "data": {
+    "id": "96f5eabc-8ddb-462f-b7b7-xxxxxxxxxxxx",
+    "reason": "Other",
+    "remark": "Instant withdrawal",
+    "referenceNumber": "QHVIJJXXXXXXX",
+    "type": "SEND",
+    "state": "PENDING",
+    "quote": {
+      "id": "1edb7bcb-fc04-490a-980b-xxxxxxxxxxxx",
+      "paymentChannel": "MOBILE_MONEY",
+      "source": {
+        "currency": "RWF",
+        "country": "RW",
+        "amount": "5747.31"
+      },
+      "target": {
+        "currency": "RWF",
+        "country": "RW",
+        "amount": "5747.31"
+      },
+      "rate": "1.000000000000",
+      "fee": {
+        "amount": "68.967720",
+        "stampDuty": "0.00"
+      },
+      "summary": {
+        "total": "5816.28"
+      }
+    },
+    "recipient": {
+      "name": "Jean Paul Mugisha",
+      "account": {
+        "accountNumber": "+25079322XXXX",
+        "mobileProvider": "MTN_MOMO_RWA"
+      },
+      "paymentChannel": "MOBILE_MONEY",
+      "currency": "RWF",
+      "country": "RW"
+    },
+    "created": "2026-10-22T10:13:37.762Z",
+    "processed": "2026-10-22T10:13:37.762Z"
+  }
 }
 ```
 
 ---
 
-## **Payout Transaction States**
+### Response Body Breakdown
 
-The payout transaction can have one of the following states:
+| **Field** | **Type** | **Description** |
+| :---------------------------------- | :------ | :-------------------------------------------------------------------------- |
+| `event` | String | Event notification type (`payout.pending`). |
+| `data.id` | String | Unique identifier for the created payout transaction. |
+| `data.reason` | String | Purpose or category specified for the transfer. |
+| `data.remark` | String | Additional note or remark submitted with the payout. |
+| `data.referenceNumber` | String | Unique reference identifier generated for tracking and reconciliation. |
+| `data.type` | String | Transaction type (`SEND`). |
+| `data.state` | String | Current transaction state (`PENDING`, `COMPLETED`, `FAILED`, `REFUNDED`). |
+| `data.quote` | Object | Complete breakdown of the applied quote. |
+| `data.quote.id` | String | Unique identifier of the locked exchange quote. |
+| `data.quote.paymentChannel` | String | Payment channel utilized (`MOBILE_MONEY`). |
+| `data.quote.source` | Object | Source amount, currency (`RWF`), and origin country (`RW`). |
+| `data.quote.target` | Object | Payout amount, currency (`RWF`), and destination country (`RW`). |
+| `data.quote.rate` | String | Applied conversion exchange rate (`1.000000000000` for local corridor). |
+| `data.quote.fee` | Object | Transaction processing fee and stamp duty. |
+| `data.quote.summary.total` | String | Total cost deducted from your balance (principal + fees). |
+| `data.recipient` | Object | Beneficiary account details and selected mobile provider. |
+| `data.created` | String | ISO 8601 timestamp when the payout was initiated. |
+| `data.processed` | String | ISO 8601 timestamp when processing commenced. |
+
+---
+
+## Payout Transaction States
+
+A payout transaction progresses through the following lifecycles:
 
 | **State** | **Description** |
-|------------|-------------------------------------------|
-| `COMPLETED` | The payout was successfully processed.   |
-| `PENDING`   | The payout is still being processed.     |
-| `FAILED`    | The payout failed to process.           |
-| `REFUNDED`  | The payout has been sent back to sender. |
+| :--- | :--- |
+| `PENDING` | Payout request has been initiated and is being processed by the mobile network operator. |
+| `COMPLETED` | Funds have been successfully delivered to the recipient's mobile money wallet. |
+| `FAILED` | Payout could not be fulfilled (e.g. invalid subscriber number, operator timeout, or wallet limits). |
+| `REFUNDED` | The debited amount plus fees were returned to your account balance after a failure. |
+
+<Info>
+**Webhook Updates:** You can listen for real-time status transitions using webhooks (`payout.pending`, `payout.completed`, and `payout.failed`). See the [Payout Webhooks Guide](/webhook/payout-webhook) for payload examples and verification steps.
+</Info>
 
 ---
 
 ## Error Handling
 
-| **Status Code** | **Meaning** | **Example Response** |
-|:------------|:-----------------------|:------------------------------------------------|
-| `400`       | Insufficient Balance   | Insufficient Balance                            |
-| `401`       | Unauthorized           | Invalid API key provided.                       |
-| `403`       | Forbidden              | IP not whitelisted                              |
-| `404`       | Not Found              | The requested endpoint does not exist.          |
-| `422`       | Unprocessable Entity   | Invalid quote ID provided.                      |
-| `500`       | Internal Server Error  | An internal error occurred.                     |
+Common HTTP response status codes returned by the API:
+
+| **Status Code** | **Meaning** | **Description** |
+| :--- | :--- | :--- |
+| `400 Bad Request` | Bad Request | Missing required parameters, invalid mobile provider code, or insufficient wallet balance. |
+| `401 Unauthorized` | Unauthorized | Missing or invalid `x-api-key` header. |
+| `403 Forbidden` | Forbidden | Request IP is not whitelisted. |
+| `404 Not Found` | Not Found | Endpoint or specified resource does not exist. |
+| `422 Unprocessable Entity` | Validation Error | The provided `quoteId` is invalid or expired. |
+| `500 Internal Server Error` | Server Error | Internal processing error. Retry with an idempotent request. |
 
 ---
 
-## **Best Practices**
-✅ Ensure `quoteId` is valid and linked to an existing quote.
-✅ Confirm that the recipient's **mobile number** or **bank account number** is correct.
-✅ Use a valid API key in the headers.
-✅ Handle error responses correctly in your integration.
+## Best Practices
+
+✅ **Verify Phone Numbers:** Always ensure the recipient's mobile money number is active and formatted with the international calling code (e.g., `+250...`).  
+✅ **Use Valid Quotes:** Retrieve a fresh quote via [`POST /v2/quote`](/quote-docs/create-quote) before submitting the payout.  
+✅ **Listen for Webhooks:** Mobile money network confirmations are asynchronous. Rely on webhook notifications rather than polling to determine final payout delivery.  
+✅ **Idempotency & Reconciliations:** Store and index the returned `data.referenceNumber` and `data.id` for accounting and customer support reconciliation.
 
 <Tip>
-**Testing Failed Payouts:** In the sandbox environment, you can simulate a failed payout by setting `"remark": "fail"` in your request. This triggers a `payout.failed` webhook, allowing you to test your error handling.
+**Sandbox Testing:** In the sandbox environment, you can test failure flows and webhook handling by passing `"remark": "fail"` in your request payload. This will trigger a `payout.failed` webhook event.
 </Tip>
