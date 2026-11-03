@@ -5,7 +5,7 @@ openapi: post /v1/bulk/payout
 
 Submitting a bulk payout queues the batch for asynchronous processing. The endpoint does not wait for individual payouts to complete. It returns a `batchId` immediately after the batch is accepted.
 
-Use the `batchId` with the [Fetch Batch Status](/payout/get-batch-status) endpoint to monitor processing and retrieve individual payout results.
+Use the `batchId` with the [Fetch Batch Status](/payout-docs/bulk-payout#step-2-check-batch-status-optional) endpoint to monitor processing and retrieve individual payout results.
 
 ## Response fields
 
@@ -27,7 +27,7 @@ For a newly created batch, `totalSuccessful`, `totalFailed`, and `totalPending` 
 
 After creating a bulk payout, use the returned `batchId` to monitor the batch and retrieve the status of individual payouts.
 
-Pass `data.batchId` from the response above to the [Fetch Batch Status](/payout/get-batch-status) endpoint:
+Pass `data.batchId` from the response above to the [Fetch Batch Status](/payout-docs/bulk-payout#step-2-check-batch-status-optional) endpoint:
 
 ```
 GET /v1/bulk/payout/{batchId}/status

@@ -39,28 +39,31 @@ icon: compass
     </div>
   </section>
 
-  {/* ── TRUSTED METRICS ── */}
+  {/* ── PLATFORM FACTS ──
+      Only facts that can be verified from the docs. Add numeric stats (corridor count, uptime SLA)
+      back here once they are confirmed and sourced. */}
   <section style={{ borderTop: '1px solid var(--border-color, #e5e7eb)', borderBottom: '1px solid var(--border-color, #e5e7eb)', background: 'var(--bg-muted, rgba(0,0,0,0.02))', borderRadius: '16px', padding: '2rem 2.5rem' }}>
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1.5rem', textAlign: 'center' }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1.5rem', textAlign: 'center' }}>
       <div>
-        <p style={{ fontSize: '2rem', fontWeight: '700', background: 'linear-gradient(to right, #7c3aed, #8b5cf6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', margin: '0 0 4px' }}>150+</p>
-        <p style={{ fontSize: '0.875rem', color: 'var(--text-muted, #6b7280)', margin: 0 }}>Payout Corridors</p>
+        <p style={{ fontSize: '2rem', fontWeight: '700', background: 'linear-gradient(to right, #7c3aed, #8b5cf6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', margin: '0 0 4px' }}>REST</p>
+        <p style={{ fontSize: '0.875rem', color: 'var(--text-muted, #6b7280)', margin: 0 }}>API with predictable responses</p>
       </div>
       <div>
-        <p style={{ fontSize: '2rem', fontWeight: '700', margin: '0 0 4px' }}>REST</p>
-        <p style={{ fontSize: '0.875rem', color: 'var(--text-muted, #6b7280)', margin: 0 }}>API Architecture</p>
+        <p style={{ fontSize: '2rem', fontWeight: '700', margin: '0 0 4px' }}>Sandbox</p>
+        <p style={{ fontSize: '0.875rem', color: 'var(--text-muted, #6b7280)', margin: 0 }}>Test every flow before go-live</p>
       </div>
       <div>
-        <p style={{ fontSize: '2rem', fontWeight: '700', margin: '0 0 4px' }}>⚡ Fast</p>
-        <p style={{ fontSize: '0.875rem', color: 'var(--text-muted, #6b7280)', margin: 0 }}>Reliable Webhooks</p>
+        <p style={{ fontSize: '2rem', fontWeight: '700', margin: '0 0 4px' }}>Webhooks</p>
+        <p style={{ fontSize: '0.875rem', color: 'var(--text-muted, #6b7280)', margin: 0 }}>Real-time payout status events</p>
       </div>
       <div>
-        <p style={{ fontSize: '2rem', fontWeight: '700', color: '#16a34a', margin: '0 0 4px' }}>99.9%</p>
-        <p style={{ fontSize: '0.875rem', color: 'var(--text-muted, #6b7280)', margin: 0 }}>Uptime SLA</p>
+        <p style={{ fontSize: '2rem', fontWeight: '700', color: '#16a34a', margin: '0 0 4px' }}>Multi-currency</p>
+        <p style={{ fontSize: '0.875rem', color: 'var(--text-muted, #6b7280)', margin: 0 }}>Wallets, quotes and payouts</p>
       </div>
     </div>
   </section>
 
+  {/* ── GET STARTED ── */}
   <section>
     <h2 className="section-title centered">
       Navigate the Docs
@@ -81,54 +84,7 @@ icon: compass
     </CardGroup>
   </section>
 
-  {/* ── API PREVIEW ── */}
-  <section style={{ background: 'var(--bg-muted, rgba(0,0,0,0.02))', border: '1px solid var(--border-color, #e5e7eb)', borderRadius: '20px', padding: '2.5rem 3rem' }}>
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-      <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-        <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10b981', display: 'inline-block' }}></span>
-        <span style={{ fontSize: '0.75rem', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.05em', color: '#059669' }}>Quick Integration</span>
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'row', gap: '3rem', alignItems: 'flex-start', flexWrap: 'wrap' }}>
-        <div style={{ flex: '1', minWidth: '260px' }}>
-          <h2 style={{ fontSize: '1.75rem', fontWeight: '700', margin: '0 0 1rem' }}>Ship in hours, not weeks.</h2>
-          <p style={{ color: 'var(--text-muted, #6b7280)', lineHeight: '1.7', marginBottom: '1.5rem' }}>
-            A clean REST API with predictable responses, real code examples in 12+ languages, and a sandbox you can hit immediately.
-          </p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
-              <span style={{ fontSize: '1rem' }}>✅</span>
-              <div>
-                <p style={{ fontWeight: '600', margin: '0 0 2px', fontSize: '0.9rem' }}>Instant Sandbox Access</p>
-                <p style={{ color: 'var(--text-muted, #6b7280)', margin: 0, fontSize: '0.85rem' }}>Test every endpoint with zero risk before going live.</p>
-              </div>
-            </div>
-            <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
-              <span style={{ fontSize: '1rem' }}>✅</span>
-              <div>
-                <p style={{ fontWeight: '600', margin: '0 0 2px', fontSize: '0.9rem' }}>Webhook-First Architecture</p>
-                <p style={{ color: 'var(--text-muted, #6b7280)', margin: 0, fontSize: '0.85rem' }}>Real-time notifications for every state change.</p>
-              </div>
-            </div>
-            <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
-              <span style={{ fontSize: '1rem' }}>✅</span>
-              <div>
-                <p style={{ fontWeight: '600', margin: '0 0 2px', fontSize: '0.9rem' }}>Interactive Playground</p>
-                <p style={{ color: 'var(--text-muted, #6b7280)', margin: 0, fontSize: '0.85rem' }}>Try requests directly from the docs — no Postman needed.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div style={{ flex: '1', minWidth: '260px' }}>
-          <img
-            src="public/hero-api-response.png"
-            alt="200 OK Payout Completed API Response"
-            style={{ width: '100%', borderRadius: '14px', boxShadow: '0 8px 32px rgba(0,0,0,0.10)', border: '1px solid var(--border-color, #e5e7eb)', display: 'block' }}
-          />
-        </div>
-      </div>
-    </div>
-  </section>
-
+  {/* ── USE CASES ── */}
   <section>
     <h2 className="section-title centered">
       Launch a Use Case
@@ -143,20 +99,113 @@ icon: compass
       <Card title="Send Payouts" icon="money-bill-transfer" href="/payout-docs/payout">
         Orchestrate bank transfers and mobile money payouts with detailed, corridor-specific recipes.
       </Card>
-      <Card
-        title="Collect via Virtual Accounts"
-        icon="building-columns"
-        href="/virtual-accounts-docs/about-virtual-account"
-      >
-        Spin up static or dynamic collection accounts, automate notifications, and reconcile deposits seamlessly.
-      </Card>
       <Card title="Bulk Payouts" icon="users" href="/payout-docs/bulk-payout">
         Disburse funds to multiple beneficiaries in a single request, manage batch results, and automate high-volume transfers.
+      </Card>
+      <Card title="Pay on Behalf Of (POBO)" icon="user" href="/payout-docs/pay-on-behalf-of">
+        Send cross-border USD and EUR payouts on behalf of your customers, with the sender and recipient details compliance requires.
+      </Card>
+      <Card title="Collect via Virtual Accounts" icon="building-columns" href="/virtual-accounts-docs/about-virtual-account">
+        Spin up static or dynamic collection accounts, automate notifications, and reconcile deposits seamlessly.
+      </Card>
+      <Card title="Mobile Money Collections" icon="mobile-screen" href="/wallet-docs/mobile-money-collections">
+        Look up mobile money operators and initiate wallet funding through the Collection endpoints.
+      </Card>
+      <Card title="On-Ramp and Off-Ramp" icon="arrow-right-arrow-left" href="/ramp-docs/ramp-api-overview">
+        Move between crypto and fiat with crypto-to-crypto, off-ramp, and on-ramp flows.
       </Card>
     </CardGroup>
   </section>
 
-<section>
+  {/* ── QUICK INTEGRATION ── */}
+  <section style={{ background: 'var(--bg-muted, rgba(0,0,0,0.02))', border: '1px solid var(--border-color, #e5e7eb)', borderRadius: '20px', padding: '2.5rem 3rem' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+      <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+        <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10b981', display: 'inline-block' }}></span>
+        <span style={{ fontSize: '0.75rem', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.05em', color: '#059669' }}>Quick Integration</span>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'row', gap: '3rem', alignItems: 'flex-start', flexWrap: 'wrap' }}>
+        <div style={{ flex: '1', minWidth: '260px' }}>
+          <h2 style={{ fontSize: '1.75rem', fontWeight: '700', margin: '0 0 1rem' }}>Ship in hours, not weeks.</h2>
+          <p style={{ color: 'var(--text-muted, #6b7280)', lineHeight: '1.7', marginBottom: '1.5rem' }}>
+            A clean REST API with predictable responses, code examples in cURL, JavaScript, and Python, and a sandbox you can hit immediately.
+          </p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
+              <Icon icon="circle-check" color="#16a34a" size={18} />
+              <div>
+                <p style={{ fontWeight: '600', margin: '0 0 2px', fontSize: '0.9rem' }}>Instant Sandbox Access</p>
+                <p style={{ color: 'var(--text-muted, #6b7280)', margin: 0, fontSize: '0.85rem' }}>Test every endpoint with zero risk before going live.</p>
+              </div>
+            </div>
+            <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
+              <Icon icon="circle-check" color="#16a34a" size={18} />
+              <div>
+                <p style={{ fontWeight: '600', margin: '0 0 2px', fontSize: '0.9rem' }}>Webhook-First Architecture</p>
+                <p style={{ color: 'var(--text-muted, #6b7280)', margin: 0, fontSize: '0.85rem' }}>Real-time notifications for every state change.</p>
+              </div>
+            </div>
+            <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
+              <Icon icon="circle-check" color="#16a34a" size={18} />
+              <div>
+                <p style={{ fontWeight: '600', margin: '0 0 2px', fontSize: '0.9rem' }}>Interactive Playground</p>
+                <p style={{ color: 'var(--text-muted, #6b7280)', margin: 0, fontSize: '0.85rem' }}>Try requests directly from the docs — no Postman needed.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style={{ flex: '1', minWidth: '260px' }}>
+
+```json Example response (200 OK, trimmed)
+{
+  "message": "transaction created successfully",
+  "status": "success",
+  "data": {
+    "id": "274fd8a4-38f1-43c9-bf74-ae7744a0dba5",
+    "referenceNumber": "0XCGU0EYFEK0Y",
+    "type": "SEND",
+    "state": "PENDING",
+    "quote": {
+      "paymentChannel": "SWIFT_OUR",
+      "source": { "currency": "USD", "amount": 10.00 },
+      "target": { "currency": "USD", "amount": 10.00 }
+    },
+    "created": "2026-04-23T18:06:41.022734019Z"
+  }
+}
+```
+
+          <p style={{ color: 'var(--text-muted, #6b7280)', fontSize: '0.85rem', margin: '0.75rem 0 0' }}>
+            A new payout starts as <code>PENDING</code>. Track it with webhooks. See the <a href="/payout-docs/payout-examples/usd-payout">full USD payout example</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ── BUILD WITH CONFIDENCE ── */}
+  <section>
+    <h2 className="section-title centered">
+      Build with Confidence
+    </h2>
+    <CardGroup cols={2}>
+      <Card title="Webhooks" icon="webhook" href="/webhook/webhook">
+        Subscribe to payout events and verify signatures so your system always knows the final state.
+      </Card>
+      <Card title="Supported Payout Routes" icon="globe" href="/payout-docs/supported-payouts">
+        Check corridors, currencies, and payment channels before you build.
+      </Card>
+      <Card title="Troubleshooting" icon="wrench" href="/troubleshooting">
+        Diagnose common errors and failed requests quickly.
+      </Card>
+      <Card title="Release Notes" icon="clock-rotate-left" href="/release-notes-api">
+        See what changed in the API, web app, and mobile app.
+      </Card>
+    </CardGroup>
+  </section>
+
+  {/* ── SUPPORT ── */}
+  <section>
     <h2 className="section-title centered">
       Need a Hand?
     </h2>
@@ -212,7 +261,9 @@ icon: compass
   >
     Ask AI
   </biel-button>
-</div>
+</div>       
+
+
 ---
 title: "Quickstart Guide"
 description: "Get started with meCash API in minutes"
@@ -411,7 +462,7 @@ Now that you have basic setup complete, explore these key features:
   Create and manage multi-currency wallets.
 </Card>
 
-<Card title="Create Virtual Account" icon="account" href="/virtual-account-docs/about-virtual-account">
+<Card title="Create Virtual Account" icon="account" href="/virtual-accounts-docs/about-virtual-account">
   Set up real-time transaction notifications.
 </Card>
 
@@ -420,8 +471,11 @@ Now that you have basic setup complete, explore these key features:
 <Note>
   **Need help?** Contact us at [support@me-cash.com](mailto:support@me-cash.com) or join our [Discord community](https://discord.gg/CC5v6h52Wk).
 </Note>
+
+
 ---
 title: "Generate API Keys"
+description: 'Step-by-step guide to generating and managing sandbox and production API keys in the meCash dashboard.'
 icon: key
 ---
 
@@ -526,8 +580,11 @@ After KYB approval, you can create API keys from the developer dashboard. The fl
 <Note>
   Need a fresh credential? Repeat the **Generate a new API key** steps above at any time.
 </Note>
+
+
 ---
 title: 'How meCash Wallets Work'
+description: 'Explore meCash multi-currency digital wallets, supported currencies, and core wallet attributes.'
 icon: wallet
 ---
 
@@ -569,6 +626,7 @@ Each wallet is tied to a user and has the following core attributes:
 
 ---
 title: 'How Quotes Works'
+description: 'Understand how meCash generates real-time, guaranteed exchange rates for cross-border conversions.'
 icon: calculator
 ---
 
@@ -652,8 +710,11 @@ If the quote expires or fails validation, the [payout endpoint](/payout-docs/cre
 - Generate a quote programmatically with the [`Create Quote API`](/quote-docs/create-quote).
 - Explore sample payloads in [`Create Quote examples`](/quote-docs/create-quote-all-examples).
 - Retrieve an existing quote using the [`Get Quote API`](/quote-docs/get-quote) before completing a payout.
+
+
 ---
 title: 'How meCash Payouts Works'
+description: 'Learn the lifecycle, operational considerations, and implementation routes for meCash global payouts.'
 icon: money-bill-transfer
 ---
 
@@ -701,41 +762,59 @@ sequenceDiagram
 ## Payout API Routes
 
 <CardGroup cols={3}>
-  <Card title="🇳🇬 NGN → 🇳🇬 NGN" href="/payout-docs/payout-examples/ngn-ngn-example">
+  <Card title="🇳🇬 NGN Payout" href="/payout-docs/payout-examples/ngn-payout">
     Local-to-local naira payout with BVN checks and instant settlement.
   </Card>
-  <Card title="🇳🇬 NGN → 🇺🇸 USD" href="/payout-docs/payout-examples/ngn-usd-example">
-    Send naira to a US bank, covering FX, fees, and compliance steps.
+  <Card title="🇺🇸 USD Payout" href="/payout-docs/payout-examples/usd-payout">
+    Send US Dollars to a US bank account globally.
+  </Card> 
+  <Card title="🇪🇺 EUR Payout" href="/payout-docs/payout-examples/eur-payout">
+    Move Euros to a EUR bank account globally.
   </Card>
-  <Card title="🇳🇬 NGN → 🇪🇺 EUR" href="/payout-docs/payout-examples/ngn-eur-example">
-    Move NGN funds into a euro account and handle required documents.
+  <Card title="🇬🇧 GBP Payout" href="/payout-docs/payout-examples/gbp-payout">
+    Send Great British Pounds to a UK bank account globally.  
   </Card>
-  <Card title="🇳🇬 NGN → 🇬🇧 GBP" href="/payout-docs/payout-examples/ngn-gbp-example">
-    Walk through payouts to the UK and sort-code validation basics.
+  <Card title="🇨🇦 CAD Payout" href="/payout-docs/payout-examples/cad-payout">
+    Send Canadian Dollar to a Canadian bank account globally.
   </Card>
-  <Card title="🇳🇬 NGN → 🇨🇦 CAD" href="/payout-docs/payout-examples/ngn-cad-example">
-    Route NGN disbursements to Canada either via bank transfer or Interac.
+  <Card title="🇲🇼 MWK Payout" href="/payout-docs/payout-examples/mwk-payout">
+    Send Malawian Kwacha to a Malawian bank account.
   </Card>
-  <Card title="🇲🇼 MWK → 🇲🇼 MWK" href="/payout-docs/payout-examples/mwk-mwk-example">
-    Run domestic Malawi payouts and reuse saved recipients easily.
+  <Card title="🇷🇼 RWF Payout" href="/payout-docs/payout-examples/rwf-payout">
+    Send Rwandan Franc to a Rwandan bank account globally. 
   </Card>
+  <Card title=" 🇨🇳 CNY Payout" href="/payout-docs/payout-examples/cny-payout">
+    Send Chinese Yuan to a Chinese bank account globally.  
+  </Card>
+  <Card title=" 🇻🇳 VND Payout" href="/payout-docs/payout-examples/vnd-payout">
+    Send Vietnamese Dong to a Vietnamese bank account globally.  
+  </Card>
+
 </CardGroup>
 
 ## Next steps
 
 - Create a payout with [`POST /v2/payout`](/payout-docs/create-payout).
 - **Send to multiple recipients at once** with the [`Bulk Payout API`](/payout-docs/bulk-payout) — ideal for payroll, vendor payments, and mass disbursements.
-- Explore corridor-specific payloads with the example cards above or jump straight to the [`payout docs examples`](/payout-docs/payout-examples/ngn-usd-example).
-- Monitor disbursement states using the [`Get Transaction API`](/transaction-docs/get-transaction).
+- Get bank list
+- Explore corridor-specific payloads with the example cards above or jump straight to the [`payout docs examples`](/payout-docs/payout-examples).
+- Monitor disbursement states using the [`Get Transaction API`](/transaction-docs/get-transaction). 
+
+
 ---
 title: 'Bulk Payouts'
+description: 'Disburse funds to multiple beneficiaries in a single request for payroll, vendor payments, and mass disbursements.'
 icon: users
 tag: new
 ---
 
 The **meCash Bulk Payout API** lets you disburse funds to multiple beneficiaries in a single API request. Instead of sending individual transfer requests, you submit a batch of payout orders — ideal for payroll, vendor payments, commissions, and mass disbursements.
 
-<Tip>Each order within a bulk payout is processed independently. If one transfer fails validation, the remaining valid transfers still execute.</Tip>
+<Tip>
+  **Environment Note:** The endpoints in this guide use the Sandbox URL (`https://sandboxapi.me-cash.com`). In Production, replace `sandboxapi` with `api` (`https://api.me-cash.com`).
+
+  Each order within a bulk payout is processed independently. If one transfer fails validation, the remaining valid transfers still execute.
+</Tip>
 
 ## Bulk payout lifecycle
 
@@ -769,9 +848,9 @@ Send all payout orders in one request to `POST /v1/bulk/payout`. Each item inclu
 <Tabs>
   <Tab title="Request">
     ```bash cURL
-    curl --location 'https://{{BaseURL}}/v1/bulk/payout' \
+    curl --location 'https://sandboxapi.me-cash.com/v1/bulk/payout' \
     --header 'Content-Type: application/json' \
-    --header 'x-api-key: YOUR_API_KEY' \
+    --header 'x-api-key: API_KEY_HERE' \
     --data '{
         "items": [
             {
@@ -858,9 +937,9 @@ Poll for results using the `batchId` returned from Step 1. This is useful if you
 <Tabs>
   <Tab title="Request">
     ```bash cURL
-    curl --location 'https://{{BaseURL}}/v1/bulk/payout/{{batchId}}/status' \
+    curl --location 'https://sandboxapi.me-cash.com/v1/bulk/payout/{{batchId}}/status' \
     --header 'Content-Type: application/json' \
-    --header 'x-api-key: YOUR_API_KEY'
+    --header 'x-api-key: API_KEY_HERE'
     ```
   </Tab>
   <Tab title="Response (200)">
@@ -983,15 +1062,18 @@ See [Webhook Signature Verification](/webhook/webhooks-signature-verification) t
   <Card title="Create Bulk Payout API" icon="paper-plane" href="/payout/create-bulk-payout">
     Full OpenAPI reference for `POST /v1/bulk/payout`.
   </Card>
-  <Card title="Fetch Batch Status API" icon="search" href="/payout/get-batch-status">
+  <Card title="Fetch Batch Status API" icon="search" href="#step-2-check-batch-status-optional">
     Check processing status via `GET /v1/bulk/payout/{batchId}/status`.
   </Card>
   <Card title="Single Payout Guide" icon="arrow-right" href="/payout-docs/payout">
     Need to send to just one recipient? Use the standard payout flow.
   </Card>
 </CardGroup>
+
+
 ---
 title: Webhooks
+description: 'Configure and manage real-time notifications for your meCash transaction lifecycle events.'
 icon: diagram-project
 ---
 
@@ -1061,8 +1143,11 @@ Webhooks are a way for meCash to send your application automatic notifications w
     </AccordionGroup>
   </Accordion>
 </AccordionGroup>
+
+
 ---
 title: 'meCash Virtual Accounts'
+description: 'Manage static and dynamic virtual bank accounts for automated payment collections and reconciliation.'
 icon: building
 ---
 
@@ -1148,6 +1233,8 @@ sequenceDiagram
 - Issue a permanent account with the [`Create Static Virtual Account`](/virtual-accounts-docs/static-virtual-account) guide.
 - Generate time-bound accounts for campaigns in [`Create Dynamic Virtual Account`](/virtual-accounts-docs/dynamic-virtual-account).
 - Retrieve account details with [`Get Virtual Account`](/virtual-accounts-docs/get-virtual-account).
+
+
 ---
 title: "Ramp Overview"
 description: "Manage your cryptocurrency balances with Deposit, Withdraw, and Offramp capabilities"
