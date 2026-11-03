@@ -1,0 +1,22 @@
+{
+  "name": "mecash-docs-assistant",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build-index": "node scripts/build-index.mjs",
+    "build": "npm run build-index",
+    "dev": "npm run build-index && tsx scripts/dev-server.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.43",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
