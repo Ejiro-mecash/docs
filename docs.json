@@ -386,10 +386,6 @@
       "linkedin": "https://linkedin.com/company/me-cash"
     }
   },
-  "banner": {
-    "content": "🚀 **Major Update:** USD and EUR payouts just got an upgrade! You can now make 'Pay on Behalf Of' transfers directly through our platform. [Check it out here](/payout-docs/pay-on-behalf-of)",
-    "dismissible": true
-  },
   "contextual": {
     "options": [
       "copy",

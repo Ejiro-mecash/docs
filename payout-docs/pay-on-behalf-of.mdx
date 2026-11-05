@@ -1,17 +1,17 @@
 ---
 title: 'Pay on Behalf Of (POBO)'
-description: 'Learn how to initiate cross-border payouts on behalf of your customers using the meCash POBO API.'
+description: 'Send cross-border payouts as your business, or on behalf of an individual or another company, using the meCash POBO API.'
 icon: user
 tag: new
 ---
 
-The **Pay on Behalf Of (POBO)** flow allows you to initiate cross-border payouts where the funds are explicitly sent on behalf of a distinct third party (the sender) to the final destination (the recipient).
+The **Pay on Behalf Of (POBO)** flow allows you to initiate cross-border payouts where the funds are sent by your business itself, or on behalf of an individual or another registered company (the sender), to the final destination (the recipient).
 
 In standard local payouts, your platform's workspace or wallet owner is implicitly assumed to be the sender. However, for international transfers, global compliance and Anti-Money Laundering (AML) regulations require strict identification of both the sending and receiving parties.
 
 ```mermaid
 flowchart LR
-    A["Sender<br/><small>Person or Business</small>"]
+    A["Sender<br/><small>Myself, Individual or Company</small>"]
     B["meCash<br/><small>POBO Payout</small>"]
     C["Recipient<br/><small>Person or Business</small>"]
     D["Recipient Bank Account"]
@@ -35,45 +35,58 @@ flowchart LR
 
 The flow represents the relationship between the parties:
 
-* **Sender:** The person or business on whose behalf the payout is being made.
+* **Sender:** The business itself, or the individual or company on whose behalf the payout is being made.
 * **meCash POBO Payout:** Processes the payout using the specified quote and payment channel.
 * **Recipient:** The final beneficiary receiving the funds.
 * **Recipient Bank Account:** The account where the funds are delivered.
-* **Payment Channel:** Determines how the payout is routed and, for applicable SWIFT transfers, how transfer charges are handled.
+* **Payment Channel:** Determines how the payout is routed and how SWIFT transfer charges are handled.
 
 ## Supported Corridors
 
-POBO requires explicitly passing a `sender` object and is currently supported for:
+POBO requires a `sender` object and is currently supported for:
 
 * **US Dollar (USD):** To US bank accounts via SWIFT.
-* **Euro (EUR):** To SEPA countries via SWIFT.
+
+<Note>
+  EUR payouts sent through the `SWIFT` payment channel no longer use the POBO flow. Send them as standard payouts. See the [EUR payout example](/payout-docs/payout-examples/eur-payout).
+</Note>
 
 ---
 
-## The Sender Object
+## Sender Types
 
-The `sender` object must map to the individual or business initiating the transfer on your platform.
+The POBO flow supports three types of sender. Choose the one that matches who the funds are being sent for. The only difference between them in the request is the `sender` object.
 
-### Sender Types
+| Type | Who is sending | `sender.type` |
+| :--- | :------------- | :------------ |
+| **1. Business (Myself)** | Your business, sending as itself. | Not set |
+| **2. Individual** | A person, on whose behalf your business is sending. | `PERSON` |
+| **3. Company** | Another registered company, on whose behalf your business is sending. This is not your own business. | `BUSINESS` |
 
-Set `sender.type` to accurately reflect the entity:
+### Type 1: Business (Myself)
 
-* `INDIVIDUAL` or `PERSON`: Use when the sender is a natural person.
-* `BUSINESS`: Use when the sender is a registered company.
+Use this when your business is the sender. Leave out `sender.type` and `sender.name`, and the payout is sent in your business's own name. Provide the business's KYC details:
 
-### Specific KYC Requirements
-
-Depending on the corridor, specific sender fields are required:
-
-**USD Payouts:**
-
-* `icNumber`: Identification number of the sender.
+* `icNumber`: Identification number.
 * `mobileNumber`: International mobile number (e.g., `+234...`).
+* `nationality`, `address`, `occupation` and `dateOfBirth`.
 
-**EUR Payouts:**
+### Type 2: Individual
 
-* `dateOfIncorporation`: The business incorporation date (Required if `type` is `BUSINESS`).
-* `relationship`: The sender's relationship to the account (e.g., `Self`).
+Use this when you are sending on behalf of a person. Set `sender.type` to `PERSON` and provide the person's details, including:
+
+* `name`, `idNumber`, `dateOfBirth`, `gender` and `nationality`.
+* `relationship`: The person's relationship to your business (e.g., `Parents`, `Friend`).
+* `address`, `mobileNumber` and `occupation`.
+
+### Type 3: Company
+
+Use this when you are sending on behalf of another registered company. Set `sender.type` to `BUSINESS` and provide the company's details, including:
+
+* `name`: The company's registered name.
+* `registrationNumber` and `dateOfIncorporation`.
+* `relationship`: The company's relationship to your business (e.g., `Business Partner`).
+* `nationality`, `address` and `occupation`.
 
 ---
 
@@ -81,41 +94,62 @@ Depending on the corridor, specific sender fields are required:
 
 The `recipient` object must capture the final beneficiary receiving the funds.
 
-Like the sender, you must define `recipient.type` as `INDIVIDUAL` (or `PERSON`) or `BUSINESS`. You must also provide international banking credentials:
+Set `recipient.type` to `INDIVIDUAL` (or `PERSON`) or `BUSINESS`. You must also provide international banking credentials:
 
-* `swiftCode`: The BIC/SWIFT code (Required for USD).
+* `swiftCode`: The BIC/SWIFT code.
 * `accountNumber` or `iban`: The recipient's local account number or IBAN.
 
 ---
 
 ## Payment Channels & Fees
 
-For cross-border POBO payouts, the `paymentChannel` must be provided at the **root level** of the JSON request.
-
-### SWIFT Channels
-
-For SWIFT payouts (USD and optionally EUR), you must specify who bears the transfer network fees:
+For POBO payouts, the `paymentChannel` must be provided at the **root level** of the JSON request. Use it to specify who bears the SWIFT transfer charges:
 
 | Channel             | Charge Bearer | Description                                                                                        |
 | :------------------ | :------------ | :------------------------------------------------------------------------------------------------- |
-| `SWIFT_OUR`    | Sender        | The sender bears all transfer charges. Your platform absorbs the full cost of the transfer.        |
+| `SWIFT_OUR`         | Sender        | The sender bears all transfer charges. Your platform absorbs the full cost of the transfer.        |
 | `SWIFT_SHARED`      | Both parties  | Charges are shared. The beneficiary receives a net amount after their portion of fees is deducted. |
 | `SWIFT_BENEFICIARY` | Beneficiary   | The beneficiary bears all transfer charges.                                                        |
-
-### SEPA Channels
-
-For EUR transfers via SEPA, use `BANK_TRANSFER` as the payment channel.
 
 ---
 
 ## Constructing the Request
 
-To initiate a POBO payout, you must link an active Quote to the transaction and pass both the `sender` and `recipient` blocks.
+To initiate a POBO payout, link an active Quote to the transaction and pass both the `sender` and `recipient` objects.
 
 ### Example: USD POBO (SWIFT)
 
 <Tabs>
-  <Tab title="INDIVIDUAL">
+  <Tab title="Type 1: Business (Myself)">
+```json
+{
+  "quoteId": "12f4e439-e000-436b-9706-98c4fc2b0486",
+  "reason": "BUSINESS_INVOICE",
+  "paymentChannel": "SWIFT_OUR",
+  "currency": "USD",
+  "sender": {
+    "icNumber": "12344",
+    "nationality": "NG",
+    "address": {
+      "line1": "12 Main Street"
+    },
+    "mobileNumber": "+2348099370922",
+    "occupation": "C-Suite executive / Board member",
+    "dateOfBirth": "1999-12-12"
+  },
+  "recipient": {
+    "name": "Jane Smith",
+    "type": "PERSON",
+    "account": {
+      "bankName": "Chase Bank",
+      "accountNumber": "857362910",
+      "swiftCode": "CHASUS33XXX"
+    }
+  }
+}
+```
+  </Tab>
+  <Tab title="Type 2: Individual">
 ```json
 {
   "quoteId": "12f4e439-e000-436b-9706-98c4fc2b0486",
@@ -130,8 +164,10 @@ To initiate a POBO payout, you must link an active Quote to the transaction and 
     "relationship": "Friend",
     "gender": "F",
     "nationality": "NG",
-    "address": "12 Main Street",
-    "mobileNumber": "080993773777",
+    "address": {
+      "line1": "12 Main Street"
+    },
+    "mobileNumber": "+2348099377377",
     "occupation": "Employee"
   },
   "recipient": {
@@ -146,7 +182,7 @@ To initiate a POBO payout, you must link an active Quote to the transaction and 
 }
 ```
   </Tab>
-  <Tab title="BUSINESS">
+  <Tab title="Type 3: Company">
 ```json
 {
   "quoteId": "12f4e439-e000-436b-9706-98c4fc2b0486",
@@ -156,14 +192,14 @@ To initiate a POBO payout, you must link an active Quote to the transaction and 
   "sender": {
     "type": "BUSINESS",
     "name": "ABC Limited",
-    "dateOfIncorporation": "2026-07-02",
+    "registrationNumber": "123456",
+    "dateOfIncorporation": "2016-07-02",
     "relationship": "Business Partner",
-    "icNumber": "12345",
     "nationality": "NG",
     "address": {
       "line1": "12 Main Street"
     },
-    "occupation": "Employee"
+    "occupation": "C-Suite executive / Board member"
   },
   "recipient": {
     "name": "Jane Smith",
@@ -172,77 +208,6 @@ To initiate a POBO payout, you must link an active Quote to the transaction and 
       "bankName": "Chase Bank",
       "accountNumber": "857362910",
       "swiftCode": "CHASUS33XXX"
-    }
-  }
-}
-```
-  </Tab>
-</Tabs>
-
-### Example: EUR POBO (SEPA)
-
-<Tabs>
-  <Tab title="INDIVIDUAL">
-```json
-{
-  "quoteId": "59b19e8-8a00-4d59-9970-13f56",
-  "reason": "FAMILY_SUPPORT",
-  "paymentChannel": "BANK_TRANSFER",
-  "currency": "EUR",
-  "sender": {
-    "type": "PERSON",
-    "name": "Jane James",
-    "idNumber": "A123456",
-    "dateOfBirth": "2000-12-12",
-    "relationship": "Friend",
-    "gender": "F",
-    "nationality": "NG",
-    "address": "12 Main Street",
-    "mobileNumber": "080993773777",
-    "occupation": "Employee"
-  },
-  "recipient": {
-    "name": "Euro Trading LLC",
-    "type": "BUSINESS",
-    "country": "EU",
-    "account": {
-      "bankName": "Deutsche Bank",
-      "bankCountry": "DE",
-      "accountNumber": "123454354",
-      "swiftCode": "DEUTDEDBXXX"
-    }
-  }
-}
-```
-  </Tab>
-  <Tab title="BUSINESS">
-```json
-{
-  "quoteId": "59b19e8-8a00-4d59-9970-13f56",
-  "reason": "BUSINESS_INVOICE",
-  "paymentChannel": "BANK_TRANSFER",
-  "currency": "EUR",
-  "sender": {
-    "type": "BUSINESS",
-    "name": "ABC Limited",
-    "dateOfIncorporation": "2026-07-02",
-    "relationship": "Business Partner",
-    "icNumber": "12345",
-    "nationality": "NG",
-    "address": {
-      "line1": "12 Main Street"
-    },
-    "occupation": "Employee"
-  },
-  "recipient": {
-    "name": "Euro Trading LLC",
-    "type": "BUSINESS",
-    "country": "EU",
-    "account": {
-      "bankName": "Deutsche Bank",
-      "bankCountry": "DE",
-      "accountNumber": "123454354",
-      "swiftCode": "DEUTDEDBXXX"
     }
   }
 }
@@ -264,7 +229,7 @@ POBO payouts settle asynchronously over international networks (like SWIFT), whi
 
 If you misconfigure the POBO fields, you will likely encounter a `400 Bad Request` or `422 Unprocessable Entity`. Common validation errors include:
 
-* Missing `sender` object for USD or EUR requests.
-* Invalid `type` (Must be `INDIVIDUAL`, `PERSON`, or `BUSINESS`).
+* Missing `sender` object for USD requests.
+* Invalid `sender.type` (must be `PERSON` or `BUSINESS`, or left out for Business (Myself)).
 * Missing `paymentChannel` at the root of the request payload.
-* Attempting to use a SWIFT channel for a destination that only supports `BANK_TRANSFER`.
+* Using a non-SWIFT `paymentChannel` for a POBO payout.

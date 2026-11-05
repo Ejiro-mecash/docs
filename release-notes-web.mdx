@@ -12,6 +12,34 @@ Use these notes to keep your internal runbooks, training materials, and embedded
 
 ## Web Dashboard
 
+<Accordion title="October 2026 — Web App Release (Status: Live)">
+  **Send Money & Payouts**
+
+  - **SWIFT Code Auto-fill**: Selecting a bank name on the New Recipient form now fills in the SWIFT code automatically, reducing manual entry errors.
+  - **EUR SWIFT Payouts**: EUR payouts sent via SWIFT now go through the standard payout flow instead of Pay on Behalf Of (POBO).
+  - **EUR Recipient Bank Country**: The EUR payout form now uses the same bank country list as USD payouts, for a consistent experience.
+  - **Beneficiary Address**: Fixed an issue where a "Beneficiary account address cannot be empty" error could block beneficiary creation.
+
+  **Wallets**
+
+  - **RLUSD Wallet Activation**: Added a guided flow to activate RLUSD wallets, which checks your XRPL trust line status and XRP reserve before activation.
+  - **RWF Wallet Creation**: Fixed an issue that could cause the app to crash when creating an RWF wallet.
+  - **MWK Wallet Funding**: Fixed the broken Changu wallet logo and text layout on the MWK Fund Wallet screen.
+
+  **Payment Links**
+
+  - **Moolahgo Wallets**: Payment Links can now be created for all Moolahgo-enabled wallets.
+
+  **Ramp**
+
+  - **Off-Ramp Recipient Enquiry**: Fixed an issue where a "Something Went Wrong" error appeared before recipient account details were fully entered.
+
+  **Business Verification & Account Management**
+
+  - **CAC Form 7**: Fixed an issue where an error was shown on CAC Form 7 even after all required fields were completed.
+  - **Environment Switcher**: Restored the switcher between Production and Sandbox environments.
+</Accordion>
+
 <Accordion title="September 2026 — Web App Release (Status: Live)">
   **Wallets**
 

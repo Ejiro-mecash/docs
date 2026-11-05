@@ -18,6 +18,24 @@ Stay on top of API changes that could impact your integration. Each entry notes 
 
 ## API Platform
 
+<Accordion title="October 2026 — Version v1.x (Status: Live)">
+  **RLUSD & XRPL**
+
+  - **XRPL Source & Destination Tags**: XRPL and RLUSD transactions now support `sourceTag` and `destinationTag`. Tags must be 32-bit unsigned integers.
+  - **RLUSD Wallet Activation**: Added wallet activation for RLUSD, including trust line creation and validation of the required XRP reserve.
+  - **Trust Line Debit History**: Trust line setup fees are now recorded as a debit transaction and reflected in the wallet balance.
+
+  <Note>
+    RLUSD and XRPL tag support are rolling out. Contact <a href="mailto:support@me-cash.com">support@me-cash.com</a> to confirm availability for your account.
+  </Note>
+
+  **Payouts & Recipients**
+
+  - **EUR SWIFT Payouts**: EUR payouts sent through the `SWIFT` payment channel are now processed as standard payouts and no longer go through the Pay on Behalf Of (POBO) flow.
+  - **Bank Countries**: Added an endpoint to fetch the list of supported recipient bank countries.
+  - **EUR & USD Bank Lists**: You can now fetch bank lists for countries whose banks receive EUR and USD international payouts.
+</Accordion>
+
 <Accordion title="September 2026 — Version v1.x (Status: Live)">
   **Payouts & Recipients**
 
