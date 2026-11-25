@@ -128,7 +128,8 @@
                   "payout-docs/payout-examples/rwf-payout",
                   "payout-docs/payout-examples/thb-payout",
                   "payout-docs/payout-examples/myr-payout",
-                  "payout-docs/payout-examples/vnd-payout"
+                  "payout-docs/payout-examples/vnd-payout",
+                  "payout-docs/payout-examples/php-payout"
                 ]
               }
             ]

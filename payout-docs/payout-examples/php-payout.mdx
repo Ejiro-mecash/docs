@@ -1,0 +1,307 @@
+---
+title: '🇵🇭 PHP Payout'
+description: 'Send Philippine Peso (PHP) payouts to bank accounts in the Philippines.'
+---
+
+This endpoint allows you to process payouts in **Philippine Peso (PHP)** to recipients with a bank account in the Philippines. You can fund PHP payouts from a **USD** or **NGN** wallet.
+
+---
+
+## Endpoint
+
+**POST:** `https://sandboxapi.me-cash.com/v2/payout`
+
+---
+
+## Supported Payment Channels
+
+PHP payouts support the following payment channel:
+
+| **Channel** | **Description** | **Use Case** |
+| :---------- | :-------------- | :----------- |
+| `BANK_TRANSFER` | Bank transfer to Philippine banks, routed using the bank's SWIFT code | Transfers to bank accounts in the Philippines |
+
+---
+
+## Before You Start: Create a Quote
+
+Every payout needs a `quoteId`. Create a quote with `PHP` as the target currency and `PH` as the target country, using `USD` or `NGN` as the source:
+
+```bash cURL
+curl --location --request POST 'https://sandboxapi.me-cash.com/v1/quote' \
+--header 'x-api-key: API_KEY_HERE' \
+--header 'Content-Type: application/json' \
+--data '{
+  "paymentChannel": "BANK_TRANSFER",
+  "source": {
+    "amount": 100,
+    "country": "US",
+    "currency": "USD"
+  },
+  "target": {
+    "country": "PH",
+    "currency": "PHP"
+  }
+}'
+```
+
+<Note>
+  PHP payouts follow the same limits as USD payouts. The quote response lists the limits that apply in its `rules` array, so check them before you create the payout. See [Create a Quote](/quote-docs/create-quote) for the full response.
+</Note>
+
+---
+
+## Request Details
+
+### Headers
+
+Include these headers in your request:
+
+| **Header** | **Value** | **Required** |
+| :------------- | :----------------- | :------- |
+| `Content-Type` | `application/json` | ✅ Yes   |
+| `x-api-key`    | `API_KEY_HERE`     | ✅ Yes   |
+
+---
+
+## Sample Requests
+
+<Tabs>
+<Tab title="BANK_TRANSFER">
+
+Use `BANK_TRANSFER` to pay into a bank account in the Philippines. Identify the recipient's bank with its SWIFT code.
+
+<CodeGroup>
+```bash cURL
+curl --location --request POST 'https://sandboxapi.me-cash.com/v2/payout' \
+--header 'x-api-key: API_KEY_HERE' \
+--header 'Content-Type: application/json' \
+--data '{
+  "recipient": {
+    "name": "Maria Santos",
+    "nickName": "TestPH",
+    "type": "INDIVIDUAL",
+    "stored": false,
+    "account": {
+      "bankName": "BDO Unibank, Inc.",
+      "swiftCode": "BNORPHMMXXX",
+      "bankCity": "Manila",
+      "accountNumber": "001234****"
+    },
+    "sourceOfFunds": "I1",
+    "paymentChannel": "BANK_TRANSFER",
+    "currency": "PHP",
+    "country": "PH"
+  },
+  "quoteId": "QUOTE_ID_HERE",
+  "reason": "Gift",
+  "remark": "TestPHP"
+}'
+```
+
+```javascript JavaScript (Fetch)
+const url = 'https://sandboxapi.me-cash.com/v2/payout';
+
+const options = {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'x-api-key': 'API_KEY_HERE'
+  },
+  body: JSON.stringify({
+    recipient: {
+      name: "Maria Santos",
+      nickName: "TestPH",
+      type: "INDIVIDUAL",
+      stored: false,
+      account: {
+        bankName: "BDO Unibank, Inc.",
+        swiftCode: "BNORPHMMXXX",
+        bankCity: "Manila",
+        accountNumber: "001234****"
+      },
+      sourceOfFunds: "I1",
+      paymentChannel: "BANK_TRANSFER",
+      currency: "PHP",
+      country: "PH"
+    },
+    quoteId: "QUOTE_ID_HERE",
+    reason: "Gift",
+    remark: "TestPHP"
+  })
+};
+
+fetch(url, options)
+  .then(res => {
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+    return res.json();
+  })
+  .then(data => console.log(data))
+  .catch(error => console.error('Error:', error));
+```
+
+```python Python (Requests)
+import requests
+
+url = "https://sandboxapi.me-cash.com/v2/payout"
+
+payload = {
+    "recipient": {
+        "name": "Maria Santos",
+        "nickName": "TestPH",
+        "type": "INDIVIDUAL",
+        "stored": False,
+        "account": {
+            "bankName": "BDO Unibank, Inc.",
+            "swiftCode": "BNORPHMMXXX",
+            "bankCity": "Manila",
+            "accountNumber": "001234****"
+        },
+        "sourceOfFunds": "I1",
+        "paymentChannel": "BANK_TRANSFER",
+        "currency": "PHP",
+        "country": "PH"
+    },
+    "quoteId": "QUOTE_ID_HERE",
+    "reason": "Gift",
+    "remark": "TestPHP"
+}
+
+headers = {
+    "x-api-key": "API_KEY_HERE",
+    "Content-Type": "application/json"
+}
+
+try:
+    response = requests.post(url, headers=headers, json=payload)
+    response.raise_for_status()
+    print(response.json())
+except requests.exceptions.HTTPError as err:
+    print(f"HTTP Error: {err}")
+```
+</CodeGroup>
+
+</Tab>
+</Tabs>
+
+---
+
+### Request Body Breakdown
+
+<Tabs>
+<Tab title="BANK_TRANSFER Fields">
+
+| **Field** | **Type** | **Description** | **Required** |
+| :---------------------------------- | :------ | :-------------------------------------------------------------------------- | :------- |
+| `quoteId` | String | The ID of the quote you created for this payout. | ✅ Yes |
+| `reason` | String | The purpose of the transfer. | ✅ Yes |
+| `remark` | String | An optional note about the transaction. | ❔ No |
+| `recipient` | Object | Details about the beneficiary. | ✅ Yes |
+| `recipient.name` | String | The recipient's full name, as it appears on their bank account. | ✅ Yes |
+| `recipient.nickName` | String | The recipient's nickname, if any. | ❔ No |
+| `recipient.type` | String | The type of recipient. Enum: `INDIVIDUAL`, `BUSINESS`. | ✅ Yes |
+| `recipient.account` | Object | The recipient's bank account details. | ✅ Yes |
+| `recipient.account.bankName` | String | The name of the recipient's bank. | ✅ Yes |
+| `recipient.account.accountNumber` | String | The recipient's bank account number. | ✅ Yes |
+| `recipient.account.swiftCode` | String | The SWIFT/BIC code of the recipient's bank (e.g., `BNORPHMMXXX`). | ✅ Yes |
+| `recipient.account.bankCity` | String | The city where the recipient's bank is located. | ❔ No |
+| `recipient.sourceOfFunds` | String | Code indicating the source of funds (e.g., `I1`). | ✅ Yes |
+| `recipient.paymentChannel` | String | The payment method. Must be `BANK_TRANSFER`. | ✅ Yes |
+| `recipient.currency` | String | Must be `PHP`. | ✅ Yes |
+| `recipient.country` | String | Must be `PH`. | ✅ Yes |
+
+</Tab>
+</Tabs>
+
+---
+
+## Success Response (200 OK)
+
+If the payout is created successfully, the API returns the following response. The rate and amounts below are examples only.
+
+```json copy
+{
+  "message": "Transaction created successfully",
+  "status": "success",
+  "data": {
+    "id": "PHP-PAYOUT-ID-12345",
+    "reason": "Gift",
+    "referenceNumber": "PHPPAYOUTREF123",
+    "type": "SEND",
+    "state": "PENDING",
+    "quote": {
+      "id": "QUOTE_ID_HERE",
+      "source": {
+        "currency": "USD",
+        "country": "US",
+        "amount": 100
+      },
+      "target": {
+        "currency": "PHP",
+        "country": "PH",
+        "amount": 5750.00
+      },
+      "rate": 57.50,
+      "fee": {
+        "amount": 0.77
+      }
+    },
+    "recipient": {
+      "name": "Maria Santos",
+      "type": "INDIVIDUAL",
+      "account": {
+        "name": "Maria Santos",
+        "bankName": "BDO Unibank, Inc.",
+        "accountNumber": "001234****"
+      },
+      "paymentChannel": "BANK_TRANSFER",
+      "currency": "PHP",
+      "country": "PH"
+    },
+    "created": "2026-11-23T09:41:02.000Z"
+  }
+}
+```
+
+A new payout starts as `PENDING`. Listen for [payout webhooks](/webhook/payout-webhook) to learn when it completes or fails.
+
+---
+
+## **Payout Transaction States**
+
+The payout transaction can have one of the following states:
+
+| **State** | **Description** |
+|------------|-------------------------------------------|
+| `COMPLETED` | The payout was successfully processed.   |
+| `PENDING`   | The payout is still being processed.     |
+| `FAILED`    | The payout failed to process.           |
+| `REFUNDED`  | The payout has been sent back to sender. |
+
+---
+
+## Error Handling
+
+| **Status Code** | **Meaning** | **Example Response** |
+|:------------|:-----------------------|:------------------------------------------------|
+| `400`       | Insufficient Balance   | Insufficient Balance                            |
+| `401`       | Unauthorized           | Invalid API key provided.                       |
+| `403`       | Forbidden              | IP not whitelisted                              |
+| `404`       | Not Found              | The requested endpoint does not exist.          |
+| `422`       | Unprocessable Entity   | Invalid quote ID provided.                      |
+| `500`       | Internal Server Error  | An internal error occurred.                     |
+
+---
+
+## **Best Practices**
+✅ Create a fresh quote right before the payout and use its `quoteId`.
+✅ Confirm the recipient's **account number** and **SWIFT code** are correct.
+✅ Make sure the recipient's name matches the name on their bank account.
+✅ Use a valid API key in the headers.
+✅ Handle error responses correctly in your integration.
+
+<Tip>
+**Testing Failed Payouts:** In the sandbox environment, you can simulate a failed payout by setting `"remark": "fail"` in your request. This triggers a `payout.failed` webhook, allowing you to test your error handling.
+</Tip>
