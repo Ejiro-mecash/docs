@@ -306,7 +306,7 @@
             ]
           },
           {
-            "group": "Release Notes",
+            "group": "Changelog",
             "icon": "list-check",
             "pages": [
               "release-notes-api",
@@ -395,5 +395,11 @@
       "perplexity",
       "cursor"
     ]
-  }
+  },
+  "redirects": [
+    {
+      "source": "/release-notes",
+      "destination": "/release-notes-api"
+    }
+  ]
 }

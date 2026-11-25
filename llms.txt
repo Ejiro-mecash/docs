@@ -59,7 +59,7 @@ Crypto-to-fiat (Off-Ramp) and crypto-to-crypto deposits/withdrawals.
 ## Support & Community
 
 - **Dashboard**: [business.me-cash.com](https://business.me-cash.com/)
-- **Status & Releases**: [Release Notes](/release-notes.mdx)
+- **Status & Releases**: [Changelog](/release-notes-api)
 - **Email**: support@me-cash.com
 - **X (Twitter)**: [@mecash14](https://x.com/mecash14)
 

@@ -2,6 +2,7 @@
 title: "API"
 description: "Latest production changes for the meCash API Platform."
 icon: code
+rss: true
 ---
 
 Stay on top of API changes that could impact your integration. Each entry notes the rollout status plus any required follow-up.
@@ -10,15 +11,25 @@ Stay on top of API changes that could impact your integration. Each entry notes 
   Looking for something earlier? Reach out to <a href="mailto:support@me-cash.com">support@me-cash.com</a> and we can share archived notes.
 </Note>
 
+## Get notified
+
+Subscribe so you hear about API changes as soon as they're published:
+
+- **RSS**: add `https://docs.me-cash.com/release-notes-api/rss.xml` to your feed reader, or connect it to Slack, Teams or email.
+- **Email**: email <a href="mailto:support@me-cash.com?subject=Subscribe%20to%20API%20changelog">support@me-cash.com</a> to add your technical contact to the API updates list.
+
+We email affected customers directly about breaking changes, before they go live.
+
 ## How to read these notes
 
 - **Status** clarifies whether the update is fully live or rolling out.
+- **Breaking** tags entries that require changes to your integration. Use the tag filter to see only these.
 - **Action needed** highlights anything developers must do (schema updates, new scopes, SDK upgrades, etc.).
 - **Heads-up** calls out upcoming deprecations so you can plan ahead.
 
 ## API Platform
 
-<Accordion title="October 2026 — Version v1.x (Status: Live)">
+<Update label="October 2026" description="Version v1.x · Status: Live">
   **RLUSD & XRPL**
 
   - **XRPL Source & Destination Tags**: XRPL and RLUSD transactions now support `sourceTag` and `destinationTag`. Tags must be 32-bit unsigned integers.
@@ -34,9 +45,9 @@ Stay on top of API changes that could impact your integration. Each entry notes 
   - **EUR SWIFT Payouts**: EUR payouts sent through the `SWIFT` payment channel are now processed as standard payouts and no longer go through the Pay on Behalf Of (POBO) flow.
   - **Bank Countries**: Added an endpoint to fetch the list of supported recipient bank countries.
   - **EUR & USD Bank Lists**: You can now fetch bank lists for countries whose banks receive EUR and USD international payouts.
-</Accordion>
+</Update>
 
-<Accordion title="September 2026 — Version v1.x (Status: Live)">
+<Update label="September 2026" description="Version v1.x · Status: Live">
   **Payouts & Recipients**
 
   - **EUR Payouts**: EUR payout responses now include the recipient's bank country.
@@ -57,9 +68,9 @@ Stay on top of API changes that could impact your integration. Each entry notes 
   **API Compatibility**
 
   - **API Endpoints & Payloads**: Updated the available API endpoint and payload structures to reflect the current API and improve compatibility as older endpoints are deprecated.
-</Accordion>
+</Update>
 
-<Accordion title="August 2026 — Version v1.x (Status: Live)">
+<Update label="August 2026" description="Version v1.x · Status: Live">
   **New Features**
 
   - **Wallet capabilities**: Added support for USD wallet capabilities.
@@ -80,9 +91,9 @@ Stay on top of API changes that could impact your integration. Each entry notes 
   - Fixed an issue that could prevent USD SWIFT payouts from being submitted when using "Others" as the sender information.
   - Fixed an issue where wallet transaction data was not being returned correctly.
   - Fixed an issue where transaction values were not displaying correctly in API reports.
-</Accordion>
+</Update>
 
-<Accordion title="July 2026 — Version v1.x (Status: Live)">
+<Update label="July 2026" description="Version v1.x · Status: Live">
   **New Features**
 
   - **Wallet capabilities**: Added API support for USD wallet capabilities.
@@ -100,9 +111,9 @@ Stay on top of API changes that could impact your integration. Each entry notes 
   **Bug Fixes**
 
   - Fixed an issue causing USD-to-CNY payout requests to return errors.
-</Accordion>
+</Update>
 
-<Accordion title="June 2026 — Version v1.x (Status: Live)">
+<Update label="June 2026" description="Version v1.x · Status: Live">
   **New Features**
 
   - **EUR recipient enhancements**: Added support for specifying destination countries when creating EUR recipients, improving coverage across supported European payout corridors.
@@ -130,113 +141,111 @@ Stay on top of API changes that could impact your integration. Each entry notes 
   - Resolved several API stability and performance issues across transaction and payout endpoints.
 
   **Action needed:** No integration changes are required. These updates are backward compatible with existing API integrations.
-</Accordion>
+</Update>
 
-<AccordionGroup>
-  <Accordion title="May 2026 — Version v1.x (Status: Live)">
-    **New Features**
+<Update label="May 2026" description="Version v1.x · Status: Live" tags={["Breaking"]}>
+  **New Features**
 
-    - **SWIFT Payment Channel Split**: The generic `SWIFT` payment channel has been replaced with three explicit charge-bearer variants to give integrators finer control over who absorbs wire-transfer fees:
+  - **SWIFT Payment Channel Split**: The generic `SWIFT` payment channel has been replaced with three explicit charge-bearer variants to give integrators finer control over who absorbs wire-transfer fees:
 
-    | **Channel** | **Charge Bearer** | **Description** |
-    | :---------- | :---------------- | :-------------- |
-    | `SWIFT_OUR` | Sender | The sending customer bears all transfer charges. |
-    | `SWIFT_SHARED` | Both parties | Transfer charges are shared between sender and beneficiary. |
-    | `SWIFT_BENEFICIARY` | Beneficiary | The beneficiary bears all transfer charges. |
+  | **Channel** | **Charge Bearer** | **Description** |
+  | :---------- | :---------------- | :-------------- |
+  | `SWIFT_OUR` | Sender | The sending customer bears all transfer charges. |
+  | `SWIFT_SHARED` | Both parties | Transfer charges are shared between sender and beneficiary. |
+  | `SWIFT_BENEFICIARY` | Beneficiary | The beneficiary bears all transfer charges. |
 
-    **Backward Compatibility**
+  **Backward Compatibility**
 
-    - Integrations still sending `paymentChannel: "SWIFT"` should migrate to `SWIFT_OUR`, `SWIFT_SHARED`, or `SWIFT_BENEFICIARY` at the earliest opportunity.
-    - Choose `SWIFT_OUR` if your platform absorbs the full cost of the transfer.
-    - Choose `SWIFT_SHARED` if transfer charges should be deducted from the beneficiary's received amount.
-    - Choose `SWIFT_BENEFICIARY` if the beneficiary should bear all transfer charges.
+  - Integrations still sending `paymentChannel: "SWIFT"` should migrate to `SWIFT_OUR`, `SWIFT_SHARED`, or `SWIFT_BENEFICIARY` at the earliest opportunity.
+  - Choose `SWIFT_OUR` if your platform absorbs the full cost of the transfer.
+  - Choose `SWIFT_SHARED` if transfer charges should be deducted from the beneficiary's received amount.
+  - Choose `SWIFT_BENEFICIARY` if the beneficiary should bear all transfer charges.
 
-    **Action needed:** Update your payout request payloads to use `SWIFT_OUR`, `SWIFT_SHARED`, or `SWIFT_BENEFICIARY` in place of the deprecated `SWIFT` value for USD Transactions. No other fields change — recipient account details, sender details, and quote request format remain identical.
-  </Accordion>
+  **Action needed:** Update your payout request payloads to use `SWIFT_OUR`, `SWIFT_SHARED`, or `SWIFT_BENEFICIARY` in place of the deprecated `SWIFT` value for USD Transactions. No other fields change — recipient account details, sender details, and quote request format remain identical.
+</Update>
 
-  <Accordion title="March 2026 — Version v1.x (Status: Live)">
-    **New Features**
+<Update label="March 2026" description="Version v1.x · Status: Live">
+  **New Features**
 
-    - **Mobile Money Collections API**: Introduced API endpoints for collecting payments via mobile money across multiple African currencies.
-    - **Bulk Payout for Businesses**: Enabled businesses to process multiple payouts in a single request, improving operational efficiency.
-    - **Pay with Mobile Money**: Added support for mobile money as a payment method within API integrations.
-    - **Pay by Bank App Integration**: Introduced support for bank-based payment flows through API integrations.
+  - **Mobile Money Collections API**: Introduced API endpoints for collecting payments via mobile money across multiple African currencies.
+  - **Bulk Payout for Businesses**: Enabled businesses to process multiple payouts in a single request, improving operational efficiency.
+  - **Pay with Mobile Money**: Added support for mobile money as a payment method within API integrations.
+  - **Pay by Bank App Integration**: Introduced support for bank-based payment flows through API integrations.
 
-    **Enhancements**
+  **Enhancements**
 
-    - **Nickname validation (API level)**: Added backend validation to ensure nickname consistency across platforms.
-    - **Removed account validation constraints**: Improved compatibility with diverse account formats globally.
-    - **Standardized backend error responses**: Unified error structures for easier debugging and integration.
-    - **API response codes implementation**: Introduced consistent response codes for a better developer experience.
-    - **Multi-user access (roles & permissions)**: Enabled role-based access control and scalable user management.
-    - **IP allowlisting enforcement**: Added an extra layer of security by restricting access to approved IPs.
-    - **Webhook enhancements (`settledAmount` field)**: Expanded webhook payloads to include settlement information.
-    - **Transaction activity logging**: Improved auditability by logging all transaction-related actions.
-    - **CloudWatch monitoring integration**: Enhanced system observability and performance monitoring.
-    - **Sandbox & testing improvements**: Improved API testing reliability and sandbox environment setup.
+  - **Nickname validation (API level)**: Added backend validation to ensure nickname consistency across platforms.
+  - **Removed account validation constraints**: Improved compatibility with diverse account formats globally.
+  - **Standardized backend error responses**: Unified error structures for easier debugging and integration.
+  - **API response codes implementation**: Introduced consistent response codes for a better developer experience.
+  - **Multi-user access (roles & permissions)**: Enabled role-based access control and scalable user management.
+  - **IP allowlisting enforcement**: Added an extra layer of security by restricting access to approved IPs.
+  - **Webhook enhancements (`settledAmount` field)**: Expanded webhook payloads to include settlement information.
+  - **Transaction activity logging**: Improved auditability by logging all transaction-related actions.
+  - **CloudWatch monitoring integration**: Enhanced system observability and performance monitoring.
+  - **Sandbox & testing improvements**: Improved API testing reliability and sandbox environment setup.
 
-    **Bug Fixes**
+  **Bug Fixes**
 
-    - **Static quote currency issue**: Fixed incorrect handling of quote currencies during transaction creation.
-    - **Missing account number in response**: Ensured account numbers are returned correctly in API responses.
-    - **Phone number validation gaps**: Strengthened validation to prevent malformed inputs.
-    - **Incorrect transaction status (refunded vs completed)**: Fixed status inconsistencies for refunded transactions.
-    - **Sandbox account response issue**: Corrected invalid account object responses in sandbox.
-    - **Admin transaction server error**: Resolved backend errors affecting admin transaction views.
-    - **Stamp duty inconsistencies**: Fixed incorrect stamp duty deductions in API transactions.
-  </Accordion>
+  - **Static quote currency issue**: Fixed incorrect handling of quote currencies during transaction creation.
+  - **Missing account number in response**: Ensured account numbers are returned correctly in API responses.
+  - **Phone number validation gaps**: Strengthened validation to prevent malformed inputs.
+  - **Incorrect transaction status (refunded vs completed)**: Fixed status inconsistencies for refunded transactions.
+  - **Sandbox account response issue**: Corrected invalid account object responses in sandbox.
+  - **Admin transaction server error**: Resolved backend errors affecting admin transaction views.
+  - **Stamp duty inconsistencies**: Fixed incorrect stamp duty deductions in API transactions.
+</Update>
 
-  <Accordion title="February 2026 — Version v1.x (Status: Live)">
-    **New Features & Enhancements**
+<Update label="February 2026" description="Version v1.x · Status: Live">
+  **New Features & Enhancements**
 
-    - **Mobile Money Collections API**: Exposed a new API to discover supported providers and request mobile money payments in RWF, KES, TZS, and MWK.
-    - **Webhook Enhancements**: Updated collections webhooks to explicitly provide fund sender details.
-    - **Virtual Cards & Rates APIs**: Implemented APIs to fetch exchange rates for virtual cards and manage rates independently of payment channels.
-    - **Static Accounts**: Backend update to natively accept `accountName` based on customer type (retail or business).
-    - **Response Updates**: Updated recipient and payout creation responses to return source of funds and echo back all payload details.
+  - **Mobile Money Collections API**: Exposed a new API to discover supported providers and request mobile money payments in RWF, KES, TZS, and MWK.
+  - **Webhook Enhancements**: Updated collections webhooks to explicitly provide fund sender details.
+  - **Virtual Cards & Rates APIs**: Implemented APIs to fetch exchange rates for virtual cards and manage rates independently of payment channels.
+  - **Static Accounts**: Backend update to natively accept `accountName` based on customer type (retail or business).
+  - **Response Updates**: Updated recipient and payout creation responses to return source of funds and echo back all payload details.
 
-    **Documentation Updates**
+  **Documentation Updates**
 
-    - Restricted USD payouts to SWIFT only (removed "Bank Transfer" option).
-    - Cleaned out legacy payout references from developer docs.
-    - Removed restrictions tying country bank lists to specific route IDs.
-  </Accordion>
+  - Restricted USD payouts to SWIFT only (removed "Bank Transfer" option).
+  - Cleaned out legacy payout references from developer docs.
+  - Removed restrictions tying country bank lists to specific route IDs.
+</Update>
 
-  <Accordion title="January 2026 — Version v1.x (Status: Live)">
-    **New Features & Enhancements**
+<Update label="January 2026" description="Version v1.x · Status: Live">
+  **New Features & Enhancements**
 
-    - **Standardized Error Responses**: Unified the structure of error responses across all backend services to provide consistent and predictable feedback for frontend and mobile integrations.
-    - **Partner Integration Comms**: Established standardized communication protocols for managing USD virtual account data with Modena.
+  - **Standardized Error Responses**: Unified the structure of error responses across all backend services to provide consistent and predictable feedback for frontend and mobile integrations.
+  - **Partner Integration Comms**: Established standardized communication protocols for managing USD virtual account data with Modena.
 
-    **Infrastructure & Performance**
+  **Infrastructure & Performance**
 
-    - **Optimized Account Retrieval**: Updated the virtual account flow to fetch existing account numbers from the database rather than repeatedly calling partner APIs, reducing latency and avoiding downtime.
-    - **Deployment Versioning**: Upgraded the infrastructure (Terraform) to ensure services only deploy specific image versions rather than defaulting to "latest," preventing accidental overrides.
-  </Accordion>
+  - **Optimized Account Retrieval**: Updated the virtual account flow to fetch existing account numbers from the database rather than repeatedly calling partner APIs, reducing latency and avoiding downtime.
+  - **Deployment Versioning**: Upgraded the infrastructure (Terraform) to ensure services only deploy specific image versions rather than defaulting to "latest," preventing accidental overrides.
+</Update>
 
-  <Accordion title="November 2025 — Version v1.x (Status: Live)">
-    **New Features**
+<Update label="November 2025" description="Version v1.x · Status: Live">
+  **New Features**
 
-    - **Crypto On-Ramp Endpoints**: We have exposed new endpoints to support fiat-to-crypto transactions. You can now fetch real-time exchange rates, view fee breakdowns (network vs. transaction fees), and initiate crypto purchases (BTC, ETH, USDT) using NGN.
-    - **Credit Transaction Retrieval**: A dedicated endpoint has been added for retrieving and posting credit transactions, ensuring reliable querying for transaction history integrations.
-    - **Dynamic Pricing Configuration**: We introduced endpoints to fetch pricing configurations directly from our backend (integrated with Sanity). This allows for dynamic pricing updates without requiring client-side code changes.
+  - **Crypto On-Ramp Endpoints**: We have exposed new endpoints to support fiat-to-crypto transactions. You can now fetch real-time exchange rates, view fee breakdowns (network vs. transaction fees), and initiate crypto purchases (BTC, ETH, USDT) using NGN.
+  - **Credit Transaction Retrieval**: A dedicated endpoint has been added for retrieving and posting credit transactions, ensuring reliable querying for transaction history integrations.
+  - **Dynamic Pricing Configuration**: We introduced endpoints to fetch pricing configurations directly from our backend (integrated with Sanity). This allows for dynamic pricing updates without requiring client-side code changes.
 
-    **Improvements**
+  **Improvements**
 
-    - **Payout Validation Enforcement**: To reduce failed transactions, we now enforce mandatory field validation at the API level for **USD**, **EUR**, and **GBP** payout instructions. Incomplete payloads will now return specific validation errors before processing.
-    - **Virtual Account Naming**: The `accountName` parameter for Dynamic Virtual Accounts is now optional. If omitted during creation, the system will automatically default to using the registered business name.
-    - **Optimized Payout Payloads**: We have removed the need to send redundant `country` and `currency` fields in the Payout API payload, as these are now inherited directly from the associated Quote object.
+  - **Payout Validation Enforcement**: To reduce failed transactions, we now enforce mandatory field validation at the API level for **USD**, **EUR**, and **GBP** payout instructions. Incomplete payloads will now return specific validation errors before processing.
+  - **Virtual Account Naming**: The `accountName` parameter for Dynamic Virtual Accounts is now optional. If omitted during creation, the system will automatically default to using the registered business name.
+  - **Optimized Payout Payloads**: We have removed the need to send redundant `country` and `currency` fields in the Payout API payload, as these are now inherited directly from the associated Quote object.
 
-    **Fixes**
+  **Fixes**
 
-    - **Login Error Messages**: Standardized error responses for failed login attempts. The API now returns a specific "Invalid login credentials" message instead of a generic server error.
-  </Accordion>
+  - **Login Error Messages**: Standardized error responses for failed login attempts. The API now returns a specific "Invalid login credentials" message instead of a generic server error.
+</Update>
 
-  <Accordion title="October 2025 — Platform Release (Status: Live)">
-    - Added new outbound payment routes so you can reach more corridors without custom onboarding—check the API Reference for the latest supported `destinationCountry` values.
-    - `accountName` is now supported on dynamic virtual account creation, letting you assign customer-friendly names; when omitted, we automatically fall back to your registered business name.
+<Update label="October 2025" description="Platform Release · Status: Live">
+  - Added new outbound payment routes so you can reach more corridors without custom onboarding—check the API Reference for the latest supported `destinationCountry` values.
+  - `accountName` is now supported on dynamic virtual account creation, letting you assign customer-friendly names; when omitted, we automatically fall back to your registered business name.
 
-    **Action needed:** Pass `accountName` anywhere you need campaign- or store-specific labeling, and refresh your routing matrix to take advantage of the new payout corridors.
-  </Accordion>
-</AccordionGroup>
+  **Action needed:** Pass `accountName` anywhere you need campaign- or store-specific labeling, and refresh your routing matrix to take advantage of the new payout corridors.
+</Update>
 

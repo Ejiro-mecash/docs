@@ -2,6 +2,7 @@
 title: "Web"
 description: "Recent updates to the meCash Web Dashboard experience."
 icon: display
+rss: true
 ---
 
 Use these notes to keep your internal runbooks, training materials, and embedded dashboard links in sync with the latest dashboard releases.
@@ -12,7 +13,7 @@ Use these notes to keep your internal runbooks, training materials, and embedded
 
 ## Web Dashboard
 
-<Accordion title="October 2026 — Web App Release (Status: Live)">
+<Update label="October 2026" description="Web App Release · Status: Live">
   **Send Money & Payouts**
 
   - **SWIFT Code Auto-fill**: Selecting a bank name on the New Recipient form now fills in the SWIFT code automatically, reducing manual entry errors.
@@ -38,9 +39,9 @@ Use these notes to keep your internal runbooks, training materials, and embedded
 
   - **CAC Form 7**: Fixed an issue where an error was shown on CAC Form 7 even after all required fields were completed.
   - **Environment Switcher**: Restored the switcher between Production and Sandbox environments.
-</Accordion>
+</Update>
 
-<Accordion title="September 2026 — Web App Release (Status: Live)">
+<Update label="September 2026" description="Web App Release · Status: Live">
   **Wallets**
 
   - **Wallet Swap**: Added currency swap functionality, allowing users to exchange supported currencies within their wallets.
@@ -70,9 +71,9 @@ Use these notes to keep your internal runbooks, training materials, and embedded
 
   - **Transaction Explorer**: Crypto transaction hashes can now correctly open the relevant block explorer instead of redirecting back to the same page.
   - **Crypto Transactions**: Improved the crypto transaction experience and navigation.
-</Accordion>
+</Update>
 
-<Accordion title="August 2026 — Web App Release (Status: Live)">
+<Update label="August 2026" description="Web App Release · Status: Live">
   **New Features**
 
   - **USD wallets**: Added support for USD wallet capabilities.
@@ -107,9 +108,9 @@ Use these notes to keep your internal runbooks, training materials, and embedded
   - Fixed incorrect sender information on transaction confirmation screens.
   - Fixed payment status updates for NGN to GBP transactions.
   - Fixed an issue that could prevent customers from completing KYB due to validation errors.
-</Accordion>
+</Update>
 
-<Accordion title="July 2026 — Web App Release (Status: Live)">
+<Update label="July 2026" description="Web App Release · Status: Live">
   **New Features**
 
   - **USD wallets**: USD wallets are now available for customers to hold and manage US Dollar funds.
@@ -137,9 +138,9 @@ Use these notes to keep your internal runbooks, training materials, and embedded
   - Fixed an issue where EUR wallet account details were not displayed correctly.
   - Fixed discrepancies in payment amounts displayed across the dashboard.
   - Fixed an issue that could leave EUR transactions stuck at the Payment Received stage.
-</Accordion>
+</Update>
 
-<Accordion title="June 2026 — Web App Release (Status: Live)">
+<Update label="June 2026" description="Web App Release · Status: Live">
   **New Features**
 
   - **EUR recipient support**: Added destination country selection when creating new recipients for EUR transfers.
@@ -167,9 +168,9 @@ Use these notes to keep your internal runbooks, training materials, and embedded
   - Fixed OTP validation failures during transaction confirmation.
   - Fixed country display issues for supported EUR destinations.
   - Resolved several UI inconsistencies and performance issues across the dashboard.
-</Accordion>
+</Update>
 
-<Accordion title="May 2026 — Version v1.x (Status: Live)">
+<Update label="May 2026" description="Version v1.x · Status: Live">
   **New Features**
 
   - **USD SWIFT sender support**: Added support for submitting sender information when initiating USD SWIFT payouts, enabling integrations to process transfers on behalf of another sender where required.
@@ -189,10 +190,9 @@ Use these notes to keep your internal runbooks, training materials, and embedded
   - Resolved backend stability issues that could affect international payout processing.
 
   **Action needed:** No integration changes are required. These updates are backward compatible with existing API integrations.
-</Accordion>
+</Update>
 
-
-<Accordion title="April 2026 — Web App Release (Status: Live)">
+<Update label="April 2026" description="Web App Release · Status: Live">
   **New Features**
 
   - **USD SWIFT sender support**: Added support for capturing sender information during USD SWIFT payouts, enabling businesses to send international transfers on behalf of themselves or another sender.
@@ -206,174 +206,171 @@ Use these notes to keep your internal runbooks, training materials, and embedded
 
   - Fixed validation issues affecting some international payout requests.
   - Resolved minor UI and stability issues across the Send Money experience.
-</Accordion>
+</Update>
 
+<Update label="March 2026" description="Web App Release · Status: Live">
+  **New Features**
 
-<AccordionGroup>
-  <Accordion title="March 2026 — Web App Release (Status: Live)">
-    **New Features**
+  - **Multi-user Login**: Introduced multi-user authentication on the web platform, enabling teams to securely access and operate within a shared account environment with improved collaboration.
+  - **Virtual Cards Section**: Added a dedicated section for virtual cards, improving discoverability and making it easier for users to explore and manage card-related features.
+  - **Pricing Page Update**: Refreshed the pricing page to reflect updated rates and improve clarity for users reviewing transaction costs and service fees.
+  - **GBP Support (Admin)**: Enabled GBP support within the admin platform, expanding currency capabilities and allowing broader transaction coverage.
 
-    - **Multi-user Login**: Introduced multi-user authentication on the web platform, enabling teams to securely access and operate within a shared account environment with improved collaboration.
-    - **Virtual Cards Section**: Added a dedicated section for virtual cards, improving discoverability and making it easier for users to explore and manage card-related features.
-    - **Pricing Page Update**: Refreshed the pricing page to reflect updated rates and improve clarity for users reviewing transaction costs and service fees.
-    - **GBP Support (Admin)**: Enabled GBP support within the admin platform, expanding currency capabilities and allowing broader transaction coverage.
+  **Enhancements**
 
-    **Enhancements**
+  - **Customer-centric error messages**: Improved error messaging across the web app to provide clearer, more actionable feedback to users during failed operations.
+  - **Nickname field validation**: Added character limits and validation to ensure consistent and user-friendly input handling.
+  - **Removed account number validation constraints**: Relaxed strict validation rules to support a wider range of valid account formats across regions.
+  - **Source account information (Merchant)**: Enhanced transaction transparency by showing source account details on transaction pages.
+  - **Volume Integration improvements**: Continued integration work with Volume, including handling edge cases such as name match caveats for improved reliability.
+  - **Quote currency display updates**: Standardized how quote currencies are displayed to improve readability and reduce ambiguity.
+  - **Exchange rate display standardization**: Unified exchange rate formatting across the platform for consistency.
+  - **Default amount updates (calculator)**: Improved the send-money calculator by refining default values for a better user starting point.
+  - **Funding caption update**: Updated UI text to better communicate funding actions and reduce confusion.
+  - **Minimum transaction validation review**: Refined validation logic to ensure minimum transaction thresholds are correctly enforced.
+  - **Log in / Sign up responsiveness fix**: Improved UI responsiveness to ensure authentication buttons display correctly across smaller screen sizes.
 
-    - **Customer-centric error messages**: Improved error messaging across the web app to provide clearer, more actionable feedback to users during failed operations.
-    - **Nickname field validation**: Added character limits and validation to ensure consistent and user-friendly input handling.
-    - **Removed account number validation constraints**: Relaxed strict validation rules to support a wider range of valid account formats across regions.
-    - **Source account information (Merchant)**: Enhanced transaction transparency by showing source account details on transaction pages.
-    - **Volume Integration improvements**: Continued integration work with Volume, including handling edge cases such as name match caveats for improved reliability.
-    - **Quote currency display updates**: Standardized how quote currencies are displayed to improve readability and reduce ambiguity.
-    - **Exchange rate display standardization**: Unified exchange rate formatting across the platform for consistency.
-    - **Default amount updates (calculator)**: Improved the send-money calculator by refining default values for a better user starting point.
-    - **Funding caption update**: Updated UI text to better communicate funding actions and reduce confusion.
-    - **Minimum transaction validation review**: Refined validation logic to ensure minimum transaction thresholds are correctly enforced.
-    - **Log in / Sign up responsiveness fix**: Improved UI responsiveness to ensure authentication buttons display correctly across smaller screen sizes.
+  **Bug Fixes**
 
-    **Bug Fixes**
+  - **NGN decimal handling issue**: Fixed a bug where `.00` values were incorrectly flagged during USD to NGN conversions.
+  - **Missing send amount (USD → GBP)**: Resolved an issue where transaction amounts were not displayed correctly for specific currency routes.
+  - **RWF funding simulation error**: Fixed an issue causing failures when simulating funding flows.
+  - **Broken mobile network images**: Restored missing or broken UI assets on payment links.
+  - **Sort code visibility & handling issues**: Fixed inconsistencies in sort code display and ensured proper backend handling.
+  - **Dashboard endless loading state**: Resolved a performance issue causing the dashboard to remain in a loading state indefinitely.
+  - **Pricing card UI issue**: Removed unintended UI elements from pricing cards for a cleaner interface.
+  - **User action edit button issue**: Removed unnecessary edit actions from user management views.
+</Update>
 
-    - **NGN decimal handling issue**: Fixed a bug where `.00` values were incorrectly flagged during USD to NGN conversions.
-    - **Missing send amount (USD → GBP)**: Resolved an issue where transaction amounts were not displayed correctly for specific currency routes.
-    - **RWF funding simulation error**: Fixed an issue causing failures when simulating funding flows.
-    - **Broken mobile network images**: Restored missing or broken UI assets on payment links.
-    - **Sort code visibility & handling issues**: Fixed inconsistencies in sort code display and ensured proper backend handling.
-    - **Dashboard endless loading state**: Resolved a performance issue causing the dashboard to remain in a loading state indefinitely.
-    - **Pricing card UI issue**: Removed unintended UI elements from pricing cards for a cleaner interface.
-    - **User action edit button issue**: Removed unnecessary edit actions from user management views.
-  </Accordion>
+<Update label="February 2026" description="Web App Release · Status: Live">
+  **New Features & Enhancements**
 
-  <Accordion title="February 2026 — Web App Release (Status: Live)">
-    **New Features & Enhancements**
+  - **Virtual Cards**: Launched [Virtual Cards](/virtual-cards) this month, allowing merchants to issue and manage cards directly via the dashboard.
+  - **Source Account Information**: Added a "Source Account Information" section to the Transaction Details page on the Merchant portal, displaying Source Account Name, Number, and Bank Name.
+  - **Payment Links Updates**: Allowed decimal inputs on the payment link amount form and ensured the amount displays correctly on the transaction screen.
+  - **New Payout Routes**: Configured new payout routes for Singapore (SGD), Vietnam (VND), Malaysia (MYR), Thailand (THB), and South Korea (KRW).
+  - **USD Payouts Enhancements**: Added an optional Intermediary Bank SWIFT Code text box for USD payouts.
 
-    - **Virtual Cards**: Launched [Virtual Cards](/virtual-cards) this month, allowing merchants to issue and manage cards directly via the dashboard.
-    - **Source Account Information**: Added a "Source Account Information" section to the Transaction Details page on the Merchant portal, displaying Source Account Name, Number, and Bank Name.
-    - **Payment Links Updates**: Allowed decimal inputs on the payment link amount form and ensured the amount displays correctly on the transaction screen.
-    - **New Payout Routes**: Configured new payout routes for Singapore (SGD), Vietnam (VND), Malaysia (MYR), Thailand (THB), and South Korea (KRW).
-    - **USD Payouts Enhancements**: Added an optional Intermediary Bank SWIFT Code text box for USD payouts.
+  **Form & Input Validations**
 
-    **Form & Input Validations**
+  - Implemented a 25-character limit validation on the `bene_nickname` field for all routes.
+  - Removed character count limits on the Recipient account number field and allowed alphanumeric inputs across all routes.
+  - Fixed a bug where the NGN field incorrectly flagged `.00` values as decimals during USD to NGN conversions.
 
-    - Implemented a 25-character limit validation on the `bene_nickname` field for all routes.
-    - Removed character count limits on the Recipient account number field and allowed alphanumeric inputs across all routes.
-    - Fixed a bug where the NGN field incorrectly flagged `.00` values as decimals during USD to NGN conversions.
+  **UI/UX Fixes**
 
-    **UI/UX Fixes**
+  - Fixed a pagination bug that reset the transaction list back to Page 1 after viewing transaction details.
+  - Removed the Bank Name on the PROD-Transaction details page for NGN to CAD transfers via INTERAC.
+</Update>
 
-    - Fixed a pagination bug that reset the transaction list back to Page 1 after viewing transaction details.
-    - Removed the Bank Name on the PROD-Transaction details page for NGN to CAD transfers via INTERAC.
-  </Accordion>
+<Update label="January 2026" description="Web App Release · Status: Live">
+  **New Features & Enhancements**
 
-  <Accordion title="January 2026 — Web App Release (Status: Live)">
-    **New Features & Enhancements**
+  - **Automated Ledger Alerts**: Implemented automated email notifications triggered whenever an Admin performs a manual balance adjustment to ensure oversight.
 
-    - **Automated Ledger Alerts**: Implemented automated email notifications triggered whenever an Admin performs a manual balance adjustment to ensure oversight.
+  **Fixes**
 
-    **Fixes**
+  - **Invoice Visibility**: Fixed a bug to ensure submitted invoices are correctly displayed on the transaction details screen for both Admin and Merchant apps.
+  - **Admin Profile Accuracy**: Removed redundant fields in the Admin portal that were inconsistent with the Merchant-side onboarding process.
+</Update>
 
-    - **Invoice Visibility**: Fixed a bug to ensure submitted invoices are correctly displayed on the transaction details screen for both Admin and Merchant apps.
-    - **Admin Profile Accuracy**: Removed redundant fields in the Admin portal that were inconsistent with the Merchant-side onboarding process.
-  </Accordion>
+<Update label="November 2025" description="Web App Release · Status: Live">
+  **New Features**
 
-  <Accordion title="November 2025 — Web App Release (Status: Live)">
-    **New Features**
+  - **Manual International Wallet Requests**: Merchants can now request **USD**, **GBP**, and **EUR** wallets directly via the dashboard. This triggers a workflow for our Sales/Ops team to review and approve your request. You will receive an email notification upon approval.
+  - **Zelle Payment Channel**: Added **Zelle** as a selectable payment channel when sending money to USD recipients. The interface now supports validation for Zelle-registered email addresses and mobile numbers.
+  - **Transaction Fee Transparency**: The Transaction History table and export files (CSV/Excel) now include a granular breakdown of fees, separating **VAT**, **Transaction Fees**, and **Stamp Duty** for easier reconciliation.
+  - **Payment Links**: We introduced Payment Links, a new way to collect payments without needing a website or app integration. You can now generate unique payment URLs instantly and share them with customers via WhatsApp, email, or social media to receive payments.
 
-    - **Manual International Wallet Requests**: Merchants can now request **USD**, **GBP**, and **EUR** wallets directly via the dashboard. This triggers a workflow for our Sales/Ops team to review and approve your request. You will receive an email notification upon approval.
-    - **Zelle Payment Channel**: Added **Zelle** as a selectable payment channel when sending money to USD recipients. The interface now supports validation for Zelle-registered email addresses and mobile numbers.
-    - **Transaction Fee Transparency**: The Transaction History table and export files (CSV/Excel) now include a granular breakdown of fees, separating **VAT**, **Transaction Fees**, and **Stamp Duty** for easier reconciliation.
-    - **Payment Links**: We introduced Payment Links, a new way to collect payments without needing a website or app integration. You can now generate unique payment URLs instantly and share them with customers via WhatsApp, email, or social media to receive payments.
+  **Improvements**
 
-    **Improvements**
+  - **Payment Links for Malawi**: We updated collection rules for Malawi (MWK) Payment Links:
+      - **Mobile Money** is enabled for amounts under 750,000 MWK.
+      - **Bank Transfer** is required for amounts between 750,000 MWK and 500,000,000 MWK.
+  - **Global Onboarding Support**: The sign-up flow now supports address selection for multiple countries (e.g., USA, UK, Kenya, Canada), allowing non-Nigerian businesses to onboard seamlessly.
+  - **Wallet Funding Details**: A new "Fund USD Wallet" modal provides a clear view of your banking details, including Account Number, Bank Address, and SWIFT code, making it easier to receive international deposits.
 
-    - **Payment Links for Malawi**: We updated collection rules for Malawi (MWK) Payment Links:
-        - **Mobile Money** is enabled for amounts under 750,000 MWK.
-        - **Bank Transfer** is required for amounts between 750,000 MWK and 500,000,000 MWK.
-    - **Global Onboarding Support**: The sign-up flow now supports address selection for multiple countries (e.g., USA, UK, Kenya, Canada), allowing non-Nigerian businesses to onboard seamlessly.
-    - **Wallet Funding Details**: A new "Fund USD Wallet" modal provides a clear view of your banking details, including Account Number, Bank Address, and SWIFT code, making it easier to receive international deposits.
+  **Fixes**
 
-    **Fixes**
+  - **Currency Persistence**: Fixed an issue where the "Amount" field value would persist when switching between different currency tabs in the Payment Links creation form.
+  - **Sign-Up Validation**: Email validation on the sign-up form now triggers immediately when you click away from the field, rather than waiting for the "Continue" button press.
+</Update>
 
-    - **Currency Persistence**: Fixed an issue where the "Amount" field value would persist when switching between different currency tabs in the Payment Links creation form.
-    - **Sign-Up Validation**: Email validation on the sign-up form now triggers immediately when you click away from the field, rather than waiting for the "Continue" button press.
-  </Accordion>
+<Update label="October 2025" description="Web App Release · Status: Live">
+  **New features**
 
-  <Accordion title="October 2025 — Web App Release (Status: Live)">
-    **New features**
+  - Launched the rebuilt [meCash Developer Hub](https://developer.me-cash.com/) with guided quickstarts, an interactive API explorer, real-world use cases, and centralized support links so teams can ship integrations faster.
+</Update>
 
-    - Launched the rebuilt [meCash Developer Hub](https://developer.me-cash.com/) with guided quickstarts, an interactive API explorer, real-world use cases, and centralized support links so teams can ship integrations faster.
-  </Accordion>
+<Update label="September 2025" description="Web App Release · Status: Live">
+  **New features**
 
-  <Accordion title="September 2025 — Web App Release (Status: Live)">
-    **New features**
+  - Added a persistent Halt Payout banner that disables **Send/Transfer** whenever payouts, on-ramps, or off-ramps are paused, including tooltips that explain the outage.
+  - Introduced scheduled maintenance banners so users know when services are temporarily suspended and when they will resume.
+  - Expanded Canadian payout flows with validated input fields for institution number, transit number, and SWIFT/BIC to reduce submission errors.
+  - Rolled out responsive in-app notification pop-ups for critical announcements such as payment provider changes.
 
-    - Added a persistent Halt Payout banner that disables **Send/Transfer** whenever payouts, on-ramps, or off-ramps are paused, including tooltips that explain the outage.
-    - Introduced scheduled maintenance banners so users know when services are temporarily suspended and when they will resume.
-    - Expanded Canadian payout flows with validated input fields for institution number, transit number, and SWIFT/BIC to reduce submission errors.
-    - Rolled out responsive in-app notification pop-ups for critical announcements such as payment provider changes.
+  **Improvements**
 
-    **Improvements**
+  - Hardened deployment processes to keep all API endpoints online during releases.
+  - Removed gas fees from Off-Ramp and crypto-to-crypto flows and updated withdrawal/confirmation screens accordingly.
+  - Enhanced sign-up validation to mask whether an email already exists.
+  - Refreshed trust indicators to highlight meCash’s Circle Alliance certification.
 
-    - Hardened deployment processes to keep all API endpoints online during releases.
-    - Removed gas fees from Off-Ramp and crypto-to-crypto flows and updated withdrawal/confirmation screens accordingly.
-    - Enhanced sign-up validation to mask whether an email already exists.
-    - Refreshed trust indicators to highlight meCash’s Circle Alliance certification.
+  **Bug fixes**
 
-    **Bug fixes**
+  - Cleared stale “Reason for Payment” selections after logout.
+  - Fixed navigation on crypto withdrawals that previously redirected to the wrong quote page.
+  - Resolved KYB submission timeouts and incorrect country-code defaults.
+  - Corrected country/currency display issues on the public calculator.
+  - Fixed intermittent CORS errors observed during login.
+</Update>
 
-    - Cleared stale “Reason for Payment” selections after logout.
-    - Fixed navigation on crypto withdrawals that previously redirected to the wrong quote page.
-    - Resolved KYB submission timeouts and incorrect country-code defaults.
-    - Corrected country/currency display issues on the public calculator.
-    - Fixed intermittent CORS errors observed during login.
-  </Accordion>
+<Update label="August 2025" description="Web App Release · Status: Live">
+  **What's new**
 
-  <Accordion title="August 2025 — Web App Release (Status: Live)">
-    **What's new**
+  - Added a dedicated OTC page for bespoke trades plus the ability to delete saved beneficiaries.
+  - Published a user-facing maintenance mode page that communicates downtime status in real time.
 
-    - Added a dedicated OTC page for bespoke trades plus the ability to delete saved beneficiaries.
-    - Published a user-facing maintenance mode page that communicates downtime status in real time.
+  **Enhancements**
 
-    **Enhancements**
+  - Clarified Send Money fee breakdowns and optimized the mobile-web experience.
+  - Disabled the **Continue** button until a payment reason is selected to avoid accidental submissions.
 
-    - Clarified Send Money fee breakdowns and optimized the mobile-web experience.
-    - Disabled the **Continue** button until a payment reason is selected to avoid accidental submissions.
+  **Bug fixes**
 
-    **Bug fixes**
+  - Fixed crashes triggered by session timeouts.
+  - Resolved the “Something Went Wrong” server error on the Send Money screen.
+</Update>
 
-    - Fixed crashes triggered by session timeouts.
-    - Resolved the “Something Went Wrong” server error on the Send Money screen.
-  </Accordion>
+<Update label="July 2025" description="Web App Release · Status: Live">
+  **What's new**
 
-  <Accordion title="July 2025 — Web App Release (Status: Live)">
-    **What's new**
+  - Enabled Malawi (MWK) payouts directly from the web app for faster cross-border transfers.
 
-    - Enabled Malawi (MWK) payouts directly from the web app for faster cross-border transfers.
+  **Enhancements**
 
-    **Enhancements**
+  - Updated the FAQ experience for clearer answers.
 
-    - Updated the FAQ experience for clearer answers.
+  **Bug fixes**
 
-    **Bug fixes**
+  - Corrected currency symbols so each wallet shows the appropriate denomination.
+</Update>
 
-    - Corrected currency symbols so each wallet shows the appropriate denomination.
-  </Accordion>
+<Update label="July 05, 2024" description="v2.9.0 · Status: Rolling out">
+  - New real-time payout monitor with filtering by corridor and banking partner.
+  - Added downloadable audit exports (CSV) for wallet funding events.
+  - Redesigned *Developers → API Keys* to show per-environment permissions and last-used timestamps.
 
-  <Accordion title="July 05, 2024 — v2.9.0 (Status: Rolling out)">
-    - New real-time payout monitor with filtering by corridor and banking partner.
-    - Added downloadable audit exports (CSV) for wallet funding events.
-    - Redesigned *Developers → API Keys* to show per-environment permissions and last-used timestamps.
+  **Action needed:** If you embed dashboard links inside internal tools, refresh any saved URLs because navigation paths changed.
+</Update>
 
-    **Action needed:** If you embed dashboard links inside internal tools, refresh any saved URLs because navigation paths changed.
-  </Accordion>
+<Update label="May 22, 2024" description="v2.8.1 · Status: Live">
+  - Faster KYB document review screen with side-by-side previews.
+  - Team Management now surfaces pending invitations and lets admins resend invites in bulk.
+  - Improved dark-mode contrast for data tables.
+</Update>
 
-  <Accordion title="May 22, 2024 — v2.8.1 (Status: Live)">
-    - Faster KYB document review screen with side-by-side previews.
-    - Team Management now surfaces pending invitations and lets admins resend invites in bulk.
-    - Improved dark-mode contrast for data tables.
-  </Accordion>
-
-  <Accordion title="Coming soon">
-    - Heads-up: The legacy navigation path `/developers/webhooks` will redirect to `/settings/webhooks` in Q3—update internal documentation accordingly.
-  </Accordion>
-</AccordionGroup>
+<Update label="Coming soon">
+  - Heads-up: The legacy navigation path `/developers/webhooks` will redirect to `/settings/webhooks` in Q3—update internal documentation accordingly.
+</Update>
